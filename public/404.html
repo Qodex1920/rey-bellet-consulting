@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page introuvable (404) - Votre Site</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    .error-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-code {
+      font-size: 6rem;
+      font-weight: bold;
+      color: #e5e7eb;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    @media (max-width: 640px) {
+      .error-code {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <svg class="w-20 h-20 text-gray-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Page introuvable</h1>
+    <p class="text-gray-600 mb-8 max-w-md">La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou revenez à la page d'accueil.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <button onclick="window.history.back()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded transition-colors">
+        Retour à la page précédente
+      </button>
+      <a href="/" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded transition-colors inline-block">
+        Retour à l'accueil
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Rapport d'erreur analytique simple (à personnaliser selon vos besoins)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Récupérer l'URL qui a causé l'erreur 404
+      const requestedUrl = window.location.href;
+      
+      // Vous pouvez ajouter ici un code pour envoyer cette information à votre système d'analytique
+      console.log('Erreur 404 pour URL:', requestedUrl);
+      
+      // Si vous utilisez Google Analytics, vous pourriez faire quelque chose comme :
+      // if (typeof ga === 'function') {
+      //   ga('send', 'event', '404', 'page-not-found', requestedUrl);
+      // }
+    });
+  </script>
+</body>
+</html> 

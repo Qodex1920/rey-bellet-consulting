@@ -1,0 +1,23 @@
+name: Vérification de Sécurité
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'  # Exécution mensuelle
+
+jobs:
+  security-check:
+    name: Audit des Dépendances
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Audit des dépendances
+        run: npm audit --omit=dev
+        continue-on-error: true 

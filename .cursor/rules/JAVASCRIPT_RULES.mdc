@@ -1,0 +1,111 @@
+---
+description: 
+globs: *.js
+alwaysApply: false
+---
+# RÈGLES JAVASCRIPT – Starter Cursor (Projet Web Statique)
+
+Ce document définit les directives spécifiques pour écrire du code JavaScript clair, maintenable et performant dans le cadre de projets de sites statiques. L'objectif est d'éviter les erreurs courantes, de promouvoir une architecture modulaire et de garantir des pratiques de codage uniformes.
+
+---
+
+## 1. Objectifs et Principes Fondamentaux
+
+- **Clarté et Maintenabilité :**  
+  Écrire un code lisible, bien commenté et structuré en modules, facilitant la maintenance et la réutilisation.
+
+- **Performance et Sécurité :**  
+  Garantir un code optimisé (lazy loading, tree shaking via Vite) et sécurisé (gestion robuste des erreurs, protection contre les fuites de variables globales).
+
+- **Respect des Standards :**  
+  Utiliser les standards ES6+ (const, let, arrow functions, modules ES) et éviter toute syntaxe obsolète.
+
+- **Facilité de Débogage :**  
+  Prévoir des mécanismes d'erreur clairs (try/catch) et des messages explicites pour faciliter la résolution des problèmes.
+
+---
+
+## 2. Directives de Codage
+
+### A. Organisation et Modularité
+
+- **Utilisation des Modules ES :**
+  - Structurer le code en modules dans le dossier `src/scripts/`.
+  - Chaque module doit avoir une responsabilité unique. Par exemple, un module pour la gestion des formulaires, un autre pour les animations, etc.
+  - Utiliser les instructions `import` et `export` pour gérer les dépendances.
+
+- **Gestion de l’Espace Global :**
+  - Éviter de polluer l’espace global. Encapsuler le code dans des modules ou IIFE (Immediately Invoked Function Expressions) si nécessaire.
+  - Toujours déclarer les variables avec `const` ou `let` et éviter l’usage de `var`.
+
+- **Fichier Principal :**
+  - Avoir un fichier d’entrée principal (ex. `main.js`) qui orchestre l’import des modules et initialise le projet.
+
+### B. Style et Lisibilité du Code
+
+- **Mode Strict et Utilisation des Constantes :**
+  - Activer le mode strict avec `"use strict";` en début de fichier.
+  - Préférer l’emploi de `const` pour les valeurs immuables et `let` pour celles qui changent.
+
+- **Early Returns :**
+  - Utiliser des retours anticipés pour simplifier les conditions et améliorer la lisibilité.
+  
+  _Exemple :_
+  ```js
+  const processData = (data) => {
+    if (!data) return;
+    // suite du traitement
+  };
+  	•	Nommage Clair et Descriptif :
+	•	Utiliser des noms de variables, de fonctions et de modules explicites et en anglais si possible (ex. : validateForm, handleClick).
+	•	Préfixer les fonctions de gestion d’événements par handle (ex. : handleSubmit, handleResize).
+	•	Commentaires et Documentation :
+	•	Ajouter des commentaires explicatifs pour les blocs de code complexes.
+	•	Utiliser la notation JSDoc pour documenter les fonctions et décrire leurs paramètres et types de retour.
+
+C. Gestion des Erreurs et Fallbacks
+	•	Try/Catch et Gestion d’Exceptions :
+	•	Envelopper les opérations critiques ou asynchrones dans des blocs try/catch pour capturer et gérer les erreurs.
+Exemple : const fetchData = async (url) => {
+  try {
+    const response = await fetch(url);
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    // Fallback ou message utilisateur
+  }
+};
+
+	•	Fallbacks pour Fonctionnalités Avancées :
+	•	Si une bibliothèque externe (ex. GSAP) est utilisée pour des animations, prévoir un fallback sur des animations CSS simples en cas d’erreur.
+
+D. Linting, Formatage et Conventions
+	•	Outils de Linting :
+	•	Configurer ESLint (et Prettier si possible) pour garantir un code uniformément formaté et détecter les erreurs potentielles.
+	•	Conventions de Nommage :
+	•	Respecter des conventions de nommage strictes pour les fichiers et les fonctions (ex. : form-validation.js, slider-controller.js).
+	•	Aucune Place pour des TODO ou des Placeholders :
+	•	Le code généré doit être complet, sans commentaires temporaires ou TODO laissés en production.
+
+⸻
+
+3. Bonnes Pratiques Spécifiques pour des Projets de Sites Statique (2025)
+	•	Architecture Minimaliste :
+	•	Ne rajouter que le code nécessaire pour les interactions de base et éviter des dépendances inutiles.
+	•	Asynchronisme et Promesses :
+	•	Utiliser async/await pour une gestion asynchrone claire, et éviter l’enchaînement excessif de promises (callback hell).
+	•	Tests et Debugging :
+	•	Intégrer des tests unitaires pour les modules critiques si possible.
+	•	Utiliser la console pour tracer et débugger le code pendant le développement.
+	•	Mise à Jour Continue :
+	•	Mettre à jour régulièrement ce fichier de règles afin d’y intégrer les retours d’expérience et d’éviter la répétition d’erreurs déjà constatées.
+
+⸻
+
+4. Règles pour Cursor
+	•	Contexte Obligatoire :
+	•	Toujours lire et intégrer les paramètres du fichier CONTEXT.md avant toute demande de génération de code.
+	•	Précision dans les Requêtes :
+	•	Formuler des requêtes précises, en indiquant la structure attendue, le nommage et les conventions à respecter.
+	•	Validation Post-Génération :
+	•	Relire et tester minutieusement le code généré par Cursor pour s’assurer qu’il respecte bien ces directives. Corriger les éventuelles erreurs et mettre à jour les règles si besoin.

@@ -1,0 +1,17 @@
+/* ÉQUIPE */
+Développeur: Votre Nom
+Contact: votre.email@example.com
+Twitter: @votre_compte
+LinkedIn: https://linkedin.com/in/votre-profil
+De: Votre Ville, Pays
+
+Designer: Nom du Designer
+Contact: designer.email@example.com
+LinkedIn: https://linkedin.com/in/designer-profil
+De: Ville du Designer, Pays
+
+/* SITE */
+Dernière mise à jour: 2024/03/31
+Standards: HTML5, CSS3, ECMAScript 2022
+Composants: Vite, Tailwind CSS, PostCSS
+Logiciels: Visual Studio Code, Figma, Git 

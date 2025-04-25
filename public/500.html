@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erreur serveur (500) - Votre Site</title>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <style>
+    .error-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .error-code {
+      font-size: 6rem;
+      font-weight: bold;
+      color: #e5e7eb;
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+    @media (max-width: 640px) {
+      .error-code {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="error-container">
+    <div class="error-code">500</div>
+    <svg class="w-20 h-20 text-gray-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+    </svg>
+    <h1 class="text-3xl font-bold text-gray-900 mb-4">Erreur serveur</h1>
+    <p class="text-gray-600 mb-8 max-w-md">Nous rencontrons actuellement un problème avec notre serveur. Notre équipe technique a été notifiée et travaille à résoudre ce problème.</p>
+    <div class="flex flex-wrap gap-4 justify-center">
+      <button onclick="window.location.reload()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded transition-colors">
+        Réessayer
+      </button>
+      <a href="/" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded transition-colors inline-block">
+        Retour à l'accueil
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Rapport d'erreur analytique simple (à personnaliser selon vos besoins)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Récupérer l'URL qui a causé l'erreur 500
+      const requestedUrl = window.location.href;
+      
+      // Vous pouvez ajouter ici un code pour envoyer cette information à votre système d'analytique ou à votre service de monitoring
+      console.log('Erreur 500 pour URL:', requestedUrl);
+      
+      // Si vous utilisez Google Analytics ou un autre service d'analytique
+      // if (typeof ga === 'function') {
+      //   ga('send', 'event', '500', 'server-error', requestedUrl);
+      // }
+    });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,36 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Fichiers critiques à ne pas modifier
+# Ce fichier liste les éléments qui sont déjà optimisés et ne nécessitent pas de modifications
+
+## Fichiers de configuration
+vite.config.js         # Configuration Vite optimisée pour la production
+tailwind.config.js     # Configuration TailwindCSS optimisée
+postcss.config.js      # Configuration PostCSS nécessaire
+.npmrc                 # Configuration npm importante
+.gitignore            # Liste des exclusions Git
+.gitattributes        # Attributs Git importants
+
+## Fichiers de build et déploiement
+deploy.js             # Script de déploiement FTP configuré
+public/.htaccess      # Configuration serveur optimisée pour la production
+
+## Fichiers de documentation et légaux
+LICENSE              # Licence du projet - Ne pas modifier
+README.md            # Documentation principale du projet
+
+## Note pour les IA et développeurs
+Ces fichiers ont été configurés et optimisés pour la production.
+Toute modification pourrait compromettre :
+- La sécurité du site
+- Les performances de build
+- Le processus de déploiement
+- La configuration du serveur
+
+Si des modifications sont absolument nécessaires, veuillez :
+1. Créer une branche dédiée
+2. Documenter les changements
+3. Tester exhaustivement avant de déployer 

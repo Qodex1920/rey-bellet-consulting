@@ -1,0 +1,182 @@
+<!-- 
+  Section Témoignages
+  Un composant réutilisable pour afficher les témoignages des clients.
+  
+  Fonctionnalités:
+  - Affichage en grille responsive des témoignages
+  - Animation de fade-in au scroll
+  - Affichage d'étoiles pour la notation
+  - Support d'accessibilité pour les utilisateurs préférant moins d'animations
+-->
+
+<div class="testimonials-section" 
+     x-data="testimonialsComponent()" 
+     x-init="init()">
+  
+  <!-- En-tête de section avec animations -->
+  <div class="section-header" x-ref="sectionHeader">
+    <h2 class="section-title" x-ref="sectionTitle">Ce que disent nos clients</h2>
+    <p class="section-subtitle" x-ref="sectionSubtitle">Découvrez les expériences partagées par notre communauté de clients satisfaits</p>
+  </div>
+  
+  <!-- Grille de témoignages -->
+  <div class="testimonials-grid">
+    <template x-for="(testimonial, index) in testimonials" :key="index">
+      <div class="testimonial-card" x-ref="testimonialCards">
+        <!-- Avatar et informations de l'utilisateur -->
+        <div class="testimonial-user">
+          <div class="user-avatar">
+            <img :src="testimonial.avatar" :alt="`Photo de ${testimonial.name}`" class="avatar-image">
+          </div>
+          <div class="user-info">
+            <h3 class="user-name" x-text="testimonial.name"></h3>
+            <p class="user-position" x-text="testimonial.position"></p>
+          </div>
+        </div>
+        
+        <!-- Contenu du témoignage -->
+        <div class="testimonial-content">
+          <p class="testimonial-quote" x-text="testimonial.quote"></p>
+        </div>
+        
+        <!-- Évaluation par étoiles -->
+        <div class="testimonial-rating" :aria-label="`Note: ${testimonial.rating} sur 5`">
+          <template x-for="i in 5" :key="i">
+            <span 
+              class="star" 
+              :class="i <= testimonial.rating ? 'star-filled' : 'star-empty'"
+              aria-hidden="true">
+              ★
+            </span>
+          </template>
+        </div>
+      </div>
+    </template>
+  </div>
+</div>
+
+<script>
+  function testimonialsComponent() {
+    return {
+      testimonials: [
+        {
+          name: "Emma Laurent",
+          position: "Directrice Marketing",
+          avatar: "/assets/images/testimonials/avatar-1.jpg",
+          quote: "Ce service a complètement transformé notre approche marketing. Les résultats sont impressionnants et l'équipe est vraiment à l'écoute de nos besoins.",
+          rating: 5
+        },
+        {
+          name: "Thomas Dubois",
+          position: "Entrepreneur",
+          avatar: "/assets/images/testimonials/avatar-2.jpg",
+          quote: "En tant que startup, nous avions besoin d'une solution flexible et efficace. C'est exactement ce que nous avons trouvé ici. Je recommande vivement !",
+          rating: 4
+        },
+        {
+          name: "Sophie Martin",
+          position: "Responsable Projet",
+          avatar: "/assets/images/testimonials/avatar-3.jpg",
+          quote: "La qualité du service client est exceptionnelle. Chaque question trouve rapidement une réponse pertinente, ce qui nous fait gagner un temps précieux.",
+          rating: 5
+        },
+        {
+          name: "Jean Moreau",
+          position: "Consultant",
+          avatar: "/assets/images/testimonials/avatar-4.jpg",
+          quote: "J'utilise ce service depuis plus d'un an maintenant et je suis toujours aussi satisfait. Les nouvelles fonctionnalités sont pertinentes et bien pensées.",
+          rating: 5
+        }
+      ],
+      
+      init() {
+        // Initialiser les animations quand le composant est monté
+        this.animateHeader();
+        this.animateCards();
+        
+        // Configurer l'observateur pour les animations au scroll
+        this.setupScrollObserver();
+      },
+      
+      animateHeader() {
+        // Animer le titre et le sous-titre avec un délai
+        if (this.$refs.sectionTitle) {
+          window.animations.fadeInUp(this.$refs.sectionTitle, {
+            duration: 600,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+          });
+        }
+        
+        if (this.$refs.sectionSubtitle) {
+          window.animations.fadeInUp(this.$refs.sectionSubtitle, {
+            duration: 600,
+            delay: 200,
+            easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)'
+          });
+        }
+      },
+      
+      animateCards() {
+        // Animer chaque carte de témoignage avec un délai progressif
+        if (!this.$refs.testimonialCards) return;
+        
+        const cards = Array.isArray(this.$refs.testimonialCards) 
+          ? this.$refs.testimonialCards 
+          : [this.$refs.testimonialCards];
+        
+        cards.forEach((card, index) => {
+          window.animations.scaleIn(card, {
+            duration: 500,
+            delay: 300 + (index * 150),
+            easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+          });
+        });
+      },
+      
+      setupScrollObserver() {
+        // Observer qui déclenche l'animation quand les éléments entrent dans le viewport
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Si c'est l'en-tête de la section
+              if (entry.target === this.$refs.sectionHeader) {
+                this.animateHeader();
+              }
+              
+              // Si c'est une carte de témoignage
+              if (this.$refs.testimonialCards && 
+                  Array.isArray(this.$refs.testimonialCards) && 
+                  this.$refs.testimonialCards.includes(entry.target)) {
+                const index = this.$refs.testimonialCards.indexOf(entry.target);
+                window.animations.scaleIn(entry.target, {
+                  duration: 500,
+                  delay: 150 * index,
+                  easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                });
+              }
+              
+              // Arrêter d'observer l'élément une fois animé
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        // Observer l'en-tête
+        if (this.$refs.sectionHeader) {
+          observer.observe(this.$refs.sectionHeader);
+        }
+        
+        // Observer chaque carte de témoignage
+        if (this.$refs.testimonialCards) {
+          const cards = Array.isArray(this.$refs.testimonialCards) 
+            ? this.$refs.testimonialCards 
+            : [this.$refs.testimonialCards];
+          
+          cards.forEach(card => {
+            observer.observe(card);
+          });
+        }
+      }
+    };
+  }
+</script> 

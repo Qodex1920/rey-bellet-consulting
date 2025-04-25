@@ -1,0 +1,185 @@
+---
+description: 
+globs: *.css
+alwaysApply: false
+---
+# Règles de Style et d'Usage – Tailwind CSS v4.1 (Starter Template)
+
+Ce fichier de règles fixe les bonnes pratiques pour tous tes projets statiques basés sur le template fourni, intégrant **Tailwind CSS v4.1.4** avec la méthode CSS‑first. Il guide l'IA et tes collaborateurs pour éviter les erreurs, n'ajouter aucun fichier superflu, et garantir une cohérence entre tes sites.
+
+---
+
+## 1. Principe général
+
+1. **CSS‑first par défaut** :
+   - Toute configuration Tailwind se fait dans `src/styles/main.css`.
+   - **Ne génère jamais** de `tailwind.config.js` sauf si une extension JavaScript complexe l'exige.
+2. **Un seul fichier principal** :
+   - Ne crée aucun autre fichier Tailwind (JS, JSON, etc.).
+3. **Aucune duplication** :
+   - Pas de copies multiples de `main.css` ou d'autres CSS.
+4. **Automatisation disponible** :
+   - Utilise le script `scripts/setup-tailwind.js` pour configurer un nouveau projet.
+
+## 2. Fichier CSS principal (`src/styles/main.css`)
+
+Le seul endroit où ton projet utilisant Tailwind doit être configuré :
+
+```css
+/* 1. Importer Tailwind */
+@import "tailwindcss";
+
+/* 2. Thème (tokens CSS personnalisés) */
+@theme {
+  /* Couleurs */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  
+  --color-secondary-500: oklch(0.65 0.15 260);
+
+  /* Typographies */
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Inter", sans-serif;
+
+  /* Breakpoints */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* 3. Plugins officiels (active uniquement les nécessaires) */
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+/* 4. Sources externes (lib UI, composants) - Optionnel */
+/* @source "../node_modules/ma-lib-ui"; */
+```
+
+- **Ordre strict** : `@import` → `@theme` → `@plugin` → `@source`.
+- **Indentation** : 2 espaces.
+- **Commentaires** : en français, concis.
+- **Valeurs OKLCH** : utiliser la notation oklch() pour les couleurs modernes.
+
+## 3. Configuration du Bundler
+
+### 3.0 Script d'automatisation (recommandé)
+
+Le moyen le plus simple de configurer un projet est d'utiliser le script d'automatisation fourni :
+
+```bash
+node scripts/setup-tailwind.js
+```
+
+Ce script :
+- Crée ou met à jour la configuration Vite et PostCSS
+- Configure le fichier main.css avec la structure CSS-first
+- Supprime tailwind.config.js s'il existe
+- Installe toutes les dépendances nécessaires
+
+### 3.1 Vite (JS)
+
+Configuration manuelle de **vite.config.js** (au format ESM) :
+
+```js
+import { defineConfig } from 'vite';
+import path from 'path';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  root: path.resolve(__dirname, 'src'),
+  publicDir: '../public',
+  base: './',
+  plugins: [
+    tailwindcss(),
+  ],
+  server: {
+    port: 3000,
+    open: true,
+    cors: true,
+  },
+  build: {
+    outDir: '../dist',
+    assetsDir: 'assets',
+    cssCodeSplit: false
+  }
+});
+```
+
+- **Format ESM obligatoire** : utiliser le format ES Modules dans ce fichier.
+- **Scripts** (dans `package.json`) :
+  ```json
+  {
+    "type": "module",
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview"
+    }
+  }
+  ```
+
+### 3.2 PostCSS Config (nécessaire avec Vite)
+
+Configuration correcte ESM de **postcss.config.js** :
+
+```js
+export default {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+```
+
+## 4. Structure et chemins
+
+- **CSS principal** : `src/styles/main.css`.
+- **Fichiers statiques** : dans `public/` (ex. `public/site.webmanifest`, `public/sw.js`).
+- **Build output** : dans `dist/styles` (généré par Vite et post-build scripts).
+- **Scripts d'automatisation** : dans `scripts/` (ex. `scripts/setup-tailwind.js`).
+
+## 5. Purge et performance
+
+- La **purge automatique** est intégrée à Tailwind v4.1.
+- Si certaines classes utilitaires manquent, vérifie :
+  1. Les chemins analysés (`src/` + directives `@source`).
+  2. Le cache (`node_modules/.cache`).
+  3. Essaie de supprimer le cache : `rm -rf node_modules/.cache`.
+
+## 6. Bonnes pratiques d'écriture CSS
+
+- **Utilitaires uniquement** : n'ajoute pas de CSS arbitraire en dehors des directives `@theme` et `@layer`.
+- **Responsive** : privilégie les breakpoints définis (`sm`, `md`, etc.).
+- **Cohérence** : utilise des noms de variables cohérents:
+  - Couleurs : `--color-{name}-{shade}` (ex. `--color-primary-500`)
+  - Typographies : `--font-{type}` (ex. `--font-sans`)
+  - Breakpoints : `--breakpoint-{size}` (ex. `--breakpoint-lg`)
+
+## 7. Dépendances requises
+
+Vérifier les packages installés dans `package.json` :
+
+```json
+"devDependencies": {
+  "tailwindcss": "^4.1.4",
+  "@tailwindcss/postcss": "^4.1.4",
+  "@tailwindcss/vite": "^4.1.4",
+  "@tailwindcss/forms": "0.5.10",
+  "@tailwindcss/typography": "0.5.16"
+}
+```
+
+## 8. Validation et tests
+
+- **Lint CSS** : intègre un linter pour vérifier la syntaxe correcte.
+- **Tests visuels** : screenshot tests pour repérer les régressions.
+- **Vérification de build** : teste le résultat du script `npm run build` et vérifie `dist/styles/main.css`.
+
+---
+
+*Ces règles garantissent un workflow Tailwind CSS v4.1.4 optimal, en utilisant l'approche CSS-first, sans surcharge de configuration ni erreurs d'intégration.*
+

@@ -1,0 +1,88 @@
+<!-- 
+  SectionTitle.html - Composant réutilisable pour les titres de section
+  Utilise l'approche CSS-first de Tailwind v4.1 avec animations Alpine.js
+  
+  Usage:
+  <div class="section-title" x-data="sectionTitleAnimation()" x-ref="sectionTitle">
+    <h2 class="section-title-heading">Titre de la section</h2>
+    <p class="section-title-subtitle">Description optionnelle de la section</p>
+  </div>
+  
+  Nécessite:
+  - Alpine.js pour les animations
+  - animations.js pour les fonctions d'animation personnalisées
+-->
+
+<!-- Composant de titre de section -->
+<!-- Ce composant permet d'ajouter un titre de section élégant avec une description optionnelle -->
+
+<!-- Version standard avec sous-titre -->
+<div 
+  x-data="sectionTitleAnimation()"
+  class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
+  role="heading" 
+  aria-level="2">
+
+  <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
+     x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    Découvrez nos services premium
+  </h2>
+  
+  <p class="text-gray-600 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-200"
+     x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    Des solutions sur mesure pour répondre à tous vos besoins et vous aider à atteindre vos objectifs.
+  </p>
+</div>
+
+<!-- Version avec accentuation de couleur et séparateur -->
+<div 
+  x-data="sectionTitleAnimation()"
+  class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
+  role="heading" 
+  aria-level="2">
+
+  <span class="inline-block text-primary text-sm font-semibold uppercase tracking-wider mb-3 transform opacity-0 transition-all duration-700"
+        x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    Notre expertise
+  </span>
+  
+  <h2 class="text-3xl md:text-4xl font-bold mb-5 transform opacity-0 transition-all duration-700 delay-100"
+     x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    Des solutions <span class="text-primary">innovantes</span> pour votre entreprise
+  </h2>
+  
+  <div class="h-1 w-20 bg-primary mx-auto mb-6 transform scale-x-0 transition-all duration-700 delay-200"
+       x-bind:class="{ 'scale-x-100': visible, 'scale-x-0': !visible }"></div>
+  
+  <p class="text-gray-600 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-300"
+     x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    Notre équipe d'experts est dédiée à vous offrir des services de haute qualité, adaptés à vos besoins spécifiques.
+  </p>
+</div>
+
+<!-- Version alignée à gauche pour les sections asymétriques -->
+<div 
+  x-data="sectionTitleAnimation()"
+  class="section-title mb-10 md:mb-12 max-w-2xl overflow-hidden"
+  role="heading" 
+  aria-level="2">
+
+  <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
+     x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    À propos de notre entreprise
+  </h2>
+  
+  <p class="text-gray-600 text-lg opacity-0 transition-all duration-700 delay-200"
+     x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+    Fondée en 2010, notre entreprise s'est construite sur des valeurs fortes d'innovation et d'excellence. Nous nous engageons à fournir des solutions durables et performantes.
+  </p>
+</div>
+
+<!--
+  Note d'utilisation:
+  
+  1. Choisissez la variante qui correspond le mieux à votre design
+  2. Personnalisez le texte selon votre section
+  3. Pour une meilleure accessibilité, assurez-vous que le niveau d'en-tête (aria-level)
+     est approprié dans la hiérarchie de votre page
+--> 

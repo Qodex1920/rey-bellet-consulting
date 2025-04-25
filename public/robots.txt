@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://votresite.com/sitemap.xml
+
+# Ne pas indexer ces dossiers
+Disallow: /admin/
+Disallow: /private/
+Disallow: /api/
+Disallow: /temp/ 

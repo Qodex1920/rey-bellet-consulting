@@ -1,0 +1,486 @@
+/**
+ * Fichier de styles de composants pour Tailwind CSS v4.1
+ * Contient les styles spécifiques aux composants de l'interface
+ * 
+ * Structure:
+ * 1. Composants d'interface (cartes, boutons spéciaux, etc.)
+ * 2. Composants de navigation (menu, pagination, etc.)
+ * 3. Composants de formulaire (inputs stylisés, checkboxes, etc.)
+ * 4. Composants de mise en page (grilles, conteneurs spéciaux, etc.)
+ * 5. Composants d'animation (effets, transitions, etc.)
+ */
+
+/* 1. COMPOSANTS D'INTERFACE */
+
+/* Cartes et conteneurs */
+.card-hover {
+  @apply transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg;
+}
+
+.glass-card {
+  @apply bg-white/80 backdrop-blur-md border border-white/20 shadow-lg;
+}
+
+/* Badges et étiquettes */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+.badge-primary {
+  @apply bg-primary-100 text-primary-800;
+}
+
+.badge-secondary {
+  @apply bg-secondary-100 text-secondary-800;
+}
+
+.badge-success {
+  @apply bg-green-100 text-green-800;
+}
+
+.badge-danger {
+  @apply bg-red-100 text-red-800;
+}
+
+/* Accordéon */
+.accordion {
+  @apply border border-gray-200 rounded-md overflow-hidden;
+}
+
+.accordion-header {
+  @apply flex justify-between items-center p-4 bg-gray-50 cursor-pointer;
+}
+
+.accordion-content {
+  @apply bg-white overflow-hidden transition-all duration-300 max-h-0;
+}
+
+.accordion-content-inner {
+  @apply p-4;
+}
+
+.accordion.active .accordion-content {
+  @apply max-h-screen;
+}
+
+.accordion-icon {
+  @apply transition-transform duration-300;
+}
+
+.accordion.active .accordion-icon {
+  @apply rotate-45;
+}
+
+/* Tabs */
+.tabs {
+  @apply mb-4;
+}
+
+.tabs [role="tablist"] {
+  @apply flex gap-1 mb-4 border-b border-gray-200;
+}
+
+.tabs [role="tab"] {
+  @apply px-4 py-2 text-gray-600 hover:text-gray-900 border-b-2 border-transparent transition-colors;
+}
+
+.tabs [role="tab"][aria-selected="true"] {
+  @apply text-primary-600 border-b-2 border-primary-600;
+}
+
+.tabs [role="tabpanel"] {
+  @apply hidden;
+}
+
+.tabs [role="tabpanel"][aria-hidden="false"] {
+  @apply block;
+}
+
+/* 2. COMPOSANTS DE NAVIGATION */
+
+/* Pagination */
+.pagination {
+  @apply flex justify-center items-center space-x-1;
+}
+
+.pagination-item {
+  @apply flex items-center justify-center min-w-[40px] h-10 px-2 rounded-md border border-gray-300 text-sm text-gray-700 hover:bg-gray-50 transition-colors;
+}
+
+.pagination-item.active {
+  @apply bg-primary-600 text-white border-primary-600 hover:bg-primary-700;
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  @apply flex items-center text-sm text-gray-500;
+}
+
+.breadcrumbs-item {
+  @apply hover:text-gray-900 transition-colors;
+}
+
+.breadcrumbs-separator {
+  @apply mx-2 text-gray-400;
+}
+
+/* 3. COMPOSANTS DE FORMULAIRE */
+
+/* Champs de formulaire stylisés */
+.form-group {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-input {
+  @apply w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring focus:ring-primary-500 focus:ring-opacity-50;
+}
+
+.form-checkbox {
+  @apply rounded border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus:ring-offset-0;
+}
+
+/* 4. COMPOSANTS DE MISE EN PAGE */
+
+/* Grilles responsives */
+.auto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--min-column-size, 16rem), 1fr));
+  gap: var(--grid-gap, 1rem);
+}
+
+/* Sections à deux colonnes */
+.two-columns {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8;
+}
+
+/* 5. COMPOSANTS D'ANIMATION ET TRANSITIONS */
+
+/* Animations d'entrée */
+.fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Animations pour les sections de titre avec Alpine.js */
+.section-title-animated .section-title-heading,
+.section-title-animated .section-title-subtitle {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: all 0.7s ease-out;
+}
+
+.section-title-animated.visible .section-title-heading,
+.section-title-animated.visible .section-title-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-title-animated.visible .section-title-subtitle {
+  transition-delay: 0.1s;
+}
+
+/* Animations pour les cartes de service */
+.service-card {
+  @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300;
+}
+
+.service-card-icon {
+  @apply w-12 h-12 rounded-lg flex items-center justify-center mb-4 transition-colors duration-300;
+}
+
+.service-card:hover .service-card-icon {
+  @apply bg-primary-200;
+}
+
+/* Animations pour les témoignages */
+.testimonials-section {
+  @apply mb-16;
+}
+
+
+.testimonials-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6 mt-8;
+}
+
+.testimonial-card {
+  @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-all duration-300;
+}
+
+.testimonial-user {
+  @apply flex items-center mb-4;
+}
+
+.user-avatar {
+  @apply w-12 h-12 bg-gray-100 rounded-full overflow-hidden mr-4;
+}
+
+.avatar-image {
+  @apply w-full h-full object-cover;
+}
+
+.user-info {
+  @apply flex flex-col;
+}
+
+.user-name {
+  @apply font-semibold text-gray-900;
+}
+
+.user-position {
+  @apply text-sm text-gray-600;
+}
+
+.testimonial-content {
+  @apply mb-4;
+}
+
+.testimonial-quote {
+  @apply text-gray-700 italic;
+}
+
+.testimonial-rating {
+  @apply flex;
+}
+
+.star {
+  @apply text-lg mr-1;
+}
+
+.star-filled {
+  @apply text-yellow-400;
+}
+
+.star-empty {
+  @apply text-gray-300;
+}
+
+.section-header {
+  @apply max-w-3xl mx-auto mb-8;
+}
+
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold text-gray-900 mb-2;
+}
+
+.section-subtitle {
+  @apply text-lg text-gray-600;
+}
+
+/* Animations spécifiques pour le scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .testimonial-card {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  
+  .section-title, 
+  .section-subtitle {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+}
+
+/* Animation pour le Call-to-Action */
+.cta-animated {
+  @apply transform transition-all duration-1000 ease-out opacity-0;
+  transform: scale(0.95);
+}
+
+.cta-animated.scale-in {
+  animation: scaleIn 0.7s ease-out forwards;
+}
+
+.cta-animated .cta-title,
+.cta-animated .cta-description,
+.cta-animated .cta-button-container {
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: all 0.7s ease-out;
+}
+
+.cta-animated.visible .cta-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.cta-animated.visible .cta-description {
+  opacity: 0.9;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.cta-animated.visible .cta-button-container {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Toast notifications */
+.toast-container {
+  @apply fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-xs;
+}
+
+.toast {
+  @apply flex items-center gap-3 p-4 rounded-lg border shadow-lg transform transition-all duration-300 opacity-0 translate-x-full;
+  animation: toastIn 0.3s ease-out forwards;
+}
+
+.toast.toast-success {
+  @apply bg-green-50 border-green-100 text-green-800;
+}
+
+.toast.toast-error {
+  @apply bg-red-50 border-red-100 text-red-800;
+}
+
+.toast.toast-warning {
+  @apply bg-yellow-50 border-yellow-100 text-yellow-800;
+}
+
+.toast.toast-info {
+  @apply bg-primary-50 border-primary-100 text-primary-800;
+}
+
+.toast-dismiss {
+  @apply ml-auto cursor-pointer text-gray-500 hover:text-gray-700;
+}
+
+.toast.toast-exiting {
+  animation: toastOut 0.3s ease-in forwards;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Carousel */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.carousel-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+}
+
+.carousel-nav {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.carousel-dot.active {
+  background: white;
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  [role="tablist"] {
+    flex-direction: column;
+  }
+
+  .toast {
+    min-width: auto;
+    width: calc(100vw - 2rem);
+  }
+
+  .carousel {
+    height: 300px;
+  }
+}

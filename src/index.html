@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+  <!-- SEO -->
+  <title>Nom du Site | Description Courte</title>
+  <meta name="description" content="Description détaillée du site en 150-160 caractères">
+  <meta name="keywords" content="mot-clé1, mot-clé2, mot-clé3">
+  <meta name="author" content="Votre nom ou celui de votre entreprise">
+  <link rel="canonical" href="https://votresite.com">
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://votresite.com/">
+  <meta property="og:title" content="Titre pour les réseaux sociaux">
+  <meta property="og:description" content="Description pour les réseaux sociaux">
+  <meta property="og:image" content="https://votresite.com/images/og-image.jpg">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Nom du Site">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://votresite.com/">
+  <meta name="twitter:title" content="Titre pour Twitter">
+  <meta name="twitter:description" content="Description pour Twitter">
+  <meta name="twitter:image" content="https://votresite.com/images/twitter-image.jpg">
+  <meta name="twitter:creator" content="@votre_compte">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon/favicon.ico">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0ea5e9">
+  
+  <!-- Préconnexions pour améliorer les performances -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Schema.org pour les moteurs de recherche -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Nom du Site",
+      "url": "https://votresite.com",
+      "logo": "https://votresite.com/images/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+33-1-23-45-67-89",
+        "contactType": "customer service",
+        "availableLanguage": ["French", "English"]
+      },
+      "sameAs": [
+        "https://www.facebook.com/votresite",
+        "https://www.twitter.com/votresite",
+        "https://www.linkedin.com/company/votresite"
+      ]
+    }
+  </script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans min-h-screen">
+  
+  <!-- Header sera inclus ici -->
+  <header class="bg-white shadow"></header>
+  
+  <main class="py-12">
+    <!-- Section d'introduction avec animation -->
+    <section class="bg-white py-12 mb-12">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-gradient">Solutions innovantes pour votre entreprise</h1>
+          <p class="text-xl text-gray-600 mb-8">Nous vous accompagnons dans la transformation numérique de votre activité avec des solutions sur mesure et performantes.</p>
+          <button class="btn btn-primary btn-large">
+            Découvrir nos services
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section Services avec SectionTitle animé -->
+    <div class="section-title text-center mb-12"
+         x-data="{ visible: false }" 
+         x-init="$nextTick(() => {
+           const observer = new IntersectionObserver((entries) => {
+             entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                 visible = true;
+               }
+             });
+           });
+           observer.observe($el);
+         })">
+      <h2 class="section-title-heading text-3xl md:text-4xl font-bold mb-4 transition-all duration-700 ease-out"
+          :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Nos services</h2>
+      <p class="section-title-subtitle text-gray-600 text-lg max-w-2xl mx-auto transition-all duration-700 ease-out delay-100"
+         :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Découvrez notre gamme complète de solutions adaptées à vos besoins spécifiques</p>
+    </div>
+    
+    <!-- Cartes de services -->
+    <div class="container mx-auto px-4 mb-20">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Carte de service 1 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Conception Web</h3>
+          <p class="text-gray-600 mb-4">Création de sites web modernes, responsives et optimisés pour les moteurs de recherche.</p>
+          <button class="btn btn-outline btn-small" @mouseenter="animations.pulseElement($event.target)" @mouseleave="animations.resetElement($event.target)">
+            En savoir plus
+          </button>
+        </div>
+        
+        <!-- Carte de service 2 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Marketing Digital</h3>
+          <p class="text-gray-600 mb-4">Stratégies de marketing digital personnalisées pour augmenter votre visibilité en ligne.</p>
+          <button class="btn btn-outline btn-small" @mouseenter="animations.pulseElement($event.target)" @mouseleave="animations.resetElement($event.target)">
+            En savoir plus
+          </button>
+        </div>
+        
+        <!-- Carte de service 3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Analyse de données</h3>
+          <p class="text-gray-600 mb-4">Analyse approfondie de vos données pour prendre des décisions éclairées et optimiser vos performances.</p>
+          <button class="btn btn-outline btn-small" @mouseenter="animations.pulseElement($event.target)" @mouseleave="animations.resetElement($event.target)">
+            En savoir plus
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section Témoignages avec SectionTitle animé -->
+    <div class="section-title text-center mb-12"
+         x-data="{ visible: false }" 
+         x-init="$nextTick(() => {
+           const observer = new IntersectionObserver((entries) => {
+             entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                 visible = true;
+               }
+             });
+           });
+           observer.observe($el);
+         })">
+      <h2 class="section-title-heading text-3xl md:text-4xl font-bold mb-4 transition-all duration-700 ease-out"
+          :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Témoignages clients</h2>
+      <p class="section-title-subtitle text-gray-600 text-lg max-w-2xl mx-auto transition-all duration-700 ease-out delay-100"
+         :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Ce que nos clients disent de nos services</p>
+    </div>
+    
+    <!-- Témoignages -->
+    <div class="container mx-auto px-4 mb-20">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Témoignage 1 - avec animation -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow opacity-0 transform translate-y-4"
+             x-data="{ visible: false }" 
+             x-init="$nextTick(() => {
+               const observer = new IntersectionObserver((entries) => {
+                 entries.forEach(entry => {
+                   if (entry.isIntersecting) {
+                     visible = true;
+                     $el.style.transitionDelay = '0.1s';
+                     $el.style.opacity = '1';
+                     $el.style.transform = 'translateY(0)';
+                   }
+                 });
+               });
+               observer.observe($el);
+             })"
+             style="transition: all 0.7s ease-out; transition-delay: 0.1s">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden mr-4">
+              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Avatar de client" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h3 class="font-semibold">Sophie Durand</h3>
+              <p class="text-sm text-gray-600">Directrice Marketing, TechCorp</p>
+            </div>
+          </div>
+          <p class="text-gray-700 italic">"L'équipe a dépassé toutes nos attentes. Notre nouveau site web a considérablement augmenté notre taux de conversion et amélioré l'expérience utilisateur."</p>
+        </div>
+        
+        <!-- Témoignage 2 - avec animation -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow opacity-0 transform translate-y-4"
+             x-data="{ visible: false }" 
+             x-init="$nextTick(() => {
+               const observer = new IntersectionObserver((entries) => {
+                 entries.forEach(entry => {
+                   if (entry.isIntersecting) {
+                     visible = true;
+                     $el.style.transitionDelay = '0.3s';
+                     $el.style.opacity = '1';
+                     $el.style.transform = 'translateY(0)';
+                   }
+                 });
+               });
+               observer.observe($el);
+             })"
+             style="transition: all 0.7s ease-out; transition-delay: 0.3s">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden mr-4">
+              <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="Avatar de client" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h3 class="font-semibold">Thomas Laurent</h3>
+              <p class="text-sm text-gray-600">Fondateur, StartupInnov</p>
+            </div>
+          </div>
+          <p class="text-gray-700 italic">"Grâce à leur expertise en marketing digital, nous avons pu atteindre de nouveaux marchés et augmenter nos revenus de 30% en seulement 6 mois."</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Call to Action avec animation de scale -->
+    <div class="container mx-auto px-4 mb-20">
+      <section class="cta-section bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-14 px-4 sm:px-6 rounded-lg shadow-lg transform scale-95 opacity-0 transition-all duration-1000 ease-out"
+        x-data="{ visible: false }" 
+        x-init="$nextTick(() => {
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                visible = true;
+                $el.style.opacity = '1';
+                $el.style.transform = 'scale(1)';
+                
+                // Animer les éléments enfants
+                setTimeout(() => {
+                  document.querySelector('.cta-title').style.opacity = '1';
+                  document.querySelector('.cta-title').style.transform = 'translateY(0)';
+                }, 300);
+                
+                setTimeout(() => {
+                  document.querySelector('.cta-description').style.opacity = '0.9';
+                }, 500);
+                
+                setTimeout(() => {
+                  document.querySelector('.cta-button-container').style.opacity = '1';
+                  document.querySelector('.cta-button-container').style.transform = 'translateY(0)';
+                }, 700);
+              }
+            });
+          });
+          observer.observe($el);
+        })">
+        <div class="cta-container max-w-4xl mx-auto text-center">
+          <h2 class="cta-title text-3xl md:text-4xl font-bold mb-4 transform -translate-y-4 opacity-0 transition-all duration-700 ease-out delay-100">Prêt à transformer votre présence en ligne ?</h2>
+          <p class="cta-description text-lg md:text-xl opacity-0 max-w-2xl mx-auto mb-8 transition-all duration-700 ease-out delay-200">Notre équipe d'experts est prête à vous accompagner à chaque étape de votre projet. N'attendez plus pour concrétiser vos idées.</p>
+          <div class="cta-button-container opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-300">
+            <button class="btn btn-large btn-primary bg-white text-primary-700 hover:bg-white/90"
+              @mouseenter="animations.pulseElement($event.target)" 
+              @mouseleave="animations.resetElement($event.target)">
+              Demander un devis gratuit
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <!-- Footer sera inclus ici -->
+  <footer class="bg-gray-800 text-white mt-12 py-8">
+    <div class="container mx-auto px-4">
+      <p class="text-center">&copy; 2023 Nom du Site. Tous droits réservés.</p>
+    </div>
+  </footer>
+  
+  <!-- Scripts -->
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
+  <script type="module" src="/main.js"></script>
+</body>
+</html> 

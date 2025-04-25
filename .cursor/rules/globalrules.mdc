@@ -1,0 +1,137 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# RÈGLES GLOBALLES – Starter Cursor (Site Web Statique)
+
+Ce document définit l'ensemble des conventions, standards et bonnes pratiques à respecter lors de la création et de la maintenance des sites web statiques via Cursor. Il vise à garantir un code organisé, maintenable et conforme aux exigences de performance, d’accessibilité et de SEO pour chaque projet.
+
+---
+
+## 1. Objectifs et Principes de Base
+
+- **Qualité et Maintenabilité :**
+  - Produire un code **clair**, **modulaire** et **commenté**.
+  - Prioriser l’utilisation de **méthodes éprouvées** et de structures répétables.
+  
+- **Performance et Sécurité :**
+  - Optimiser pour un score Lighthouse > 90 (minification, lazy loading, tree shaking).
+  - Mettre en place des headers de sécurité (CSP, XSS protection) et éviter toute dépendance non sécurisée.
+  
+- **Accessibilité & SEO :**
+  - Respecter les normes d’accessibilité (balises sémantiques, ARIA, alt pour les images).
+  - Intégrer les balises meta essentielles pour le SEO (title, description, Open Graph, sitemap.xml, robots.txt).
+
+- **Uniformité et Cohérence :**
+  - Respecter scrupuleusement la structure et les conventions définies dans `CONTEXT.md`.
+  - S’assurer que le code généré est cohérent avec les conventions de nommage, l’architecture modulaire et les modèles d’usage standardisés.
+
+---
+
+## 2. Directives Spécifiques pour le Code
+
+### A. HTML
+
+- **Structure Sémantique :**
+  - Utiliser des balises comme `<header>`, `<nav>`, `<main>`, `<section>`, `<article>` et `<footer>` afin de définir clairement la hiérarchie de la page.
+  - Veiller à ce que la hiérarchie des titres soit correctement ordonnée (H1 pour le titre principal, H2/H3 pour les sous-sections).
+
+- **Accessibilité :**
+  - Chaque image doit avoir un attribut `alt` pertinent et descriptif.
+  - Les éléments interactifs (boutons, liens, formulaires) doivent comporter des attributs ARIA (aria-label, role, tabindex) si nécessaire.
+  - Les pages (index.html, contact.html, etc.) sont toutes regroupée dans /src.
+  
+- **Modularité et Réutilisabilité :**
+  - Décomposer le code en **composants HTML** réutilisables stockés dans `src/components/`.
+  - Chaque composant doit inclure un commentaire en début de fichier précisant sa fonction et toute logique non triviale.
+
+### B. CSS / TailwindCSS (v4.1)
+	•	Utilisation de Tailwind CSS v4.1 :
+	•	Utiliser exclusivement les classes utilitaires (text-lg, bg-primary, hover:opacity-80, etc.) pour styliser les éléments HTML.
+	•	Le fichier tailwind.config.js n’est plus utilisé dans notre configuration actuelle. À la place, nous utilisons la directive @theme dans styles/main.css pour définir les variables personnalisées. Veuillez consulter la documentation interne pour plus de détails sur cette approche.
+	•	Personnalisation & Configuration CSS-first :
+	•	Définir les variables personnalisées (couleurs, typographies, espacements, etc.) dans styles/main.css avec la directive @theme.
+	•	Exemple :
+  @theme {
+  --color-primary: #1d4ed8;
+  --font-sans: 'Inter', sans-serif;
+}
+
+- **Organisation et Documentation :**
+  - Commenter les sections de CSS personnalisées pour expliquer les choix stylistiques et les regroupements (par exemple, en regroupant les classes de bouton réutilisables).
+
+Bonnes pratiques spécifiques à Tailwind v4.1 :
+	•	Adopter une approche mobile-first pour la mise en page.
+	•	Éviter les styles inline. Privilégier l’utilisation cohérente des classes utilitaires ou de @apply.
+	•	Ne créer des composants CSS qu’en cas de besoin réel de réutilisabilité.
+  
+### C. JavaScript
+
+- **Modularité et Architecture :**
+  - Organiser le code en modules ES dans `src/utils/`. Chaque module doit avoir une responsabilité unique et clairement définie.
+  - Utiliser des noms de fichiers et de fonctions explicites pour faciliter la compréhension et la maintenance.
+
+- **Documentation et Commentaires :**
+  - Chaque fonction ou module complexe doit être documenté avec des commentaires clairs ou des JSDoc afin d’expliquer la logique et le comportement attendu.
+  - Mentionner toute dépendance ou tout algorithme complexe dans les commentaires.
+
+- **Gestion des Erreurs et Fallbacks :**
+  - Implémenter des mécanismes de gestion d'erreurs robustes pour les interactions critiques.
+  - Prévoir des fallback pour les fonctionnalités avancées (par exemple, si GSAP n’est pas chargé correctement, le code doit revenir à des animations CSS de base).
+
+- **Légalité du Code :**
+  - Se limiter à l’utilisation de JavaScript Vanilla et Alpine.js sans frameworks lourds (React, Vue, Svelte, etc.).
+  - Respecter l’ordre d’import et de dépendance des modules pour éviter des erreurs d’exécution ou des conflits.
+
+---
+
+## 3. Directives pour l'Utilisation de Cursor
+
+- **Contextualisation Obligatoire :**
+  - Toujours lire et intégrer le contenu de `CONTEXT.md` au début de chaque nouvelle conversation pour bien comprendre les contraintes et l’architecture du projet.
+  
+- **Gestion de Tâches avec TASK.md :**
+  - Consulter `TASK.md` avant d’engager toute nouvelle tâche ; si elle n'est pas listée, l’ajouter avec une description succincte et la date.
+  - Mettre à jour et marquer les tâches complétées dès leur finalisation.
+  - Ajouter sous-tâches ou points d’amélioration en cours de développement dans une section dédiée.
+
+- **Requêtes Précises pour Cursor :**
+  - Formuler des demandes de code de manière claire et précise, en indiquant la structure attendue, le style et les fonctionnalités spécifiques.
+  - Préciser si des comportements particuliers (fallback, gestion d’erreurs) doivent être intégrés.
+
+- **Validation et Relecture :**
+  - Cursor doit renvoyer un code formaté, commenté et intégrant les bonnes pratiques décrites ci-dessus.
+  - Après génération, il est impératif de revoir et tester le code pour s’assurer qu’il se conforme strictement aux règles définies ici.
+
+---
+
+## 4. Règles Avancées et Optimisation
+
+- **Optimisation du Build :**
+  - S’assurer que la configuration de Vite dans `vite.config.js` permet un build optimisé (lazy loading, tree shaking, asset hashing) et que les fichiers CSS/JS générés sont correctement nommés.
+  
+- **Sécurité et Performances :**
+  - Vérifier que le fichier `.htaccess` dans `public/` contient les directives nécessaires pour la sécurité et la performance (compression, cache, en-têtes de sécurité).
+  - Optimiser les images en utilisant les formats modernes (WebP) et activer le lazy loading.
+
+- **Respect des Conventions :**
+  - Utiliser des conventions de nommage strictes pour les fichiers et les dossiers : par exemple, les fichiers de composants HTML en minuscules et séparés par des tirets (`header-component.html`).
+  - Appliquer des règles de formatage de code uniformes pour tout le projet (indentation, espaces, commentaires).
+
+- **Tests et Maintenance :**
+  - Intégrer des outils de linting (ESLint, Stylelint) et des tests automatisés pour garantir la cohérence et la qualité du code sur le long terme.
+  - Documenter toute anomalie ou particularité à corriger dans des outils de gestion de tâches (TASK.md).
+
+---
+
+## Rappels et Bonnes Pratiques
+
+- **Structure :** Ne jamais modifier la hiérarchie définie dans `CONTEXT.md` (les dossiers `public/`, `src/`, `styles/`, etc.).
+- **Documentation :** Chaque composant et module doit être correctement documenté pour faciliter la maintenabilité et l’intégration par d’autres développeurs.
+- **Tests :** Effectuer des tests réguliers (responsive, cross-browser, performance, sécurité) à chaque étape de développement.
+- **Feedback :** Mettre à jour régulièrement ce fichier et les documents associés (`CONTEXT.md`, `TASK.md`) pour améliorer les pratiques et intégrer les retours d’expérience.
+
+---
+
+Ce document constitue la référence principale pour générer et maintenir un code de qualité pour les sites web statiques créés via Cursor. Il doit être respecté à chaque étape afin de garantir un résultat optimal en termes de performance, d’accessibilité, et de maintenabilité.

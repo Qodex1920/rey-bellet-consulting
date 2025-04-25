@@ -1,0 +1,20 @@
+# Politique de sécurité pour votresite.com
+# Format suivant la norme https://securitytxt.org/
+
+# Contact pour signaler des problèmes de sécurité
+Contact: mailto:security@votresite.com
+
+# Clé PGP (optionnelle)
+# Encryption: https://votresite.com/pgp-key.txt
+
+# Langue préférée
+Preferred-Languages: fr, en
+
+# Politique de sécurité
+Policy: https://votresite.com/security-policy
+
+# Embauche en sécurité informatique (optionnel)
+# Hiring: https://votresite.com/jobs/security
+
+# Validité du document
+Expires: 2025-12-31T23:59:59+00:00 

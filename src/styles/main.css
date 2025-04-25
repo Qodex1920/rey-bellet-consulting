@@ -1,0 +1,209 @@
+/**
+ * Fichier principal de styles Tailwind CSS v4.1
+ * 
+ * Configuration CSS-first pour Tailwind v4.1.4
+ * Ne nécessite pas de fichier tailwind.config.js
+ * 
+ * Structure:
+ * 1. Import (@import)
+ * 2. Thème (@theme)
+ * 3. Plugins (@plugin)
+ * 4. Sources externes (@source)
+ */
+
+/* 1. Import de Tailwind CSS */
+@import "tailwindcss";
+
+/* 2. Configuration du thème avec variables CSS */
+@theme {
+  /* Couleurs */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+  
+  --color-secondary-50: #f5f3ff;
+  --color-secondary-100: #ede9fe;
+  --color-secondary-200: #ddd6fe;
+  --color-secondary-300: #c4b5fd;
+  --color-secondary-400: #a78bfa;
+  --color-secondary-500: #8b5cf6;
+  --color-secondary-600: #7c3aed;
+  --color-secondary-700: #6d28d9;
+  --color-secondary-800: #5b21b6;
+  --color-secondary-900: #4c1d95;
+  --color-secondary-950: #2e1065;
+  
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+  --color-gray-950: #030712;
+
+  /* Typographie */
+  --font-sans: Inter, sans-serif;
+  --font-heading: Inter, sans-serif;
+  
+  /* Tailles d'écran (breakpoints) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* Animations */
+  --animate-fade-in: fadeIn 0.3s ease-in-out;
+  --animate-fade-out: fadeOut 0.3s ease-in-out;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+}
+
+/* 3. Plugins officiels (activer seulement ceux qui sont nécessaires) */
+@plugin "@tailwindcss/forms";
+@plugin "@tailwindcss/typography";
+
+/* 4. Sources externes (lib UI, composants) - Ajouter si nécessaire */
+/* @source "../node_modules/ma-lib-ui"; */
+
+/* Compatibilité border-color (peut être supprimé si explicitement défini partout) */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Composants personnalisés */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium text-base transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:transition-none;
+  }
+  
+  .btn-small {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  .btn-large {
+    @apply px-8 py-4 text-lg;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-primary-600 border border-primary-600 hover:bg-primary-50 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-primary-500;
+  }
+  
+  .btn-outline {
+    @apply bg-transparent text-gray-700 border border-gray-300 hover:border-gray-400 hover:text-gray-900 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-gray-500;
+  }
+  
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-red-500;
+  }
+  
+  .btn-success {
+    @apply bg-green-600 text-white hover:bg-green-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-green-500;
+  }
+  
+  .btn-warning {
+    @apply bg-yellow-600 text-white hover:bg-yellow-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-yellow-500;
+  }
+  
+  /* Composant SectionTitle - Animation sans Alpine.js */
+  .section-title {
+    @apply max-w-3xl mx-auto text-left md:text-center mb-12;
+    animation: fadeInUp 0.7s ease-out forwards;
+    opacity: 0;
+  }
+  
+  .section-title-heading {
+    @apply text-3xl md:text-4xl font-bold text-gray-900 mb-4;
+  }
+  
+  .section-title-subtitle {
+    @apply text-lg text-gray-600;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Composant CallToAction - Styles de base */
+  .cta-section {
+    @apply py-12 px-4 sm:px-6 md:py-16;
+  }
+  
+  .cta-container {
+    @apply max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6;
+  }
+  
+  .cta-title {
+    @apply text-2xl md:text-3xl font-bold mb-3;
+  }
+  
+  .cta-description {
+    @apply md:text-lg;
+  }
+  
+  .cta-button-container {
+    @apply flex-shrink-0;
+  }
+  
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 80rem;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem;
+  }
+}
+
+/* Utilitaires personnalisés */
+@layer utilities {
+  .text-gradient {
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
