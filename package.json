@@ -1,7 +1,7 @@
 {
-  "name": "project-starter",
+  "name": "rey-bellet-consulting",
   "version": "1.0.0",
-  "description": "Template moderne pour sites statiques avec Tailwind CSS v4.1",
+  "description": "Site statique pour Rey-Bellet Consulting",
   "main": "vite.config.js",
   "type": "module",
   "scripts": {
@@ -27,8 +27,13 @@
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "consulting",
+    "marketing",
+    "communication",
+    "entreprise"
+  ],
+  "author": "Rey-Bellet Consulting",
   "license": "ISC",
   "devDependencies": {
     "@tailwindcss/forms": "0.5.10",

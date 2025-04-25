@@ -1,8 +1,8 @@
 # Tâches pour la Mise en Place et le Lancement d'un Nouveau Projet
 
 ## Configuration Initiale
-- [ ] Créer un nouveau dépôt utilisant ce modèle ou cloner ce dépôt
-- [ ] Mettre à jour le nom du projet, la description et les mots-clés dans package.json
+- [x] Créer un nouveau dépôt utilisant ce modèle ou cloner ce dépôt
+- [x] Mettre à jour le nom du projet, la description et les mots-clés dans package.json
 - [ ] Mettre à jour le titre, la description et les mots-clés dans index.html
 - [ ] Configurer les variables d'environnement dans .env pour le développement
 - [ ] Créer un fichier .env.production pour la production
