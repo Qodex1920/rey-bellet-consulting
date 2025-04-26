@@ -1,7 +1,7 @@
 {
   "name": "rey-bellet-consulting",
   "version": "1.0.0",
-  "description": "Site statique pour Rey-Bellet Consulting",
+  "description": "Rey-Bellet Consulting - Site statique",
   "main": "vite.config.js",
   "type": "module",
   "scripts": {

@@ -1,14 +1,8 @@
 /**
  * Fichier principal de styles Tailwind CSS v4.1
  * 
- * Configuration CSS-first pour Tailwind v4.1.4
+ * Configuration CSS-first pour Rey-Bellet Consulting
  * Ne nécessite pas de fichier tailwind.config.js
- * 
- * Structure:
- * 1. Import (@import)
- * 2. Thème (@theme)
- * 3. Plugins (@plugin)
- * 4. Sources externes (@source)
  */
 
 /* 1. Import de Tailwind CSS */
@@ -16,46 +10,57 @@
 
 /* 2. Configuration du thème avec variables CSS */
 @theme {
-  /* Couleurs */
-  --color-primary-50: #f0f9ff;
-  --color-primary-100: #e0f2fe;
-  --color-primary-200: #bae6fd;
-  --color-primary-300: #7dd3fc;
-  --color-primary-400: #38bdf8;
-  --color-primary-500: #0ea5e9;
-  --color-primary-600: #0284c7;
-  --color-primary-700: #0369a1;
-  --color-primary-800: #075985;
-  --color-primary-900: #0c4a6e;
-  --color-primary-950: #082f49;
+  /* Couleurs principales selon le styleguide */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-gold: #FFD700;
+  --color-blue: #1848A0;
+  --color-gray-light: #808080;
+  --color-gray-dark: #333333;
   
-  --color-secondary-50: #f5f3ff;
-  --color-secondary-100: #ede9fe;
-  --color-secondary-200: #ddd6fe;
-  --color-secondary-300: #c4b5fd;
-  --color-secondary-400: #a78bfa;
-  --color-secondary-500: #8b5cf6;
-  --color-secondary-600: #7c3aed;
-  --color-secondary-700: #6d28d9;
-  --color-secondary-800: #5b21b6;
-  --color-secondary-900: #4c1d95;
-  --color-secondary-950: #2e1065;
+  /* Couleurs fonctionnelles */
+  --color-primary: var(--color-blue);
+  --color-accent: var(--color-gold);
   
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-300: #d1d5db;
-  --color-gray-400: #9ca3af;
-  --color-gray-500: #6b7280;
-  --color-gray-600: #4b5563;
-  --color-gray-700: #374151;
-  --color-gray-800: #1f2937;
-  --color-gray-900: #111827;
-  --color-gray-950: #030712;
-
-  /* Typographie */
-  --font-sans: Inter, sans-serif;
-  --font-heading: Inter, sans-serif;
+  /* Création des dégradés de couleurs */
+  --color-primary-50: #EEF2FA;
+  --color-primary-100: #D1DEF1;
+  --color-primary-200: #A3BDE3;
+  --color-primary-300: #759CD6;
+  --color-primary-400: #477BC8;
+  --color-primary-500: #1848A0;
+  --color-primary-600: #143A80;
+  --color-primary-700: #102C60;
+  --color-primary-800: #0C1E40;
+  --color-primary-900: #061020;
+  
+  --color-accent-50: #FFFDE0;
+  --color-accent-100: #FFFBC2;
+  --color-accent-200: #FFF7A3;
+  --color-accent-300: #FFF385;
+  --color-accent-400: #FFEF66;
+  --color-accent-500: #FFD700;
+  --color-accent-600: #CCAC00;
+  --color-accent-700: #998100;
+  --color-accent-800: #665600;
+  --color-accent-900: #332B00;
+  
+  --color-gray-50: #F7F7F7;
+  --color-gray-100: #E6E6E6;
+  --color-gray-200: #CCCCCC;
+  --color-gray-300: #B3B3B3;
+  --color-gray-400: #999999;
+  --color-gray-500: #808080;
+  --color-gray-600: #666666;
+  --color-gray-700: #4D4D4D;
+  --color-gray-800: #333333;
+  --color-gray-900: #1A1A1A;
+  
+  /* Typographie selon le styleguide */
+  --font-sans: "Montserrat", sans-serif;
+  --font-heading: "Montserrat", sans-serif;
+  --font-subheading: "Lato", sans-serif;
+  --font-special: "Poppins", sans-serif;
   
   /* Tailles d'écran (breakpoints) */
   --breakpoint-sm: 640px;
@@ -79,14 +84,11 @@
   }
 }
 
-/* 3. Plugins officiels (activer seulement ceux qui sont nécessaires) */
+/* 3. Plugins officiels */
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-/* 4. Sources externes (lib UI, composants) - Ajouter si nécessaire */
-/* @source "../node_modules/ma-lib-ui"; */
-
-/* Compatibilité border-color (peut être supprimé si explicitement défini partout) */
+/* Compatibilité border-color */
 @layer base {
   *,
   ::after,
@@ -97,18 +99,37 @@
   }
 }
 
+/* Styles de base */
+@layer base {
+  html {
+    @apply font-sans text-black bg-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+  
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl uppercase tracking-wider;
+  }
+  
+  h2 {
+    @apply text-2xl md:text-3xl uppercase tracking-wider;
+  }
+  
+  h3 {
+    @apply text-xl md:text-2xl uppercase tracking-wider;
+  }
+  
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+}
+
 /* Composants personnalisés */
 @layer components {
   .btn {
     @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium text-base transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:transition-none;
-  }
-  
-  .btn-small {
-    @apply px-4 py-2 text-sm;
-  }
-  
-  .btn-large {
-    @apply px-8 py-4 text-lg;
   }
   
   .btn-primary {
@@ -119,23 +140,15 @@
     @apply bg-white text-primary-600 border border-primary-600 hover:bg-primary-50 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-primary-500;
   }
   
+  .btn-accent {
+    @apply bg-accent-500 text-black hover:bg-accent-600 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-accent-400;
+  }
+  
   .btn-outline {
     @apply bg-transparent text-gray-700 border border-gray-300 hover:border-gray-400 hover:text-gray-900 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-gray-500;
   }
   
-  .btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-red-500;
-  }
-  
-  .btn-success {
-    @apply bg-green-600 text-white hover:bg-green-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-green-500;
-  }
-  
-  .btn-warning {
-    @apply bg-yellow-600 text-white hover:bg-yellow-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-yellow-500;
-  }
-  
-  /* Composant SectionTitle - Animation sans Alpine.js */
+  /* Système de section avec titre */
   .section-title {
     @apply max-w-3xl mx-auto text-left md:text-center mb-12;
     animation: fadeInUp 0.7s ease-out forwards;
@@ -143,27 +156,37 @@
   }
   
   .section-title-heading {
-    @apply text-3xl md:text-4xl font-bold text-gray-900 mb-4;
+    @apply text-3xl md:text-4xl font-bold text-black uppercase tracking-wider mb-4;
   }
   
   .section-title-subtitle {
-    @apply text-lg text-gray-600;
+    @apply text-lg font-subheading text-gray-600;
   }
   
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Composant diagonal-lines pour créer les lignes diagonales montantes */
+  .diagonal-lines {
+    @apply relative overflow-hidden;
   }
   
-  /* Composant CallToAction - Styles de base */
+  .diagonal-lines::before,
+  .diagonal-lines::after {
+    content: "";
+    @apply absolute w-[200%] h-1 -left-[50%] transform -rotate-6 origin-center;
+  }
+  
+  .diagonal-lines::before {
+    @apply bg-accent-500; /* Ligne dorée */
+    bottom: 10px;
+  }
+  
+  .diagonal-lines::after {
+    @apply bg-primary-500; /* Ligne bleue */
+    bottom: 20px;
+  }
+  
+  /* Composant CallToAction */
   .cta-section {
-    @apply py-12 px-4 sm:px-6 md:py-16;
+    @apply py-12 px-4 sm:px-6 md:py-16 bg-gray-50;
   }
   
   .cta-container {
@@ -171,39 +194,55 @@
   }
   
   .cta-title {
-    @apply text-2xl md:text-3xl font-bold mb-3;
+    @apply text-2xl md:text-3xl font-bold uppercase tracking-wider mb-3;
   }
   
   .cta-description {
-    @apply md:text-lg;
+    @apply md:text-lg text-gray-700;
   }
   
   .cta-button-container {
     @apply flex-shrink-0;
   }
   
+  /* Conteneur principal */
   .container {
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    max-width: 80rem;
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
   }
   
+  /* Carte de service */
   .card {
-    background-color: white;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    padding: 1.5rem;
+    @apply bg-white rounded-none border-t-4 border-accent-500 shadow-md p-6 transition-all duration-300 hover:shadow-lg;
   }
 }
 
 /* Utilitaires personnalisés */
 @layer utilities {
   .text-gradient {
+    background: linear-gradient(135deg, var(--color-accent-500), var(--color-primary-500));
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+  
+  .border-gradient {
+    border-image: linear-gradient(135deg, var(--color-accent-500), var(--color-primary-500)) 1;
+  }
+  
+  /* Utilitaire pour les textes spéciaux en Poppins (citations/slogans) */
+  .text-special {
+    @apply font-special uppercase tracking-wider;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

@@ -6,287 +6,1102 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
   <!-- SEO -->
-  <title>Nom du Site | Description Courte</title>
-  <meta name="description" content="Description détaillée du site en 150-160 caractères">
-  <meta name="keywords" content="mot-clé1, mot-clé2, mot-clé3">
-  <meta name="author" content="Votre nom ou celui de votre entreprise">
-  <link rel="canonical" href="https://votresite.com">
+  <title>Rey-Bellet Consulting | Gestion du changement et coaching professionnel</title>
+  <meta name="description" content="Rey-Bellet Consulting accompagne entreprises et particuliers en gestion du changement, coaching et formation, avec des solutions sur mesure.">
+  <meta name="keywords" content="consulting, coaching, gestion du changement, formation, entreprises, particuliers">
+  <meta name="author" content="Laure Rey-Bellet">
+  <link rel="canonical" href="https://reybellet.com/">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://votresite.com/">
-  <meta property="og:title" content="Titre pour les réseaux sociaux">
-  <meta property="og:description" content="Description pour les réseaux sociaux">
-  <meta property="og:image" content="https://votresite.com/images/og-image.jpg">
+  <meta property="og:url" content="https://reybellet.com/">
+  <meta property="og:title" content="Rey-Bellet Consulting | Gestion du changement et coaching professionnel">
+  <meta property="og:description" content="Rey-Bellet Consulting accompagne entreprises et particuliers dans leurs transformations personnelles et professionnelles.">
+  <meta property="og:image" content="https://reybellet.com/images/og-image.jpg">
   <meta property="og:locale" content="fr_FR">
-  <meta property="og:site_name" content="Nom du Site">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://votresite.com/">
-  <meta name="twitter:title" content="Titre pour Twitter">
-  <meta name="twitter:description" content="Description pour Twitter">
-  <meta name="twitter:image" content="https://votresite.com/images/twitter-image.jpg">
-  <meta name="twitter:creator" content="@votre_compte">
-
+  <meta property="og:site_name" content="Rey-Bellet Consulting">
+  
   <!-- Favicon -->
-  <link rel="icon" href="/favicon/favicon.ico">
+  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#0ea5e9">
+  <meta name="theme-color" content="#1848A0">
   
   <!-- Préconnexions pour améliorer les performances -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Schema.org pour les moteurs de recherche -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Nom du Site",
-      "url": "https://votresite.com",
-      "logo": "https://votresite.com/images/logo.png",
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+33-1-23-45-67-89",
-        "contactType": "customer service",
-        "availableLanguage": ["French", "English"]
-      },
-      "sameAs": [
-        "https://www.facebook.com/votresite",
-        "https://www.twitter.com/votresite",
-        "https://www.linkedin.com/company/votresite"
-      ]
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Styles -->
-  <link rel="stylesheet" href="/styles/main.css">
+  <link rel="stylesheet" href="styles/main.css">
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans min-h-screen">
+<body class="antialiased text-gray-800 bg-white">
   
-  <!-- Header sera inclus ici -->
-  <header class="bg-white shadow"></header>
+  <!-- Header -->
+  <header class="fixed w-full bg-white shadow-sm z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center py-4">
+      <a href="/" class="flex items-center">
+        <img src="/assets/images/logo-rb.svg" alt="Rey-Bellet Consulting" class="h-12">
+      </a>
+      
+      <nav class="hidden md:flex space-x-8">
+        <a href="/" class="text-primary-600 font-medium">Accueil</a>
+        <a href="/contact.html" class="text-gray-700 hover:text-primary-600 transition-colors">Contact</a>
+      </nav>
+      
+      <!-- Menu mobile -->
+      <div class="md:hidden">
+        <button 
+          id="mobile-menu-toggle"
+          class="text-gray-700 hover:text-primary-600 transition-colors"
+          aria-label="Menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Menu mobile déroulant -->
+    <div id="mobile-menu" class="md:hidden bg-white shadow-md hidden">
+      <div class="container mx-auto px-4 py-4">
+        <nav class="flex flex-col space-y-4">
+          <a href="/" class="text-primary-600 font-medium py-2">Accueil</a>
+          <a href="/contact.html" class="text-gray-700 hover:text-primary-600 transition-colors py-2">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
   
-  <main class="py-12">
-    <!-- Section d'introduction avec animation -->
-    <section class="bg-white py-12 mb-12">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center">
-          <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-600 to-secondary-600 text-gradient">Solutions innovantes pour votre entreprise</h1>
-          <p class="text-xl text-gray-600 mb-8">Nous vous accompagnons dans la transformation numérique de votre activité avec des solutions sur mesure et performantes.</p>
-          <button class="btn btn-primary btn-large">
-            Découvrir nos services
-          </button>
+  <main>
+    <!-- Section Hero -->
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-gray-50">
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+          <div class="md:w-5/12">
+            <div class="rounded-2xl overflow-hidden shadow-xl relative">
+              <img 
+                src="/assets/images/laure-rey-bellet-portrait.jpg" 
+                alt="Laure Rey-Bellet" 
+                class="w-full h-auto object-cover"
+                loading="eager"
+              >
+              <!-- Overlay subtil -->
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+            </div>
+          </div>
+          
+          <div class="md:w-7/12" x-data="{ currentText: 0, texts: ['Consultante.', 'Coach.', 'Formatrice.', 'EXPERT EN GESTION DU CHANGEMENT.'] }">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
+              Je suis Laure et je suis <br>
+              <span 
+                x-text="texts[currentText]"
+                class="text-primary-600 relative after:content-[''] after:inline-block after:w-0.5 after:h-8 after:bg-primary-600 after:ml-1 after:animate-blink"
+                x-init="setInterval(() => { currentText = (currentText + 1) % texts.length }, 3000)"
+              >Consultante.</span>
+            </h1>
+            
+            <p class="text-xl text-gray-700 mb-8 max-w-xl">
+              J'accompagne entreprises et particuliers dans leurs transformations personnelles et professionnelles à travers le consulting, le coaching et la formation.
+            </p>
+            
+            <a href="#services" class="btn btn-primary inline-flex items-center group">
+              Découvrir mes services
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-y-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Lignes diagonales décoratives -->
+      <div class="section-separator" data-theme="light">
+        <!-- Conteneur principal avec hauteur variable selon l'écran -->
+        <div class="h-16 md:h-24 w-full relative">
+          <!-- Forme diagonale avec dégradé subtil -->
+          <div class="absolute inset-0 skew-y-1">
+            <!-- Ligne dorée principale avec effet de fondu -->
+            <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r 
+                        from-transparent via-accent-500 to-transparent 
+                        transform -rotate-1 origin-left opacity-90"></div>
+            
+            <!-- Ligne bleue secondaire avec effet de fondu -->
+            <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
+                        from-transparent via-primary-600 to-transparent 
+                        transform -rotate-1 origin-left opacity-70 translate-y-px"></div>
+            
+            <!-- Points d'accent dorés subtils -->
+            <div class="absolute w-1 h-1 rounded-full bg-accent-500 opacity-70 
+                        bottom-0 left-1/4"></div>
+            <div class="absolute w-0.5 h-0.5 rounded-full bg-accent-500 opacity-60 
+                        bottom-2 left-2/3"></div>
+            <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500 blur-[1px] opacity-50 
+                        bottom-4 left-3/4"></div>
+          </div>
         </div>
       </div>
     </section>
+    
+    <!-- Section À Propos -->
+    <section id="a-propos" class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <!-- Titre de section -->
+          <div 
+            x-data="sectionTitleAnimation()"
+            class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
+            role="heading" 
+            aria-level="2">
+          
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+              À propos
+            </h2>
+            
+            <div class="h-1 w-20 bg-accent-500 mx-auto mb-6 transform scale-x-0 transition-all duration-700 delay-200"
+                x-bind:class="{ 'scale-x-100': visible, 'scale-x-0': !visible }"></div>
+            
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-300"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+              Mon parcours et ma vision
+            </p>
+          </div>
+          
+          <div class="mt-8 md:mt-12">
+            <p class="text-lg text-gray-700 mb-8 max-w-3xl mx-auto text-center">
+              Expert en gestion du changement avec plus de 15 ans d'expérience dans l'accompagnement d'organisations et de particuliers dans leurs transformations. Mon approche combine consulting, coaching et formation pour des solutions adaptées à chaque besoin.
+            </p>
+            
+            <!-- Valeurs en 3 colonnes -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+              <!-- Valeur 1 -->
+              <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+                <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Authenticité</h3>
+                <p class="text-gray-600 text-center">
+                  Une approche transparente et honnête pour établir une relation de confiance avec chaque client.
+                </p>
+              </div>
+              
+              <!-- Valeur 2 -->
+              <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+                <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Excellence</h3>
+                <p class="text-gray-600 text-center">
+                  Un engagement constant vers la qualité et des résultats concrets pour chaque intervention.
+                </p>
+              </div>
+              
+              <!-- Valeur 3 -->
+              <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+                <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Bienveillance</h3>
+                <p class="text-gray-600 text-center">
+                  Une écoute attentive et un accompagnement humain adapté à chaque personne et situation.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Ligne diagonale décorative -->
+    <div class="section-separator-angled" data-theme="light">
+      <!-- Conteneur principal -->
+      <div class="h-20 md:h-28 w-full relative">
+        <!-- Texture subtile en arrière-plan -->
+        <div class="absolute inset-0 bg-gray-50/30"></div>
+        
+        <!-- Forme inclinée -->
+        <div class="absolute inset-0 transform -skew-y-3">
+          <!-- Ligne dorée principale avec effet de fondu -->
+          <div class="absolute bottom-2 left-0 right-0 h-[2px] bg-gradient-to-r 
+                      from-transparent via-accent-500 to-transparent 
+                      transform translate-y-px opacity-80"></div>
+          
+          <!-- Ligne bleue secondaire avec effet de fondu -->
+          <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
+                      from-transparent via-primary-600 to-transparent 
+                      transform translate-y-px opacity-70"></div>
+        </div>
+        
+        <!-- Superposition délicate pour intégrer à la section suivante -->
+        <div class="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-white to-transparent"></div>
+      </div>
+    </div>
+    
+    <!-- Section Services Entreprises -->
+    <section id="services-entreprises" class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <!-- Titre de section -->
+          <div 
+            x-data="sectionTitleAnimation()"
+            class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
+            role="heading" 
+            aria-level="2">
+          
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+              Services pour Entreprises
+            </h2>
+            
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-300"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+              Des solutions adaptées pour accompagner votre entreprise dans ses transformations et optimiser sa performance
+            </p>
+          </div>
+          
+          <!-- Modules en grille 2x2 -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            <!-- Module Comprendre -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Comprendre</h3>
+              <p class="mb-4 text-gray-700">
+                Diagnostic complet de votre organisation pour identifier les opportunités de transformation et les défis à relever.
+              </p>
+              <ul class="space-y-2 text-gray-700 mb-6">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Analyse de la culture d'entreprise</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Audit des processus et workflows</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Évaluation des compétences</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Module Planifier -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Planifier</h3>
+              <p class="mb-4 text-gray-700">
+                Élaboration d'une stratégie de changement sur mesure avec un plan d'action détaillé et des indicateurs de succès.
+              </p>
+              <ul class="space-y-2 text-gray-700 mb-6">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Définition des objectifs et KPIs</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Feuille de route détaillée</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Gestion des risques</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Module Activer -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Activer</h3>
+              <p class="mb-4 text-gray-700">
+                Implémentation du changement avec accompagnement des équipes et adaptation continue du plan d'action.
+              </p>
+              <ul class="space-y-2 text-gray-700 mb-6">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Formation des équipes</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Communication interne</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Suivi et ajustement</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Module Sur mesure -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Sur mesure</h3>
+              <p class="mb-4 text-gray-700">
+                Des services adaptés à vos besoins spécifiques, combinant consulting, coaching et formation selon vos priorités.
+              </p>
+              <ul class="space-y-2 text-gray-700 mb-6">
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Coaching de dirigeants</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Ateliers collaboratifs</span>
+                </li>
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span>Accompagnement ponctuel</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- Bouton CTA -->
+          <div class="mt-12 text-center">
+            <a href="/contact.html?service=entreprise" class="btn btn-primary inline-flex items-center">
+              Demander un devis
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Section Services Particuliers -->
+    <section id="services-particuliers" class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <!-- Titre de section -->
+          <div 
+            x-data="sectionTitleAnimation()"
+            class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
+            role="heading" 
+            aria-level="2">
+          
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+              Services pour Particuliers
+            </h2>
+            
+            <p class="text-gray-600 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-300"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+              Des programmes personnalisés pour vous accompagner dans votre développement personnel et professionnel
+            </p>
+          </div>
+          
+          <!-- Programmes en grille -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <!-- Programme 1 -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-accent-500 h-full flex flex-col">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Révéler ton potentiel</h3>
+              <p class="mb-6 text-gray-700 flex-grow">
+                Un programme de coaching individuel pour découvrir et exploiter vos talents et forces naturelles.
+              </p>
+              <a href="/contact.html?service=particulier&programme=reveler" class="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto">
+                En savoir plus
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            
+            <!-- Programme 2 -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-accent-500 h-full flex flex-col">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Donner vie à tes ambitions</h3>
+              <p class="mb-6 text-gray-700 flex-grow">
+                Un accompagnement pour définir vos objectifs professionnels et élaborer un plan d'action concret.
+              </p>
+              <a href="/contact.html?service=particulier&programme=ambitions" class="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto">
+                En savoir plus
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+            
+            <!-- Programme 3 -->
+            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-accent-500 h-full flex flex-col">
+              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Sur mesure</h3>
+              <p class="mb-6 text-gray-700 flex-grow">
+                Un programme personnalisé selon vos besoins spécifiques et vos objectifs de développement personnel.
+              </p>
+              <a href="/contact.html?service=particulier&programme=surmesure" class="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto">
+                En savoir plus
+                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Bouton CTA -->
+          <div class="mt-12 text-center">
+            <a href="/contact.html?service=particulier" class="btn btn-primary inline-flex items-center">
+              Me contacter
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Ligne diagonale décorative -->
+    <div class="section-separator" data-theme="dark">
+      <!-- Conteneur principal avec hauteur variable selon l'écran -->
+      <div class="h-16 md:h-24 w-full relative">
+        <!-- Fond subtil pour mieux intégrer le séparateur sur fond sombre -->
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black/5"></div>
+        
+        <!-- Forme diagonale avec dégradé subtil -->
+        <div class="absolute inset-0 skew-y-1">
+          <!-- Ligne dorée principale avec effet de fondu -->
+          <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r 
+                      from-transparent via-accent-400 to-transparent 
+                      transform -rotate-1 origin-left opacity-90"></div>
+          
+          <!-- Ligne bleue secondaire avec effet de fondu -->
+          <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
+                      from-transparent via-primary-400 to-transparent 
+                      transform -rotate-1 origin-left opacity-80 translate-y-px"></div>
+          
+          <!-- Points d'accent dorés subtils -->
+          <div class="absolute w-1 h-1 rounded-full bg-accent-400 opacity-80 
+                      bottom-0 left-1/4"></div>
+          <div class="absolute w-0.5 h-0.5 rounded-full bg-accent-400 opacity-70 
+                      bottom-2 left-2/3"></div>
+          <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-400 blur-[1px] opacity-70 
+                      bottom-4 left-3/4"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section Témoignages -->
+    <section id="temoignages" class="py-20">
+      <div class="premium-background relative overflow-hidden bg-gray-50"
+           x-data="{ initialized: false }"
+           x-init="setTimeout(() => { initialized = true }, 200)">
+        
+        <!-- Conteneur pour le contenu -->
+        <div class="relative z-10 py-20">
+          <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto">
+              <!-- Titre de section -->
+              <div 
+                x-data="sectionTitleAnimation()"
+                class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
+                role="heading" 
+                aria-level="2">
+              
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
+                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+                  Témoignages
+                </h2>
+              </div>
+              
+              <!-- Carrousel de témoignages -->
+              <div x-data="testimonialsCarousel()" class="relative">
+                <!-- Flèches de navigation -->
+                <button @click="prev()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white/80 text-primary-600 p-2 rounded-full shadow-md z-10 hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                
+                <div class="overflow-hidden px-12">
+                  <div class="flex transition-transform duration-500 ease-in-out" :style="`transform: translateX(-${activeSlide * 100}%);`">
+                    <template x-for="(slide, index) in slides" :key="index">
+                      <div class="w-full flex-shrink-0 px-4">
+                        <div class="bg-white rounded-xl shadow-md p-8 mb-4 relative transform transition-all duration-500 opacity-0" 
+                             x-init="setTimeout(() => $el.classList.add('opacity-100', 'translate-y-0'), 100 + index * 150)"
+                             :class="{'translate-y-4': true}">
+                          <!-- Guillemets décoratifs -->
+                          <div class="absolute top-6 left-6 text-accent-300 opacity-20">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M6.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L9.758 4.03c0 0-.218.052-.597.144C8.97 4.222 8.737 4.278 8.472 4.345c-.271.05-.56.187-.882.312C7.272 4.799 6.904 4.895 6.562 5.123c-.344.218-.741.4-1.091.692C5.132 6.116 4.723 6.377 4.421 6.76c-.33.358-.656.734-.909 1.162C3.219 8.33 3.02 8.778 2.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C2.535 17.474 4.338 19 6.5 19c2.485 0 4.5-2.015 4.5-4.5S8.985 10 6.5 10zM17.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35.208-.086.39-.16.539-.222.302-.125.474-.197.474-.197L20.758 4.03c0 0-.218.052-.597.144-.191.048-.424.104-.689.171-.271.05-.56.187-.882.312-.317.143-.686.238-1.028.467-.344.218-.741.4-1.091.692-.339.301-.748.562-1.05.944-.33.358-.656.734-.909 1.162C14.219 8.33 14.02 8.778 13.81 9.221c-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539.017.109.025.168.025.168l.026-.006C13.535 17.474 15.338 19 17.5 19c2.485 0 4.5-2.015 4.5-4.5S19.985 10 17.5 10z" />
+                            </svg>
+                          </div>
+                          
+                          <div class="relative z-10">
+                            <p class="text-lg text-gray-700 italic mb-6 pl-8" x-text="slide.content"></p>
+                            <div class="flex items-center">
+                              <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+                                <span class="text-primary-700 font-bold text-xl" x-text="slide.author.charAt(0)"></span>
+                              </div>
+                              <div>
+                                <h4 class="font-bold text-gray-900" x-text="slide.author"></h4>
+                                <p class="text-sm text-gray-600" x-text="slide.position"></p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+                
+                <button @click="next()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/80 text-primary-600 p-2 rounded-full shadow-md z-10 hover:bg-white transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                <!-- Indicateurs de slide -->
+                <div class="flex justify-center mt-8 space-x-2">
+                  <template x-for="(slide, index) in slides" :key="index">
+                    <button 
+                      @click="activeSlide = index" 
+                      class="w-3 h-3 rounded-full transition-colors duration-300 focus:outline-none" 
+                      :class="{'bg-primary-600': activeSlide === index, 'bg-gray-300': activeSlide !== index}">
+                    </button>
+                  </template>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Overlay avec motifs animés -->
+        <div class="absolute inset-0 z-0 opacity-20">
+          <!-- Motif de fond en pointillés -->
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(24, 72, 160, 0.08) 1px, transparent 0); background-size: 20px 20px;"></div>
+          
+          <!-- Groupe de formes abstraites -->
+          <div class="premium-shapes w-full h-full">
+            <!-- Cercles dorés -->
+            <div class="absolute w-28 h-28 rounded-full border-2 border-accent-500/60 top-[10%] left-[15%]"
+                 :class="initialized ? 'animate-float-slow' : ''"></div>
+                 
+            <div class="absolute w-20 h-20 rounded-full border border-accent-500/70 top-[40%] right-[10%]"
+                 :class="initialized ? 'animate-float-delayed' : ''"></div>
+                 
+            <div class="absolute w-12 h-12 rounded-full bg-accent-500/10 border border-accent-500/40 bottom-[20%] left-[30%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <div class="absolute w-6 h-6 rounded-full bg-accent-500/15 top-[60%] right-[25%]"
+                 :class="initialized ? 'animate-pulse-subtle-delayed' : ''"></div>
 
-    <!-- Section Services avec SectionTitle animé -->
-    <div class="section-title text-center mb-12"
-         x-data="{ visible: false }" 
-         x-init="$nextTick(() => {
-           const observer = new IntersectionObserver((entries) => {
-             entries.forEach(entry => {
-               if (entry.isIntersecting) {
-                 visible = true;
-               }
-             });
-           });
-           observer.observe($el);
-         })">
-      <h2 class="section-title-heading text-3xl md:text-4xl font-bold mb-4 transition-all duration-700 ease-out"
-          :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Nos services</h2>
-      <p class="section-title-subtitle text-gray-600 text-lg max-w-2xl mx-auto transition-all duration-700 ease-out delay-100"
-         :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Découvrez notre gamme complète de solutions adaptées à vos besoins spécifiques</p>
-    </div>
-    
-    <!-- Cartes de services -->
-    <div class="container mx-auto px-4 mb-20">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Carte de service 1 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
+            <!-- Formes bleues -->
+            <div class="absolute w-40 h-40 rounded-lg border-2 border-primary-600/50 -rotate-12 top-[25%] right-[25%]"
+                 :class="initialized ? 'animate-float-reverse' : ''"></div>
+                 
+            <div class="absolute w-24 h-24 rounded-lg border border-primary-600/60 rotate-12 bottom-[15%] right-[35%]"
+                 :class="initialized ? 'animate-float-slow-reverse' : ''"></div>
+                 
+            <div class="absolute w-16 h-16 rounded-xl bg-primary-600/5 border border-primary-600/30 top-[50%] left-[10%]"
+                 :class="initialized ? 'animate-float-slow' : ''"></div>
+            
+            <!-- Points d'accent dorés -->
+            <div class="absolute w-2 h-2 rounded-full bg-accent-500/80 top-[15%] right-[22%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <div class="absolute w-3 h-3 rounded-full bg-accent-500/70 top-[75%] right-[40%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <div class="absolute w-2 h-2 rounded-full bg-primary-600/80 bottom-[30%] left-[18%]"
+                 :class="initialized ? 'animate-pulse-subtle-delayed' : ''"></div>
+                 
+            <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500/80 bottom-[10%] right-[15%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <!-- Lignes abstraites -->
+            <div class="absolute h-0.5 w-40 bg-primary-600/30 top-[35%] left-[5%] -rotate-15"
+                 :class="initialized ? 'animate-width-pulse' : ''"></div>
+                 
+            <div class="absolute h-0.5 w-32 bg-accent-500/40 bottom-[40%] right-[5%] rotate-15"
+                 :class="initialized ? 'animate-width-pulse-delayed' : ''"></div>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Conception Web</h3>
-          <p class="text-gray-600 mb-4">Création de sites web modernes, responsives et optimisés pour les moteurs de recherche.</p>
-          <button class="btn btn-outline btn-small" @mouseenter="animations.pulseElement($event.target)" @mouseleave="animations.resetElement($event.target)">
-            En savoir plus
-          </button>
-        </div>
-        
-        <!-- Carte de service 2 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-            </svg>
+
+          <!-- Effets de lumière diffuse -->
+          <div class="absolute inset-0">
+            <!-- Gradient bleu subtil -->
+            <div class="absolute w-full h-[40vh] rounded-[100%] bg-primary-500/10 blur-3xl top-0 -translate-y-1/2 animate-glow-subtle"></div>
+            
+            <!-- Gradient doré subtil -->
+            <div class="absolute w-full h-[40vh] rounded-[100%] bg-accent-500/10 blur-3xl bottom-0 translate-y-1/3 animate-glow-subtle-delayed"></div>
           </div>
-          <h3 class="text-xl font-semibold mb-2">Marketing Digital</h3>
-          <p class="text-gray-600 mb-4">Stratégies de marketing digital personnalisées pour augmenter votre visibilité en ligne.</p>
-          <button class="btn btn-outline btn-small" @mouseenter="animations.pulseElement($event.target)" @mouseleave="animations.resetElement($event.target)">
-            En savoir plus
-          </button>
-        </div>
-        
-        <!-- Carte de service 3 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-          <div class="w-12 h-12 bg-primary-100 text-primary-600 rounded-lg flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold mb-2">Analyse de données</h3>
-          <p class="text-gray-600 mb-4">Analyse approfondie de vos données pour prendre des décisions éclairées et optimiser vos performances.</p>
-          <button class="btn btn-outline btn-small" @mouseenter="animations.pulseElement($event.target)" @mouseleave="animations.resetElement($event.target)">
-            En savoir plus
-          </button>
         </div>
       </div>
-    </div>
+    </section>
     
-    <!-- Section Témoignages avec SectionTitle animé -->
-    <div class="section-title text-center mb-12"
-         x-data="{ visible: false }" 
-         x-init="$nextTick(() => {
-           const observer = new IntersectionObserver((entries) => {
-             entries.forEach(entry => {
-               if (entry.isIntersecting) {
-                 visible = true;
-               }
-             });
-           });
-           observer.observe($el);
-         })">
-      <h2 class="section-title-heading text-3xl md:text-4xl font-bold mb-4 transition-all duration-700 ease-out"
-          :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Témoignages clients</h2>
-      <p class="section-title-subtitle text-gray-600 text-lg max-w-2xl mx-auto transition-all duration-700 ease-out delay-100"
-         :class="visible ? 'opacity-100 transform-none' : 'opacity-0 transform translate-y-4'">Ce que nos clients disent de nos services</p>
-    </div>
-    
-    <!-- Témoignages -->
-    <div class="container mx-auto px-4 mb-20">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Témoignage 1 - avec animation -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow opacity-0 transform translate-y-4"
-             x-data="{ visible: false }" 
-             x-init="$nextTick(() => {
-               const observer = new IntersectionObserver((entries) => {
-                 entries.forEach(entry => {
-                   if (entry.isIntersecting) {
-                     visible = true;
-                     $el.style.transitionDelay = '0.1s';
-                     $el.style.opacity = '1';
-                     $el.style.transform = 'translateY(0)';
-                   }
-                 });
-               });
-               observer.observe($el);
-             })"
-             style="transition: all 0.7s ease-out; transition-delay: 0.1s">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden mr-4">
-              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Avatar de client" class="w-full h-full object-cover">
-            </div>
-            <div>
-              <h3 class="font-semibold">Sophie Durand</h3>
-              <p class="text-sm text-gray-600">Directrice Marketing, TechCorp</p>
+    <!-- Section CTA Finale -->
+    <section id="cta-finale" class="relative overflow-hidden">
+      <div class="premium-background-enhanced relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
+           x-data="{ initialized: false }"
+           x-init="setTimeout(() => { initialized = true }, 200)">
+        
+        <!-- Conteneur pour le contenu -->
+        <div class="relative z-10 py-20">
+          <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+              <h2 class="text-3xl md:text-4xl font-bold uppercase tracking-wider mb-8 leading-tight">
+                Prêt(e) à transformer votre organisation<br>ou votre parcours professionnel ?
+              </h2>
+              
+              <a href="/contact.html" class="btn btn-primary inline-flex items-center text-lg px-8 py-4 group transform transition-all duration-300 hover:scale-105">
+                Discutons de votre projet
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
             </div>
           </div>
-          <p class="text-gray-700 italic">"L'équipe a dépassé toutes nos attentes. Notre nouveau site web a considérablement augmenté notre taux de conversion et amélioré l'expérience utilisateur."</p>
         </div>
         
-        <!-- Témoignage 2 - avec animation -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow opacity-0 transform translate-y-4"
-             x-data="{ visible: false }" 
-             x-init="$nextTick(() => {
-               const observer = new IntersectionObserver((entries) => {
-                 entries.forEach(entry => {
-                   if (entry.isIntersecting) {
-                     visible = true;
-                     $el.style.transitionDelay = '0.3s';
-                     $el.style.opacity = '1';
-                     $el.style.transform = 'translateY(0)';
-                   }
-                 });
-               });
-               observer.observe($el);
-             })"
-             style="transition: all 0.7s ease-out; transition-delay: 0.3s">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden mr-4">
-              <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="Avatar de client" class="w-full h-full object-cover">
-            </div>
-            <div>
-              <h3 class="font-semibold">Thomas Laurent</h3>
-              <p class="text-sm text-gray-600">Fondateur, StartupInnov</p>
-            </div>
+        <!-- Overlay avec motifs animés enrichis -->
+        <div class="absolute inset-0 z-0 opacity-25">
+          <!-- Motif de fond -->
+          <div class="absolute inset-0" style="background-image: radial-gradient(circle at 2px 2px, rgba(24, 72, 160, 0.08) 1px, transparent 0); background-size: 24px 24px;"></div>
+          
+          <!-- Quadrillage subtil -->
+          <div class="absolute inset-0" style="background-image: linear-gradient(rgba(255, 215, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 215, 0, 0.03) 1px, transparent 1px); background-size: 50px 50px, 50px 50px;"></div>
+          
+          <!-- Groupe de formes abstraites -->
+          <div class="premium-shapes w-full h-full">
+            <!-- Cercles dorés -->
+            <div class="absolute w-52 h-52 rounded-full border-2 border-accent-500/40 -top-10 -left-10 opacity-80"
+                 :class="initialized ? 'animate-float-very-slow' : ''"></div>
+                 
+            <div class="absolute w-40 h-40 rounded-full border-2 border-accent-500/30 top-[35%] -right-12 opacity-70"
+                 :class="initialized ? 'animate-float-slow' : ''"></div>
+                 
+            <div class="absolute w-10 h-10 rounded-full bg-accent-500/15 bottom-[25%] left-[38%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <div class="absolute w-20 h-20 rounded-full border border-accent-500/50 bottom-[45%] right-[20%]"
+                 :class="initialized ? 'animate-float-delayed' : ''"></div>
+
+            <!-- Formes bleues -->
+            <div class="absolute w-72 h-72 rounded-xl border-2 border-primary-600/40 -rotate-12 -bottom-20 -right-20 opacity-60"
+                 :class="initialized ? 'animate-float-reverse-slow' : ''"></div>
+                 
+            <div class="absolute w-32 h-32 rounded-lg border-2 border-primary-600/50 rotate-45 top-[20%] left-[20%] opacity-70"
+                 :class="initialized ? 'animate-float-slow-reverse' : ''"></div>
+                 
+            <div class="absolute w-24 h-24 rounded-xl bg-primary-600/5 border border-primary-600/40 bottom-[12%] left-[12%]"
+                 :class="initialized ? 'animate-float-slow' : ''"></div>
+            
+            <!-- Lignes abstraites dorées -->
+            <div class="absolute h-0.5 w-40 bg-accent-500/40 top-[30%] left-[5%] -rotate-30"
+                 :class="initialized ? 'animate-width-pulse' : ''"></div>
+                 
+            <div class="absolute h-0.5 w-56 bg-accent-500/30 bottom-[35%] right-[10%] rotate-30"
+                 :class="initialized ? 'animate-width-pulse-delayed' : ''"></div>
+                 
+            <div class="absolute h-0.5 w-32 bg-accent-500/35 top-[65%] right-[30%] -rotate-15"
+                 :class="initialized ? 'animate-width-pulse-delayed' : ''"></div>
+            
+            <!-- Lignes abstraites bleues -->
+            <div class="absolute h-0.5 w-64 bg-primary-600/30 bottom-[25%] left-[15%] -rotate-15"
+                 :class="initialized ? 'animate-width-pulse-slow' : ''"></div>
+                 
+            <div class="absolute h-0.5 w-48 bg-primary-600/25 top-[15%] right-[5%] rotate-20"
+                 :class="initialized ? 'animate-width-pulse-slow-delayed' : ''"></div>
+            
+            <!-- Points d'accent -->
+            <div class="absolute w-3 h-3 rounded-full bg-accent-500/60 top-[45%] right-[32%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <div class="absolute w-2 h-2 rounded-full bg-primary-600/70 top-[15%] left-[45%]"
+                 :class="initialized ? 'animate-pulse-subtle-delayed' : ''"></div>
+                 
+            <div class="absolute w-2.5 h-2.5 rounded-full bg-accent-500/60 bottom-[18%] right-[22%]"
+                 :class="initialized ? 'animate-pulse-subtle' : ''"></div>
+                 
+            <div class="absolute w-4 h-4 rounded-full bg-primary-600/20 bottom-[40%] left-[30%]"
+                 :class="initialized ? 'animate-pulse-subtle-delayed' : ''"></div>
           </div>
-          <p class="text-gray-700 italic">"Grâce à leur expertise en marketing digital, nous avons pu atteindre de nouveaux marchés et augmenter nos revenus de 30% en seulement 6 mois."</p>
+
+          <!-- Effets de lumière diffuse -->
+          <div class="absolute inset-0 pointer-events-none">
+            <!-- Gradient doré principal -->
+            <div class="absolute w-[80%] h-[60vh] rounded-[100%] bg-accent-500/10 blur-[100px] -top-[20%] right-[-20%] animate-glow-subtle"></div>
+            
+            <!-- Gradient bleu secondaire -->
+            <div class="absolute w-[70%] h-[50vh] rounded-[100%] bg-primary-500/10 blur-[80px] bottom-[-10%] left-[-10%] animate-glow-subtle-reverse"></div>
+            
+            <!-- Gradient d'accent supplémentaire -->
+            <div class="absolute w-[40%] h-[30vh] rounded-[100%] bg-accent-500/8 blur-[60px] top-[50%] left-[25%] animate-glow-subtle-delayed"></div>
+          </div>
         </div>
       </div>
-    </div>
-    
-    <!-- Call to Action avec animation de scale -->
-    <div class="container mx-auto px-4 mb-20">
-      <section class="cta-section bg-gradient-to-r from-primary-600 to-secondary-600 text-white py-14 px-4 sm:px-6 rounded-lg shadow-lg transform scale-95 opacity-0 transition-all duration-1000 ease-out"
-        x-data="{ visible: false }" 
-        x-init="$nextTick(() => {
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                visible = true;
-                $el.style.opacity = '1';
-                $el.style.transform = 'scale(1)';
-                
-                // Animer les éléments enfants
-                setTimeout(() => {
-                  document.querySelector('.cta-title').style.opacity = '1';
-                  document.querySelector('.cta-title').style.transform = 'translateY(0)';
-                }, 300);
-                
-                setTimeout(() => {
-                  document.querySelector('.cta-description').style.opacity = '0.9';
-                }, 500);
-                
-                setTimeout(() => {
-                  document.querySelector('.cta-button-container').style.opacity = '1';
-                  document.querySelector('.cta-button-container').style.transform = 'translateY(0)';
-                }, 700);
-              }
-            });
-          });
-          observer.observe($el);
-        })">
-        <div class="cta-container max-w-4xl mx-auto text-center">
-          <h2 class="cta-title text-3xl md:text-4xl font-bold mb-4 transform -translate-y-4 opacity-0 transition-all duration-700 ease-out delay-100">Prêt à transformer votre présence en ligne ?</h2>
-          <p class="cta-description text-lg md:text-xl opacity-0 max-w-2xl mx-auto mb-8 transition-all duration-700 ease-out delay-200">Notre équipe d'experts est prête à vous accompagner à chaque étape de votre projet. N'attendez plus pour concrétiser vos idées.</p>
-          <div class="cta-button-container opacity-0 transform translate-y-4 transition-all duration-700 ease-out delay-300">
-            <button class="btn btn-large btn-primary bg-white text-primary-700 hover:bg-white/90"
-              @mouseenter="animations.pulseElement($event.target)" 
-              @mouseleave="animations.resetElement($event.target)">
-              Demander un devis gratuit
-            </button>
-          </div>
-        </div>
-      </section>
-    </div>
+    </section>
   </main>
   
-  <!-- Footer sera inclus ici -->
-  <footer class="bg-gray-800 text-white mt-12 py-8">
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white pt-16 pb-8">
     <div class="container mx-auto px-4">
-      <p class="text-center">&copy; 2023 Nom du Site. Tous droits réservés.</p>
+      <div class="flex flex-col md:flex-row justify-between mb-12">
+        <div class="mb-8 md:mb-0">
+          <img src="/assets/images/logo-rb-white.svg" alt="Rey-Bellet Consulting" class="h-12 mb-6">
+          <p class="text-gray-400 max-w-xs">
+            Spécialiste en gestion du changement, coaching et formation pour accompagner entreprises et particuliers.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div>
+            <h3 class="font-bold text-lg mb-4">Services</h3>
+            <ul class="space-y-2">
+              <li><a href="#services-entreprises" class="text-gray-400 hover:text-white transition-colors">Entreprises</a></li>
+              <li><a href="#services-particuliers" class="text-gray-400 hover:text-white transition-colors">Particuliers</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="font-bold text-lg mb-4">À propos</h3>
+            <ul class="space-y-2">
+              <li><a href="#a-propos" class="text-gray-400 hover:text-white transition-colors">Mon parcours</a></li>
+              <li><a href="#temoignages" class="text-gray-400 hover:text-white transition-colors">Témoignages</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="font-bold text-lg mb-4">Contact</h3>
+            <ul class="space-y-2">
+              <li><a href="/contact.html" class="text-gray-400 hover:text-white transition-colors">Formulaire de contact</a></li>
+              <li><a href="mailto:laure@reybellet.com" class="text-gray-400 hover:text-white transition-colors">laure@reybellet.com</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+        <p class="text-gray-500 mb-4 md:mb-0">
+          &copy; 2024 Rey-Bellet Consulting. Tous droits réservés.
+        </p>
+        
+        <div class="flex space-x-4">
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </a>
+          <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors" aria-label="Twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+            </svg>
+          </a>
+        </div>
+      </div>
     </div>
   </footer>
   
+  <!-- Bouton "retour en haut" -->
+  <button 
+    id="back-to-top" 
+    class="fixed bottom-8 right-8 bg-primary-600 text-white rounded-full p-3 shadow-lg opacity-0 invisible transition-all duration-300 z-50"
+    aria-label="Retour en haut"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+  
   <!-- Scripts -->
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script defer src="https://unpkg.com/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
-  <script type="module" src="/main.js"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script type="module" src="utils/main.js"></script>
+  <script>
+    // S'assurer qu'Alpine.js est correctement chargé
+    document.addEventListener('DOMContentLoaded', function() {
+      // Vérifier si Alpine est chargé, sinon l'importer manuellement
+      if (typeof Alpine === 'undefined') {
+        console.warn('Alpine.js n\'est pas chargé, chargement manuel...');
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js';
+        script.defer = true;
+        document.head.appendChild(script);
+      }
+    });
+
+    // Animation de frappe pour le texte
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('typingAnimation', () => ({
+        text: '',
+        fullText: '',
+        typeSpeed: 100,
+        deleteSpeed: 50,
+        waitBeforeDelete: 2000,
+        waitBeforeType: 500,
+        textArray: ['Consultante.', 'Coach.', 'Formatrice.', 'EXPERT EN GESTION DU CHANGEMENT.'],
+        textIndex: 0,
+        isDeleting: false,
+        
+        init() {
+          this.type();
+        },
+        
+        type() {
+          this.fullText = this.textArray[this.textIndex];
+          
+          if (this.isDeleting) {
+            this.text = this.fullText.substring(0, this.text.length - 1);
+          } else {
+            this.text = this.fullText.substring(0, this.text.length + 1);
+          }
+          
+          let typingSpeed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+          
+          if (!this.isDeleting && this.text === this.fullText) {
+            typingSpeed = this.waitBeforeDelete;
+            this.isDeleting = true;
+          } else if (this.isDeleting && this.text === '') {
+            this.isDeleting = false;
+            this.textIndex = (this.textIndex + 1) % this.textArray.length;
+            typingSpeed = this.waitBeforeType;
+          }
+          
+          setTimeout(() => this.type(), typingSpeed);
+        }
+      }));
+      
+      // Animation pour les titres de section - Version améliorée
+      Alpine.data('sectionTitleAnimation', () => ({
+        visible: false,
+        
+        init() {
+          // Forcer l'initialisation immédiate si l'élément est déjà visible
+          if (this.isElementInViewport(this.$el)) {
+            this.visible = true;
+          } else {
+            const observer = new IntersectionObserver(entries => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  this.visible = true;
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, {
+              threshold: 0.1, // Déclenchement plus rapide
+              rootMargin: '0px 0px -10% 0px' // Marge négative pour déclencher plus tôt
+            });
+            
+            observer.observe(this.$el);
+          }
+        },
+        
+        isElementInViewport(el) {
+          if (!el) return false;
+          
+          const rect = el.getBoundingClientRect();
+          return (
+            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.bottom >= 0 &&
+            rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+            rect.right >= 0
+          );
+        }
+      }));
+      
+      // Nouveau - Animation pour les témoignages
+      Alpine.data('testimonialsCarousel', () => ({
+        activeSlide: 0,
+        slides: [
+          { 
+            content: 'Laure a su identifier les axes d\'amélioration de notre entreprise avec précision et nous a guidés vers une transformation réussie. Son approche méthodique et son expertise ont été essentielles pour notre évolution.',
+            author: 'Sophie Dupont',
+            position: 'Directrice des Ressources Humaines, Entreprise XYZ'
+          },
+          {
+            content: 'Le programme « Révéler ton potentiel » a été une révélation pour moi. J\'ai pris conscience de mes forces et appris à les utiliser efficacement dans ma vie professionnelle. Un accompagnement transformateur.',
+            author: 'Jean Martin',
+            position: 'Entrepreneur'
+          },
+          {
+            content: 'L\'accompagnement de Laure a été déterminant dans notre phase de restructuration. Sa capacité à mobiliser les équipes et à faciliter le changement est remarquable.',
+            author: 'Marie Leroux',
+            position: 'CEO, Start-up innovante'
+          }
+        ],
+        
+        init() {
+          // Démarrer l'autoplay si souhaité
+          // this.startAutoPlay();
+        },
+        
+        prev() {
+          this.activeSlide = this.activeSlide === 0 ? this.slides.length - 1 : this.activeSlide - 1;
+        },
+        
+        next() {
+          this.activeSlide = this.activeSlide === this.slides.length - 1 ? 0 : this.activeSlide + 1;
+        },
+        
+        startAutoPlay() {
+          setInterval(() => this.next(), 5000);
+        }
+      }));
+    });
+    
+    // Script pour le bouton "retour en haut"
+    document.addEventListener('DOMContentLoaded', function() {
+      const backToTopButton = document.getElementById('back-to-top');
+      
+      if (backToTopButton) {
+        // Afficher/masquer le bouton en fonction du défilement
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopButton.classList.remove('opacity-0', 'invisible');
+            backToTopButton.classList.add('opacity-100', 'visible');
+          } else {
+            backToTopButton.classList.remove('opacity-100', 'visible');
+            backToTopButton.classList.add('opacity-0', 'invisible');
+          }
+        });
+        
+        // Action du bouton
+        backToTopButton.addEventListener('click', () => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+      
+      // Toggle menu mobile
+      const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      if (mobileMenuToggle && mobileMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+    });
+  </script>
+  
+  <!-- Styles pour les animations des composants -->
+  <style>
+    /* Styles pour les séparateurs */
+    .section-separator {
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      transform-origin: center;
+    }
+    
+    .section-separator-angled {
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+    
+    /* Animations douces pour les formes */
+    @keyframes float-slow {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes float-reverse {
+      0%, 100% { transform: translateY(0) rotate(-12deg); }
+      50% { transform: translateY(10px) rotate(-12deg); }
+    }
+    
+    @keyframes pulse-subtle {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+    
+    @keyframes width-pulse {
+      0%, 100% { width: 100%; opacity: 0.2; }
+      50% { width: 120%; opacity: 0.4; }
+    }
+    
+    @keyframes glow-subtle {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.6; }
+    }
+    
+    /* Classes d'animation */
+    .animate-float-slow {
+      animation: float-slow 8s ease-in-out infinite;
+    }
+    
+    .animate-float-very-slow {
+      animation: float-slow 15s ease-in-out infinite;
+    }
+    
+    .animate-float-delayed {
+      animation: float-slow 7s ease-in-out 1s infinite;
+    }
+    
+    .animate-float-reverse {
+      animation: float-reverse 9s ease-in-out infinite;
+    }
+    
+    .animate-float-reverse-slow {
+      animation: float-reverse 14s ease-in-out infinite;
+    }
+    
+    .animate-float-slow-reverse {
+      animation: float-reverse 10s ease-in-out 0.5s infinite;
+    }
+    
+    .animate-pulse-subtle {
+      animation: pulse-subtle 5s ease-in-out infinite;
+    }
+    
+    .animate-pulse-subtle-delayed {
+      animation: pulse-subtle 5s ease-in-out 2.5s infinite;
+    }
+    
+    .animate-width-pulse {
+      animation: width-pulse 10s ease-in-out infinite;
+    }
+    
+    .animate-width-pulse-delayed {
+      animation: width-pulse 10s ease-in-out 5s infinite;
+    }
+    
+    .animate-width-pulse-slow {
+      animation: width-pulse 15s ease-in-out 2s infinite;
+    }
+    
+    .animate-glow-subtle {
+      animation: glow-subtle 10s ease-in-out infinite;
+    }
+    
+    .animate-glow-subtle-delayed {
+      animation: glow-subtle 10s ease-in-out 5s infinite;
+    }
+    
+    .animate-glow-subtle-reverse {
+      animation: glow-subtle 12s ease-in-out 3s infinite;
+    }
+    
+    /* Option pour réduire les animations sur demande de l'utilisateur */
+    @media (prefers-reduced-motion: reduce) {
+      .premium-background *, .premium-background-enhanced * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
 </body>
 </html> 

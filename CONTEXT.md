@@ -73,6 +73,8 @@ Le site sera simplifié et organisé selon la structure suivante:
 
 ### Palette de couleurs
 
+Charte graphique à respecter strictement dans le fichier STYLGUIDE.md à la racine du projet
+
 - **Noir (#000000)**: Fond principal sur certains supports, texte premium pour titres
 - **Blanc (#FFFFFF)**: Fond principal pour la lisibilité, texte sur fond noir
 - **Doré (#FFD700)**: Accent graphique haut de gamme, détails premium
