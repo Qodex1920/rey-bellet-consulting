@@ -33,6 +33,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
   
+  <!-- Lordicon pour les icônes animées -->
+  <script src="https://cdn.lordicon.com/lordicon.js"></script>
+  
   <!-- Styles -->
   <link rel="stylesheet" href="styles/main.css">
 </head>
@@ -42,7 +45,7 @@
   <header class="fixed w-full bg-white shadow-sm z-50">
     <div class="container mx-auto px-4 flex justify-between items-center py-4">
       <a href="/" class="flex items-center">
-        <img src="/assets/images/logo-rb.svg" alt="Rey-Bellet Consulting" class="h-12">
+        <img src="/assets/images/logo.png" alt="Rey-Bellet Consulting" class="h-12">
       </a>
       
       <nav class="hidden md:flex space-x-8">
@@ -78,28 +81,41 @@
   <main>
     <!-- Section Hero -->
     <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-gray-50">
+      <!-- Arrière-plan subtil avec effet de flou -->
+      <div class="absolute inset-0 z-0 opacity-20">
+        <img 
+          src="assets/images/bg-graphique-ecran-flou_1080.webp" 
+          alt="" 
+          class="w-full h-full object-cover"
+          aria-hidden="true"
+        >
+      </div>
+      
       <div class="container mx-auto px-4 relative z-10">
         <div class="flex flex-col md:flex-row gap-12 items-center">
           <div class="md:w-5/12">
             <div class="rounded-2xl overflow-hidden shadow-xl relative">
               <img 
-                src="/assets/images/laure-rey-bellet-portrait.jpg" 
-                alt="Laure Rey-Bellet" 
+                src="assets/images/reunion_1080.webp" 
+                alt="Professionnelle en réunion d'affaires" 
                 class="w-full h-auto object-cover"
                 loading="eager"
               >
               <!-- Overlay subtil -->
               <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+              
+              <!-- Élément graphique doré dans le coin -->
+              <div class="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tr from-accent-500/70 to-accent-400/50 blur-sm rounded-tl-3xl"></div>
             </div>
           </div>
           
-          <div class="md:w-7/12" x-data="{ currentText: 0, texts: ['Consultante.', 'Coach.', 'Formatrice.', 'EXPERT EN GESTION DU CHANGEMENT.'] }">
+          <div class="md:w-7/12" x-data="typingAnimation">
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
               Je suis Laure et je suis <br>
               <span 
-                x-text="texts[currentText]"
-                class="text-primary-600 relative after:content-[''] after:inline-block after:w-0.5 after:h-8 after:bg-primary-600 after:ml-1 after:animate-blink"
-                x-init="setInterval(() => { currentText = (currentText + 1) % texts.length }, 3000)"
+                x-text="text"
+                class="text-primary-600 relative"
+                :class="{'typing-cursor-active': !isDeleting && text !== fullText, 'typing-cursor-delete': isDeleting, 'typing-cursor-waiting': text === fullText || text === ''}"
               >Consultante.</span>
             </h1>
             
@@ -146,8 +162,13 @@
     </section>
     
     <!-- Section À Propos -->
-    <section id="a-propos" class="py-20">
-      <div class="container mx-auto px-4">
+    <section id="a-propos" class="py-20 relative overflow-hidden">
+      <!-- Arrière-plan subtil avec texture légère -->
+      <div class="absolute inset-0 z-0 opacity-10">
+        <div class="h-full w-full bg-[url('assets/images/Puzzle_640.webp')] bg-repeat opacity-30"></div>
+      </div>
+      
+      <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-5xl mx-auto">
           <!-- Titre de section -->
           <div 
@@ -171,18 +192,59 @@
           </div>
           
           <div class="mt-8 md:mt-12">
-            <p class="text-lg text-gray-700 mb-8 max-w-3xl mx-auto text-center">
-              Expert en gestion du changement avec plus de 15 ans d'expérience dans l'accompagnement d'organisations et de particuliers dans leurs transformations. Mon approche combine consulting, coaching et formation pour des solutions adaptées à chaque besoin.
-            </p>
+            <!-- Layout à deux colonnes -->
+            <div class="flex flex-col-reverse md:flex-row items-center gap-12 mb-16">
+              <!-- Texte de présentation -->
+              <div class="md:w-1/2">
+                <p class="text-lg text-gray-700 mb-6">
+                  Expert en gestion du changement avec plus de 15 ans d'expérience dans l'accompagnement d'organisations et de particuliers dans leurs transformations. Mon approche combine consulting, coaching et formation pour des solutions adaptées à chaque besoin.
+                </p>
+                
+                <p class="text-lg text-gray-700 mb-8">
+                  Je m'engage à créer un environnement propice au développement et à l'excellence, en mettant l'accent sur l'humain au cœur de chaque transformation.
+                </p>
+                
+                <a href="#contact" class="btn btn-outline-primary inline-flex items-center group">
+                  Me contacter
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
+              
+              <!-- Image de coaching -->
+              <div class="md:w-1/2">
+                <div class="relative">
+                  <!-- Image principale -->
+                  <div class="rounded-xl overflow-hidden shadow-lg transform md:rotate-1">
+                    <img 
+                      src="assets/images/coaching-fauteuil_1080.webp" 
+                      alt="Séance de coaching personnel" 
+                      class="w-full h-auto object-cover"
+                    >
+                  </div>
+                  
+                  <!-- Élément décoratif -->
+                  <div class="absolute -bottom-4 -left-4 w-16 h-16 rounded-lg bg-accent-500/20 backdrop-blur-sm -z-10"></div>
+                  <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-primary-500/10 backdrop-blur-sm -z-10"></div>
+                </div>
+              </div>
+            </div>
             
             <!-- Valeurs en 3 colonnes -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
               <!-- Valeur 1 -->
-              <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+              <div class="card bg-white rounded-xl shadow-md p-6">
                 <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
+                  <lord-icon
+                    src="https://cdn.lordicon.com/botokodp.json"
+                    trigger="in"
+                    delay="300"
+                    stroke="bold"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#1848a0"
+                    style="width:45px;height:45px">
+                  </lord-icon>
                 </div>
                 <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Authenticité</h3>
                 <p class="text-gray-600 text-center">
@@ -191,11 +253,17 @@
               </div>
               
               <!-- Valeur 2 -->
-              <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+              <div class="card bg-white rounded-xl shadow-md p-6">
                 <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+                  <lord-icon
+                    src="https://cdn.lordicon.com/bvficftx.json"
+                    trigger="in"
+                    delay="500"
+                    stroke="bold"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#1848a0"
+                    style="width:45px;height:45px">
+                  </lord-icon>
                 </div>
                 <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Excellence</h3>
                 <p class="text-gray-600 text-center">
@@ -204,11 +272,17 @@
               </div>
               
               <!-- Valeur 3 -->
-              <div class="bg-white rounded-xl shadow-md p-6 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg">
+              <div class="card bg-white rounded-xl shadow-md p-6">
                 <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                  </svg>
+                  <lord-icon
+                    src="https://cdn.lordicon.com/rqeluyar.json"
+                    trigger="in"
+                    delay="700"
+                    stroke="bold"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#1848a0"
+                    style="width:45px;height:45px">
+                  </lord-icon>
                 </div>
                 <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Bienveillance</h3>
                 <p class="text-gray-600 text-center">
@@ -247,8 +321,18 @@
     </div>
     
     <!-- Section Services Entreprises -->
-    <section id="services-entreprises" class="py-20 bg-gray-50">
-      <div class="container mx-auto px-4">
+    <section id="services-entreprises" class="py-20 bg-gray-50 relative">
+      <!-- Effet visuel d'arrière-plan -->
+      <div class="absolute right-0 top-0 h-full w-1/3 opacity-10 pointer-events-none hidden md:block">
+        <img 
+          src="assets/images/engrenage_640.webp" 
+          alt="" 
+          class="w-full h-full object-contain object-right-top opacity-30"
+          aria-hidden="true"
+        >
+      </div>
+      
+      <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-5xl mx-auto">
           <!-- Titre de section -->
           <div 
@@ -268,29 +352,57 @@
             </p>
           </div>
           
+          <!-- Image d'introduction -->
+          <div class="mb-12 relative mx-auto max-w-4xl overflow-hidden">
+            <div class="rounded-lg overflow-hidden shadow-md">
+              <img 
+                src="assets/images/coaching-fauteuil_1080.webp" 
+                alt="Séance de coaching personnel" 
+                class="w-full h-auto object-cover"
+              >
+              <!-- Overlay subtil avec dégradé -->
+              <div class="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent opacity-60"></div>
+            </div>
+            
+            <!-- Décoration graphique -->
+            <div class="absolute -bottom-3 -right-3 w-32 h-32 rounded-full border-4 border-accent-500/30 -z-10"></div>
+          </div>
+          
           <!-- Modules en grille 2x2 -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-            <!-- Module Comprendre -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Comprendre</h3>
-              <p class="mb-4 text-gray-700">
+            <!-- Module Comprendre (exemple d'utilisation du composant service-card-enterprise) -->
+            <div class="service-card-enterprise">
+              <div class="service-card-header">
+                <div class="service-card-icon">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/jdgfsfzr.json"
+                    trigger="in"
+                    delay="500"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#ffd700"
+                    style="width:50px;height:50px">
+                  </lord-icon>
+                </div>
+                <h3 class="service-card-title">Comprendre</h3>
+              </div>
+              <p class="service-card-description">
                 Diagnostic complet de votre organisation pour identifier les opportunités de transformation et les défis à relever.
               </p>
-              <ul class="space-y-2 text-gray-700 mb-6">
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <ul class="service-card-features">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Analyse de la culture d'entreprise</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Audit des processus et workflows</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Évaluation des compétences</span>
@@ -299,26 +411,38 @@
             </div>
             
             <!-- Module Planifier -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Planifier</h3>
-              <p class="mb-4 text-gray-700">
+            <div class="service-card-enterprise">
+              <div class="service-card-header">
+                <div class="service-card-icon">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/wsvtrygf.json"
+                    trigger="in"
+                    delay="500"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#ffd700"
+                    style="width:50px;height:50px">
+                  </lord-icon>
+                </div>
+                <h3 class="service-card-title">Planifier</h3>
+              </div>
+              <p class="service-card-description">
                 Élaboration d'une stratégie de changement sur mesure avec un plan d'action détaillé et des indicateurs de succès.
               </p>
-              <ul class="space-y-2 text-gray-700 mb-6">
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <ul class="service-card-features">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Définition des objectifs et KPIs</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Feuille de route détaillée</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Gestion des risques</span>
@@ -327,26 +451,38 @@
             </div>
             
             <!-- Module Activer -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Activer</h3>
-              <p class="mb-4 text-gray-700">
+            <div class="service-card-enterprise">
+              <div class="service-card-header">
+                <div class="service-card-icon">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/oiveszhb.json"
+                    trigger="in"
+                    delay="500"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#ffd700"
+                    style="width:50px;height:50px">
+                  </lord-icon>
+                </div>
+                <h3 class="service-card-title">Activer</h3>
+              </div>
+              <p class="service-card-description">
                 Implémentation du changement avec accompagnement des équipes et adaptation continue du plan d'action.
               </p>
-              <ul class="space-y-2 text-gray-700 mb-6">
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <ul class="service-card-features">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Formation des équipes</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Communication interne</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Suivi et ajustement</span>
@@ -355,26 +491,38 @@
             </div>
             
             <!-- Module Sur mesure -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-primary-600">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Sur mesure</h3>
-              <p class="mb-4 text-gray-700">
+            <div class="service-card-enterprise">
+              <div class="service-card-header">
+                <div class="service-card-icon">
+                  <lord-icon
+                    src="https://cdn.lordicon.com/lagziwcr.json"
+                    trigger="in"
+                    delay="500"
+                    state="in-reveal"
+                    colors="primary:#1848a0,secondary:#ffd700"
+                    style="width:50px;height:50px">
+                  </lord-icon>
+                </div>
+                <h3 class="service-card-title">Sur mesure</h3>
+              </div>
+              <p class="service-card-description">
                 Des services adaptés à vos besoins spécifiques, combinant consulting, coaching et formation selon vos priorités.
               </p>
-              <ul class="space-y-2 text-gray-700 mb-6">
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <ul class="service-card-features">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Coaching de dirigeants</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Ateliers collaboratifs</span>
                 </li>
-                <li class="flex items-start">
-                  <svg class="w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <li class="service-card-feature">
+                  <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                   </svg>
                   <span>Accompagnement ponctuel</span>
@@ -397,8 +545,18 @@
     </section>
     
     <!-- Section Services Particuliers -->
-    <section id="services-particuliers" class="py-20">
-      <div class="container mx-auto px-4">
+    <section id="services-particuliers" class="py-20 relative">
+      <!-- Élément décoratif arrière-plan -->
+      <div class="absolute left-0 top-0 h-full w-1/3 opacity-10 pointer-events-none hidden md:block">
+        <img 
+          src="assets/images/clé_640.webp" 
+          alt="" 
+          class="w-full h-full object-contain object-left-top opacity-30"
+          aria-hidden="true"
+        >
+      </div>
+      
+      <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-5xl mx-auto">
           <!-- Titre de section -->
           <div 
@@ -418,45 +576,61 @@
             </p>
           </div>
           
+          <!-- Image d'introduction -->
+          <div class="mb-12 relative mx-auto max-w-4xl overflow-hidden">
+            <div class="rounded-lg overflow-hidden shadow-md">
+              <img 
+                src="assets/images/coaching-fauteuil_1080.webp" 
+                alt="Séance de coaching personnel" 
+                class="w-full h-auto object-cover"
+              >
+              <!-- Overlay subtil avec dégradé -->
+              <div class="absolute inset-0 bg-gradient-to-bl from-accent-500/20 to-transparent opacity-60"></div>
+            </div>
+            
+            <!-- Décoration graphique -->
+            <div class="absolute -bottom-3 -left-3 w-32 h-32 rounded-full border-4 border-primary-500/30 -z-10"></div>
+          </div>
+          
           <!-- Programmes en grille -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            <!-- Programme 1 -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-accent-500 h-full flex flex-col">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Révéler ton potentiel</h3>
-              <p class="mb-6 text-gray-700 flex-grow">
+            <!-- Programme 1 (exemple d'utilisation du composant service-card-personal) -->
+            <div class="service-card-personal">
+              <h3 class="service-card-personal-title">Révéler ton potentiel</h3>
+              <p class="service-card-personal-description">
                 Un programme de coaching individuel pour découvrir et exploiter vos talents et forces naturelles.
               </p>
-              <a href="/contact.html?service=particulier&programme=reveler" class="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto">
+              <a href="/contact.html?service=particulier&programme=reveler" class="service-card-personal-link">
                 En savoir plus
-                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="service-card-personal-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
               </a>
             </div>
             
             <!-- Programme 2 -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-accent-500 h-full flex flex-col">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Donner vie à tes ambitions</h3>
-              <p class="mb-6 text-gray-700 flex-grow">
+            <div class="service-card-personal">
+              <h3 class="service-card-personal-title">Donner vie à tes ambitions</h3>
+              <p class="service-card-personal-description">
                 Un accompagnement pour définir vos objectifs professionnels et élaborer un plan d'action concret.
               </p>
-              <a href="/contact.html?service=particulier&programme=ambitions" class="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto">
+              <a href="/contact.html?service=particulier&programme=ambitions" class="service-card-personal-link">
                 En savoir plus
-                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="service-card-personal-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
               </a>
             </div>
             
             <!-- Programme 3 -->
-            <div class="card bg-white rounded-xl shadow-md p-8 transform transition-all duration-500 hover:-translate-y-2 hover:shadow-lg border-t-4 border-accent-500 h-full flex flex-col">
-              <h3 class="text-xl font-bold mb-4 uppercase tracking-wider text-primary-600">Sur mesure</h3>
-              <p class="mb-6 text-gray-700 flex-grow">
+            <div class="service-card-personal">
+              <h3 class="service-card-personal-title">Sur mesure</h3>
+              <p class="service-card-personal-description">
                 Un programme personnalisé selon vos besoins spécifiques et vos objectifs de développement personnel.
               </p>
-              <a href="/contact.html?service=particulier&programme=surmesure" class="inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto">
+              <a href="/contact.html?service=particulier&programme=surmesure" class="service-card-personal-link">
                 En savoir plus
-                <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg class="service-card-personal-link-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
               </a>
@@ -830,7 +1004,7 @@
   
   <!-- Scripts -->
   <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-  <script type="module" src="utils/main.js"></script>
+  <script type="module" src="main.js"></script>
   <script>
     // S'assurer qu'Alpine.js est correctement chargé
     document.addEventListener('DOMContentLoaded', function() {
@@ -846,32 +1020,72 @@
 
     // Animation de frappe pour le texte
     document.addEventListener('alpine:init', () => {
+      /**
+       * Animation de frappe de texte réaliste
+       * Simule une frappe humaine avec:
+       * - Vitesse variable
+       * - Pauses aléatoires
+       * - Fautes de frappe occasionnelles avec correction
+       * - Curseur adaptatif selon l'état (frappe, suppression, attente)
+       */
       Alpine.data('typingAnimation', () => ({
         text: '',
         fullText: '',
-        typeSpeed: 100,
-        deleteSpeed: 50,
-        waitBeforeDelete: 2000,
-        waitBeforeType: 500,
-        textArray: ['Consultante.', 'Coach.', 'Formatrice.', 'EXPERT EN GESTION DU CHANGEMENT.'],
+        typeSpeed: 70,  // Vitesse de base pour la frappe (ms)
+        deleteSpeed: 30, // Vitesse de base pour l'effacement (ms)
+        waitBeforeDelete: 1800, // Temps d'attente avant de commencer à effacer (ms)
+        waitBeforeType: 800,   // Temps d'attente avant de commencer à taper le nouveau texte (ms)
+        textArray: ['Consultante.', 'Coach.', 'Formatrice.', 'Experte en gestion du changement.'],
         textIndex: 0,
         isDeleting: false,
+        isPaused: false,
         
         init() {
           this.type();
         },
         
         type() {
+          // Si on est en pause, on attend simplement
+          if (this.isPaused) {
+            setTimeout(() => {
+              this.isPaused = false;
+              this.type();
+            }, 300);
+            return;
+          }
+          
           this.fullText = this.textArray[this.textIndex];
           
+          // Comportement normal sans fautes de frappe
           if (this.isDeleting) {
             this.text = this.fullText.substring(0, this.text.length - 1);
           } else {
             this.text = this.fullText.substring(0, this.text.length + 1);
           }
           
+          // Vitesse variable pour un effet plus naturel
           let typingSpeed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
           
+          // Légère variation aléatoire pour un effet de frappe plus naturel
+          if (!this.isDeleting) {
+            typingSpeed = Math.random() * 50 + this.typeSpeed;
+            
+            // Ajouter des pauses aléatoires occasionnelles (5% de chance)
+            if (!this.isDeleting && this.text.length > 1 && this.text !== this.fullText && Math.random() < 0.05) {
+              this.isPaused = true;
+              typingSpeed = Math.random() * 500 + 100; // Pause de 100-600ms
+            }
+            
+            // Pause plus longue aux points, virgules et espaces
+            if (!this.isDeleting && this.text.length > 0) {
+              const lastChar = this.text[this.text.length - 1];
+              if (lastChar === '.' || lastChar === ',' || lastChar === ' ') {
+                typingSpeed += 100;
+              }
+            }
+          }
+          
+          // Gestion de la fin de mot et du passage au mot suivant
           if (!this.isDeleting && this.text === this.fullText) {
             typingSpeed = this.waitBeforeDelete;
             this.isDeleting = true;
@@ -881,6 +1095,7 @@
             typingSpeed = this.waitBeforeType;
           }
           
+          // Animation continue à l'infini
           setTimeout(() => this.type(), typingSpeed);
         }
       }));
@@ -1010,6 +1225,52 @@
     
     .section-separator-angled {
       clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+    }
+    
+    /* Animation des cartes au survol */
+    .card {
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition-duration: 0.5s;
+      transform: translateY(0);
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    /* Animation du curseur pour l'effet de frappe */
+    .typing-cursor-active::after,
+    .typing-cursor-delete::after,
+    .typing-cursor-waiting::after {
+      content: '';
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: #1848a0;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+    }
+    
+    /* Curseur qui clignote en mode attente */
+    .typing-cursor-waiting::after {
+      animation: cursor-blink 0.7s infinite;
+    }
+    
+    /* Curseur fixe pendant la frappe */
+    .typing-cursor-active::after {
+      opacity: 1;
+    }
+    
+    /* Curseur avec clignotement rapide pendant la suppression */
+    .typing-cursor-delete::after {
+      animation: cursor-blink 0.4s infinite;
+    }
+
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
     }
     
     /* Animations douces pour les formes */

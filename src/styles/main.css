@@ -214,6 +214,60 @@
   .card {
     @apply bg-white rounded-none border-t-4 border-accent-500 shadow-md p-6 transition-all duration-300 hover:shadow-lg;
   }
+  
+  /* Cartes de service - Entreprises */
+  .service-card-enterprise {
+    @apply bg-white rounded-xl shadow-md p-8 border-t-4 border-primary-600 transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg;
+  }
+  
+  .service-card-header {
+    @apply flex items-center mb-4;
+  }
+  
+  .service-card-icon {
+    @apply mr-4 flex-shrink-0;
+  }
+  
+  .service-card-title {
+    @apply text-xl font-bold uppercase tracking-wider text-primary-600;
+  }
+  
+  .service-card-description {
+    @apply mb-4 text-gray-700;
+  }
+  
+  .service-card-features {
+    @apply space-y-2 text-gray-700 mb-6;
+  }
+  
+  .service-card-feature {
+    @apply flex items-start;
+  }
+  
+  .service-card-feature-icon {
+    @apply w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0;
+  }
+  
+  /* Cartes de service - Particuliers */
+  .service-card-personal {
+    @apply bg-white rounded-xl shadow-md p-8 border-t-4 border-accent-500 h-full flex flex-col transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg;
+  }
+  
+  .service-card-personal-title {
+    @apply text-xl font-bold mb-4 uppercase tracking-wider text-primary-600;
+  }
+  
+  .service-card-personal-description {
+    @apply mb-6 text-gray-700 flex-grow;
+  }
+  
+  .service-card-personal-link {
+    @apply inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto;
+  }
+  
+  .service-card-personal-link-icon {
+    @apply ml-2 w-5 h-5;
+  }
 }
 
 /* Utilitaires personnalisés */

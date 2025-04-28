@@ -3,26 +3,23 @@
 ## Configuration Initiale
 - [x] Créer un nouveau dépôt utilisant ce modèle ou cloner ce dépôt
 - [x] Mettre à jour le nom du projet, la description et les mots-clés dans package.json
-- [ ] Mettre à jour le titre, la description et les mots-clés dans index.html
+- [x] Mettre à jour le titre, la description et les mots-clés dans index.html
 - [ ] Configurer les variables d'environnement dans .env pour le développement
-- [ ] Créer un fichier .env.production pour la production
+- [x] Créer un fichier .env.production pour la production
 
 ## Installation
-- [ ] Exécuter `npm install` pour installer les dépendances
-- [ ] Exécuter `npm dev` pour démarrer le serveur de développement
-- [ ] Vérifier que l'application fonctionne correctement sur http://localhost:3000
+- [x] Exécuter `npm install` pour installer les dépendances
+- [x] Exécuter `npm dev` pour démarrer le serveur de développement
+- [x] Vérifier que l'application fonctionne correctement sur http://localhost:3000
 
 ## Organisation des Fichiers
-- [ ] Remplacer le contenu de src/assets/ par vos propres ressources
+- [x] Remplacer le contenu de src/assets/ par vos propres ressources
 - [ ] Configurer src/components/ selon les besoins du projet
-- [ ] Créer des pages supplémentaires dans src/pages/ selon les besoins
-- [ ] Ajuster src/layout/ pour la structure du site
-- [ ] Configurer les routes dans router.js selon l'architecture du site
+- [x] Créer des pages supplémentaires dans src/pages/ selon les besoins
 
 ## Personnalisation du Style
-- [ ] Personnaliser les couleurs et les variables CSS dans src/styles/variables.css
-- [ ] Modifier les styles globaux dans src/styles/global.css
-- [ ] Ajuster les paramètres Tailwind dans tailwind.config.js selon les besoins
+- [x] Personnaliser les couleurs et les variables CSS dans src/styles/variables.css
+- [x] Modifier les styles globaux dans src/styles/global.css
 - [ ] Créer des composants de style réutilisables
 
 ## Accessibilité et SEO

@@ -321,5 +321,5 @@ export const initNavigation = () => {
   };
 };
 
-// Exécuter l'initialisation quand le DOM est chargé
-document.addEventListener('DOMContentLoaded', initSite); 
+// Exporter initSite pour une utilisation potentielle depuis d'autres modules
+export { initSite }; 
