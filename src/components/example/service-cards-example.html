@@ -1,0 +1,242 @@
+<!-- 
+  service-cards-example.html
+  Page d'exemple montrant comment utiliser les différentes variantes de cartes de services
+-->
+
+<section class="py-12 px-4 max-w-6xl mx-auto">
+  <div class="text-center mb-12">
+    <h1 class="text-3xl font-bold mb-4">Exemples de Cartes de Services</h1>
+    <p class="text-gray-600 max-w-2xl mx-auto">Cette page démontre les différentes variantes de cartes de services et comment les utiliser dans votre projet.</p>
+  </div>
+
+  <!-- Variante Enterprise -->
+  <div class="mb-16">
+    <h2 class="text-2xl font-semibold mb-6 border-b pb-2">Cartes pour Entreprises</h2>
+    <p class="mb-6">Design élégant avec fond sombre, icônes et liste de fonctionnalités pour mettre en valeur vos services aux entreprises.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+      <!-- Exemple 1 -->
+      <div id="enterprise-card-1"></div>
+      
+      <!-- Exemple 2 -->
+      <div id="enterprise-card-2"></div>
+    </div>
+    
+    <div class="bg-gray-100 p-6 rounded-lg">
+      <h3 class="font-semibold mb-3">Code d'exemple</h3>
+      <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>// Création d'une carte enterprise
+import { createServiceCard, serviceIcons } from '../components/common/ServiceCard.js';
+
+const enterpriseCard = createServiceCard({
+  title: 'Conseil en gestion du changement',
+  description: 'Accompagnement des organisations dans leurs transformations stratégiques',
+  variant: 'enterprise',
+  features: [
+    'Analyse des besoins organisationnels',
+    'Planification stratégique',
+    'Accompagnement des équipes'
+  ],
+  icon: serviceIcons.consulting,
+  ctaText: 'Demander un devis',
+  ctaUrl: '/contact.html'
+});</code></pre>
+    </div>
+  </div>
+
+  <!-- Variante Personal -->
+  <div class="mb-16">
+    <h2 class="text-2xl font-semibold mb-6 border-b pb-2">Cartes pour Particuliers</h2>
+    <p class="mb-6">Style premium avec badge optionnel, tags et effets de survol raffinés, idéal pour présenter des services aux particuliers.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+      <!-- Exemple 1 -->
+      <div id="personal-card-1"></div>
+      
+      <!-- Exemple 2 -->
+      <div id="personal-card-2"></div>
+    </div>
+    
+    <div class="bg-gray-100 p-6 rounded-lg">
+      <h3 class="font-semibold mb-3">Code d'exemple</h3>
+      <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>// Création d'une carte personal
+import { createServiceCard } from '../components/common/ServiceCard.js';
+
+const personalCard = createServiceCard({
+  title: 'Coaching personnel',
+  description: 'Développez votre potentiel et atteignez vos objectifs personnels à travers un accompagnement sur mesure',
+  variant: 'personal',
+  tags: ['Développement', 'Coaching', 'Bien-être'],
+  isPremium: true,
+  ctaText: 'Prendre rendez-vous',
+  ctaUrl: '/contact.html'
+});</code></pre>
+    </div>
+  </div>
+
+  <!-- Variante Simple -->
+  <div class="mb-16">
+    <h2 class="text-2xl font-semibold mb-6 border-b pb-2">Cartes Simples</h2>
+    <p class="mb-6">Version légère avec design épuré, parfait pour des présentations plus sobres ou dans des sections secondaires.</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Exemple 1 -->
+      <div id="simple-card-1"></div>
+      
+      <!-- Exemple 2 -->
+      <div id="simple-card-2"></div>
+      
+      <!-- Exemple 3 -->
+      <div id="simple-card-3"></div>
+    </div>
+    
+    <div class="bg-gray-100 p-6 rounded-lg">
+      <h3 class="font-semibold mb-3">Code d'exemple</h3>
+      <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>// Création d'une carte simple
+import { createServiceCard, serviceIcons } from '../components/common/ServiceCard.js';
+
+const simpleCard = createServiceCard({
+  title: 'Formation en leadership',
+  description: 'Acquérez les compétences essentielles pour diriger efficacement',
+  variant: 'simple',
+  icon: serviceIcons.training,
+  ctaText: 'En savoir plus',
+  ctaUrl: '/services.html#formation'
+});</code></pre>
+    </div>
+  </div>
+
+  <!-- Utilisation programmatique -->
+  <div>
+    <h2 class="text-2xl font-semibold mb-6 border-b pb-2">Utilisation programmatique</h2>
+    <p class="mb-6">Vous pouvez également ajouter des cartes de services à des conteneurs existants par programmation.</p>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div class="bg-gray-100 p-6 rounded-lg">
+        <h3 class="font-semibold mb-3">Container cible</h3>
+        <div id="programmable-container" class="bg-white p-4 rounded-lg min-h-40 flex items-center justify-center text-gray-400">
+          La carte sera injectée ici
+        </div>
+      </div>
+      
+      <div class="bg-gray-100 p-6 rounded-lg">
+        <h3 class="font-semibold mb-3">Code d'exemple</h3>
+        <pre class="text-sm bg-white p-4 rounded overflow-x-auto"><code>// Ajout d'une carte à un conteneur existant
+import { addServiceCardTo, serviceIcons } from '../components/common/ServiceCard.js';
+
+addServiceCardTo('#programmable-container', {
+  title: 'Accompagnement du changement',
+  description: 'Solutions sur mesure pour faciliter les transitions organisationnelles',
+  variant: 'enterprise',
+  features: [
+    'Diagnostic organisationnel',
+    'Plan de transformation',
+    'Ateliers participatifs'
+  ],
+  icon: serviceIcons.custom
+});</code></pre>
+        <button id="inject-card-btn" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+          Injecter la carte
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script type="module">
+  import { createServiceCard, serviceIcons, addServiceCardTo } from '../components/common/ServiceCard.js';
+  
+  // Cartes Entreprises
+  document.getElementById('enterprise-card-1').innerHTML = createServiceCard({
+    title: 'Conseil en gestion du changement',
+    description: 'Accompagnement des organisations dans leurs transformations stratégiques avec une approche personnalisée',
+    variant: 'enterprise',
+    features: [
+      'Analyse des besoins organisationnels',
+      'Planification stratégique',
+      'Accompagnement des équipes'
+    ],
+    icon: serviceIcons.consulting,
+    ctaText: 'Demander un devis',
+    ctaUrl: '/contact.html'
+  });
+  
+  document.getElementById('enterprise-card-2').innerHTML = createServiceCard({
+    title: 'Formation collective',
+    description: 'Développez les compétences de vos équipes avec nos programmes de formation personnalisés',
+    variant: 'enterprise',
+    features: [
+      'Ateliers pratiques',
+      'Contenu adapté à vos besoins',
+      'Suivi et évaluation',
+      'Support post-formation'
+    ],
+    icon: serviceIcons.training,
+    ctaText: 'Découvrir nos programmes',
+    ctaUrl: '/services-entreprises.html'
+  });
+  
+  // Cartes Particuliers
+  document.getElementById('personal-card-1').innerHTML = createServiceCard({
+    title: 'Coaching personnel',
+    description: 'Développez votre potentiel et atteignez vos objectifs personnels à travers un accompagnement sur mesure',
+    variant: 'personal',
+    tags: ['Développement', 'Coaching', 'Bien-être'],
+    isPremium: true,
+    ctaText: 'Prendre rendez-vous',
+    ctaUrl: '/contact.html'
+  });
+  
+  document.getElementById('personal-card-2').innerHTML = createServiceCard({
+    title: 'Révéler ton potentiel',
+    description: 'Un programme d\'accompagnement personnalisé pour identifier vos forces et concrétiser vos aspirations',
+    variant: 'personal',
+    tags: ['Transformation', 'Personal Branding', 'Accompagnement'],
+    ctaText: 'En savoir plus',
+    ctaUrl: '/services-particuliers.html'
+  });
+  
+  // Cartes Simples
+  document.getElementById('simple-card-1').innerHTML = createServiceCard({
+    title: 'Ateliers de groupe',
+    description: 'Sessions collaboratives pour partager et apprendre en équipe',
+    variant: 'simple',
+    icon: serviceIcons.coaching,
+    ctaText: 'Voir le calendrier',
+    ctaUrl: '/ateliers.html'
+  });
+  
+  document.getElementById('simple-card-2').innerHTML = createServiceCard({
+    title: 'Diagnostic rapide',
+    description: 'Évaluation initiale de votre situation et recommandations',
+    variant: 'simple',
+    icon: serviceIcons.custom,
+    ctaText: 'Réserver',
+    ctaUrl: '/diagnostic.html'
+  });
+  
+  document.getElementById('simple-card-3').innerHTML = createServiceCard({
+    title: 'Suivi de progrès',
+    description: 'Accompagnement régulier pour maintenir le cap vers vos objectifs',
+    variant: 'simple',
+    icon: serviceIcons.growth,
+    ctaText: 'S\'inscrire',
+    ctaUrl: '/suivi.html'
+  });
+  
+  // Injection programmatique
+  document.getElementById('inject-card-btn').addEventListener('click', function() {
+    addServiceCardTo('#programmable-container', {
+      title: 'Accompagnement du changement',
+      description: 'Solutions sur mesure pour faciliter les transitions organisationnelles',
+      variant: 'enterprise',
+      features: [
+        'Diagnostic organisationnel',
+        'Plan de transformation',
+        'Ateliers participatifs'
+      ],
+      icon: serviceIcons.custom,
+      ctaText: 'En savoir plus',
+      ctaUrl: '#'
+    });
+  });
+</script> 

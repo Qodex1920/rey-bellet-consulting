@@ -156,7 +156,7 @@ project-starter/
 
 ## 📌 À ne pas faire
 
-- Ne pas injecter de sections HTML via JavaScript
+- Ne pas injecter de sections complètes HTML via JavaScript (seulement des composant dynamique)
 - Ne pas ajouter de frameworks JS (React, Vue...)
 - Ne pas créer de fichiers de configuration inutiles (pas de `tailwind.config.js`)
 - main.js ne doit pas gérer l’injection de contenu des pages, juste les composants utilitaires + init.

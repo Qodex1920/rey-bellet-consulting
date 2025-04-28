@@ -1,16 +1,19 @@
 <!-- 
   Button.html - Composant réutilisable de bouton
   Utilise l'approche CSS-first de Tailwind v4.1
+  Adapté au thème sombre avec accents dorés pour Rey-Bellet Consulting
   
   Usage:
   <button class="btn btn-primary">Bouton primaire</button>
   <button class="btn btn-secondary">Bouton secondaire</button>
+  <button class="btn btn-accent">Bouton accent doré</button>
   <button class="btn btn-outline">Bouton outline</button>
   <button class="btn btn-danger">Bouton danger</button>
   
   Options supplémentaires:
   - Ajoutez 'disabled' pour l'état désactivé
   - Ajoutez 'btn-small' ou 'btn-large' pour modifier la taille
+  - Ajoutez 'border-gradient' pour une bordure en dégradé doré (seulement avec btn-secondary)
 -->
 
 <!-- Bouton Primaire -->
@@ -25,6 +28,21 @@
   class="btn btn-secondary"
   role="button">
   Bouton secondaire
+</button>
+
+<!-- Bouton Accent Doré -->
+<button 
+  class="btn btn-accent"
+  role="button">
+  Bouton accent
+</button>
+
+<!-- Bouton Secondary avec bordure en dégradé doré -->
+<button 
+  class="btn btn-secondary border-gradient"
+  role="button"
+  style="--border-gradient: var(--color-gold-gradient-1)">
+  Bouton avec bordure dorée
 </button>
 
 <!-- Bouton Outline -->
@@ -49,6 +67,16 @@
   Bouton désactivé
 </button>
 
+<!-- Exemple de bouton avec icône -->
+<button 
+  class="btn btn-primary group"
+  role="button">
+  Bouton avec icône
+  <svg class="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+  </svg>
+</button>
+
 <!-- Exemple de bouton de petite taille -->
 <button 
   class="btn btn-primary btn-small"
@@ -58,15 +86,15 @@
 
 <!-- Exemple de bouton de grande taille -->
 <button 
-  class="btn btn-primary btn-large"
+  class="btn btn-accent btn-large"
   role="button">
-  Grand bouton
+  Grand bouton doré
 </button>
 
 <!-- 
   Instructions d'intégration dans main.css:
   
-  Ajoutez le bloc suivant dans votre fichier src/styles/main.css dans la section @layer components { ... }
+  Ces styles sont déjà intégrés dans votre fichier src/styles/main.css
   
   @layer components {
     .btn {
@@ -86,15 +114,40 @@
     }
     
     .btn-secondary {
-      @apply bg-white text-primary-600 border border-primary-600 hover:bg-primary-50 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-primary-500;
+      @apply bg-gray-900 text-white border border-gray-700 hover:border-accent-500 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-accent-500;
+    }
+    
+    .btn-accent {
+      @apply text-black font-semibold hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-accent-500;
+      background: var(--color-gold-gradient-1);
+      transition: all 0.3s ease;
     }
     
     .btn-outline {
-      @apply bg-transparent text-gray-700 border border-gray-300 hover:border-gray-400 hover:text-gray-900 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-gray-500;
+      @apply bg-transparent text-gray-300 border border-gray-700 hover:border-accent-500 hover:text-accent-500 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-accent-500;
     }
     
     .btn-danger {
       @apply bg-red-600 text-white hover:bg-red-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-red-500;
+    }
+    
+    .border-gradient {
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      position: relative;
+    }
+    
+    .border-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      margin: -2px;
+      border-radius: inherit;
+      background: var(--border-gradient, var(--color-gold-gradient-1));
     }
   }
 --> 

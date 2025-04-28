@@ -4,66 +4,59 @@
   Usage: Inclure ce composant en haut de chaque page
 -->
 
-<header class="bg-white border-b border-gray-100 py-4 relative">
+<header class="bg-gray-900/90 backdrop-blur-sm shadow-lg shadow-black/30 border-b border-gray-800 py-4 relative">
   <div class="container mx-auto px-4 flex items-center justify-between">
     <!-- Logo -->
     <a href="/" class="flex items-center">
-      <span class="text-2xl font-bold uppercase text-black tracking-wider relative">
+      <span class="text-2xl font-bold uppercase text-white tracking-wider relative">
         RB
         <span class="absolute -top-2 -right-3 w-2 h-2 bg-accent-500"></span>
       </span>
-      <span class="ml-2 text-lg font-special uppercase text-black tracking-wider">Consulting</span>
+      <span class="ml-2 text-lg font-special uppercase text-white tracking-wider">Consulting</span>
     </a>
     
     <!-- Menu Navigation (Version Desktop) -->
     <nav class="hidden md:flex items-center space-x-8">
-      <a href="/" class="text-gray-800 hover:text-primary-600 transition-colors font-medium">Accueil</a>
+      <a href="/" class="text-gray-300 hover:text-accent-500 transition-colors font-medium">Accueil</a>
       
-      <!-- Dropdown pour Services Entreprises -->
+      <!-- Dropdown pour Services -->
       <div class="relative group">
-        <button class="flex items-center text-gray-800 hover:text-primary-600 transition-colors font-medium">
-          Services Entreprises
-          <svg class="ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        <button class="group flex items-center space-x-1 text-gray-300 hover:text-accent-500 transition-colors">
+          <span>Services</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        <div class="absolute left-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-          <div class="p-3 border-l-4 border-primary-500">
-            <a href="#comprendre" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Comprendre</a>
-            <a href="#planifier" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Planifier</a>
-            <a href="#activer" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Activer</a>
-            <a href="#sur-mesure-entreprises" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Sur mesure</a>
-          </div>
+        <div class="absolute left-0 mt-2 w-48 bg-gray-900 shadow-lg shadow-black/50 rounded-md overflow-hidden z-10 opacity-0 scale-95 transform transition-all group-hover:opacity-100 group-hover:scale-100 origin-top border border-gray-800">
+          <a href="/#services" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
+            Tous les services
+          </a>
+          <a href="/#services" onclick="window.servicesTab='entreprises'" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
+            Services Entreprises
+          </a>
+          <a href="/#services" onclick="window.servicesTab='particuliers'" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
+            Services Particuliers
+          </a>
         </div>
       </div>
       
-      <!-- Dropdown pour Services Particuliers -->
-      <div class="relative group">
-        <button class="flex items-center text-gray-800 hover:text-primary-600 transition-colors font-medium">
-          Services Particuliers
-          <svg class="ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-          </svg>
-        </button>
-        <div class="absolute left-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-          <div class="p-3 border-l-4 border-accent-500">
-            <a href="#reveler" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Révéler ton potentiel</a>
-            <a href="#donner-vie" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Donner vie à tes ambitions</a>
-            <a href="#sur-mesure-particuliers" class="block py-2 px-4 hover:bg-gray-50 transition-colors">Sur mesure</a>
-          </div>
-        </div>
-      </div>
+      <a href="/#a-propos" class="text-gray-300 hover:text-accent-500 transition-colors font-medium scroll-smooth">À propos</a>
       
-      <a href="#a-propos" class="text-gray-800 hover:text-primary-600 transition-colors font-medium">À propos</a>
+      <!-- Nouveaux liens de navigation fluide -->
+      <a href="/#temoignages" class="text-gray-300 hover:text-accent-500 transition-colors font-medium scroll-smooth">Témoignages</a>
+      <a href="/#contact" class="text-gray-300 hover:text-accent-500 transition-colors font-medium scroll-smooth">Contact</a>
     </nav>
     
     <!-- Bouton Contact (Desktop) -->
-    <a href="/contact.html" class="hidden md:inline-flex btn btn-primary">
-      Contact
+    <a href="mailto:laure@reybellet.com" class="hidden md:inline-flex btn btn-accent">
+      <span>Contacter</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
     </a>
     
     <!-- Bouton Menu Mobile -->
-    <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md hover:bg-gray-100">
+    <button id="mobile-menu-button" class="md:hidden flex items-center p-2 rounded-md hover:bg-gray-800 text-gray-300">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
       </svg>
@@ -71,17 +64,17 @@
   </div>
   
   <!-- Menu Mobile -->
-  <div id="mobile-menu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-300 md:hidden">
+  <div id="mobile-menu" class="fixed inset-0 bg-gray-900 z-50 transform translate-x-full transition-transform duration-300 md:hidden">
     <div class="container mx-auto px-4 py-5 h-full flex flex-col">
-      <div class="flex justify-between items-center border-b border-gray-100 pb-4">
+      <div class="flex justify-between items-center border-b border-gray-800 pb-4">
         <a href="/" class="flex items-center">
-          <span class="text-2xl font-bold uppercase text-black tracking-wider relative">
+          <span class="text-2xl font-bold uppercase text-white tracking-wider relative">
             RB
             <span class="absolute -top-2 -right-3 w-2 h-2 bg-accent-500"></span>
           </span>
-          <span class="ml-2 text-lg font-special uppercase text-black tracking-wider">Consulting</span>
+          <span class="ml-2 text-lg font-special uppercase text-white tracking-wider">Consulting</span>
         </a>
-        <button id="close-mobile-menu" class="p-2">
+        <button id="close-mobile-menu" class="p-2 text-gray-300 hover:text-accent-500">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
@@ -89,45 +82,34 @@
       </div>
       
       <nav class="flex-1 flex flex-col mt-6 space-y-2">
-        <a href="/" class="py-3 text-lg text-gray-800 hover:text-primary-600 transition-colors">Accueil</a>
+        <a href="/" class="py-3 text-lg text-gray-300 hover:text-accent-500 transition-colors">Accueil</a>
         
-        <!-- Services Entreprises -->
+        <!-- Services -->
         <div class="py-3">
-          <button class="flex items-center justify-between w-full text-left text-lg text-gray-800 hover:text-primary-600 transition-colors" onclick="toggleMobileSubmenu('services-entreprises')">
-            Services Entreprises
-            <svg class="w-5 h-5 transform" id="icon-services-entreprises" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          <button class="group flex items-center space-x-1 text-gray-300 hover:text-accent-500 transition-colors" onclick="toggleMobileSubmenu('services')">
+            <span>Services</span>
+            <svg xmlns="http://www.w3.org/2000/svg" id="icon-services" class="h-4 w-4 group-hover:text-accent-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </button>
-          <div class="mt-2 pl-4 hidden" id="submenu-services-entreprises">
-            <a href="#comprendre" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Comprendre</a>
-            <a href="#planifier" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Planifier</a>
-            <a href="#activer" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Activer</a>
-            <a href="#sur-mesure-entreprises" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Sur mesure</a>
+          <div class="mt-2 pl-4 hidden" id="submenu-services">
+            <a href="/#services" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors" onclick="closeMobileMenu()">Tous les services</a>
+            <a href="/#services" onclick="window.servicesTab='entreprises'; closeMobileMenu();" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors">Services Entreprises</a>
+            <a href="/#services" onclick="window.servicesTab='particuliers'; closeMobileMenu();" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors">Services Particuliers</a>
           </div>
         </div>
         
-        <!-- Services Particuliers -->
-        <div class="py-3">
-          <button class="flex items-center justify-between w-full text-left text-lg text-gray-800 hover:text-primary-600 transition-colors" onclick="toggleMobileSubmenu('services-particuliers')">
-            Services Particuliers
-            <svg class="w-5 h-5 transform" id="icon-services-particuliers" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </button>
-          <div class="mt-2 pl-4 hidden" id="submenu-services-particuliers">
-            <a href="#reveler" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Révéler ton potentiel</a>
-            <a href="#donner-vie" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Donner vie à tes ambitions</a>
-            <a href="#sur-mesure-particuliers" class="block py-2 text-gray-700 hover:text-primary-600 transition-colors">Sur mesure</a>
-          </div>
-        </div>
-        
-        <a href="#a-propos" class="py-3 text-lg text-gray-800 hover:text-primary-600 transition-colors">À propos</a>
+        <a href="/#a-propos" class="py-3 text-lg text-gray-300 hover:text-accent-500 transition-colors" onclick="closeMobileMenu()">À propos</a>
+        <a href="/#temoignages" class="py-3 text-lg text-gray-300 hover:text-accent-500 transition-colors" onclick="closeMobileMenu()">Témoignages</a>
+        <a href="/#contact" class="py-3 text-lg text-gray-300 hover:text-accent-500 transition-colors" onclick="closeMobileMenu()">Contact</a>
       </nav>
       
-      <div class="mt-auto py-6 border-t border-gray-100">
-        <a href="/contact.html" class="w-full btn btn-primary text-center">
-          Contact
+      <div class="mt-auto py-6 border-t border-gray-800">
+        <a href="mailto:laure@reybellet.com" class="w-full btn btn-accent text-center">
+          <span>Contacter</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
         </a>
       </div>
     </div>
@@ -147,6 +129,23 @@
       closeButton.addEventListener('click', function() {
         mobileMenu.classList.add('translate-x-full');
       });
+      
+      // Navigation fluide pour tous les liens d'ancrage
+      document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          // Extrait l'ID de la section cible depuis l'URL
+          const targetId = this.getAttribute('href').substring(2);
+          const targetElement = document.getElementById(targetId);
+          
+          if (targetElement) {
+            e.preventDefault();
+            window.scrollTo({
+              top: targetElement.offsetTop - 80, // Offset pour le header fixe
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
     });
     
     function toggleMobileSubmenu(id) {
@@ -155,17 +154,26 @@
       
       if (submenu.classList.contains('hidden')) {
         submenu.classList.remove('hidden');
-        icon.classList.add('rotate-180');
+        if (icon) icon.classList.add('rotate-180');
       } else {
         submenu.classList.add('hidden');
-        icon.classList.remove('rotate-180');
+        if (icon) icon.classList.remove('rotate-180');
       }
+    }
+    
+    function closeMobileMenu() {
+      const mobileMenu = document.getElementById('mobile-menu');
+      mobileMenu.classList.add('translate-x-full');
     }
   </script>
   
-  <!-- Ligne décorative diagonal -->
+  <!-- Ligne décorative diagonal avec dégradé doré -->
   <div class="absolute bottom-0 left-0 right-0 h-4 overflow-hidden">
-    <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center bg-accent-500 bottom-2"></div>
-    <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center bg-primary-500 bottom-1"></div>
+    <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center bottom-2">
+      <div class="h-full w-full bg-gradient-to-r from-accent-500/20 via-accent-500/50 to-accent-500/20"></div>
+    </div>
+    <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center bottom-1">
+      <div class="h-full w-full bg-gradient-to-r from-accent-600/10 via-accent-600/30 to-accent-600/10"></div>
+    </div>
   </div>
 </header> 

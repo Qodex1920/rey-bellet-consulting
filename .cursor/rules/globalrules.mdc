@@ -43,8 +43,9 @@ Ce document définit l'ensemble des conventions, standards et bonnes pratiques �
   - Les pages (index.html, contact.html, etc.) sont toutes regroupée dans /src.
   
 - **Modularité et Réutilisabilité :**
-  - Décomposer le code en **composants HTML** réutilisables stockés dans `src/components/`.
+  - Décomposer le code en **composants JS** réutilisables stockés dans `src/components/`.
   - Chaque composant doit inclure un commentaire en début de fichier précisant sa fonction et toute logique non triviale.
+  - Les composants sont injectés dynamiquement dans le html, pour plus d'info lire la documentation (COMPONENT.md).
 
 ### B. CSS / TailwindCSS (v4.1)
 	•	Utilisation de Tailwind CSS v4.1 :

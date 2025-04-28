@@ -8,7 +8,7 @@
 /**
  * Initialise le gestionnaire de formulaire
  */
-const initContactForm = () => {
+export const initContactForm = () => {
   const form = document.getElementById('contactForm');
   if (!form) return;
 
@@ -273,5 +273,3 @@ const handleSubmit = async (event) => {
     formStatus.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 };
-
-export default initContactForm;

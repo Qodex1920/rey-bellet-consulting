@@ -2,8 +2,9 @@
   service-card-enterprise.html - Composant réutilisable pour les cartes de services entreprises
   
   Description :
-  Carte de service pour la section Services Entreprises avec animation au survol
-  et bordure supérieure accentuée.
+  Carte de service premium pour la section Services Entreprises avec des accents dorés,
+  animations raffinées et un design sombre élégant pour mettre en valeur les solutions
+  de transformation.
   
   Utilisation :
   <div class="service-card-enterprise">
@@ -24,34 +25,56 @@
   </div>
 -->
 
-<div class="service-card-enterprise">
-  <div class="service-card-header">
-    <div class="service-card-icon">
+<div 
+  class="service-card-enterprise bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-lg transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent-500/20 relative overflow-hidden group"
+  x-data="{ hovered: false }"
+  x-on:mouseenter="hovered = true"
+  x-on:mouseleave="hovered = false">
+  
+  <!-- Élément décoratif doré supérieur -->
+  <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
+  
+  <!-- Élément décoratif doré latéral, visible au survol -->
+  <div class="absolute top-0 right-0 w-1.5 h-0 bg-accent-500 transition-all duration-700 ease-out group-hover:h-full"></div>
+  
+  <!-- Effet rayonnant dans le coin -->
+  <div class="absolute -top-12 -left-12 w-24 h-24 bg-accent-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+  
+  <div class="service-card-header mb-5 flex items-start">
+    <div class="service-card-icon text-accent-500 mr-4 transform transition-all duration-500 ease-out group-hover:scale-110">
       <!-- Emplacement pour l'icône (lord-icon) -->
     </div>
-    <h3 class="service-card-title">Titre du service</h3>
+    <h3 class="service-card-title text-2xl font-bold text-white mb-0 group-hover:text-accent-500 transition-colors duration-300">Titre du service</h3>
   </div>
-  <p class="service-card-description">
-    Description détaillée du service proposé aux entreprises.
+  
+  <p class="service-card-description text-gray-400 mb-6 transition-all duration-300 group-hover:text-gray-300">
+    Description détaillée du service proposé aux entreprises, mettant en évidence l'impact de nos solutions innovantes pour votre transformation.
   </p>
-  <ul class="service-card-features">
-    <li class="service-card-feature">
-      <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  
+  <ul class="service-card-features space-y-3">
+    <li class="service-card-feature flex items-center">
+      <svg class="service-card-feature-icon h-5 w-5 text-accent-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
       </svg>
-      <span>Fonctionnalité du service</span>
+      <span class="text-gray-300 group-hover:text-white transition-colors duration-300">Fonctionnalité du service</span>
     </li>
-    <li class="service-card-feature">
-      <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <li class="service-card-feature flex items-center">
+      <svg class="service-card-feature-icon h-5 w-5 text-accent-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
       </svg>
-      <span>Autre fonctionnalité</span>
+      <span class="text-gray-300 group-hover:text-white transition-colors duration-300">Autre fonctionnalité</span>
     </li>
-    <li class="service-card-feature">
-      <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <li class="service-card-feature flex items-center">
+      <svg class="service-card-feature-icon h-5 w-5 text-accent-500 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
       </svg>
-      <span>Avantage supplémentaire</span>
+      <span class="text-gray-300 group-hover:text-white transition-colors duration-300">Avantage supplémentaire</span>
     </li>
   </ul>
+  
+  <!-- Effet brillant subtil dans le coin -->
+  <div 
+    class="absolute -bottom-16 -right-16 w-32 h-32 opacity-20 rounded-full bg-accent-500 blur-xl transform scale-0 transition-all duration-700 ease-out" 
+    :class="{'scale-100': hovered, 'scale-0': !hovered}"
+    ></div>
 </div> 

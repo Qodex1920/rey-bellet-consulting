@@ -1,7 +1,7 @@
 {
-  "name": "Mon Projet Starter",
-  "short_name": "Starter",
-  "description": "Site web statique Vite + Tailwind",
+  "name": "Rey-Bellet Consulting",
+  "short_name": "Rey-Bellet Consulting",
+  "description": "Rey-Bellet Consulting - Site statique",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

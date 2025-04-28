@@ -2,7 +2,7 @@
  * Fichier principal de styles Tailwind CSS v4.1
  * 
  * Configuration CSS-first pour Rey-Bellet Consulting
- * Ne nécessite pas de fichier tailwind.config.js
+ * Thème sombre avec accents dorés
  */
 
 /* 1. Import de Tailwind CSS */
@@ -18,11 +18,20 @@
   --color-gray-light: #808080;
   --color-gray-dark: #333333;
   
-  /* Couleurs fonctionnelles */
-  --color-primary: var(--color-blue);
+  /* Couleurs fonctionnelles ajustées pour le thème sombre */
+  --color-primary: var(--color-gold);
   --color-accent: var(--color-gold);
   
-  /* Création des dégradés de couleurs */
+  /* Variables RGB pour animations */
+  --color-accent-500-rgb: 255, 215, 0;
+  --color-primary-500-rgb: 24, 72, 160;
+  
+  /* Dégradés dorés pour accents */
+  --color-gold-gradient-1: linear-gradient(135deg, #FFD700 0%, #FFC107 25%, #DAA520 50%, #B8860B 75%, #A67C00 100%);
+  --color-gold-gradient-2: linear-gradient(90deg, #000000 0%, rgba(166, 124, 0, 0.5) 50%, #000000 100%);
+  --color-gold-gradient-3: linear-gradient(270deg, #FFD700 0%, rgba(255, 215, 0, 0.2) 100%);
+  
+  /* Création des dégradés de couleurs ajustés pour le thème sombre */
   --color-primary-50: #EEF2FA;
   --color-primary-100: #D1DEF1;
   --color-primary-200: #A3BDE3;
@@ -45,16 +54,16 @@
   --color-accent-800: #665600;
   --color-accent-900: #332B00;
   
-  --color-gray-50: #F7F7F7;
-  --color-gray-100: #E6E6E6;
-  --color-gray-200: #CCCCCC;
-  --color-gray-300: #B3B3B3;
-  --color-gray-400: #999999;
-  --color-gray-500: #808080;
-  --color-gray-600: #666666;
-  --color-gray-700: #4D4D4D;
-  --color-gray-800: #333333;
-  --color-gray-900: #1A1A1A;
+  --color-gray-50: #191919;
+  --color-gray-100: #262626;
+  --color-gray-200: #333333;
+  --color-gray-300: #404040;
+  --color-gray-400: #555555;
+  --color-gray-500: #737373;
+  --color-gray-600: #a3a3a3;
+  --color-gray-700: #d4d4d4;
+  --color-gray-800: #e5e5e5;
+  --color-gray-900: #f5f5f5;
   
   /* Typographie selon le styleguide */
   --font-sans: "Montserrat", sans-serif;
@@ -72,6 +81,8 @@
   /* Animations */
   --animate-fade-in: fadeIn 0.3s ease-in-out;
   --animate-fade-out: fadeOut 0.3s ease-in-out;
+  --animate-glow: glowEffect 3s infinite alternate;
+  --animate-shimmer: shimmerEffect 2s infinite linear;
 
   @keyframes fadeIn {
     0% { opacity: 0; }
@@ -81,6 +92,16 @@
   @keyframes fadeOut {
     0% { opacity: 1; }
     100% { opacity: 0; }
+  }
+  
+  @keyframes glowEffect {
+    0% { text-shadow: 0 0 5px rgba(255, 215, 0, 0.3); }
+    100% { text-shadow: 0 0 15px rgba(255, 215, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.5); }
+  }
+  
+  @keyframes shimmerEffect {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
   }
 }
 
@@ -99,14 +120,14 @@
   }
 }
 
-/* Styles de base */
+/* Styles de base pour le thème sombre */
 @layer base {
   html {
-    @apply font-sans text-black bg-white;
+    @apply font-sans text-gray-300 bg-black;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold;
+    @apply font-heading font-bold text-white;
   }
   
   h1 {
@@ -122,173 +143,371 @@
   }
   
   p {
-    @apply mb-4 leading-relaxed;
+    @apply mb-4 leading-relaxed text-gray-400;
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
 }
 
-/* Composants personnalisés */
+/* Composants personnalisés adaptés au thème sombre */
 @layer components {
+  /* Keyframes pour les animations des boutons */
+  @keyframes btnPulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--color-accent-500-rgb), 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(var(--color-accent-500-rgb), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--color-accent-500-rgb), 0); }
+  }
+  
+  @keyframes btnShine {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Style de base pour tous les boutons */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium text-base transition-all duration-300 ease-in-out transform focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none disabled:transition-none;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium text-base relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
   
+  /* Bouton primaire amélioré */
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-primary-500;
+    @apply bg-accent-500 text-black focus:ring-accent-300;
+    position: relative;
+    z-index: 1;
   }
   
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: var(--color-accent-600);
+    transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
+  }
+  
+  .btn-primary:hover::before {
+    height: 100%;
+  }
+  
+  .btn-primary:hover {
+    @apply shadow-lg shadow-accent-500/20;
+  }
+  
+  .btn-primary:active {
+    @apply shadow-inner;
+  }
+  
+  /* Bouton secondaire amélioré */
   .btn-secondary {
-    @apply bg-white text-primary-600 border border-primary-600 hover:bg-primary-50 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-primary-500;
+    @apply bg-gray-900 text-accent-500 border border-accent-500 focus:ring-accent-400;
+    position: relative;
+    transition: all 0.3s ease;
   }
   
-  .btn-accent {
-    @apply bg-accent-500 text-black hover:bg-accent-600 hover:-translate-y-0.5 active:translate-y-0 shadow-md hover:shadow-lg focus:ring-accent-400;
-  }
-  
-  .btn-outline {
-    @apply bg-transparent text-gray-700 border border-gray-300 hover:border-gray-400 hover:text-gray-900 hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md focus:ring-gray-500;
-  }
-  
-  /* Système de section avec titre */
-  .section-title {
-    @apply max-w-3xl mx-auto text-left md:text-center mb-12;
-    animation: fadeInUp 0.7s ease-out forwards;
+  .btn-secondary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-gray-800);
     opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+  
+  .btn-secondary:hover {
+    @apply shadow-md shadow-accent-500/20 border-accent-400 text-accent-400;
+  }
+  
+  .btn-secondary:hover::before {
+    opacity: 1;
+  }
+  
+  .btn-secondary:active {
+    @apply shadow-inner;
+  }
+  
+  /* Bouton accent amélioré */
+  .btn-accent {
+    background: var(--color-gold-gradient-1);
+    @apply text-black focus:ring-accent-400;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-accent::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+  
+  .btn-accent:hover {
+    @apply shadow-lg shadow-accent-500/30;
+  }
+  
+  .btn-accent:hover::after {
+    transform: translateX(100%);
+  }
+  
+  .btn-accent:active {
+    @apply shadow-inner transform scale-95;
+  }
+  
+  /* Bouton outline amélioré */
+  .btn-outline {
+    @apply bg-transparent text-gray-300 border border-gray-700 focus:ring-accent-400;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-accent-500);
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
+    z-index: -1;
+  }
+  
+  .btn-outline:hover {
+    @apply text-black border-accent-500;
+  }
+  
+  .btn-outline:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+    opacity: 1;
+  }
+  
+  .btn-outline:active {
+    @apply shadow-inner transform scale-95;
+  }
+  
+  /* Bouton small */
+  .btn-small {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  /* Bouton large */
+  .btn-large {
+    @apply px-8 py-4 text-lg;
+  }
+
+  /* Styles des titres de section */
+  .section-title {
+    @apply relative z-10;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute -bottom-4 left-0 right-0 mx-auto h-1 w-20 bg-accent-500 rounded opacity-70;
   }
   
   .section-title-heading {
-    @apply text-3xl md:text-4xl font-bold text-black uppercase tracking-wider mb-4;
+    @apply text-3xl md:text-4xl font-bold mb-4 text-white;
   }
   
   .section-title-subtitle {
-    @apply text-lg font-subheading text-gray-600;
+    @apply text-xl text-gray-400 max-w-xl mx-auto;
   }
   
-  /* Composant diagonal-lines pour créer les lignes diagonales montantes */
+  /* Lignes diagonales décoratives */
   .diagonal-lines {
-    @apply relative overflow-hidden;
+    @apply absolute inset-0 overflow-hidden;
   }
   
   .diagonal-lines::before,
   .diagonal-lines::after {
-    content: "";
-    @apply absolute w-[200%] h-1 -left-[50%] transform -rotate-6 origin-center;
+    content: '';
+    @apply absolute block transform -rotate-45;
   }
   
   .diagonal-lines::before {
-    @apply bg-accent-500; /* Ligne dorée */
-    bottom: 10px;
+    @apply w-screen h-0.5 bg-accent-500/20 -left-1/4 top-1/3;
   }
   
   .diagonal-lines::after {
-    @apply bg-primary-500; /* Ligne bleue */
-    bottom: 20px;
+    @apply w-screen h-0.5 bg-blue-500/10 -right-1/4 bottom-1/3;
   }
   
-  /* Composant CallToAction */
+  /* Styles pour les sections CTA */
   .cta-section {
-    @apply py-12 px-4 sm:px-6 md:py-16 bg-gray-50;
+    @apply relative py-16 bg-black overflow-hidden;
   }
   
   .cta-container {
-    @apply max-w-5xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-6;
+    @apply relative z-10 max-w-4xl mx-auto text-center;
   }
   
   .cta-title {
-    @apply text-2xl md:text-3xl font-bold uppercase tracking-wider mb-3;
+    @apply text-3xl md:text-4xl font-bold mb-6 text-white;
   }
   
   .cta-description {
-    @apply md:text-lg text-gray-700;
+    @apply text-lg mb-8 text-gray-400 max-w-2xl mx-auto;
   }
   
   .cta-button-container {
-    @apply flex-shrink-0;
+    @apply flex flex-col sm:flex-row justify-center items-center gap-4;
   }
   
-  /* Conteneur principal */
+  /* Container principal pour plus d'espace autour du contenu */
   .container {
-    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+    @apply px-4 md:px-6 max-w-7xl mx-auto;
   }
   
-  /* Carte de service */
+  /* Styles pour les cartes */
   .card {
-    @apply bg-white rounded-none border-t-4 border-accent-500 shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+    @apply bg-gray-900 border border-gray-800 rounded-lg p-6 shadow-lg;
   }
   
-  /* Cartes de service - Entreprises */
+  /* Cartes de service pour les entreprises */
   .service-card-enterprise {
-    @apply bg-white rounded-xl shadow-md p-8 border-t-4 border-primary-600 transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg;
+    @apply bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-lg relative overflow-hidden;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
   
   .service-card-header {
-    @apply flex items-center mb-4;
+    @apply flex items-start mb-5;
   }
   
   .service-card-icon {
-    @apply mr-4 flex-shrink-0;
+    @apply flex-shrink-0 text-accent-500 mr-4;
+    transition: all 0.3s ease;
   }
   
   .service-card-title {
-    @apply text-xl font-bold uppercase tracking-wider text-primary-600;
+    @apply text-2xl font-bold text-white mb-1;
+    transition: color 0.3s ease;
   }
   
   .service-card-description {
-    @apply mb-4 text-gray-700;
+    @apply text-gray-400 mb-6;
+    transition: color 0.3s ease;
   }
   
   .service-card-features {
-    @apply space-y-2 text-gray-700 mb-6;
+    @apply space-y-3;
   }
   
   .service-card-feature {
-    @apply flex items-start;
+    @apply flex items-center;
   }
   
   .service-card-feature-icon {
-    @apply w-5 h-5 text-accent-500 mr-2 mt-1 flex-shrink-0;
+    @apply h-5 w-5 text-accent-500 mr-3;
   }
   
-  /* Cartes de service - Particuliers */
+  /* Cartes de service pour les particuliers */
   .service-card-personal {
-    @apply bg-white rounded-xl shadow-md p-8 border-t-4 border-accent-500 h-full flex flex-col transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-lg;
+    @apply bg-gray-900 rounded-xl border border-gray-800 p-8 relative overflow-hidden;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
   
   .service-card-personal-title {
-    @apply text-xl font-bold mb-4 uppercase tracking-wider text-primary-600;
+    @apply text-2xl font-bold text-white mb-4;
+    transition: color 0.3s ease;
   }
   
   .service-card-personal-description {
-    @apply mb-6 text-gray-700 flex-grow;
+    @apply text-gray-400 mb-6;
+    transition: color 0.3s ease;
   }
   
   .service-card-personal-link {
-    @apply inline-flex items-center text-primary-600 font-medium hover:text-primary-700 transition-colors mt-auto;
+    @apply inline-flex items-center text-accent-500 font-medium;
+    transition: color 0.3s ease;
   }
   
   .service-card-personal-link-icon {
     @apply ml-2 w-5 h-5;
+    transition: transform 0.3s ease;
   }
-}
-
-/* Utilitaires personnalisés */
-@layer utilities {
+  
+  /* Carte pour les solutions innovantes */
+  .solution-card {
+    @apply bg-black/60 backdrop-blur-sm rounded-xl border border-gray-800 p-8 relative overflow-hidden;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  .solution-card-icon {
+    @apply w-16 h-16 mb-6 text-accent-500;
+    transition: all 0.3s ease;
+  }
+  
+  .solution-card-title {
+    @apply text-2xl font-bold text-white mb-4;
+    transition: color 0.3s ease;
+  }
+  
+  .solution-card-description {
+    @apply text-gray-400 mb-6;
+    transition: color 0.3s ease;
+  }
+  
+  .solution-card-benefits {
+    @apply space-y-3 mb-8;
+  }
+  
+  .solution-card-action {
+    @apply inline-flex items-center text-accent-500 font-medium relative;
+    transition: color 0.3s ease;
+  }
+  
+  .solution-card-action svg {
+    @apply ml-2 w-5 h-5;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Éléments décoratifs dorés */
+  .gold-decor-element {
+    @apply absolute opacity-10 bg-accent-500;
+    filter: blur(40px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  
+  /* Texte avec dégradé doré */
   .text-gradient {
-    background: linear-gradient(135deg, var(--color-accent-500), var(--color-primary-500));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @apply bg-clip-text text-transparent;
+    background-image: var(--color-gold-gradient-1);
+    background-size: 200% auto;
+    animation: btnShine 3s linear infinite;
   }
   
+  /* Bordure avec dégradé doré */
   .border-gradient {
-    border-image: linear-gradient(135deg, var(--color-accent-500), var(--color-primary-500)) 1;
+    @apply relative;
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
   
-  /* Utilitaire pour les textes spéciaux en Poppins (citations/slogans) */
+  /* Styles pour le texte spécial */
   .text-special {
     @apply font-special uppercase tracking-wider;
+    text-shadow: 0 0 10px rgba(var(--color-accent-500-rgb), 0.3);
+    animation: var(--animate-glow);
   }
 }
 
+/* Animations de texte */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -298,5 +517,28 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Styles pour l'animation de frappe */
+.typing-cursor-active::after,
+.typing-cursor-delete::after,
+.typing-cursor-waiting::after {
+  content: '|';
+  display: inline-block;
+  margin-left: 0.1em;
+  animation: caretBlink 0.7s infinite;
+}
+
+.typing-cursor-waiting::after {
+  animation: caretBlink 1.2s infinite;
+}
+
+.typing-cursor-delete::after {
+  animation: caretBlink 0.4s infinite;
+}
+
+@keyframes caretBlink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 

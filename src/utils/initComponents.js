@@ -3,6 +3,7 @@
  */
 import { injectCookieConsent } from './cookieConsentInjector.js';
 import './cookieConsent.js';
+import { createButton, buttonIcons } from '../components/common/Button.js';
 
 export default function initComponents() {
   // Vérifier si Alpine.js est disponible
@@ -30,6 +31,7 @@ export default function initComponents() {
     initToasts();
     initTestimonials();
     initCallToAction();
+    initButtonComponents();
   });
 }
 
@@ -483,4 +485,58 @@ function initCallToAction() {
       }));
     }
   });
+}
+
+/**
+ * Initialise les composants bouton
+ */
+function initButtonComponents() {
+  // Sélectionner tous les conteneurs de boutons
+  const buttonContainers = document.querySelectorAll('[data-button]');
+  
+  // Parcourir chaque conteneur et générer le bouton
+  buttonContainers.forEach(container => {
+    // Récupérer les attributs du bouton
+    const type = container.getAttribute('data-button') || 'primary';
+    const text = container.getAttribute('data-text') || 'Bouton';
+    const size = container.getAttribute('data-size') || 'default';
+    const url = container.getAttribute('data-url') || null;
+    const disabled = container.getAttribute('data-disabled') === 'true';
+    const borderGradient = container.getAttribute('data-border-gradient') === 'true';
+    const iconName = container.getAttribute('data-icon');
+    const iconPosition = container.getAttribute('data-icon-position') || 'right';
+    
+    // Construire la configuration du bouton
+    const buttonConfig = {
+      text,
+      type,
+      size,
+      url,
+      disabled,
+      borderGradient,
+      iconPosition
+    };
+    
+    // Ajouter l'icône si spécifiée
+    if (iconName && buttonIcons[iconName]) {
+      buttonConfig.icon = buttonIcons[iconName];
+    }
+    
+    // Créer le bouton et l'injecter dans le conteneur
+    container.innerHTML = createButton(buttonConfig);
+  });
+}
+
+/**
+ * Ajoute un bouton à un conteneur spécifié par sélecteur CSS
+ * @param {string} selector - Sélecteur CSS du conteneur
+ * @param {Object} options - Options du bouton (voir la documentation de createButton)
+ */
+export function addButtonTo(selector, options) {
+  const container = document.querySelector(selector);
+  if (container) {
+    container.innerHTML = createButton(options);
+  } else {
+    console.warn(`Conteneur de bouton non trouvé: ${selector}`);
+  }
 } 

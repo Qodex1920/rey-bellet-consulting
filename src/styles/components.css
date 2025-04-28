@@ -484,3 +484,83 @@
     height: 300px;
   }
 }
+
+/* Styles de composants pour Rey-Bellet Consulting
+ * Ce fichier contient les styles des composants réutilisables
+ */
+
+/**
+ * Styles des boutons
+ * ==================
+ */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 font-medium rounded-lg 
+    transition duration-300 ease-in-out text-base focus:outline-none focus:ring-2 
+    focus:ring-offset-2 focus-visible:ring-2 hover:shadow-md;
+}
+
+/* Styles primaires */
+.btn-primary {
+  @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+}
+
+/* Styles secondaires */
+.btn-secondary {
+  @apply bg-white text-primary border border-primary hover:bg-primary/5 focus:ring-primary;
+}
+
+/* Avec effet gradient sur la bordure */
+.btn.border-gradient {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+
+.btn.border-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  margin: -2px;
+  border-radius: inherit;
+  background: var(--border-gradient, var(--color-gold-gradient-1));
+}
+
+/* Styles accent */
+.btn-accent {
+  @apply bg-accent text-white hover:bg-accent-dark focus:ring-accent;
+}
+
+/* Styles outline */
+.btn-outline {
+  @apply bg-transparent border-2 border-current text-primary hover:bg-primary/5 focus:ring-primary;
+}
+
+/* Styles danger */
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+/* Tailles de bouton */
+.btn-small {
+  @apply px-4 py-2 text-sm rounded;
+}
+
+.btn-large {
+  @apply px-8 py-4 text-lg rounded-xl;
+}
+
+/* État désactivé pour tous les boutons */
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  @apply opacity-60 cursor-not-allowed hover:shadow-none;
+}
+
+/**
+ * Styles supplémentaires des composants
+ * ====================================
+ * Ajoutez ici les styles des autres composants
+ */

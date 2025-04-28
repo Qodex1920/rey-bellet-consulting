@@ -74,8 +74,9 @@ export function fadeInUp(element, options = {}) {
   }
   
   const defaults = {
-    duration: 600,
+    duration: 500,
     easing: 'ease-out',
+    delay: 0
   };
   
   const config = { ...defaults, ...options };
@@ -175,7 +176,7 @@ export function prefersReducedMotion() {
 }
 
 // Fonction pour vérifier si un élément est visible dans le viewport
-function isElementInViewport(el, offset = 100) {
+function isElementInViewport(el, offset = 200) {
   if (!el) return false;
   
   const rect = el.getBoundingClientRect();
@@ -195,15 +196,21 @@ document.addEventListener('alpine:init', () => {
     visible: false,
     
     init() {
-      this.checkVisibility();
-      
-      window.addEventListener('scroll', () => {
+      if (isElementInViewport(this.$el, 250)) {
+        this.visible = true;
+      } else {
         this.checkVisibility();
-      }, { passive: true });
+        
+        window.addEventListener('scroll', () => {
+          if (!this.visible) {
+            this.checkVisibility();
+          }
+        }, { passive: true });
+      }
     },
     
     checkVisibility() {
-      if (isElementInViewport(this.$el)) {
+      if (isElementInViewport(this.$el, 250)) {
         this.visible = true;
       }
     }
@@ -227,7 +234,7 @@ document.addEventListener('alpine:init', () => {
         if (isElementInViewport(testimonial)) {
           setTimeout(() => {
             testimonial.classList.add('visible');
-          }, index * 150); // Délai échelonné pour chaque témoignage
+          }, index * 75);
         }
       });
     }

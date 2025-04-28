@@ -1,0 +1,263 @@
+<!-- 
+  services-section-example.html
+  Page d'exemple montrant comment utiliser le composant ServicesSection.js
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemple de Section Services | Rey-Bellet Consulting</title>
+  <link rel="stylesheet" href="../../styles/main.css">
+  <style>
+    .example-wrapper {
+      margin-bottom: 3rem;
+      padding: 2rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+    }
+    
+    .code-block {
+      background-color: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.375rem;
+      overflow-x: auto;
+      font-family: monospace;
+      margin: 1rem 0;
+      white-space: pre;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #111827;
+    }
+    
+    .example-description {
+      margin-bottom: 1.5rem;
+      color: #4b5563;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Placeholder pour le header (sera injecté dynamiquement) -->
+  <!-- component:header -->
+
+  <main class="container mx-auto px-4 py-12">
+    <h1 class="text-3xl font-bold mb-8 text-center">Exemples d'utilisation du composant ServicesSection</h1>
+    <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12 text-center">
+      Cette page présente différentes façons d'utiliser le composant ServicesSection.js pour créer des sections de services interactives dans vos pages web.
+    </p>
+
+    <!-- Exemple 1: Utilisation basique -->
+    <div class="example-wrapper">
+      <h2 class="section-title">Utilisation basique</h2>
+      <p class="example-description">
+        L'exemple le plus simple d'intégration du composant ServicesSection avec les options par défaut.
+      </p>
+
+      <div class="code-block">
+import { createServicesSection } from '../sections/ServicesSection.js';
+
+// Insérer la section avec les options par défaut
+const servicesHTML = createServicesSection();
+document.getElementById('services-container').innerHTML = servicesHTML;
+
+// N'oubliez pas d'initialiser Alpine.js après l'injection
+import { initAlpine } from '../../utils/componentInjector.js';
+initAlpine();
+      </div>
+
+      <div id="basic-example" class="mt-8 border-2 border-dashed border-gray-300 p-4 rounded-lg">
+        <!-- Le contenu sera injecté ici par le script -->
+      </div>
+    </div>
+
+    <!-- Exemple 2: Personnalisation des options -->
+    <div class="example-wrapper">
+      <h2 class="section-title">Personnalisation des options</h2>
+      <p class="example-description">
+        Comment personnaliser la section de services avec vos propres titres, sous-titres et données de services.
+      </p>
+
+      <div class="code-block">
+import { createServicesSection } from '../sections/ServicesSection.js';
+
+// Options personnalisées
+const options = {
+  sectionId: 'services-personnalises',
+  title: 'Services Personnalisés',
+  subtitle: 'Découvrez notre gamme de services adaptés à vos besoins spécifiques',
+  enterpriseServices: [
+    {
+      title: 'Stratégie Digitale',
+      description: 'Définissez votre stratégie numérique pour atteindre vos objectifs',
+      features: ['Analyse de marché', 'Positionnement digital', 'Plan d\'action'],
+      icon: 'strategy',
+      ctaText: 'Demander un devis',
+      ctaUrl: '/contact.html'
+    },
+    // Ajoutez d'autres services selon vos besoins
+  ],
+  personalServices: [
+    {
+      title: 'Site Web Vitrine',
+      description: 'Présentez votre activité avec un site web professionnel',
+      features: ['Design moderne', 'Optimisation mobile', 'Référencement SEO'],
+      icon: 'website',
+      ctaText: 'Voir nos offres',
+      ctaUrl: '/services.html'
+    },
+    // Ajoutez d'autres services selon vos besoins
+  ]
+};
+
+// Générer et insérer la section personnalisée
+const servicesHTML = createServicesSection(options);
+document.getElementById('custom-services-container').innerHTML = servicesHTML;
+
+// Initialiser Alpine.js
+import { initAlpine } from '../../utils/componentInjector.js';
+initAlpine();
+      </div>
+
+      <div id="custom-example" class="mt-8 border-2 border-dashed border-gray-300 p-4 rounded-lg">
+        <!-- Le contenu sera injecté ici par le script -->
+      </div>
+    </div>
+
+    <!-- Exemple 3: Injection via fonction dédiée -->
+    <div class="example-wrapper">
+      <h2 class="section-title">Injection via fonction dédiée</h2>
+      <p class="example-description">
+        Utilisation de la fonction <code>injectServicesSectionTo</code> qui s'occupe à la fois de l'injection et de l'initialisation d'Alpine.js.
+      </p>
+
+      <div class="code-block">
+import { injectServicesSectionTo } from '../sections/ServicesSection.js';
+
+// Options personnalisées
+const options = {
+  title: 'Services par Injection',
+  subtitle: 'Cette section a été injectée via la fonction dédiée'
+};
+
+// Injecter la section et initialiser Alpine.js en une seule étape
+injectServicesSectionTo('#injected-services-container', options)
+  .then(() => console.log('Section de services injectée avec succès'))
+  .catch(error => console.error('Erreur lors de l\'injection:', error));
+      </div>
+
+      <div id="injected-example" class="mt-8 border-2 border-dashed border-gray-300 p-4 rounded-lg">
+        <!-- Le contenu sera injecté ici par le script -->
+      </div>
+    </div>
+
+    <!-- Exemple 4: Utilisation programmatique avec bouton -->
+    <div class="example-wrapper">
+      <h2 class="section-title">Utilisation programmatique avec bouton</h2>
+      <p class="example-description">
+        Chargement dynamique de la section de services lors du clic sur un bouton.
+      </p>
+
+      <div class="code-block">
+document.getElementById('load-services-btn').addEventListener('click', async () => {
+  // Importer dynamiquement le module
+  const { injectServicesSectionTo } = await import('../sections/ServicesSection.js');
+  
+  // Options personnalisées
+  const options = {
+    title: 'Services Chargés Dynamiquement',
+    subtitle: 'Cette section a été chargée après le clic sur un bouton'
+  };
+  
+  // Injecter la section
+  await injectServicesSectionTo('#dynamic-services-container', options);
+  
+  // Désactiver le bouton après chargement
+  document.getElementById('load-services-btn').disabled = true;
+  document.getElementById('load-services-btn').textContent = 'Section chargée';
+});
+      </div>
+
+      <button id="load-services-btn" class="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors">
+        Charger la section de services
+      </button>
+
+      <div id="dynamic-example" class="mt-8 border-2 border-dashed border-gray-300 p-4 rounded-lg">
+        <!-- Le contenu sera injecté ici par le script -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Placeholder pour le footer (sera injecté dynamiquement) -->
+  <!-- component:footer -->
+
+  <script type="module">
+    import { initSite } from '../../utils/main.js';
+    import { createServicesSection, injectServicesSectionTo } from '../../components/sections/ServicesSection.js';
+    
+    // Initialiser le site (injecte les composants header/footer, etc.)
+    document.addEventListener('DOMContentLoaded', async () => {
+      await initSite();
+      
+      // Exemple 1: Utilisation basique
+      const basicExample = document.getElementById('basic-example');
+      basicExample.innerHTML = createServicesSection();
+      
+      // Exemple 2: Personnalisation des options
+      const customExample = document.getElementById('custom-example');
+      customExample.innerHTML = createServicesSection({
+        sectionId: 'services-personnalises',
+        title: 'Services Personnalisés',
+        subtitle: 'Découvrez notre gamme de services adaptés à vos besoins spécifiques',
+        enterpriseServices: [
+          {
+            title: 'Stratégie Digitale',
+            description: 'Définissez votre stratégie numérique pour atteindre vos objectifs',
+            features: ['Analyse de marché', 'Positionnement digital', 'Plan d\'action'],
+            icon: 'strategy',
+            ctaText: 'Demander un devis',
+            ctaUrl: '/contact.html'
+          }
+        ],
+        personalServices: [
+          {
+            title: 'Site Web Vitrine',
+            description: 'Présentez votre activité avec un site web professionnel',
+            features: ['Design moderne', 'Optimisation mobile', 'Référencement SEO'],
+            icon: 'website',
+            ctaText: 'Voir nos offres',
+            ctaUrl: '/services.html'
+          }
+        ]
+      });
+      
+      // Exemple 3: Injection via fonction dédiée
+      await injectServicesSectionTo('#injected-example', {
+        title: 'Services par Injection',
+        subtitle: 'Cette section a été injectée via la fonction dédiée'
+      });
+      
+      // Exemple 4: Bouton pour charger dynamiquement
+      document.getElementById('load-services-btn').addEventListener('click', async () => {
+        // Options personnalisées
+        const options = {
+          title: 'Services Chargés Dynamiquement',
+          subtitle: 'Cette section a été chargée après le clic sur un bouton'
+        };
+        
+        // Injecter la section
+        await injectServicesSectionTo('#dynamic-example', options);
+        
+        // Désactiver le bouton après chargement
+        document.getElementById('load-services-btn').disabled = true;
+        document.getElementById('load-services-btn').textContent = 'Section chargée';
+      });
+    });
+  </script>
+</body>
+</html> 
