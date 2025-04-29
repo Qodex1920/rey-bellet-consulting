@@ -169,6 +169,23 @@ export function injectTemplateComponents() {
   
   // Initialiser les comportements Alpine après injection
   if (window.Alpine) {
-    window.Alpine.initTree(document.body);
+    console.log('Alpine.js détecté, initialisation...');
+    try {
+      window.Alpine.initTree(document.body);
+    } catch (error) {
+      console.error('Erreur lors de l\'initialisation d\'Alpine.js:', error);
+    }
+  } else {
+    console.warn('Alpine.js non détecté lors de l\'injection des composants');
+    // Attendre que le script Alpine.js soit chargé avant d'initialiser
+    document.addEventListener('alpine:init', () => {
+      console.log('Événement alpine:init détecté - Les composants sont maintenant définis dans index.html');
+    });
   }
-} 
+}
+
+// Alpine.js components
+document.addEventListener('alpine:init', () => {
+  // Ces composants sont maintenant définis directement dans le HTML principal
+  console.log('Événement alpine:init détecté - Les composants sont maintenant définis dans index.html');
+}); 

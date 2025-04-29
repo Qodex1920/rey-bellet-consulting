@@ -22,9 +22,14 @@ export const serviceIcons = {
   growth: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
   </svg>`,
-  custom: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09Z" />
-  </svg>`
+  custom: 'https://cdn.lordicon.com/lagziwcr.json',
+  // Ajout des icônes Lord-icon pour les variantes améliorées
+  strategy: 'https://cdn.lordicon.com/jdgfsfzr.json',
+  planning: 'https://cdn.lordicon.com/wsvtrygf.json',
+  activate: 'https://cdn.lordicon.com/oiveszhb.json',
+  development: 'https://cdn.lordicon.com/lagziwcr.json',
+  potential: 'https://cdn.lordicon.com/yxpxfegf.json',
+  ambition: 'https://cdn.lordicon.com/yxpxfegf.json'
 };
 
 /**
@@ -32,12 +37,10 @@ export const serviceIcons = {
  * @param {Object} settings Configuration de la carte
  * @param {string} settings.title Titre de la carte
  * @param {string} settings.description Description du service
- * @param {string} settings.variant Type de carte ('enterprise', 'personal', 'simple')
- * @param {Array<string>} [settings.features] Liste des fonctionnalités (pour enterprise)
+ * @param {string} settings.variant Type de carte ('enterprise', 'personal', 'simple', 'enterprise-modern', 'personal-modern')
+ * @param {Array<string>} [settings.features] Liste des fonctionnalités ou caractéristiques
  * @param {Array<string>} [settings.tags] Liste des tags (pour personal)
- * @param {string} [settings.icon] Icône SVG à afficher
- * @param {string} [settings.ctaText] Texte du bouton d'action
- * @param {string} [settings.ctaUrl] URL de redirection
+ * @param {string} [settings.icon] Icône ou identifiant d'icône
  * @param {boolean} [settings.isPremium] Indique si c'est un service premium (pour personal)
  * @returns {string} HTML de la carte de service
  */
@@ -46,12 +49,10 @@ export function createServiceCard(settings) {
   const config = {
     title: '',
     description: '',
-    variant: 'simple', // 'enterprise', 'personal', 'simple'
+    variant: 'simple', // 'enterprise', 'personal', 'simple', 'enterprise-modern', 'personal-modern'
     features: [],
     tags: [],
     icon: '',
-    ctaText: 'En savoir plus',
-    ctaUrl: '#',
     isPremium: false,
     ...settings
   };
@@ -62,6 +63,10 @@ export function createServiceCard(settings) {
       return createEnterpriseServiceCard(config);
     case 'personal':
       return createPersonalServiceCard(config);
+    case 'enterprise-modern':
+      return createEnterpriseModernServiceCard(config);
+    case 'personal-modern':
+      return createPersonalModernServiceCard(config);
     case 'simple':
     default:
       return createSimpleServiceCard(config);
@@ -69,7 +74,7 @@ export function createServiceCard(settings) {
 }
 
 /**
- * Crée une carte de service pour entreprises
+ * Crée une carte de service pour entreprises (style original)
  * @param {Object} config Configuration de la carte
  * @returns {string} HTML de la carte pour entreprises
  */
@@ -99,24 +104,17 @@ function createEnterpriseServiceCard(config) {
           <div class="h-px w-16 bg-gradient-to-r from-amber-500 to-amber-300"></div>
         </div>
         
-        <h3 class="text-xl font-bold text-white mb-2">${config.title}</h3>
+        <h3 class="text-xl font-bold text-[#1848A0] mb-2">${config.title}</h3>
         <p class="text-gray-400 text-sm mb-4 flex-grow">${config.description}</p>
         
         ${featuresList}
-        
-        <a href="${config.ctaUrl}" class="mt-6 inline-flex items-center justify-center px-5 py-2 border border-transparent text-base font-medium rounded-md text-gray-900 bg-amber-400 hover:bg-amber-300 transition-all duration-200 ease-in-out">
-          ${config.ctaText}
-          <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-          </svg>
-        </a>
       </div>
     </div>
   `;
 }
 
 /**
- * Crée une carte de service pour particuliers
+ * Crée une carte de service pour particuliers (style original)
  * @param {Object} config Configuration de la carte
  * @returns {string} HTML de la carte pour particuliers
  */
@@ -142,20 +140,13 @@ function createPersonalServiceCard(config) {
       ${premiumBadge}
       <div class="p-6">
         <div class="flex justify-between items-start">
-          <h3 class="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">${config.title}</h3>
+          <h3 class="text-xl font-bold text-[#1848A0] group-hover:text-[#1848A0] transition-colors duration-200">${config.title}</h3>
           <div class="w-8 h-1 bg-blue-500 rounded"></div>
         </div>
         
         <p class="mt-3 text-gray-600">${config.description}</p>
         
         ${tagsHtml}
-        
-        <a href="${config.ctaUrl}" class="mt-4 inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
-          ${config.ctaText}
-          <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-          </svg>
-        </a>
       </div>
       
       <div class="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-blue-300 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"></div>
@@ -175,15 +166,150 @@ function createSimpleServiceCard(config) {
         ${config.icon || serviceIcons.custom}
       </div>
       
-      <h3 class="text-lg font-semibold text-gray-900 mb-2">${config.title}</h3>
+      <h3 class="text-lg font-semibold text-[#1848A0] mb-2">${config.title}</h3>
       <p class="text-gray-600 text-sm mb-4">${config.description}</p>
+    </div>
+  `;
+}
+
+/**
+ * Crée une carte de service pour entreprises avec design moderne (basé sur service-card.js)
+ * @param {Object} config Configuration de la carte
+ * @returns {string} HTML de la carte moderne pour entreprises
+ */
+function createEnterpriseModernServiceCard(config) {
+  // Vérifier si l'icône est une URL Lord-icon ou une icône SVG
+  let iconHTML = '';
+  if (typeof config.icon === 'string' && serviceIcons[config.icon] && serviceIcons[config.icon].startsWith('http')) {
+    // C'est une URL Lord-icon
+    iconHTML = `
+      <lord-icon
+        src="${serviceIcons[config.icon]}"
+        trigger="in"
+        colors="primary:#ffd700,secondary:#1848a0"
+        delay="300"
+        state="in-reveal"
+        style="width:48px;height:48px">
+      </lord-icon>
+    `;
+  } else {
+    // C'est une icône SVG ou une icône par défaut
+    iconHTML = config.icon || serviceIcons.consulting;
+  }
+
+  // Génération des éléments de fonctionnalités
+  const featuresHTML = config.features.map(feature => `
+    <li class="service-card-feature flex items-center">
+      <svg class="service-card-feature-icon h-5 w-5 text-[#FFD700] mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+      </svg>
+      <span class="text-gray-300 transition-colors duration-300">${feature}</span>
+    </li>
+  `).join('');
+
+  return `
+    <div 
+      class="service-card-enterprise bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-lg transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#FFD700]/20 relative overflow-hidden group"
+      x-data="{ hovered: false }"
+      x-on:mouseenter="hovered = true"
+      x-on:mouseleave="hovered = false">
       
-      <a href="${config.ctaUrl}" class="text-sm font-medium text-blue-600 hover:text-blue-800 inline-flex items-center">
-        ${config.ctaText}
-        <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-        </svg>
-      </a>
+      <!-- Élément décoratif doré supérieur -->
+      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#FFD700]/20 via-[#FFD700] to-[#FFD700]/20"></div>
+      
+      <!-- Élément décoratif doré latéral, visible au survol -->
+      <div class="absolute top-0 right-0 w-1.5 h-0 bg-[#FFD700] transition-all duration-700 ease-out group-hover:h-full"></div>
+      
+      <!-- Effet rayonnant dans le coin -->
+      <div class="absolute -top-12 -left-12 w-24 h-24 bg-[#FFD700]/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+      
+      <div class="service-card-header mb-5 flex items-start">
+        <div class="service-card-icon text-[#FFD700] mr-4 transform transition-all duration-500 ease-out group-hover:scale-110">
+          ${iconHTML}
+        </div>
+        <h3 class="service-card-title text-2xl font-bold text-[#1848A0] mb-0 transition-colors duration-300 group-hover:text-[#FFD700]">${config.title}</h3>
+      </div>
+      
+      <p class="service-card-description text-gray-400 mb-6 transition-all duration-300 group-hover:text-gray-300">
+        ${config.description}
+      </p>
+      
+      ${config.features.length > 0 ? `
+        <ul class="service-card-features space-y-3 mb-6">
+          ${featuresHTML}
+        </ul>
+      ` : ''}
+      
+      <!-- Effet brillant subtil dans le coin -->
+      <div 
+        class="absolute -bottom-16 -right-16 w-32 h-32 opacity-20 rounded-full bg-[#FFD700] blur-xl transform scale-0 transition-all duration-700 ease-out" 
+        :class="{'scale-100': hovered, 'scale-0': !hovered}"
+        ></div>
+    </div>
+  `;
+}
+
+/**
+ * Crée une carte de service pour particuliers avec design moderne (basé sur service-card.js)
+ * @param {Object} config Configuration de la carte
+ * @returns {string} HTML de la carte moderne pour particuliers
+ */
+function createPersonalModernServiceCard(config) {
+  // Mappings des icônes vers des tags affichés sur la carte
+  const iconToTags = {
+    'potential': ['Coaching', 'Développement', 'Potentiel'],
+    'ambition': ['Objectifs', 'Transformation', 'Ambition'],
+    'custom': ['Personnalisé', 'Sur mesure', 'Accompagnement'],
+    'default': ['Coaching', 'Développement', 'Transformation']
+  };
+  
+  // Utiliser les tags fournis ou les tags basés sur l'icône
+  const tags = config.tags.length > 0 ? config.tags : 
+               (config.icon && iconToTags[config.icon]) ? iconToTags[config.icon] : 
+               iconToTags.default;
+  
+  // Générer les tags
+  const tagsHTML = tags.map(tag => `
+    <span class="inline-block bg-gray-800 text-gray-300 text-xs px-3 py-1 rounded-full">${tag}</span>
+  `).join('');
+
+  return `
+    <div 
+      class="service-card-personal relative overflow-hidden bg-gray-900 rounded-xl border border-gray-800 p-8 transform transition-all duration-500 ease-out hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#FFD700]/20 group"
+      x-data="{ hovered: false }"
+      x-on:mouseenter="hovered = true"
+      x-on:mouseleave="hovered = false">
+      
+      <!-- Élément décoratif doré supérieur -->
+      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#FFD700]/20 via-[#FFD700] to-[#FFD700]/20"></div>
+      
+      <!-- Élément décoratif doré latéral, visible au survol -->
+      <div class="absolute top-0 left-0 h-full w-1.5 bg-[#FFD700] transform scale-y-0 origin-bottom transition-transform duration-700 ease-out group-hover:scale-y-100"></div>
+      
+      <!-- Effet brillant dans le coin -->
+      <div 
+        class="absolute -top-16 -right-16 w-32 h-32 opacity-20 rounded-full bg-[#FFD700] blur-xl transform scale-0 transition-all duration-700 ease-out" 
+        :class="{'scale-100': hovered, 'scale-0': !hovered}"></div>
+      
+      <!-- Badge premium pour programmes spéciaux -->
+      ${config.isPremium ? `
+      <div class="absolute top-4 right-4 bg-[#FFD700] bg-opacity-10 text-[#FFD700] text-xs px-2 py-1 rounded-full font-medium">Premium</div>
+      ` : ''}
+      
+      <h3 class="service-card-personal-title text-2xl font-bold text-[#1848A0] mb-4 transition-colors duration-300 pr-16 group-hover:text-[#FFD700]">${config.title}</h3>
+      
+      <p class="service-card-personal-description text-gray-400 mb-6 transition-all duration-300 group-hover:text-gray-300">
+        ${config.description}
+      </p>
+      
+      ${tags.length > 0 ? `
+        <div class="flex flex-wrap gap-3 mb-6">
+          ${tagsHTML}
+        </div>
+      ` : ''}
+      
+      <!-- Élément décoratif en bas -->
+      <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-[#FFD700] group-hover:w-full transition-all duration-700 ease-out"></div>
     </div>
   `;
 }
@@ -205,57 +331,15 @@ export function addServiceCardTo(selector, settings) {
   }
 }
 
-// Exemples d'utilisation:
-/*
-import { createServiceCard, serviceIcons, addServiceCardTo } from '../components/common/ServiceCard.js';
+// Pour la compatibilité avec le code existant
+export const createServiceCardEnterprise = (options) => createServiceCard({...options, variant: 'enterprise-modern'});
+export const createServiceCardPersonal = (options) => createServiceCard({...options, variant: 'personal-modern'});
 
-// Carte Service Entreprise
-const enterpriseCard = createServiceCard({
-  title: 'Conseil en gestion du changement',
-  description: 'Accompagnement des organisations dans leurs transformations stratégiques',
-  variant: 'enterprise',
-  features: [
-    'Analyse des besoins',
-    'Planification stratégique',
-    'Accompagnement des équipes'
-  ],
-  icon: serviceIcons.consulting,
-  ctaText: 'Demander un devis',
-  ctaUrl: '/contact.html'
-});
-
-// Carte Service Particulier
-const personalCard = createServiceCard({
-  title: 'Coaching personnel',
-  description: 'Développez votre potentiel et atteignez vos objectifs personnels',
-  variant: 'personal',
-  tags: ['Développement', 'Coaching', 'Bien-être'],
-  isPremium: true,
-  ctaText: 'Prendre rendez-vous',
-  ctaUrl: '/contact.html'
-});
-
-// Carte Simple
-const simpleCard = createServiceCard({
-  title: 'Formation en leadership',
-  description: 'Acquérez les compétences essentielles pour diriger efficacement',
-  variant: 'simple',
-  icon: serviceIcons.training,
-  ctaText: 'En savoir plus',
-  ctaUrl: '/services.html#formation'
-});
-
-// Ajout d'une carte à un conteneur
-addServiceCardTo('#enterprise-services-container', {
-  title: 'Accompagnement du changement',
-  description: 'Solutions sur mesure pour faciliter les transitions organisationnelles',
-  variant: 'enterprise',
-  features: [
-    'Diagnostic organisationnel',
-    'Plan de transformation',
-    'Ateliers participatifs',
-    'Suivi et évaluation'
-  ],
-  icon: serviceIcons.custom
-});
-*/ 
+// Export par défaut pour faciliter l'importation
+export default {
+  createServiceCard,
+  createServiceCardEnterprise,
+  createServiceCardPersonal,
+  addServiceCardTo,
+  serviceIcons
+}; 

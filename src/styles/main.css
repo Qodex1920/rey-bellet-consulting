@@ -542,3 +542,80 @@
   50% { opacity: 1; }
 }
 
+/* Animation subtile pour les éléments dorés */
+@keyframes goldPulse {
+  0% { opacity: 0.02; }
+  50% { opacity: 0.07; }
+  100% { opacity: 0.02; }
+}
+
+@keyframes goldShimmer {
+  0% { opacity: 0.03; transform: translateX(-5px); }
+  50% { opacity: 0.08; transform: translateX(5px); }
+  100% { opacity: 0.03; transform: translateX(-5px); }
+}
+
+/* Overlay de texture pour adoucir le noir pur */
+.bg-texture {
+  background-color: #050505; /* Noir légèrement adouci */
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.04) 0%, transparent 60%),
+    radial-gradient(circle at 80% 60%, rgba(255, 215, 0, 0.03) 0%, transparent 80%),
+    radial-gradient(circle at 50% 50%, rgba(24, 72, 160, 0.02) 0%, transparent 100%);
+  position: relative;
+}
+
+/* Éléments décoratifs dorés flottants avec animation */
+.gold-decor-floating {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.04;
+  filter: blur(40px);
+  border-radius: 100%;
+  background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
+  animation: goldPulse 8s ease-in-out infinite;
+}
+
+/* Variante de l'élément doré avec animation différente */
+.gold-decor-shimmer {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
+  width: 50%;
+  z-index: 1;
+  opacity: 0.04;
+  animation: goldShimmer 12s ease-in-out infinite;
+}
+
+/* Ligne diagonale dorée */
+.gold-line-diagonal {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+  transform: rotate(-1deg);
+  z-index: 1;
+  opacity: 0.1;
+}
+
+/* Amélioration du fond body */
+body {
+  background-color: #030303; /* Noir riche mais pas pur */
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.02) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FFD700' fill-opacity='0.01' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+  position: relative;
+}
+
+/* Styles pour les sections noires améliorées */
+.section-dark-enhanced {
+  position: relative;
+  overflow: hidden;
+  background-color: #080808; /* Légèrement plus clair que noir pur */
+  background-image: 
+    linear-gradient(170deg, rgba(24, 72, 160, 0.03) 0%, rgba(0, 0, 0, 0) 70%),
+    linear-gradient(230deg, rgba(255, 215, 0, 0.02) 0%, rgba(0, 0, 0, 0) 80%);
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+

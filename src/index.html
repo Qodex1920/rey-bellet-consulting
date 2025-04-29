@@ -33,24 +33,150 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
   
-  <!-- Alpine.js -->
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/main.css">
   
   <!-- Lordicon pour les icônes animées -->
   <script src="https://cdn.lordicon.com/lordicon.js"></script>
   
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles/main.css">
+  <!-- Alpine.js - Chargement direct sans attribut defer pour garantir sa disponibilité -->
+  <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
+  
+  <!-- Initialisation des configurations Alpine -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.Alpine) {
+        // Définir les composants Alpine avant de démarrer l'application
+        window.Alpine.data('typingAnimation', function() {
+          return {
+            text: '',
+            fullText: 'Consultante.',
+            textArray: ['Consultante.', 'Coach.', 'Formatrice.'],
+            textIndex: 0,
+            charIndex: 0,
+            typeSpeed: 100,
+            eraseSpeed: 80,
+            delayBetweenWords: 2000,
+            isDeleting: false,
+            isWaiting: false,
+            
+            init() {
+              this.typeText();
+            },
+            
+            typeText() {
+              const current = this.textArray[this.textIndex];
+              this.fullText = current;
+              
+              if (!this.isDeleting && this.charIndex < current.length) {
+                // Ajouter un caractère
+                this.text = current.substring(0, this.charIndex + 1);
+                this.charIndex++;
+                
+                setTimeout(() => this.typeText(), this.typeSpeed);
+              } else if (this.isDeleting && this.charIndex > 0) {
+                // Supprimer un caractère
+                this.text = current.substring(0, this.charIndex - 1);
+                this.charIndex--;
+                
+                setTimeout(() => this.typeText(), this.eraseSpeed);
+              } else if (!this.isDeleting && this.charIndex === current.length) {
+                // Pause avant de commencer à supprimer
+                this.isWaiting = true;
+                this.isDeleting = true;
+                
+                setTimeout(() => {
+                  this.isWaiting = false;
+                  this.typeText();
+                }, this.delayBetweenWords);
+              } else if (this.isDeleting && this.charIndex === 0) {
+                // Passer au texte suivant
+                this.isDeleting = false;
+                this.textIndex = (this.textIndex + 1) % this.textArray.length;
+                
+                setTimeout(() => this.typeText(), this.typeSpeed);
+              }
+            }
+          };
+        });
+        
+        window.Alpine.data('sectionTitleAnimation', function() {
+          return {
+            visible: false,
+            
+            init() {
+              this.observeIntersection();
+            },
+            
+            observeIntersection() {
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    this.visible = true;
+                    observer.unobserve(entry.target);
+                  }
+                });
+              }, { threshold: 0.1 });
+              
+              observer.observe(this.$el);
+            }
+          };
+        });
+        
+        window.Alpine.data('ctaAnimation', function() {
+          return {
+            visible: false,
+            
+            init() {
+              this.observeIntersection();
+            },
+            
+            observeIntersection() {
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    this.visible = true;
+                    observer.unobserve(entry.target);
+                  }
+                });
+              }, { threshold: 0.1 });
+              
+              observer.observe(this.$el);
+            }
+          };
+        });
+        
+        // Démarrer Alpine
+        console.log('Démarrage d\'Alpine.js...');
+        window.Alpine.start();
+      }
+    });
+  </script>
 </head>
-<body class="antialiased text-gray-400 bg-black">
+<body class="antialiased text-gray-400 bg-texture">
   
   <!-- Placeholder pour le header -->
   <div id="app-header"></div>
   
+  <!-- Éléments décoratifs globaux -->
+  <div class="gold-decor-floating w-96 h-96 top-0 left-0 opacity-[0.03]"></div>
+  <div class="gold-decor-floating w-72 h-72 bottom-1/3 right-0 opacity-[0.02]"></div>
+  <div class="gold-line-diagonal w-full top-[25%] left-0"></div>
+  <div class="gold-line-diagonal w-full bottom-[30%] left-0"></div>
+  
+  <!-- Éléments animés avec effet de scintillement -->
+  <div class="gold-decor-shimmer top-[15%] left-[10%]"></div>
+  <div class="gold-decor-shimmer bottom-[20%] right-[15%]"></div>
+  <div class="gold-decor-shimmer top-[60%] right-[20%] rotate-45"></div>
+  
   <main>
     <!-- Le reste du contenu de la page reste identique -->
     <!-- Section Hero -->
-    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden bg-black">
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden section-dark-enhanced">
+      <!-- Éléments de scintillement dorés spécifiques à la section -->
+      <div class="gold-decor-shimmer top-1/4 left-1/3 w-1/3 opacity-[0.03]"></div>
+      <div class="gold-decor-shimmer bottom-1/4 right-1/4 w-2/5 opacity-[0.025]"></div>
+      
       <!-- Arrière-plan subtil avec effet de flou et dégradé doré -->
       <div class="absolute inset-0 z-0 opacity-10">
         <img 
@@ -99,13 +225,14 @@
             </div>
           </div>
           
-          <div class="md:w-7/12" x-data="typingAnimation">
+          <div class="md:w-7/12">
             <!-- Élément graphique doré avant le titre -->
             <div class="w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 hidden md:block"></div>
             
             <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-6">
               Je suis Laure et je suis <br>
               <span 
+                x-data="typingAnimation"
                 x-text="text"
                 class="text-gradient relative"
                 :class="{'typing-cursor-active': !isDeleting && text !== fullText, 'typing-cursor-delete': isDeleting, 'typing-cursor-waiting': text === fullText || text === ''}"
@@ -145,41 +272,43 @@
           </div>
         </div>
       </div>
-      
-      <!-- Lignes diagonales décoratives -->
-      <div class="section-separator" data-theme="light">
-        <!-- Conteneur principal avec hauteur variable selon l'écran -->
-        <div class="h-16 md:h-24 w-full relative">
-          <!-- Forme diagonale avec dégradé subtil -->
-          <div class="absolute inset-0 skew-y-1">
-            <!-- Ligne dorée principale avec effet de fondu -->
-            <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r 
-                        from-transparent via-accent-500 to-transparent 
-                        transform -rotate-1 origin-left opacity-90"></div>
-            
-            <!-- Ligne bleue secondaire avec effet de fondu -->
-            <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
-                        from-transparent via-primary-600 to-transparent 
-                        transform -rotate-1 origin-left opacity-70 translate-y-px"></div>
-            
-            <!-- Points d'accent dorés subtils -->
-            <div class="absolute w-1 h-1 rounded-full bg-accent-500 opacity-70 
-                        bottom-0 left-1/4"></div>
-            <div class="absolute w-0.5 h-0.5 rounded-full bg-accent-500 opacity-60 
-                        bottom-2 left-2/3"></div>
-            <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500 blur-[1px] opacity-50 
-                        bottom-4 left-3/4"></div>
-          </div>
+    </section>
+    
+    <!-- Lignes diagonales décoratives -->
+    <div class="section-separator" data-theme="light">
+      <!-- Conteneur principal avec hauteur variable selon l'écran -->
+      <div class="h-16 md:h-24 w-full relative">
+        <!-- Forme diagonale avec dégradé subtil -->
+        <div class="absolute inset-0 skew-y-1">
+          <!-- Ligne dorée principale avec effet de fondu -->
+          <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r 
+                      from-transparent via-accent-500 to-transparent 
+                      transform -rotate-1 origin-left opacity-90"></div>
+          
+          <!-- Ligne bleue secondaire avec effet de fondu -->
+          <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
+                      from-transparent via-primary-600 to-transparent 
+                      transform -rotate-1 origin-left opacity-70 translate-y-px"></div>
+          
+          <!-- Points d'accent dorés subtils -->
+          <div class="absolute w-1 h-1 rounded-full bg-accent-500 opacity-70 
+                      bottom-0 left-1/4"></div>
+          <div class="absolute w-0.5 h-0.5 rounded-full bg-accent-500 opacity-60 
+                      bottom-2 left-2/3"></div>
+          <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500 blur-[1px] opacity-50 
+                      bottom-4 left-3/4"></div>
         </div>
       </div>
-    </section>
+    </div>
     
     <!-- Section À Propos -->
     <section id="a-propos" class="py-20 relative overflow-hidden">
-      <!-- Arrière-plan subtil avec texture légère -->
-      <div class="absolute inset-0 z-0 opacity-10">
-        <div class="h-full w-full bg-[url('assets/images/Puzzle_640.webp')] bg-repeat opacity-30"></div>
-      </div>
+      <!-- Éléments de scintillement dorés spécifiques à la section -->
+      <div class="gold-decor-shimmer top-1/4 left-1/3 w-1/3 opacity-[0.04]"></div>
+      <div class="gold-decor-shimmer bottom-1/4 right-1/4 w-2/5 opacity-[0.03]"></div>
+      <div class="gold-decor-floating w-80 h-80 bottom-1/3 left-1/4 opacity-[0.04]"></div>
+      
+      
       
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-5xl mx-auto">
@@ -251,10 +380,8 @@
                 <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
                   <lord-icon
                     src="https://cdn.lordicon.com/botokodp.json"
-                    trigger="in"
-                    delay="300"
+                    trigger="hover"
                     stroke="bold"
-                    state="in-reveal"
                     colors="primary:#1848a0,secondary:#1848a0"
                     style="width:45px;height:45px">
                   </lord-icon>
@@ -270,10 +397,8 @@
                 <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
                   <lord-icon
                     src="https://cdn.lordicon.com/bvficftx.json"
-                    trigger="in"
-                    delay="500"
+                    trigger="hover"
                     stroke="bold"
-                    state="in-reveal"
                     colors="primary:#1848a0,secondary:#1848a0"
                     style="width:45px;height:45px">
                   </lord-icon>
@@ -289,10 +414,8 @@
                 <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
                   <lord-icon
                     src="https://cdn.lordicon.com/rqeluyar.json"
-                    trigger="in"
-                    delay="700"
+                    trigger="hover"
                     stroke="bold"
-                    state="in-reveal"
                     colors="primary:#1848a0,secondary:#1848a0"
                     style="width:45px;height:45px">
                   </lord-icon>
@@ -335,6 +458,14 @@
     
     <!-- Section Services avec onglets - Nouvelle structure -->
     <section id="services" class="py-20 relative">
+      <!-- Éléments décoratifs dorés subtils -->
+      <div class="gold-decor-floating w-80 h-80 top-1/4 left-1/3 opacity-[0.025]"></div>
+      <div class="gold-decor-floating w-64 h-64 bottom-1/4 right-1/4 opacity-[0.02]"></div>
+      
+      <!-- Éléments de scintillement dorés spécifiques à la section -->
+      <div class="gold-decor-shimmer top-1/3 right-[10%] w-1/4 opacity-[0.035]"></div>
+      <div class="gold-decor-shimmer bottom-1/5 left-[15%] w-1/3 opacity-[0.03] rotate-[15deg]"></div>
+      
       <!-- Éléments décoratifs d'arrière-plan -->
       <div class="absolute right-0 top-0 h-full w-1/3 opacity-10 pointer-events-none hidden md:block">
         <img 
@@ -441,9 +572,7 @@
                       <div class="service-card-icon">
                         <lord-icon
                           src="https://cdn.lordicon.com/jdgfsfzr.json"
-                          trigger="in"
-                          delay="500"
-                          state="in-reveal"
+                          trigger="hover"
                           colors="primary:#1848a0,secondary:#ffd700"
                           style="width:50px;height:50px">
                         </lord-icon>
@@ -481,9 +610,7 @@
                       <div class="service-card-icon">
                         <lord-icon
                           src="https://cdn.lordicon.com/wsvtrygf.json"
-                          trigger="in"
-                          delay="500"
-                          state="in-reveal"
+                          trigger="hover"
                           colors="primary:#1848a0,secondary:#ffd700"
                           style="width:50px;height:50px">
                         </lord-icon>
@@ -521,9 +648,7 @@
                       <div class="service-card-icon">
                         <lord-icon
                           src="https://cdn.lordicon.com/oiveszhb.json"
-                          trigger="in"
-                          delay="500"
-                          state="in-reveal"
+                          trigger="hover"
                           colors="primary:#1848a0,secondary:#ffd700"
                           style="width:50px;height:50px">
                         </lord-icon>
@@ -561,9 +686,7 @@
                       <div class="service-card-icon">
                         <lord-icon
                           src="https://cdn.lordicon.com/lagziwcr.json"
-                          trigger="in"
-                          delay="500"
-                          state="in-reveal"
+                          trigger="hover"
                           colors="primary:#1848a0,secondary:#ffd700"
                           style="width:50px;height:50px">
                         </lord-icon>
@@ -706,8 +829,65 @@
             </a>
           </div>
           
+          <!-- Service Premium 1 -->
+          <div class="bg-gray-900/60 backdrop-blur-sm rounded-xl p-8 border border-gray-800 shadow-xl transition-all duration-300 hover:shadow-accent-500/10 hover:border-accent-500/30 hover:-translate-y-1 relative overflow-hidden">
+            <!-- Effet de bordure dorée subtil -->
+            <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-500/20 to-transparent"></div>
+            <div class="absolute bottom-0 right-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-500/15 to-transparent"></div>
+            
+            <!-- Effet de halo doré dans le coin -->
+            <div class="absolute -top-10 -right-10 w-28 h-28 rounded-full bg-accent-500/5 blur-xl"></div>
+            
+            <div class="w-14 h-14 bg-gradient-to-br from-accent-600/20 to-accent-400/10 rounded-lg flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-4 text-white">Transformation Accélérée</h3>
+            
+            <p class="text-gray-400 mb-6">
+              Programme intensif destiné aux entreprises souhaitant accélérer leur transformation organisationnelle avec des résultats concrets et mesurables.
+            </p>
+            
+            <ul class="space-y-3 mb-6">
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-300">Diagnostic complet en 2 semaines</span>
+              </li>
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-300">Plan d'action sur mesure</span>
+              </li>
+              <li class="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span class="text-gray-300">Accompagnement intensif pendant 3 mois</span>
+              </li>
+            </ul>
+            
+            <a href="mailto:laure@reybellet.com?subject=Programme%20Transformation%20Accélérée" class="inline-flex items-center text-accent-500 hover:text-accent-400 transition-colors">
+              En savoir plus
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+          
           <!-- Service Premium 2 -->
-          <div class="bg-gray-900/60 backdrop-blur-sm rounded-xl p-8 border border-gray-800 shadow-xl transition-all duration-300 hover:shadow-accent-500/10 hover:border-accent-500/30 hover:-translate-y-1">
+          <div class="bg-gray-900/60 backdrop-blur-sm rounded-xl p-8 border border-gray-800 shadow-xl transition-all duration-300 hover:shadow-accent-500/10 hover:border-accent-500/30 hover:-translate-y-1 relative overflow-hidden">
+            <!-- Effet de bordure dorée subtil -->
+            <div class="absolute top-0 right-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-500/20 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-accent-500/15 to-transparent"></div>
+            
+            <!-- Effet de halo doré dans le coin -->
+            <div class="absolute -bottom-10 -left-10 w-28 h-28 rounded-full bg-accent-500/5 blur-xl"></div>
+            
             <div class="w-14 h-14 bg-gradient-to-br from-accent-600/20 to-accent-400/10 rounded-lg flex items-center justify-center mb-6">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
@@ -749,45 +929,43 @@
             </a>
           </div>
         </div>
-        
-        <!-- CallToAction - Variante dorée luxueuse -->
-        <div class="mt-16">
-          <section x-data="ctaAnimation" 
-                 x-init="init()"
-                 class="cta-section py-16 rounded-2xl shadow-xl overflow-hidden relative"
-                 x-ref="ctaSection">
-                 
-            <!-- Fond avec dégradé doré -->
-            <div class="absolute inset-0">
-              <div class="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black"></div>
-              <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
-              <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
-            </div>
-            
-            <!-- Éléments décoratifs dorés -->
-            <div class="absolute inset-0 overflow-hidden">
-              <div class="absolute -right-20 -top-20 w-64 h-64 bg-accent-500 opacity-5 rounded-full blur-2xl"></div>
-              <div class="absolute -left-20 -bottom-20 w-72 h-72 bg-accent-500 opacity-5 rounded-full blur-2xl"></div>
-            </div>
-            
-            <div class="container mx-auto px-6 relative z-10">
-              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-                <div class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500" style="opacity: 0; transform: translateY(1rem)">
-                  <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Prêt à transformer votre avenir professionnel ?</h2>
-                  <p class="text-gray-400 text-lg max-w-xl">Découvrez comment mon accompagnement personnalisé peut vous aider à atteindre vos objectifs et à réaliser votre plein potentiel.</p>
-                </div>
-                
-                <div class="cta-button-container transition-all duration-500" style="opacity: 0; transform: translateY(1rem)">
-                  <a href="mailto:laure@reybellet.com?subject=Demande%20d'information" class="btn btn-accent inline-flex items-center group px-8 py-4 bg-accent-500 text-black font-bold rounded-lg hover:shadow-lg hover:shadow-accent-500/20 transition-all">
-                    Contactez-moi dès maintenant
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
+      </div>
+    </section>
+
+    <!-- Modification de la section CTA pour s'assurer qu'elle s'affiche correctement -->
+    <section id="cta" class="py-16 relative overflow-hidden section-dark-enhanced my-16" x-data="ctaAnimation" x-init="init()">
+      <!-- Éléments décoratifs dorés -->
+      <div class="gold-decor-floating w-96 h-96 top-0 left-1/4 opacity-[0.04]"></div>
+      <div class="gold-decor-floating w-80 h-80 bottom-0 right-1/4 opacity-[0.03]"></div>
+      <div class="gold-decor-shimmer top-1/2 left-1/4 w-2/3 opacity-[0.05]"></div>
+      
+      <!-- Arrière-plan avec dégradé doré amélioré -->
+      <div class="absolute inset-0">
+        <div class="absolute inset-0 bg-gradient-to-r from-black via-gray-900 to-black"></div>
+        <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
+        <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
+        <!-- Rayons dorés subtils -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-accent-500/5 blur-3xl"></div>
+        <div class="absolute top-1/4 left-3/4 w-48 h-48 rounded-full bg-accent-500/3 blur-2xl"></div>
+      </div>
+      
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+          <div class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500" 
+               x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">Prêt à transformer votre avenir professionnel ?</h2>
+            <p class="text-gray-400 text-lg max-w-xl">Découvrez comment mon accompagnement personnalisé peut vous aider à atteindre vos objectifs et à réaliser votre plein potentiel.</p>
+          </div>
+          
+          <div class="cta-button-container transition-all duration-500"
+               x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+            <a href="mailto:laure@reybellet.com?subject=Demande%20d'information" class="btn btn-accent inline-flex items-center group px-8 py-4 text-black font-bold rounded-lg hover:shadow-lg hover:shadow-accent-500/20 transition-all">
+              Contactez-moi dès maintenant
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -988,6 +1166,36 @@
   
   <!-- Scripts -->
   <script type="module" src="./utils/main.js"></script>
+  
+  <!-- Script de débogage pour Alpine.js -->
+  <script>
+    // Script de vérification des composants Alpine.js - Sera retiré en production
+    document.addEventListener('DOMContentLoaded', () => {
+      // Vérifier l'état d'Alpine après le chargement complet de la page
+      setTimeout(() => {
+        console.log('Vérification de l\'état d\'Alpine.js...');
+        
+        // Vérifier qu'Alpine est chargé
+        if (window.Alpine) {
+          console.log('Alpine.js correctement chargé', window.Alpine);
+          
+          // Forcer l'initialisation des composants
+          try {
+            document.querySelectorAll('[x-data]').forEach(el => {
+              if (!el.__x) {
+                console.log('Réinitialisation du composant Alpine:', el);
+                window.Alpine.initTree(el);
+              }
+            });
+          } catch (err) {
+            console.error('Erreur lors de la réinitialisation:', err);
+          }
+        } else {
+          console.error('Alpine.js non disponible après chargement!');
+        }
+      }, 1000); // Laisser 1 seconde pour que tout se charge
+    });
+  </script>
   
   <!-- Script pour injecter le composant ServicesSection -->
   <script type="module" src="./js/inject-services-section.js"></script>
