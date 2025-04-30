@@ -92,19 +92,19 @@ function injectServicesSection() {
   document.addEventListener('DOMContentLoaded', async () => {
     console.log('Injection du composant ServicesSection...');
     
-    // Chercher la section services existante
-    const servicesSection = document.getElementById('services');
+    // Chercher le conteneur de services
+    const servicesContainer = document.getElementById('services');
     
-    if (servicesSection) {
+    if (servicesContainer) {
       try {
-        // Remplacer la section services par le composant
+        // Injecter le composant dans le conteneur
         await injectServicesSectionTo('#services', servicesOptions);
         console.log('Composant ServicesSection injecté avec succès');
       } catch (error) {
         console.error('Erreur lors de l\'injection du composant ServicesSection:', error);
       }
     } else {
-      console.warn('Aucune section #services trouvée dans la page');
+      console.warn('Aucun conteneur #services trouvé dans la page');
     }
   });
 }

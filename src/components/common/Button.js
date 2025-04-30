@@ -146,6 +146,14 @@ const accentButtonWithIcon = createButton({
   url: 'mailto:contact@example.com'
 });
 
+// Bouton accent doré pour une mise en valeur maximale (identique à celui du header)
+const goldAccentButton = createButton({
+  text: 'Contactez-nous',
+  type: 'accent',
+  size: 'large',
+  icon: buttonIcons.arrowRight
+});
+
 // Bouton secondaire avec bordure en dégradé et petite taille
 const smallSecondaryButton = createButton({
   text: 'En savoir plus',
