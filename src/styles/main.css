@@ -143,7 +143,7 @@
   }
   
   p {
-    @apply mb-4 leading-relaxed text-gray-400;
+    @apply mb-4 leading-relaxed text-white;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 }
@@ -296,7 +296,7 @@
   
   /* Bouton outline amélioré */
   .btn-outline {
-    @apply bg-transparent text-gray-300 border border-gray-700 focus:ring-accent-400;
+    @apply bg-transparent text-accent-500 border border-accent-500 focus:ring-accent-400;
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -577,17 +577,17 @@
   50% { opacity: 1; }
 }
 
-/* Animation subtile pour les éléments dorés */
+/* Animation subtile pour les éléments dorés - version améliorée */
 @keyframes goldPulse {
-  0% { opacity: 0.02; }
-  50% { opacity: 0.07; }
-  100% { opacity: 0.02; }
+  0% { opacity: 0.03; }
+  50% { opacity: 0.08; }
+  100% { opacity: 0.03; }
 }
 
 @keyframes goldShimmer {
-  0% { opacity: 0.03; transform: translateX(-5px); }
-  50% { opacity: 0.08; transform: translateX(5px); }
-  100% { opacity: 0.03; transform: translateX(-5px); }
+  0% { opacity: 0.04; transform: translateX(-5px); }
+  50% { opacity: 0.09; transform: translateX(5px); }
+  100% { opacity: 0.04; transform: translateX(-5px); }
 }
 
 /* Overlay de texture pour adoucir le noir pur */
@@ -603,23 +603,38 @@
 /* Éléments décoratifs dorés flottants avec animation */
 .gold-decor-floating {
   position: absolute;
+  background: radial-gradient(circle at center, var(--color-accent-500) 0%, transparent 80%);
+  opacity: 0.03;
+  filter: blur(60px);
+  border-radius: 50%;
   z-index: 0;
-  opacity: 0.04;
-  filter: blur(40px);
-  border-radius: 100%;
-  background: radial-gradient(circle, var(--color-accent) 0%, transparent 70%);
-  animation: goldPulse 8s ease-in-out infinite;
+  overflow: hidden;
+  will-change: transform, opacity;
+  transform-origin: center;
+  animation: goldPulse 15s ease-in-out infinite alternate;
+  animation-delay: 0s; /* Aucun délai pour une apparition immédiate */
+  pointer-events: none;
 }
 
 /* Variante de l'élément doré avec animation différente */
 .gold-decor-shimmer {
   position: absolute;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.15), transparent);
-  width: 50%;
-  z-index: 1;
-  opacity: 0.04;
-  animation: goldShimmer 12s ease-in-out infinite;
+  width: 30%;
+  height: 100px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.05) 20%,
+    rgba(255, 215, 0, 0.1) 50%,
+    rgba(255, 215, 0, 0.05) 80%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  border-radius: 100%;
+  z-index: 0;
+  animation: goldShimmer 8s linear infinite;
+  animation-delay: 0s; /* Aucun délai pour une apparition immédiate */
+  pointer-events: none;
 }
 
 /* Ligne diagonale dorée */
@@ -645,13 +660,24 @@ body {
 /* Styles pour les sections noires améliorées */
 .section-dark-enhanced {
   position: relative;
+  background: linear-gradient(to bottom, #000000, #0a0a0a);
+  color: #ffffff;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  animation: heroEntrance 0.8s ease-out forwards;
   overflow: hidden;
-  background-color: #080808; /* Légèrement plus clair que noir pur */
-  background-image: 
-    linear-gradient(170deg, rgba(24, 72, 160, 0.03) 0%, rgba(0, 0, 0, 0) 70%),
-    linear-gradient(230deg, rgba(255, 215, 0, 0.02) 0%, rgba(0, 0, 0, 0) 80%);
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Animation d'entrée pour le Hero */
+@keyframes heroEntrance {
+  0% {
+    opacity: 0.5;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Animation du surlignement pour le nom de famille - Version améliorée */
@@ -666,22 +692,38 @@ body {
 .highlight-text-animated::before {
   content: "";
   position: absolute;
-  left: 0;
-  bottom: 0.08em;
-  height: 0.35em;
-  width: 100%;
-  background-color: var(--color-accent-500);
+  left: -2%;
+  bottom: 0.05em;
+  height: 0.45em;
+  width: 104%;
+  background-color: transparent;
   z-index: -1;
+  mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 30' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='10' d='M0,20 Q20,15 35,20 T65,20 T100,20' /%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 30' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='10' d='M0,20 Q20,15 35,20 T65,20 T100,20' /%3E%3C/svg%3E");
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  background: var(--color-accent-500);
   transform-origin: 0 100%;
   transform: scaleX(0);
-  animation: highlightScaleIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-  animation-delay: 0.5s;
+  animation: wavyHighlightIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.3s;
   opacity: 0.85;
 }
 
-@keyframes highlightScaleIn {
+@keyframes wavyHighlightIn {
   0% {
     transform: scaleX(0);
+  }
+  40% {
+    transform: scaleX(1.05);
+  }
+  60% {
+    transform: scaleX(0.97);
+  }
+  80% {
+    transform: scaleX(1.02);
   }
   100% {
     transform: scaleX(1);
@@ -692,30 +734,40 @@ body {
 .highlight-text-animated::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.08em;
-  height: 0.35em;
-  background-color: var(--color-accent-400);
+  left: -2%;
+  bottom: 0.05em;
+  height: 0.45em;
+  width: 104%;
   z-index: -2;
+  mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 30' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='7.5' d='M0,22 Q15,13 30,22 T60,22 T100,22' /%3E%3C/svg%3E");
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 30' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='%23ffffff' stroke-width='7.5' d='M0,22 Q15,13 30,22 T60,22 T100,22' /%3E%3C/svg%3E");
+  mask-size: cover;
+  -webkit-mask-size: cover;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  background: var(--color-accent-400);
   transform-origin: 0 100%;
   opacity: 0;
-  animation: highlightPulse 3s ease-in-out infinite;
-  animation-delay: 1.7s;
+  animation: wavyHighlightPulse 4s ease-in-out infinite;
+  animation-delay: 1.5s;
 }
 
-@keyframes highlightPulse {
+@keyframes wavyHighlightPulse {
   0% {
     opacity: 0;
-    transform: scaleX(0.85);
+    transform: scaleX(0.95) translateY(0);
   }
-  50% {
+  30% {
+    opacity: 0.5;
+    transform: scaleX(1.03) translateY(-1px);
+  }
+  70% {
     opacity: 0.4;
-    transform: scaleX(1.05);
+    transform: scaleX(1.02) translateY(1px);
   }
   100% {
     opacity: 0;
-    transform: scaleX(0.85);
+    transform: scaleX(0.95) translateY(0);
   }
 }
 
@@ -724,5 +776,155 @@ body {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Effet de particules dorées - Version améliorée */
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: var(--particle-max-opacity, 0.9);
+  }
+  50% {
+    transform: translateY(calc(var(--particle-y-distance, -100px) * 0.5)) 
+               translateX(calc(var(--particle-x-distance, 20px) * 0.5))
+               rotate(calc(var(--particle-rotation, 15deg) * 0.5));
+    opacity: var(--particle-max-opacity, 0.9);
+  }
+  75% {
+    opacity: var(--particle-max-opacity, 0.9);
+  }
+  100% {
+    transform: translateY(var(--particle-y-distance, -100px)) 
+               translateX(var(--particle-x-distance, 20px))
+               rotate(var(--particle-rotation, 15deg));
+    opacity: 0;
+  }
+}
+
+/* Animation accélérée pour particules instantanées */
+@keyframes particleFloatInstant {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0);
+    opacity: var(--particle-max-opacity, 0.7);
+  }
+  50% {
+    transform: translateY(calc(var(--particle-y-distance, -100px) * 0.5)) 
+               translateX(calc(var(--particle-x-distance, 20px) * 0.5))
+               rotate(calc(var(--particle-rotation, 15deg) * 0.5));
+    opacity: var(--particle-max-opacity, 0.9);
+  }
+  100% {
+    transform: translateY(var(--particle-y-distance, -100px)) 
+               translateX(var(--particle-x-distance, 20px))
+               rotate(var(--particle-rotation, 15deg));
+    opacity: 0;
+  }
+}
+
+.gold-particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 2; /* Augmentation du z-index pour passer au-dessus des autres éléments décoratifs */
+  pointer-events: none;
+}
+
+.gold-particle {
+  position: absolute;
+  background: radial-gradient(circle at center, var(--color-accent) 0%, transparent 70%);
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: particleFloat var(--particle-duration, 15s) ease-in-out infinite;
+  animation-delay: var(--particle-delay, 0s);
+  mix-blend-mode: screen; /* Ajoute un effet de mélange lumineux */
+  box-shadow: 0 0 5px 2px rgba(255, 215, 0, 0.15); /* Ajoute un léger halo */
+}
+
+/* Style pour les particules instantanées qui apparaissent immédiatement */
+.gold-particle-instant {
+  opacity: var(--particle-max-opacity, 0.7);
+  animation-name: particleFloatInstant;
+  animation-delay: 0s !important;
+}
+
+/* Variantes de particules */
+.gold-particle-tiny {
+  width: 4px;
+  height: 4px;
+  filter: blur(1px);
+}
+
+.gold-particle-small {
+  width: 8px;
+  height: 8px;
+  filter: blur(1.5px);
+}
+
+.gold-particle-medium {
+  width: 12px;
+  height: 12px;
+  filter: blur(2px);
+}
+
+.gold-particle-large {
+  width: 18px;
+  height: 18px;
+  filter: blur(2.5px);
+}
+
+/* Pour créer des variantes plus brillantes de la couleur dorée */
+.gold-particle-light {
+  background: radial-gradient(circle at center, rgba(255, 235, 120, 0.95) 0%, transparent 75%);
+  box-shadow: 0 0 10px 4px rgba(255, 235, 120, 0.35);
+  mix-blend-mode: screen;
+}
+
+.gold-particle-accent {
+  background: radial-gradient(circle at center, var(--color-accent-400) 0%, transparent 75%);
+  box-shadow: 0 0 8px 3px rgba(255, 215, 0, 0.3);
+  filter: brightness(1.2);
+}
+
+/* Animation de pulsation lente pour le logo */
+@keyframes pulseSlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 6s ease-in-out infinite;
+}
+
+/* Style spécifique pour le conteneur de logo */
+.logo-container {
+  position: relative;
+  transition: all 0.5s ease;
+}
+
+.logo-container img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.2));
+}
+
+.logo-container:hover img {
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.3));
 }
 

@@ -147,182 +147,254 @@
     <!-- Le reste du contenu de la page reste identique -->
     <!-- Section Hero est maintenant injectée via JS -->
     
-    <!-- Lignes diagonales décoratives -->
-    <div class="section-separator" data-theme="light">
-      <!-- Conteneur principal avec hauteur variable selon l'écran -->
-      <div class="h-16 md:h-24 w-full relative">
-        <!-- Forme diagonale avec dégradé subtil -->
-        <div class="absolute inset-0 skew-y-1">
-          <!-- Ligne dorée principale avec effet de fondu -->
-          <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r 
-                      from-transparent via-accent-500 to-transparent 
-                      transform -rotate-1 origin-left opacity-90"></div>
-          
-          <!-- Ligne bleue secondaire avec effet de fondu -->
-          <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
-                      from-transparent via-primary-600 to-transparent 
-                      transform -rotate-1 origin-left opacity-70 translate-y-px"></div>
-          
-          <!-- Points d'accent dorés subtils -->
-          <div class="absolute w-1 h-1 rounded-full bg-accent-500 opacity-70 
-                      bottom-0 left-1/4"></div>
-          <div class="absolute w-0.5 h-0.5 rounded-full bg-accent-500 opacity-60 
-                      bottom-2 left-2/3"></div>
-          <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500 blur-[1px] opacity-50 
-                      bottom-4 left-3/4"></div>
-        </div>
-      </div>
-    </div>
+  
     
-    <!-- Section À Propos -->
-    <section id="a-propos" class="py-20 relative overflow-hidden">
-      <!-- Éléments de scintillement dorés spécifiques à la section -->
-      <div class="gold-decor-shimmer top-1/4 left-1/3 w-1/3 opacity-[0.04]"></div>
-      <div class="gold-decor-shimmer bottom-1/4 right-1/4 w-2/5 opacity-[0.03]"></div>
-      <div class="gold-decor-floating w-80 h-80 bottom-1/3 left-1/4 opacity-[0.04]"></div>
+    <!-- Section Ma Vision -->
+    <section id="ma-vision" class="py-24 relative overflow-hidden">
+      <!-- Fond et effets visuels -->
+      <div class="absolute inset-0 bg-black z-0"></div>
       
+      <!-- Élément diagonal doré -->
+      <div class="absolute top-0 left-0 w-full h-16 md:h-24 transform -skew-y-3 bg-gradient-to-r from-accent-500/5 via-accent-500/20 to-accent-500/5 z-0"></div>
       
+      <!-- Particules dorées avec différentes tailles et positions -->
+      <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500 opacity-40 top-1/4 left-1/5 animate-pulse"></div>
+      <div class="absolute w-2 h-2 rounded-full bg-accent-500 opacity-30 top-1/3 right-1/4 animate-pulse"></div>
+      <div class="absolute w-1 h-1 rounded-full bg-accent-500 opacity-50 bottom-1/4 left-1/3 animate-pulse"></div>
+      <div class="absolute w-2.5 h-2.5 rounded-full bg-accent-500 opacity-20 bottom-1/3 right-1/5 animate-pulse"></div>
       
+      <!-- Grande ligne diagonale dorée -->
+      <div class="absolute h-0.5 w-screen bg-gradient-to-r from-transparent via-accent-500/70 to-transparent transform rotate-[-3deg] top-1/2 -translate-y-1/2 z-0"></div>
+      
+      <!-- Cercle lumineux -->
+      <div class="absolute w-96 h-96 rounded-full bg-accent-500/5 blur-3xl top-1/2 left-1/3 -translate-y-1/2 z-0"></div>
+      
+      <!-- Conteneur principal -->
       <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-5xl mx-auto">
-          <!-- Titre de section -->
-          <div 
-            x-data="animateOnScroll"
-            class="section-title text-center mb-12 md:mb-16 max-w-3xl mx-auto px-4 overflow-hidden"
-            role="heading" 
-            aria-level="2">
+        <div class="max-w-6xl mx-auto">
           
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 transform opacity-0 transition-all duration-700"
-              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
-              À propos
-            </h2>
+          <!-- Structure en grid pour un agencement moderne -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            <div class="h-1 w-20 bg-accent-500 mx-auto mb-6 transform scale-x-0 transition-all duration-700 delay-100"
-                x-bind:class="{ 'scale-x-100': visible, 'scale-x-0': !visible }"></div>
-            
-            <p class="text-gray-600 text-lg max-w-2xl mx-auto opacity-0 transition-all duration-700 delay-150"
-              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
-              Mon parcours et ma vision
-            </p>
-          </div>
-          
-          <div class="mt-8 md:mt-12">
-            <!-- Layout à deux colonnes -->
-            <div class="flex flex-col-reverse md:flex-row items-center gap-12 mb-16">
-              <!-- Texte de présentation -->
-              <div class="md:w-1/2">
-                <p class="text-lg text-gray-700 mb-6">
-                  Expert en gestion du changement avec plus de 15 ans d'expérience dans l'accompagnement d'organisations et de particuliers dans leurs transformations. Mon approche combine consulting, coaching et formation pour des solutions adaptées à chaque besoin.
-                </p>
+            <!-- Titre et citation en colonne latérale (sur grands écrans) -->
+            <div class="lg:col-span-5 xl:col-span-4 order-2 lg:order-1" x-data="animateOnScroll">
+              <!-- Titre avec animation -->
+              <div class="mb-10 lg:mb-16 relative">
+                <div class="absolute -left-4 top-0 w-0.5 h-full bg-accent-500"></div>
                 
-                <p class="text-lg text-gray-700 mb-8">
-                  Je m'engage à créer un environnement propice au développement et à l'excellence, en mettant l'accent sur l'humain au cœur de chaque transformation.
-                </p>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white transform opacity-0 transition-all duration-700"
+                  x-bind:class="{ 'opacity-100 translate-x-0': visible, 'opacity-0 -translate-x-4': !visible }">
+                  Ma Vision
+                </h2>
                 
-                <div id="about-contact-button"></div>
+                <!-- Citation mise en évidence avec style spécial -->
+                <div class="relative pl-6 border-l border-accent-500/30 transition-all duration-700 delay-200 opacity-0 transform"
+                    x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+                  <p class="italic font-poppins text-xl md:text-2xl text-accent-500 leading-tight">
+                    "Si t'attends que ça bouge, c'est que t'es déjà en retard"
+                  </p>
+                  <span class="absolute -bottom-3 right-0 w-12 h-0.5 bg-accent-500/50"></span>
+                </div>
               </div>
               
-              <!-- Image de coaching -->
-              <div class="md:w-1/2">
-                <div class="relative">
-                  <!-- Image principale -->
-                  <div class="rounded-xl overflow-hidden shadow-lg transform md:rotate-1">
-                    <img 
-                      src="assets/images/coaching-fauteuil_1080.webp" 
-                      alt="Séance de coaching personnel" 
-                      class="w-full h-auto object-cover"
-                    >
-                  </div>
-                  
-                  <!-- Élément décoratif -->
-                  <div class="absolute -bottom-4 -left-4 w-16 h-16 rounded-lg bg-accent-500/20 backdrop-blur-sm -z-10"></div>
-                  <div class="absolute -top-4 -right-4 w-24 h-24 rounded-full bg-primary-500/10 backdrop-blur-sm -z-10"></div>
-                </div>
+              <!-- Éléments graphiques additionnels -->
+              <div class="hidden lg:block relative h-80 mt-12">
+                <!-- Forme abstraite dorée -->
+                <div class="absolute top-0 right-0 w-48 h-48 border border-accent-500/20 rounded-full opacity-0 transition-all duration-1000 delay-700"
+                    x-bind:class="{ 'opacity-100': visible, 'opacity-0': !visible }"></div>
+                
+                <!-- Points dorés animés -->
+                <div class="absolute top-1/4 right-1/4 w-2 h-2 bg-accent-500/50 rounded-full opacity-0 transition-all duration-1000 delay-800"
+                    x-bind:class="{ 'opacity-100': visible, 'opacity-0': !visible }"></div>
+                <div class="absolute bottom-1/3 right-1/2 w-1.5 h-1.5 bg-accent-500/40 rounded-full opacity-0 transition-all duration-1000 delay-900"
+                    x-bind:class="{ 'opacity-100': visible, 'opacity-0': !visible }"></div>
+                
+                <!-- Ligne diagonale -->
+                <div class="absolute bottom-0 right-0 w-32 h-0.5 bg-gradient-to-r from-transparent to-accent-500/60 transform rotate-[-45deg] origin-bottom-right opacity-0 transition-all duration-1000 delay-1000"
+                    x-bind:class="{ 'opacity-100': visible, 'opacity-0': !visible }"></div>
               </div>
             </div>
             
-            <!-- Valeurs en 3 colonnes -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-              <!-- Valeur 1 -->
-              <div class="card bg-white rounded-xl shadow-md p-6">
-                <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <lord-icon
-                    src="https://cdn.lordicon.com/botokodp.json"
-                    trigger="hover"
-                    stroke="bold"
-                    colors="primary:#1848a0,secondary:#1848a0"
-                    style="width:45px;height:45px">
-                  </lord-icon>
-                </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Authenticité</h3>
-                <p class="text-gray-600 text-center">
-                  Une approche transparente et honnête pour établir une relation de confiance avec chaque client.
-                </p>
-              </div>
+            <!-- Contenu principal avec mise en page dynamique -->
+            <div class="lg:col-span-7 xl:col-span-8 order-1 lg:order-2 relative z-10" x-data="animateOnScroll">
               
-              <!-- Valeur 2 -->
-              <div class="card bg-white rounded-xl shadow-md p-6">
-                <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <lord-icon
-                    src="https://cdn.lordicon.com/bvficftx.json"
-                    trigger="hover"
-                    stroke="bold"
-                    colors="primary:#1848a0,secondary:#1848a0"
-                    style="width:45px;height:45px">
-                  </lord-icon>
+              <!-- Conteneur avec bordure et effets -->
+              <div class="bg-gray-900/60 backdrop-blur-sm p-8 md:p-10 border-t border-r border-accent-500/20 relative rounded-tr-3xl transform opacity-0 transition-all duration-700"
+                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-8': !visible }">
+                
+                <!-- Élément doré décoratif en coin -->
+                <div class="absolute top-0 right-0 w-16 h-16 border-t border-r border-accent-500/40 rounded-tr-3xl"></div>
+                
+                <!-- Paragraphes avec espacements et mise en avant -->
+                <div class="vision-content text-gray-300 space-y-8">
+                  <p class="leading-relaxed text-lg">
+                    <span class="text-white font-semibold">Le changement n'est pas une option.</span> C'est une force, un levier, un passage obligé vers l'évolution.
+                    Chez Rey-Bellet Consulting, on ne se contente pas d'analyser le changement – on le rend concret, stratégique et impossible à ignorer.
+                  </p>
+                  
+                  <p class="leading-relaxed text-lg pl-0 md:pl-6 border-l-0 md:border-l border-accent-500/30 md:ml-4">
+                    Je ne suis pas là pour rassurer. Je suis là pour provoquer, structurer et faire émerger un changement assumé, percutant et aligné avec vos ambitions profondes.
+                  </p>
+                  
+                  <!-- Bloc mission avec traitement spécial -->
+                  <div class="py-6 pl-0 md:pl-8 my-4 border-l-0 md:border-l-2 border-accent-500/50 relative">
+                    <!-- Élément graphique doré -->
+                    <div class="absolute -left-1.5 top-0 w-3 h-3 rounded-full bg-accent-500/50 hidden md:block"></div>
+                    
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Ma mission ?</h3>
+                    <p class="leading-relaxed text-lg">
+                      Faire du mouvement un choix puissant, non une contrainte. Redéfinir chaque transition pour qu'elle devienne un accélérateur de réussite. Transformer l'incertitude en maîtrise, et l'audace en résultats concrets.
+                    </p>
+                    
+                    <!-- Élément graphique doré -->
+                    <div class="absolute -left-1.5 bottom-0 w-3 h-3 rounded-full bg-accent-500/50 hidden md:block"></div>
+                  </div>
+                  
+                  <p class="leading-relaxed text-lg">
+                    Parce qu'rester immobile, c'est renoncer à toute évolution. Parce qu'évoluer avec clarté et courage, c'est bâtir un avenir qui nous inspire.
+                  </p>
+                  
+                  <!-- Phrase finale avec traitement spécial -->
+                  <p class="text-lg md:text-xl font-semibold text-white py-4 relative">
+                    <span class="relative inline-block">
+                      Avec Rey-Bellet Consulting, on ne subit pas le changement – on le façonne, on l'impose et on en fait une force inarrêtable.
+                      <span class="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-500/80 to-transparent"></span>
+                    </span>
+                  </p>
                 </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Excellence</h3>
-                <p class="text-gray-600 text-center">
-                  Un engagement constant vers la qualité et des résultats concrets pour chaque intervention.
-                </p>
-              </div>
-              
-              <!-- Valeur 3 -->
-              <div class="card bg-white rounded-xl shadow-md p-6">
-                <div class="w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mb-6 mx-auto">
-                  <lord-icon
-                    src="https://cdn.lordicon.com/rqeluyar.json"
-                    trigger="hover"
-                    stroke="bold"
-                    colors="primary:#1848a0,secondary:#1848a0"
-                    style="width:45px;height:45px">
-                  </lord-icon>
-                </div>
-                <h3 class="text-xl font-bold text-center mb-3 text-primary-600">Bienveillance</h3>
-                <p class="text-gray-600 text-center">
-                  Une écoute attentive et un accompagnement humain adapté à chaque personne et situation.
-                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-    
-    <!-- Ligne diagonale décorative -->
-    <div class="section-separator-angled" data-theme="light">
-      <!-- Conteneur principal -->
-      <div class="h-20 md:h-28 w-full relative">
-        <!-- Texture subtile en arrière-plan -->
-        <div class="absolute inset-0 bg-gray-50/30"></div>
-        
-        <!-- Forme inclinée -->
-        <div class="absolute inset-0 transform -skew-y-3">
-          <!-- Ligne dorée principale avec effet de fondu -->
-          <div class="absolute bottom-2 left-0 right-0 h-[2px] bg-gradient-to-r 
-                      from-transparent via-accent-500 to-transparent 
-                      transform translate-y-px opacity-80"></div>
+
+    <!-- Section À Propos -->
+    <section id="a-propos" class="py-20 relative overflow-hidden">
+          <!-- Éléments de design d'arrière-plan -->
+          <div class="absolute inset-0 bg-white/95 z-0"></div>
           
-          <!-- Ligne bleue secondaire avec effet de fondu -->
-          <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
-                      from-transparent via-primary-600 to-transparent 
-                      transform translate-y-px opacity-70"></div>
-        </div>
-        
-        <!-- Superposition délicate pour intégrer à la section suivante -->
-        <div class="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-t from-white to-transparent"></div>
-      </div>
-    </div>
+          <!-- Éléments décoratifs dorés subtils -->
+          <div class="absolute w-64 h-64 rounded-full bg-accent-500/5 blur-3xl top-1/4 right-1/4 z-0"></div>
+          <div class="absolute w-96 h-96 rounded-full bg-primary-500/5 blur-3xl bottom-1/3 left-1/3 z-0"></div>
+          
+          <!-- Particules dorées décoratives -->
+          <div class="absolute w-1 h-1 rounded-full bg-accent-500 opacity-30 top-1/3 right-1/5 animate-pulse"></div>
+          <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-500 opacity-20 bottom-1/3 left-1/4 animate-pulse"></div>
+          
+          <!-- Ligne diagonale dorée -->
+          <div class="absolute h-0.5 w-screen bg-gradient-to-r from-transparent via-accent-500/30 to-transparent transform rotate-[1deg] top-1/3 z-0"></div>
+          
+          <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-6xl mx-auto">
+              <!-- Titre de section avec animation -->
+              <div 
+                x-data="animateOnScroll"
+                class="section-title mb-16 md:mb-20 max-w-3xl mx-auto overflow-hidden"
+                role="heading" 
+                aria-level="2">
+              
+                <div class="flex items-center justify-center mb-6">
+                  <div class="h-px w-12 bg-accent-500/70"></div>
+                  <h2 class="text-3xl md:text-4xl font-bold px-6 text-primary-600 transform opacity-0 transition-all duration-700"
+                    x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
+                    À propos
+                  </h2>
+                  <div class="h-px w-12 bg-accent-500/70"></div>
+                </div>
+              </div>
+              
+              <!-- Contenu principal -->
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Image avec éléments décoratifs -->
+                <div class="lg:col-span-5 lg:sticky lg:top-28" x-data="animateOnScroll">
+                  <div class="relative transform opacity-0 transition-all duration-700"
+                       x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-8': !visible }">
+                    
+                    <!-- Image principale -->
+                    <div class="rounded-xl overflow-hidden shadow-xl relative z-10">
+                      <img 
+                        src="assets/images/laure-rey-bellet.webp" 
+                        alt="Séance de coaching personnel avec Mia" 
+                        class="w-full h-auto object-cover"
+                      >
+                      
+                      <!-- Calque avec dégradé subtil -->
+                      <div class="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent pointer-events-none"></div>
+                      
+                      <!-- Légende sur l'image -->
+                      <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
+                        <p class="text-white text-sm italic">Mia, ma meilleure négociatrice et associée fidèle</p>
+                      </div>
+                    </div>
+                    
+                    <!-- Éléments décoratifs autour de l'image -->
+                    <div class="absolute -bottom-5 -left-5 w-24 h-24 border border-accent-500/30 rounded-xl -z-10"></div>
+                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-accent-500/10 rounded-full backdrop-blur-sm -z-10"></div>
+                    <div class="absolute top-1/2 -right-3 w-6 h-6 bg-accent-500/20 rounded-full -z-10"></div>
+                  </div>
+                </div>
+                
+                <!-- Histoire personnelle -->
+                <div class="lg:col-span-7" x-data="animateOnScroll">
+                  <div class="prose prose-lg max-w-none opacity-0 transform transition-all duration-700 delay-200 prose-p:text-primary-600"
+                       x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }">
+                    
+                    <!-- Titre accrocheur -->
+                    <h3 class="text-2xl md:text-3xl font-bold text-primary-600 mb-8 relative inline-block">
+                      LE CHOIX DE NE PLUS SUBIR
+                      <span class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent-500/80 via-accent-500/50 to-transparent"></span>
+                    </h3>
+                    
+                    <!-- Histoire avec mise en forme élégante -->
+                    <div class="space-y-6 text-primary-600">
+                      <p class="!text-primary-600">
+                        J'ai longtemps cherché ma place. À endosser des rôles qu'on m'imposait, sans jamais me demander s'ils étaient faits pour moi. À rentrer dans des moules, jusqu'à en oublier qui j'étais vraiment.
+                      </p>
+                      
+                      <p class="!text-primary-600">
+                        On m'a confié des postes à responsabilités jeunes, comme <span class="text-primary-600 font-semibold">Responsable RH</span> ou <span class="text-primary-600 font-semibold">Responsable Qualité</span>. Des missions où il fallait créer, structurer, s'adapter immédiatement. Alors j'ai appris vite. Absorbé, testé, ajusté, avancé.
+                      </p>
+                      
+                      <p class="!text-primary-600">
+                        Mais à un moment, quelque chose s'est brisé. Un malaise que je n'arrivais pas à expliquer. Le genre qui te suit, même quand tout semble aller bien. Je donnais tout. Mais pour quoi ? Pour qui ?
+                      </p>
+                      
+                      <div class="pl-6 border-l-2 border-accent-500/40 my-8">
+                        <p class="italic !text-primary-600">
+                          Et puis, après des nuits à ressasser, une évidence s'impose : <span class="text-primary-600 font-semibold">Je ne veux plus jouer un rôle. Je ne veux plus suivre un scénario écrit par quelqu'un d'autre. Je veux créer la vie que je mérite.</span>
+                        </p>
+                      </div>
+                      
+                      <p class="!text-primary-600">
+                        Alors j'ai quitté ces postes par respect pour moi-même. Parce qu'accepter un chemin qui ne nous ressemble pas, ce n'est pas réussir. C'est juste s'éloigner de soi.
+                      </p>
+                      
+                      <p class="!text-primary-600">
+                        Alors j'ai exploré. Testé. Cherché à comprendre. Appris. Pas juste les métiers. Les gens. Leur mentalité. Leur blocage. Leur évolution. Ce qui les pousse à avancer… ou à rester figés.
+                      </p>
+                      
+                      <p class="!text-primary-600">
+                        Il y a eu des échecs, oui. Des ajustements. Des retours en arrière. Des leçons qui cognent fort. Mais grâce à ça, j'ai décodé ce qui fonctionne. Ce qui impacte. Ce qui transforme.
+                      </p>
+                      
+                      <div class="bg-gray-900 p-6 rounded-tr-2xl rounded-bl-2xl shadow-md my-8 relative">
+                        <div class="absolute top-0 right-0 w-16 h-16 border-t border-r border-accent-500/40 rounded-tr-2xl"></div>
+                        <p class="text-lg md:text-xl mb-0 text-white">
+                          Aujourd'hui, ma formule est solide. Elle propulse. Elle casse les limitations. J'accompagne ceux qui refusent de subir et veulent reprendre leur pouvoir sur leur vie.
+                        </p>
+                        <div class="absolute bottom-0 left-0 w-16 h-16 border-b border-l border-accent-500/40 rounded-bl-2xl"></div>
+                      </div>
+                      
+                      <p class="italic !text-primary-600">
+                        Ah oui, si jamais… Mia (sur la photo à gauche), c'est mon associée. La meilleure négociatrice du game. Elle amadoue, elle convainc, elle charme mieux que moi. Moi ? Je fais le reste.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </section>
     
     <!-- Conteneur pour l'injection du composant ServicesSection -->
     <div id="services" class="section"></div>
@@ -359,30 +431,7 @@
         </div>
       </div>
     </section>
-
-    <!-- Ligne diagonale décorative -->
-    <div class="section-separator" data-theme="light">
-      <div class="h-16 md:h-24 w-full relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white/5"></div>
-        
-        <div class="absolute inset-0 skew-y-1">
-          <div class="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r 
-                    from-transparent via-accent-400 to-transparent 
-                    transform -rotate-1 origin-left opacity-90"></div>
-          
-          <div class="absolute bottom-6 left-0 right-0 h-[1px] bg-gradient-to-r 
-                    from-transparent via-primary-400 to-transparent 
-                    transform -rotate-1 origin-left opacity-80 translate-y-px"></div>
-          
-          <div class="absolute w-1 h-1 rounded-full bg-accent-400 opacity-80 
-                    bottom-0 left-1/4"></div>
-          <div class="absolute w-0.5 h-0.5 rounded-full bg-accent-400 opacity-70 
-                    bottom-2 left-2/3"></div>
-          <div class="absolute w-1.5 h-1.5 rounded-full bg-accent-400 blur-[1px] opacity-70 
-                    bottom-4 left-3/4"></div>
-        </div>
-      </div>
-    </div>
+    
     
     <!-- Section Contact -->
     <section id="contact" class="py-20 bg-gray-50 relative overflow-hidden">
@@ -414,10 +463,9 @@
             </p>
           </div>
           
-          <!-- Grille 2 colonnes: Formulaire + Infos -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            <!-- Colonne: Formulaire de contact -->
-            <div class="bg-white rounded-xl shadow-md p-8 relative transform transition-all duration-500 hover:shadow-lg"
+          <!-- Formulaire de contact centré -->
+          <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-8 md:p-10 relative transform transition-all duration-500 hover:shadow-xl"
                 x-data="{ 
                   formVisible: true,
                   successVisible: false,
@@ -426,8 +474,10 @@
                     this.successVisible = true;
                   }
                 }">
-              <!-- Élément décoratif -->
-              <div class="absolute top-0 left-0 w-1 h-16 bg-accent-500"></div>
+              <!-- Éléments décoratifs -->
+              <div class="absolute top-0 left-0 w-1.5 h-24 bg-accent-500 rounded-tl-xl rounded-bl"></div>
+              <div class="absolute top-0 right-0 w-24 h-24 border-t border-r border-accent-500/20 rounded-tr-xl -z-10"></div>
+              <div class="absolute -bottom-3 -right-3 w-16 h-16 bg-accent-500/10 rounded-br blur-sm -z-10"></div>
               
               <!-- Formulaire (visible par défaut) -->
               <form id="contact-form" class="space-y-6" x-show="formVisible" @submit.prevent="submitForm">
@@ -437,111 +487,93 @@
                   <input type="text" id="honeypot" name="honeypot">
                 </div>
                 
-                <!-- Type de service -->
-                <div class="space-y-2">
-                  <label for="service" class="block font-medium text-gray-700">Type de service *</label>
-                  <select id="service" name="service" class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500" required>
-                    <option value="" selected disabled>Sélectionnez un type de service</option>
-                    <option value="entreprise">Services pour entreprises</option>
-                    <option value="particulier">Services pour particuliers</option>
-                    <option value="autre">Autre demande</option>
-                  </select>
+                <!-- En-tête du formulaire -->
+                <div class="text-center mb-8">
+                  <h3 class="text-xl font-bold text-primary-600 mb-2">Démarrons une conversation</h3>
+                  <p class="text-gray-500">Tous les champs marqués d'un * sont obligatoires</p>
                 </div>
                 
-                <!-- Nom -->
-                <div class="space-y-2">
-                  <label for="name" class="block font-medium text-gray-700">Nom complet *</label>
-                  <input type="text" id="name" name="name" class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500" required>
-                </div>
-                
-                <!-- Email -->
-                <div class="space-y-2">
-                  <label for="email" class="block font-medium text-gray-700">Email *</label>
-                  <input type="email" id="email" name="email" class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500" required>
-                </div>
-                
-                <!-- Téléphone -->
-                <div class="space-y-2">
-                  <label for="phone" class="block font-medium text-gray-700">Téléphone</label>
-                  <input type="tel" id="phone" name="phone" class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500">
-                </div>
-                
-                <!-- Message -->
-                <div class="space-y-2">
-                  <label for="message" class="block font-medium text-gray-700">Message *</label>
-                  <textarea id="message" name="message" rows="4" class="w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500" required></textarea>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Type de service -->
+                  <div class="space-y-2 md:col-span-2">
+                    <label for="service" class="block font-medium text-gray-700">Type de service *</label>
+                    <select id="service" name="service" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required>
+                      <option value="" selected disabled>Sélectionnez un type de service</option>
+                      <option value="entreprise">Services pour entreprises</option>
+                      <option value="particulier">Services pour particuliers</option>
+                      <option value="autre">Autre demande</option>
+                    </select>
+                  </div>
+                  
+                  <!-- Nom -->
+                  <div class="space-y-2">
+                    <label for="name" class="block font-medium text-gray-700">Nom complet *</label>
+                    <input type="text" id="name" name="name" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required>
+                  </div>
+                  
+                  <!-- Email -->
+                  <div class="space-y-2">
+                    <label for="email" class="block font-medium text-gray-700">Email *</label>
+                    <input type="email" id="email" name="email" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required>
+                  </div>
+                  
+                  <!-- Téléphone -->
+                  <div class="space-y-2 md:col-span-2">
+                    <label for="phone" class="block font-medium text-gray-700">Téléphone</label>
+                    <input type="tel" id="phone" name="phone" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all">
+                  </div>
+                  
+                  <!-- Message -->
+                  <div class="space-y-2 md:col-span-2">
+                    <label for="message" class="block font-medium text-gray-700">Message *</label>
+                    <textarea id="message" name="message" rows="5" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required></textarea>
+                  </div>
                 </div>
                 
                 <!-- Consentement RGPD -->
-                <div class="space-y-2">
+                <div class="space-y-2 pt-2 border-t border-gray-100">
                   <div class="flex items-start">
-                    <input type="checkbox" id="privacy" name="privacy" class="mt-1 rounded border-gray-300 text-primary-600 shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus:ring-offset-0" required>
-                    <label for="privacy" class="ml-2 block text-sm text-gray-700">
+                    <input type="checkbox" id="privacy" name="privacy" class="mt-1 rounded border-gray-300 text-accent-500 shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50 focus:ring-offset-0" required>
+                    <label for="privacy" class="ml-2 block text-sm text-gray-600">
                       J'accepte que mes données soient utilisées uniquement pour permettre le traitement de ma demande. *
                     </label>
                   </div>
                 </div>
                 
                 <!-- Bouton d'envoi -->
-                <div class="pt-4">
-                  <button type="submit" class="btn btn-primary w-full md:w-auto">
-                    Envoyer ma demande
+                <div class="pt-4 text-center">
+                  <button type="submit" class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-all duration-200">
+                    <span>Envoyer ma demande</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
                   </button>
                 </div>
                 
-                <p class="text-xs text-gray-500">* Champs obligatoires</p>
+                <!-- Email de contact direct -->
+                <div class="text-center mt-8 pt-4 border-t border-gray-100">
+                  <p class="text-sm text-gray-500">
+                    Ou contactez-moi directement par email : 
+                    <a href="mailto:laure@reybellet.com" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">
+                      laure@reybellet.com
+                    </a>
+                  </p>
+                </div>
               </form>
               
               <!-- Message de confirmation (caché par défaut) -->
-              <div id="success-message" class="bg-green-50 text-green-800 p-6 rounded-md text-center" x-show="successVisible" x-cloak>
-                <svg class="w-12 h-12 mx-auto text-green-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <div id="success-message" class="bg-green-50 text-green-800 p-8 rounded-md text-center" x-show="successVisible" x-cloak>
+                <svg class="w-16 h-16 mx-auto text-green-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <h3 class="text-xl font-bold mb-2">Message envoyé avec succès !</h3>
-                <p>Merci pour votre demande. Je vous répondrai dans les plus brefs délais.</p>
-              </div>
-            </div>
-            
-            <!-- Colonne: Informations de contact -->
-            <div>
-              <div class="bg-white rounded-xl shadow-md p-8 mb-8 transform transition-all duration-500 hover:shadow-lg">
-                <h3 class="text-2xl font-bold mb-6 text-primary-600">Coordonnées</h3>
-                
-                <ul class="space-y-6">
-                  <!-- Adresse -->
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-gray-900 mb-1">Adresse</h4>
-                      <address class="text-gray-600 not-italic">
-                        Rey-Bellet Consulting<br>
-                        Suisse
-                      </address>
-                    </div>
-                  </li>
-                  
-                  <!-- Email -->
-                  <li class="flex items-start">
-                    <div class="flex-shrink-0 w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center mr-4">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 class="font-semibold text-gray-900 mb-1">Email</h4>
-                      <p class="text-gray-600">
-                        <a href="mailto:laure@reybellet.com" class="hover:text-primary-600 transition-colors">
-                          laure@reybellet.com
-                        </a>
-                      </p>
-                    </div>
-                  </li>
-                </ul>
+                <h3 class="text-2xl font-bold mb-3">Message envoyé avec succès !</h3>
+                <p class="text-lg mb-6">Merci pour votre demande. Je vous répondrai dans les plus brefs délais.</p>
+                <div class="inline-flex items-center justify-center text-green-700 hover:text-green-800 font-medium transition-colors cursor-pointer" @click="formVisible = true; successVisible = false">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  <span>Retour au formulaire</span>
+                </div>
               </div>
             </div>
           </div>
