@@ -8,111 +8,86 @@ Ce fichier définit à la fois les **informations client** utiles pour démarrer
 
 ## Présentation du client
 
-**Rey-Bellet Consulting** est une entreprise indépendante de conseil dirigée par Laure Rey-Bellet, spécialiste en gestion du changement qui propose ses services à la fois aux entreprises et aux particuliers. Son approche combine consulting, coaching et formation pour accompagner ses clients dans leurs transformations professionnelles et personnelles.
+Rey-Bellet Consulting est dirigée par Laure Rey-Bellet, spécialiste en gestion du changement proposant des services aux entreprises et particuliers. Ce n'est pas une consultante traditionnelle - elle veut briser les codes du conseil avec un personal branding décalé et impactant.
 
 coordonnées :
 Rey-Bellet Consulting
-Pré Court 16
-1893 Muraz
-+41 78 256 22 61
 laure@reybellet.com
 reybellet.com
+
+## Positionnement unique
+
+"Le changement n'est pas une option. C'est une force, un levier, un passage obligé vers l'évolution."
+
+Laure se positionne comme une force disruptive qui transforme la vision du changement:
+
+Elle ne rassure pas, elle provoque et structure
+Elle aide à façonner le changement, pas à le subir
+Son parcours personnel (grand saut en indépendante en 2023) est au cœur de son approche
 
 ## Objectifs du site web
 
 ### Objectifs principaux
 
-1. **Présenter l'expertise professionnelle** - Mettre en valeur les compétences de Laure en tant que consultante, coach et formatrice spécialisée en gestion du changement.
-2. **Différencier ses services** - Distinguer clairement ses offres pour entreprises et particuliers avec des modules adaptés à chaque public. Valoriser la capacité à servir entreprises ET particuliers, peu commune dans le secteur
-3. **Générer des demandes de devis et contacts** - Faciliter la conversion des visiteurs en prospects via des boutons d'appel à l'action stratégiquement placés.
-4. **Refléter sa personnalité** - Créer une expérience utilisateur interactive (texte animé ou pop-up d'accueil) qui humanise la marque et établit une connexion émotionnelle.
-5. **Servir de support marketing intégré** - Prévoir une landing page accessible via QR code pour les campagnes marketing offline.
+1. **Créer un impact visuel immédiat** - Design percutant, non conventionnel (noir et or)
+2. **Présenter ses services distinctifs** - Offres pour entreprises ET particuliers (rare dans le secteur)
+3. **Refléter sa personnalité authentique** - Ton direct, parfois provocateur, touches d'humour
+4. **Générer des leads qualifiés** - CTAs stratégiques pour demandes de devis/contact
+5. **Raconter son histoire** - Parcours personnel présenté comme un récit inspirant
 
 ### Objectifs secondaires
 
 1. **Établir sa crédibilité** - Via la section "À propos" qui racontera son parcours professionnel.
 2. **Simplifier la prise de contact** - Formulaire de contact épuré sans surcharge d'informations.
 3. **Faciliter la navigation** - Structure claire avec menus déroulants pour une expérience utilisateur intuitive.
-4. **Flexibilité pour l'évolution des services** - Structure permettant d'ajouter/modifier les offres mentionnées comme "à affiner".
 
 ## Identité de marque
 
-Rey-Bellet Consulting se positionne comme une marque **professionnelle, premium et dynamique**. L'identité visuelle doit refléter:
+## 🎨 Direction visuelle
 
-- **Professionnalisme**: Utilisation de lignes épurées, typographie moderne et structure claire
-- **Premium**: Accent sur des détails dorés, espacement généreux et qualité visuelle soignée
-- **Dynamisme**: Utilisation de lignes diagonales montantes symbolisant le mouvement et la progression
+- **Fond noir avec éléments or/dorés** (poudre d'or, particules, effets de lumière)
+- **Contraste fort** entre noir profond et touches dorées éclatantes
+- **Charte graphique**: Noir (#000000), Blanc (#FFFFFF), Doré (#FFD700), Bleu (#1848A0)
+- **Typographie**: Montserrat (titres, gras), Lato (sous-titres), Poppins (citations impactantes)
+- **Éléments distinctifs**: Lignes diagonales montantes, effets de particules dorées, textures premium
+
+- **Direct et percutant** - "On ne subit pas le changement - on le façonne"
+- **Authentique et personnel** - Narration à la première personne
+- **Touches d'humour** - Mention de son chien Mia comme "meilleure négociatrice"
+- **Phrases courtes et impactantes** - "Rester immobile, c'est renoncer à toute évolution"
 
 ## Structure du site
 
-Le site sera simplifié et organisé selon la structure suivante:
-
 1. **Page d'accueil** (page principale contenant toutes les sections)
-    - Option interactive (pop-up ou texte animé) pour l'introduction
-    - Section introduction personnalisée de Laure
-    - Section **Services pour entreprises**
-        - Introduction aux services
-        - Présentation des 4 modules (Comprendre, Planifier, Activer, Sur mesure)
-        - Bouton "Demande de devis"
-    - Section **Services pour particuliers**
-        - Introduction aux services
-        - Présentation des 3 programmes (Révéler ton potentiel, Donner vie à tes ambitions, Sur mesure)
-        - Bouton "Contact"
+    - Option interactive texte animé pour l'introduction
+    - Section hero introduction personnalisée de Laure
+    - Section tab **Services pour entreprises** / **Services pour particuliers**
+        - Introduction aux services et présentation des programmes
     - Section **À propos**
-        - Histoire personnelle et professionnelle de Laure (créer un storytelling)
-        - Photographie professionnelle
-        - Valeurs et approche
-2. **Page de contact**
-    - Formulaire de contact simple et épuré
-    - Sans coordonnées directes
-    - Message de confirmation après envoi
-3. **Landing page** (non visible dans la navigation principale)
-    - Page accessible uniquement via QR code pour campagnes marketing
-
-## Éléments visuels à intégrer
-
-### Palette de couleurs
-
-Charte graphique à respecter strictement dans le fichier STYLGUIDE.md à la racine du projet
-
-- **Noir (#000000)**: Fond principal sur certains supports, texte premium pour titres
-- **Blanc (#FFFFFF)**: Fond principal pour la lisibilité, texte sur fond noir
-- **Doré (#FFD700)**: Accent graphique haut de gamme, détails premium
-- **Bleu (#1848A0)**: Texte secondaire, éléments structurants
-- **Gris clair et foncé**: Éléments secondaires et textes alternatifs
-
-### Typographie
-
-- Titres: Montserrat (gras, majuscule)
-- Sous-titres: Lato (normal, minuscule)
-- Corps de texte: Montserrat (normal, minuscule)
-- Citations et slogans: Poppins (majuscule, normal)
-
-### Éléments graphiques distinctifs
-
-- Lignes diagonales parallèles montantes (doré et bleu)
-- Utilisation modérée de transparence pour les éléments graphiques
-- Design épuré avec espaces négatifs généreux
-- Iconographie minimaliste pour illustrer les services
+        - Histoire personnelle de Laure "Le choix de ne plus subir"
+    -Section **CTA**
+    - Section **contact**
+        - Formulaire de contact simple et épuré avec formulaire
+        - Sans coordonnées directes
 
 ## Ton et style de communication
 
-Le site doit véhiculer un ton:
+- **Direct et percutant** - "On ne subit pas le changement - on le façonne"
+- **Authentique et personnel** - Narration à la première personne
+- **Touches d'humour** - Mention de son chien Mia comme "meilleure négociatrice"
+- **Phrases courtes et impactantes** - "Rester immobile, c'est renoncer à toute évolution"
 
-- Professionnel mais chaleureux
-- Expert sans être intimidant
-- Direct et orienté solutions
-- Personnel et authentique
+## Fonctionnalités clés
 
-## Fonctionnalités spécifiques à intégrer
+1. **Animations de texte** pour les messages forts
+2. **Effets visuels premium** (particules or, transitions dynamiques)
+3. **CTAs distinctifs** avec design non conventionnel
+4. **Formulaire de contact** sur fond sombre avec éléments or
+5. **Navigation fluide** entre les sections
 
-1. **Texte animé** pour créer une première impression mémorable
-2. **Menu déroulant pour les services** distinguant entreprises et particuliers
-3. **Boutons d'appel à l'action** stratégiquement placés (demande de devis, contact)
-4. **Formulaire de contact** simple mais efficace
-5. **Intégration possible avec LinkedIn** pour renforcer la crédibilité professionnelle
+## 🌟 Ce qui rendra ce site unique
 
-Ce site doit être conçu comme un outil de personal branding efficace, reflétant la personnalité de Laure Rey-Bellet tout en présentant clairement ses services et en facilitant la génération de leads.
+La combinaison entre une esthétique premium (noir/or), un ton direct et personnel qui sort du cadre corporate traditionnel, et une présentation narrative de ses services qui place le changement comme une force positive à maîtriser plutôt qu'une contrainte à subir.
 
 ---
 
@@ -135,7 +110,6 @@ project-starter/
 │   ├── assets/           → Images et icônes
 │   ├── components/
 │   │   ├── layout/       → Header, Footer, CookieBanner, etc.
-│   ├── pages/            → Pages HTML statiques (index.html, contact.html...)
 │   ├── utils/            → JS utiles (formulaires, cookies...)
 │   └── styles/
 │       └── main.css      → Tailwind + @theme + @apply

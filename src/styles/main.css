@@ -519,7 +519,9 @@
     @apply bg-clip-text text-transparent;
     background-image: var(--color-gold-gradient-1);
     background-size: 200% auto;
-    animation: btnShine 3s linear infinite;
+    animation: btnShine 4s linear infinite;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.15));
   }
   
   /* Bordure avec dégradé doré */
@@ -555,8 +557,11 @@
 .typing-cursor-waiting::after {
   content: '|';
   display: inline-block;
-  margin-left: 0.1em;
+  margin-left: 0.05em;
   animation: caretBlink 0.7s infinite;
+  font-weight: 300;
+  color: var(--color-accent);
+  opacity: 0.9;
 }
 
 .typing-cursor-waiting::after {
@@ -647,5 +652,77 @@ body {
     linear-gradient(230deg, rgba(255, 215, 0, 0.02) 0%, rgba(0, 0, 0, 0) 80%);
   border-top: 1px solid rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Animation du surlignement pour le nom de famille - Version améliorée */
+.highlight-text-animated {
+  position: relative;
+  display: inline-block;
+  color: white;
+  z-index: 1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.highlight-text-animated::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.08em;
+  height: 0.35em;
+  width: 100%;
+  background-color: var(--color-accent-500);
+  z-index: -1;
+  transform-origin: 0 100%;
+  transform: scaleX(0);
+  animation: highlightScaleIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  animation-delay: 0.5s;
+  opacity: 0.85;
+}
+
+@keyframes highlightScaleIn {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+/* Animation complémentaire pour améliorer l'effet */
+.highlight-text-animated::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 0.35em;
+  background-color: var(--color-accent-400);
+  z-index: -2;
+  transform-origin: 0 100%;
+  opacity: 0;
+  animation: highlightPulse 3s ease-in-out infinite;
+  animation-delay: 1.7s;
+}
+
+@keyframes highlightPulse {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.85);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scaleX(1.05);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(0.85);
+  }
+}
+
+/* Animation plus dynamique pour le texte gradient */
+@keyframes btnShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
