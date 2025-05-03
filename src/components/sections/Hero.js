@@ -97,7 +97,7 @@ export function createHeroSection({
 
   return `
     <!-- Section Hero -->
-    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden section-dark-enhanced">
+    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
       <!-- Particules dorées animées - densité augmentée pour impact visuel immédiat -->
       <div class="gold-particles-container">
         ${generateParticles(50)}
@@ -107,27 +107,11 @@ export function createHeroSection({
       <div class="gold-decor-shimmer top-1/4 left-1/3 w-1/3 opacity-[0.06]"></div>
       <div class="gold-decor-shimmer bottom-1/4 right-1/4 w-2/5 opacity-[0.05]"></div>
       
-      <!-- Arrière-plan subtil avec effet de flou et dégradé doré - Opacité réduite -->
-      <div class="absolute inset-0 z-0 opacity-8">
-        <img 
-          src="assets/images/bg-graphique-ecran-flou_1080.webp" 
-          alt="" 
-          class="w-full h-full object-cover"
-          aria-hidden="true"
-        >
-      </div>
+      
       
       <!-- Éléments graphiques décoratifs - dégradés dorés avec opacité augmentée -->
       <div class="absolute top-0 right-0 w-1/3 h-64 gold-decor-element opacity-10"></div>
       <div class="absolute bottom-20 left-0 w-2/5 h-80 gold-decor-element opacity-8"></div>
-      
-      <!-- Lignes diagonales décoratives en arrière-plan dorées - plus visibles -->
-      <div class="absolute right-0 top-16 w-64 h-0.5 bg-gradient-to-r from-accent-500/30 to-accent-600/10 transform rotate-6 hidden md:block"></div>
-      <div class="absolute right-5 top-20 w-40 h-0.5 bg-accent-600/30 transform rotate-6 hidden md:block"></div>
-      
-      <!-- Cercles décoratifs - plus visibles -->
-      <div class="absolute left-10 top-1/4 w-8 h-8 rounded-full border-2 border-accent-500/30 hidden md:block"></div>
-      <div class="absolute right-1/4 bottom-1/3 w-12 h-12 rounded-full border border-accent-600/30 hidden md:block"></div>
       
       <div class="container mx-auto px-4 relative z-10">
         <div class="flex flex-col md:flex-row gap-12 items-center">

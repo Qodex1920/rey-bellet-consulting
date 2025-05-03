@@ -140,16 +140,6 @@ export const templates = {
           </div>
         </div>
       </div>
-      
-      <!-- Ligne décorative diagonal avec dégradé doré -->
-      <div class="absolute bottom-0 left-0 right-0 h-4 overflow-hidden">
-        <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center bottom-2">
-          <div class="h-full w-full bg-gradient-to-r from-accent-500/20 via-accent-500/50 to-accent-500/20"></div>
-        </div>
-        <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center bottom-1">
-          <div class="h-full w-full bg-gradient-to-r from-accent-600/10 via-accent-600/30 to-accent-600/10"></div>
-        </div>
-      </div>
     </header>
   `,
   
@@ -299,7 +289,7 @@ export const headerTemplate = `
   <div class="container mx-auto px-4 py-3 md:py-5 flex justify-between items-center">
     <!-- Logo -->
     <a href="/" class="flex items-center">
-      <img src="/assets/images/logo.svg" alt="Rey-Bellet Consulting" class="h-10 md:h-12">
+      <img src="/assets/logos/logo-noir.svg" alt="Rey-Bellet Consulting" class="h-10 md:h-12">
     </a>
     
     <!-- Navigation Desktop -->
