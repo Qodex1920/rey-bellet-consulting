@@ -146,15 +146,7 @@ export const templates = {
   // Footer du site
   'footer': `
     <footer class="bg-gray-950 text-white pt-16 pb-8 relative">
-      <!-- Lignes diagonales décoratives en haut du footer avec dégradé doré -->
-      <div class="absolute top-0 left-0 right-0 h-4 overflow-hidden transform -translate-y-1/2">
-        <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center top-1">
-          <div class="h-full w-full bg-gradient-to-r from-accent-500/20 via-accent-500/60 to-accent-500/20"></div>
-        </div>
-        <div class="absolute w-[200%] h-0.5 -left-[50%] transform -rotate-6 origin-center top-2">
-          <div class="h-full w-full bg-gradient-to-r from-accent-600/10 via-accent-600/40 to-accent-600/10"></div>
-        </div>
-      </div>
+        
 
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">

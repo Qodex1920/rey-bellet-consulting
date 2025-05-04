@@ -108,9 +108,9 @@ export function createServicesSection(options = {}) {
   return `
     <section id="${sectionId}" class="py-16 text-white" x-data="{ activeTab: 'enterprise' }">
       <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-scroll-animation>
-          <h2 class="text-3xl font-bold text-white mb-4">${title}</h2>
-          ${subtitle ? `<p class="text-lg text-gray-300 max-w-3xl mx-auto">${subtitle}</p>` : ''}
+        <div class="section-title text-center mb-12" data-scroll-animation>
+          <h2 class="section-title-heading highlight-text-animated text-4xl md:text-5xl">${title}</h2>
+          ${subtitle ? `<p class="section-title-subtitle">${subtitle}</p>` : ''}
         </div>
         
         <div class="flex justify-center mb-8 border-b border-gray-700" data-scroll-animation>
@@ -138,12 +138,9 @@ export function createServicesSection(options = {}) {
                x-transition:enter-end="opacity-100 transform translate-y-0"
                class="rounded-xl p-8">
             
-            <!-- Titre de la section entreprises -->
-            <h3 class="text-2xl font-semibold text-white text-center mb-6">${enterpriseSectionTitle}</h3>
-            
-            <!-- Image d'introduction entreprises -->
+            <!-- Image d'introduction entreprises avec titre intégré -->
             <div class="mb-12 relative mx-auto max-w-4xl overflow-hidden">
-              <div class="rounded-lg overflow-hidden shadow-md">
+              <div class="rounded-lg overflow-hidden shadow-md relative">
                 <img 
                   src="${images.enterprise}" 
                   alt="Services pour entreprises" 
@@ -151,8 +148,11 @@ export function createServicesSection(options = {}) {
                 >
                 <!-- Overlay subtil avec dégradé -->
                 <div class="absolute inset-0 bg-gradient-to-tr from-primary-600/20 to-transparent opacity-60"></div>
+                <!-- Titre bleu, fond blanc, sans bordure, sur une seule ligne -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white rounded-lg px-6 py-2 flex items-center justify-center">
+                  <h3 class="text-xl md:text-2xl font-bold text-primary-500 m-0 whitespace-nowrap truncate">${enterpriseSectionTitle}</h3>
+                </div>
               </div>
-              
               <!-- Décoration graphique -->
               <div class="absolute -bottom-3 -right-3 w-32 h-32 rounded-full border-4 border-accent-500/30 -z-10"></div>
             </div>
@@ -168,12 +168,9 @@ export function createServicesSection(options = {}) {
                x-transition:enter-start="opacity-0 transform translate-y-4" 
                x-transition:enter-end="opacity-100 transform translate-y-0">
             
-            <!-- Titre de la section particuliers -->
-            <h3 class="text-2xl font-semibold text-white text-center mb-6">${personalSectionTitle}</h3>
-            
-            <!-- Image d'introduction particuliers -->
+            <!-- Image d'introduction particuliers avec titre intégré -->
             <div class="mb-12 relative mx-auto max-w-4xl overflow-hidden">
-              <div class="rounded-lg overflow-hidden shadow-md">
+              <div class="rounded-lg overflow-hidden shadow-md relative">
                 <img 
                   src="${images.personal}" 
                   alt="Services pour particuliers" 
@@ -181,13 +178,16 @@ export function createServicesSection(options = {}) {
                 >
                 <!-- Overlay subtil avec dégradé -->
                 <div class="absolute inset-0 bg-gradient-to-bl from-accent-500/20 to-transparent opacity-60"></div>
+                <!-- Titre bleu, fond blanc, sans bordure, sur une seule ligne -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white rounded-lg px-6 py-2 flex items-center justify-center">
+                  <h3 class="text-xl md:text-2xl font-bold text-primary-500 m-0 whitespace-nowrap truncate">${personalSectionTitle}</h3>
+                </div>
               </div>
-              
               <!-- Décoration graphique -->
               <div class="absolute -bottom-3 -left-3 w-32 h-32 rounded-full border-4 border-primary-500/30 -z-10"></div>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${Math.min(personalServices.length, 3)} gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               ${personalCardsHTML}
             </div>
           </div>
