@@ -28,7 +28,7 @@ La bannière est déjà intégrée dans le projet et s'initialise automatiquemen
 3. Importez et initialisez le composant dans votre fichier principal:
 
 ```javascript
-// Dans main.js
+// Dans initcomponents.js
 import { initCookieBanner } from './components/notification/CookieBanner.js';
 
 // S'assurer qu'Alpine.js est initialisé avant
@@ -238,35 +238,43 @@ import { initCookieBanner } from './components/notification/CookieBanner.js';
 import { initCookieBanner } from 'components/notification/CookieBanner.js';
 ```
 
-## Compatibilité avec les frameworks
+### Erreur: "Catégories dupliquées dans le panneau de personnalisation"
+**Problème**: Lorsque vous cliquez sur "Personnaliser" dans la bannière de cookies, les catégories apparaissent en double.
 
-### Vue.js
-Pour utiliser avec Vue, initialisez la bannière après le montage de l'application:
+**Cause**: Ce problème est généralement causé par une double initialisation du composant. Dans les versions précédentes, le fichier `CookieBanner.js` contenait une auto-initialisation en plus de l'initialisation explicite dans `initComponents.js`.
+
+**Solution**: 
+1. Utiliser un flag pour éviter les initialisations multiples:
 ```javascript
-import { createApp } from 'vue';
-import { initCookieBanner } from './components/notification/CookieBanner.js';
+// Dans CookieBanner.js
+let isBannerInitialized = false;
 
-const app = createApp(App);
-app.mount('#app');
-
-// Après le montage
-initCookieBanner();
-```
-
-### React
-Pour React, utilisez un effet:
-```javascript
-import { useEffect } from 'react';
-import { initCookieBanner } from './components/notification/CookieBanner.js';
-
-function App() {
-  useEffect(() => {
-    initCookieBanner();
-  }, []);
+export function initCookieBanner(customConfig = {}) {
+  // Éviter la double initialisation
+  if (isBannerInitialized || document.getElementById('cookie-consent-banner')) {
+    console.log("Bannière de cookies déjà initialisée, initialisation ignorée");
+    return;
+  }
   
-  return (/* ... */);
+  isBannerInitialized = true;
+  // Suite du code...
 }
 ```
+
+2. Si vous utilisez à la fois l'auto-initialisation et l'initialisation explicite, assurez-vous qu'elles ne se chevauchent pas:
+```javascript
+// Auto-initialisation avec vérification
+if (typeof window !== 'undefined' && window.Alpine) {
+  setTimeout(() => {
+    // Vérifier si la bannière n'a pas déjà été initialisée par le code externe
+    if (!document.getElementById('cookie-consent-banner') && !isBannerInitialized) {
+      initCookieBanner();
+    }
+  }, 500); // Petit délai pour laisser le temps à l'initialisation externe
+}
+```
+
+## Compatibilité avec les frameworks
 
 ## Liste de vérification rapide
 
@@ -274,4 +282,5 @@ function App() {
 - [ ] CookieBanner.js est correctement importé
 - [ ] initCookieBanner() est appelé après l'initialisation d'Alpine
 - [ ] La politique de confidentialité est à jour et accessible
-- [ ] Tous les scripts analytiques vérifient le consentement avant de s'exécuter 
+- [ ] Tous les scripts analytiques vérifient le consentement avant de s'exécuter
+- [ ] Vérifier l'absence de double initialisation pour éviter la duplication des catégories 
