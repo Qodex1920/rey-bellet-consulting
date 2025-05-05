@@ -39,95 +39,148 @@
   <!-- Lordicon pour les icônes animées -->
   <script src="https://cdn.lordicon.com/lordicon.js"></script>
   
-  <!-- Alpine.js - Chargement direct sans attribut defer pour garantir sa disponibilité -->
-  <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
+  <!-- Alpine.js - Chargement avec l'attribut defer pour résoudre le problème d'initialisation -->
+  <script defer src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js"></script>
   
   <!-- Initialisation des configurations Alpine -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      if (window.Alpine) {
-        // Définir les composants Alpine avant de démarrer l'application
-        window.Alpine.data('typingAnimation', function() {
-          return {
-            text: '',
-            fullText: 'Consultante.',
-            textArray: ['Consultante.', 'Coach.', 'Formatrice.'],
-            textIndex: 0,
-            charIndex: 0,
-            typeSpeed: 100,
-            eraseSpeed: 80,
-            delayBetweenWords: 2000,
-            isDeleting: false,
-            isWaiting: false,
+    document.addEventListener('alpine:init', () => {
+      // Définir les composants Alpine avant de démarrer l'application
+      Alpine.data('typingAnimation', function() {
+        return {
+          text: '',
+          fullText: 'Consultante.',
+          textArray: ['Consultante.', 'Coach.', 'Formatrice.'],
+          textIndex: 0,
+          charIndex: 0,
+          typeSpeed: 100,
+          eraseSpeed: 80,
+          delayBetweenWords: 2000,
+          isDeleting: false,
+          isWaiting: false,
+          
+          init() {
+            this.typeText();
+          },
+          
+          typeText() {
+            const current = this.textArray[this.textIndex];
+            this.fullText = current;
             
-            init() {
-              this.typeText();
-            },
-            
-            typeText() {
-              const current = this.textArray[this.textIndex];
-              this.fullText = current;
+            if (!this.isDeleting && this.charIndex < current.length) {
+              // Ajouter un caractère
+              this.text = current.substring(0, this.charIndex + 1);
+              this.charIndex++;
               
-              if (!this.isDeleting && this.charIndex < current.length) {
-                // Ajouter un caractère
-                this.text = current.substring(0, this.charIndex + 1);
-                this.charIndex++;
-                
-                setTimeout(() => this.typeText(), this.typeSpeed);
-              } else if (this.isDeleting && this.charIndex > 0) {
-                // Supprimer un caractère
-                this.text = current.substring(0, this.charIndex - 1);
-                this.charIndex--;
-                
-                setTimeout(() => this.typeText(), this.eraseSpeed);
-              } else if (!this.isDeleting && this.charIndex === current.length) {
-                // Pause avant de commencer à supprimer
-                this.isWaiting = true;
-                this.isDeleting = true;
-                
-                setTimeout(() => {
-                  this.isWaiting = false;
-                  this.typeText();
-                }, this.delayBetweenWords);
-              } else if (this.isDeleting && this.charIndex === 0) {
-                // Passer au texte suivant
-                this.isDeleting = false;
-                this.textIndex = (this.textIndex + 1) % this.textArray.length;
-                
-                setTimeout(() => this.typeText(), this.typeSpeed);
-              }
+              setTimeout(() => this.typeText(), this.typeSpeed);
+            } else if (this.isDeleting && this.charIndex > 0) {
+              // Supprimer un caractère
+              this.text = current.substring(0, this.charIndex - 1);
+              this.charIndex--;
+              
+              setTimeout(() => this.typeText(), this.eraseSpeed);
+            } else if (!this.isDeleting && this.charIndex === current.length) {
+              // Pause avant de commencer à supprimer
+              this.isWaiting = true;
+              this.isDeleting = true;
+              
+              setTimeout(() => {
+                this.isWaiting = false;
+                this.typeText();
+              }, this.delayBetweenWords);
+            } else if (this.isDeleting && this.charIndex === 0) {
+              // Passer au texte suivant
+              this.isDeleting = false;
+              this.textIndex = (this.textIndex + 1) % this.textArray.length;
+              
+              setTimeout(() => this.typeText(), this.typeSpeed);
             }
-          };
-        });
-        
-        // Composant d'animation générique pour les sections et CTA
-        window.Alpine.data('animateOnScroll', function() {
-          return {
-            visible: false,
-            
-            init() {
+          }
+        };
+      });
+      
+      // Composant d'animation générique pour les sections et CTA
+      Alpine.data('animateOnScroll', function() {
+        return {
+          visible: false,
+          
+          init() {
+            // Vérifier si l'élément est déjà visible au chargement
+            if (this.isElementInViewport(this.$el)) {
+              this.visible = true;
+            } else {
+              // Sinon, configurer l'observation du scroll
               this.observeIntersection();
-            },
-            
-            observeIntersection() {
-              const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                  if (entry.isIntersecting) {
-                    this.visible = true;
-                    observer.unobserve(entry.target);
-                  }
-                });
-              }, { threshold: 0.1 });
-              
-              observer.observe(this.$el);
             }
-          };
-        });
+          },
+          
+          isElementInViewport(el, offset = 100) {
+            if (!el) return false;
+            
+            const rect = el.getBoundingClientRect();
+            return (
+              rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+              rect.bottom >= 0 &&
+              rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+              rect.right >= 0
+            );
+          },
+          
+          observeIntersection() {
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                  this.visible = true;
+                  observer.unobserve(entry.target);
+                }
+              });
+            }, { threshold: 0.1 });
+            
+            observer.observe(this.$el);
+          }
+        };
+      });
+      
+      // Ajout des composants manquants
+      Alpine.data('mobileMenu', () => ({
+        open: false,
         
-        // Démarrer Alpine
-        console.log('Démarrage d\'Alpine.js...');
-        window.Alpine.start();
-      }
+        toggle() {
+          this.open = !this.open;
+        },
+        
+        close() {
+          this.open = false;
+        }
+      }));
+      
+      Alpine.data('dropdown', () => ({
+        open: false,
+        
+        toggle() {
+          this.open = !this.open;
+        },
+        
+        close() {
+          this.open = false;
+        }
+      }));
+      
+      Alpine.data('accordion', () => ({
+        open: false,
+        
+        toggle() {
+          this.open = !this.open;
+        }
+      }));
+      
+      // Ne pas appeler Alpine.start() ici, il est déjà démarré par le script defer
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Démarrage d\'Alpine.js...');
+      // Ne pas appeler Alpine.start() une seconde fois
     });
   </script>
 </head>
@@ -314,6 +367,9 @@
                         Ah oui, si jamais… Mia (sur la photo à gauche), c'est mon associée. La meilleure négociatrice du game. Elle amadoue, elle convainc, elle charme mieux que moi. Moi ? Je fais le reste.
                       </p>
                     </div>
+                    
+                    <!-- Conteneur pour le bouton "Me contacter" -->
+                    <div id="about-contact-button" class="mt-8"></div>
                   </div>
                 </div>
               </div>

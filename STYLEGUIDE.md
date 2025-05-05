@@ -4,8 +4,6 @@
 
 La charte graphique de Rey-Bellet Consulting a pour objectif de définir les lignes directrices visuelles et esthétiques de l'entreprise. Elle assure la cohérence de toutes les communications visuelles internes et externes, garantissant ainsi une identité forte et reconnaissable. Cette charte permet de renforcer la marque, de véhiculer les valeurs de l'entreprise et de créer une image professionnelle et mémorable.
 
-*Note: La vision de marque, la tonalité et la personnalité seront complétées ultérieurement selon les éléments du personal branding.*
-
 ## Table des matières
 
 1. Logo

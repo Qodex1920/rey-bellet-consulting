@@ -1,26 +1,65 @@
 /**
  * Initialisation des composants interactifs
+ * 
+ * REMARQUE IMPORTANTE:
+ * Ce fichier se concentre sur l'initialisation des composants INTERACTIFS
+ * comme la bannière de cookies, les accordéons, carrousels, etc.
+ * 
+ * Il est distinct de componentInjector.js qui s'occupe de l'injection
+ * des composants HTML structurels (header, footer).
  */
-import { injectCookieConsent } from './cookieConsentInjector.js';
-import './cookieConsent.js';
+import { initCookieBanner } from '../components/notification/CookieBanner.js';
 import { createButton, buttonIcons } from '../components/common/Button.js';
 
 export default function initComponents() {
-  // Vérifier si Alpine.js est disponible
-  if (window.Alpine) {
-    // Injecter la bannière de consentement aux cookies après l'initialisation d'Alpine
-    document.addEventListener('alpine:initialized', () => {
-      injectCookieConsent();
-      console.log('Consentement aux cookies initialisé avec Alpine.js');
-    });
-    
-    // Initialiser les déclencheurs de paramètres cookies
-    // Attendre que le DOM soit complètement chargé
-    document.addEventListener('DOMContentLoaded', () => {
-      initCookieSettingsTriggers();
+  console.log('Initialisation des composants interactifs...');
+  
+  // Ajouter des boutons de contact où nécessaire
+  addContactButtons();
+  
+  // Initialiser la bannière de cookies seulement si elle n'est pas déjà initialisée
+  // La bannière s'auto-initialise maintenant si Alpine.js est disponible
+  if (!document.getElementById('cookie-consent-banner')) {
+    console.log("Initialisation explicite de la bannière de cookies...");
+    initCookieBanner({
+      policyUrl: '/politique-de-confidentialite.html',
+      cookieCategories: [
+        {
+          id: 'necessary',
+          name: 'Nécessaires',
+          description: 'Indispensables au fonctionnement du site.',
+          required: true
+        },
+        {
+          id: 'functional',
+          name: 'Fonctionnels',
+          description: 'Permettent de mémoriser vos préférences.',
+          required: false
+        },
+        {
+          id: 'analytics',
+          name: 'Statistiques',
+          description: 'Nous aident à comprendre comment vous utilisez le site.',
+          required: false
+        }
+      ]
     });
   } else {
-    console.error('Alpine.js est requis mais n\'a pas été détecté. La bannière de cookies ne fonctionnera pas correctement.');
+    console.log("Bannière de cookies déjà initialisée, skip");
+  }
+  
+  // Vérifier si Alpine.js est disponible
+  if (window.Alpine) {
+    console.log("Alpine.js est disponible, initialisation des composants Alpine...");
+    // Enregistrer les composants personnalisés
+    registerComponents();
+  } else {
+    console.warn('Alpine.js n\'est pas encore chargé. Les composants Alpine seront initialisés par leur propre logique.');
+    // Ajouter un écouteur pour détecter quand Alpine sera disponible
+    document.addEventListener('alpine:init', () => {
+      console.log('Événement alpine:init détecté, initialisation des composants Alpine...');
+      registerComponents();
+    });
   }
 
   // Initialiser les autres composants
@@ -32,27 +71,6 @@ export default function initComponents() {
     initTestimonials();
     initCallToAction();
     initButtonComponents();
-  });
-}
-
-/**
- * Initialise les déclencheurs pour les paramètres de cookies
- */
-function initCookieSettingsTriggers() {
-  // Sélectionner tous les éléments avec la classe cookie-settings-trigger
-  const triggers = document.querySelectorAll('.cookie-settings-trigger, #manage-cookies-link');
-  
-  // Ajouter un gestionnaire d'événements à chaque déclencheur
-  triggers.forEach(trigger => {
-    trigger.addEventListener('click', (event) => {
-      event.preventDefault();
-      // Ouvrir la bannière directement
-      const banner = document.getElementById('cookie-consent-banner');
-      if (banner && banner.__x) {
-        banner.__x.$data.isVisible = true;
-        banner.__x.$data.showDetails = true;
-      }
-    });
   });
 }
 
@@ -528,15 +546,135 @@ function initButtonComponents() {
 }
 
 /**
- * Ajoute un bouton à un conteneur spécifié par sélecteur CSS
+ * Ajoute un bouton à un conteneur spécifié
  * @param {string} selector - Sélecteur CSS du conteneur
- * @param {Object} options - Options du bouton (voir la documentation de createButton)
+ * @param {Object} buttonConfig - Configuration du bouton
  */
-export function addButtonTo(selector, options) {
+function addButtonTo(selector, buttonConfig) {
   const container = document.querySelector(selector);
-  if (container) {
-    container.innerHTML = createButton(options);
-  } else {
+  
+  if (!container) {
     console.warn(`Conteneur de bouton non trouvé: ${selector}`);
+    return;
   }
-} 
+  
+  container.innerHTML = createButton(buttonConfig);
+}
+
+/**
+ * Ajoute des boutons de contact là où nécessaire dans la page
+ */
+function addContactButtons() {
+  // Configuration des boutons de contact
+  const contactButtons = [
+    {
+      container: '#hero-cta',
+      text: 'Me contacter',
+      type: 'primary',
+      link: '/contact.html',
+      icon: 'arrow-right'
+    },
+    {
+      container: '#about-contact-button',
+      text: 'Prendre rendez-vous',
+      type: 'outline',
+      link: '/contact.html',
+      icon: 'calendar'
+    },
+    {
+      container: '#services-contact-button',
+      text: 'Discuter de votre projet',
+      type: 'primary',
+      link: '/contact.html',
+      icon: 'message'
+    }
+  ];
+  
+  // Ajouter chaque bouton à son conteneur
+  contactButtons.forEach(buttonConfig => {
+    const container = document.querySelector(buttonConfig.container);
+    if (container) {
+      const buttonHtml = createButton({
+        text: buttonConfig.text,
+        type: buttonConfig.type,
+        url: buttonConfig.link,
+        icon: getIconSvg(buttonConfig.icon)
+      });
+      container.innerHTML = buttonHtml;
+    }
+  });
+}
+
+/**
+ * Récupère le code SVG d'une icône
+ * @param {string} iconName - Nom de l'icône
+ * @returns {string} Code SVG de l'icône
+ */
+function getIconSvg(iconName) {
+  const icons = {
+    'arrow-right': `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+    </svg>`,
+    'calendar': `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+    </svg>`,
+    'message': `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd" />
+    </svg>`
+  };
+  
+  return icons[iconName] || '';
+}
+
+/**
+ * Enregistre les composants Alpine personnalisés
+ */
+function registerComponents() {
+  if (!window.Alpine) return;
+  
+  // Enregistrer le composant dropdown
+  window.Alpine.data('dropdown', () => ({
+    open: false,
+    toggle() {
+      this.open = !this.open;
+    },
+    close() {
+      this.open = false;
+    }
+  }));
+  
+  // Enregistrer le composant de menu mobile
+  window.Alpine.data('mobileMenu', () => ({
+    open: false,
+    toggle() {
+      this.open = !this.open;
+    },
+    close() {
+      this.open = false;
+    }
+  }));
+  
+  // Enregistrer le composant d'accordéon
+  window.Alpine.data('accordion', () => ({
+    tabs: [],
+    activeTab: null,
+    init() {
+      this.tabs = Array.from(this.$el.querySelectorAll('[data-tab]')).map(el => ({
+        id: el.dataset.tab,
+        el
+      }));
+      
+      if (this.tabs.length > 0) {
+        this.activeTab = this.tabs[0].id;
+      }
+    },
+    isOpen(tabId) {
+      return this.activeTab === tabId;
+    },
+    toggleTab(tabId) {
+      this.activeTab = this.isOpen(tabId) ? null : tabId;
+    }
+  }));
+}
+
+export { addButtonTo }; 

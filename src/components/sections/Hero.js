@@ -130,7 +130,8 @@ export function createHeroSection({
               <span class="text-white opacity-90">${prefix}</span> 
               <span 
                 x-data="typingAnimation"
-                x-init="textArray = ${JSON.stringify(typingTexts)}; init()"
+                x-init="init()"
+                data-texts="${typingTexts.join('|')}"
                 x-text="text"
                 class="text-gradient relative"
                 :class="{'typing-cursor-active': !isDeleting && text !== fullText, 'typing-cursor-delete': isDeleting, 'typing-cursor-waiting': text === fullText || text === ''}"

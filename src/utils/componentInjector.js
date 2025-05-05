@@ -1,7 +1,16 @@
 /**
- * Module d'injection de composants
- * Gère le chargement dynamique des composants HTML réutilisables
- * comme l'en-tête (header) et le pied de page (footer)
+ * Module d'injection de composants HTML structurels
+ * 
+ * REMARQUE IMPORTANTE:
+ * Ce fichier s'occupe de l'INJECTION des composants HTML structurels
+ * comme l'en-tête (header) et le pied de page (footer) depuis des fichiers HTML externes.
+ * 
+ * Il est distinct de initComponents.js qui initialise les composants 
+ * INTERACTIFS comme la bannière de cookies, accordéons, etc.
+ * 
+ * Ces deux fichiers forment ensemble l'architecture des composants du site :
+ * 1. componentInjector.js : structure HTML (layout)
+ * 2. initComponents.js : comportement interactif
  */
 
 "use strict";
@@ -50,28 +59,38 @@ async function loadComponent(componentPath) {
  */
 export async function injectComponents() {
   // Injection du header
-  const headerPlaceholder = document.getElementById('header-placeholder');
+  const headerPlaceholder = document.getElementById('app-header');
   if (headerPlaceholder) {
-    const headerContent = await loadComponent('/components/header.html');
-    if (headerContent) {
-      headerPlaceholder.innerHTML = headerContent;
-      console.log('Header injecté avec succès');
-      setupMobileMenu();
+    // Vérifier si le header a déjà été injecté
+    if (headerPlaceholder.children.length === 0) {
+      const headerContent = await loadComponent('/components/header.html');
+      if (headerContent) {
+        headerPlaceholder.innerHTML = headerContent;
+        console.log('Header injecté avec succès par componentInjector');
+        setupMobileMenu();
+      }
+    } else {
+      console.log('Header déjà injecté, skip');
     }
   } else {
-    console.warn('Aucun emplacement #header-placeholder trouvé dans la page');
+    console.warn('Aucun emplacement #app-header trouvé dans la page');
   }
   
   // Injection du footer
-  const footerPlaceholder = document.getElementById('footer-placeholder');
+  const footerPlaceholder = document.getElementById('app-footer');
   if (footerPlaceholder) {
-    const footerContent = await loadComponent('/components/footer.html');
-    if (footerContent) {
-      footerPlaceholder.innerHTML = footerContent;
-      console.log('Footer injecté avec succès');
+    // Vérifier si le footer a déjà été injecté
+    if (footerPlaceholder.children.length === 0) {
+      const footerContent = await loadComponent('/components/footer.html');
+      if (footerContent) {
+        footerPlaceholder.innerHTML = footerContent;
+        console.log('Footer injecté avec succès par componentInjector');
+      }
+    } else {
+      console.log('Footer déjà injecté, skip');
     }
   } else {
-    console.warn('Aucun emplacement #footer-placeholder trouvé dans la page');
+    console.warn('Aucun emplacement #app-footer trouvé dans la page');
   }
 }
 

@@ -146,8 +146,6 @@ export const templates = {
   // Footer du site
   'footer': `
     <footer class="bg-gray-950 text-white pt-16 pb-8 relative">
-        
-
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <!-- Logo et coordonnées -->
@@ -225,6 +223,7 @@ export const templates = {
           <div class="mt-4 md:mt-0 flex space-x-4">
             <a href="/politique-confidentialite.html" class="hover:text-accent-500 transition-colors">Politique de confidentialité</a>
             <a href="/mentions-legales.html" class="hover:text-accent-500 transition-colors">Mentions légales</a>
+            <a href="#" id="manage-cookies-link" class="cookie-settings-trigger hover:text-accent-500 transition-colors">Gérer les cookies</a>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ document.addEventListener('alpine:init', () => {
     return {
       text: '',
       fullText: 'Consultante.',
-      altTexts: ['Consultante.', 'Coach.', 'Formatrice.'],
+      textArray: ['Consultante.', 'Coach.', 'Formatrice.'],
       currentIndex: 0,
       charIndex: 0,
       isDeleting: false,
@@ -15,18 +15,25 @@ document.addEventListener('alpine:init', () => {
       pauseBeforeType: 500, // pause avant de commencer à taper
 
       init() {
+        // Récupérer les textes depuis l'attribut data-texts s'il existe
+        if (this.$el.dataset.texts) {
+          this.textArray = this.$el.dataset.texts.split('|');
+        }
+        // Initialiser avec le premier texte
+        this.fullText = this.textArray[0];
         this.startTyping();
       },
 
       startTyping() {
-        const currentFullText = this.altTexts[this.currentIndex];
+        const currentFullText = this.textArray[this.currentIndex];
+        this.fullText = currentFullText;
         const isComplete = this.text === currentFullText;
         const isDeleting = this.isDeleting;
 
         // Si on a fini d'effacer, passer au texte suivant
         if (isDeleting && this.text === '') {
           this.isDeleting = false;
-          this.currentIndex = (this.currentIndex + 1) % this.altTexts.length;
+          this.currentIndex = (this.currentIndex + 1) % this.textArray.length;
           setTimeout(() => this.startTyping(), this.pauseBeforeType);
           return;
         }
