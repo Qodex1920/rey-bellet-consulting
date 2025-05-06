@@ -9,6 +9,7 @@ window.animations = animations;
 import { initSite } from './utils/main.js';
 import initComponents from './utils/initComponents.js';
 
+
 // Attendre le chargement complet du DOM
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Initialisation du site");

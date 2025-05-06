@@ -12,52 +12,79 @@
 @theme {
   /* Couleurs principales selon le styleguide */
   --color-black: #000000;
-  --color-white: #FFFFFF;
-  --color-gold: #FFD700;
-  --color-blue: #1848A0;
+  --color-white: #ffffff;
+  --color-gold: #ffd700;
+  --color-blue: #1848a0;
   --color-gray-light: #808080;
   --color-gray-dark: #333333;
-  
+
   /* Couleurs fonctionnelles ajustées pour le thème sombre */
   --color-primary: var(--color-gold);
   --color-accent: var(--color-gold);
-  
+
   /* Variables RGB pour animations */
   --color-accent-500-rgb: 255, 215, 0;
   --color-primary-500-rgb: 24, 72, 160;
-  
+
   /* Dégradés dorés pour accents */
-  --color-gold-gradient-1: linear-gradient(135deg, #FFD700 0%, #FFC107 25%, #DAA520 50%, #B8860B 75%, #A67C00 100%);
-  --color-gold-gradient-2: linear-gradient(90deg, #000000 0%, rgba(166, 124, 0, 0.5) 50%, #000000 100%);
-  --color-gold-gradient-3: linear-gradient(270deg, #FFD700 0%, rgba(255, 215, 0, 0.2) 100%);
-  
+  --color-gold-gradient-1: linear-gradient(
+    135deg,
+    #ffd700 0%,
+    #ffc107 25%,
+    #daa520 50%,
+    #b8860b 75%,
+    #a67c00 100%
+  );
+  --color-gold-gradient-2: linear-gradient(
+    90deg,
+    #000000 0%,
+    rgba(166, 124, 0, 0.5) 50%,
+    #000000 100%
+  );
+  --color-gold-gradient-3: linear-gradient(
+    270deg,
+    #ffd700 0%,
+    rgba(255, 215, 0, 0.2) 100%
+  );
+
   /* Nouveaux dégradés pour le background premium */
-  --color-bg-radial-gradient: radial-gradient(circle at center, #000000 30%, #111111 100%);
-  --color-bg-linear-gradient: linear-gradient(135deg, #000000 0%, #101010 40%, #000000 100%);
-  
+  --color-bg-radial-gradient: radial-gradient(
+    circle at center,
+    #000000 30%,
+    #111111 100%
+  );
+  --color-bg-linear-gradient: linear-gradient(
+    135deg,
+    #000000 0%,
+    #101010 40%,
+    #000000 100%
+  );
+
   /* Création des dégradés de couleurs ajustés pour le thème sombre */
-  --color-primary-50: #EEF2FA;
-  --color-primary-100: #D1DEF1;
-  --color-primary-200: #A3BDE3;
-  --color-primary-300: #759CD6;
-  --color-primary-400: #477BC8;
-  --color-primary-500: #1848A0;
-  --color-primary-600: #143A80;
-  --color-primary-700: #102C60;
-  --color-primary-800: #0C1E40;
-  --color-primary-900: #061020;
-  
-  --color-accent-50: #FFFDE0;
-  --color-accent-100: #FFFBC2;
-  --color-accent-200: #FFF7A3;
-  --color-accent-300: #FFF385;
-  --color-accent-400: #FFEF66;
-  --color-accent-500: #FFD700;
-  --color-accent-600: #CCAC00;
-  --color-accent-700: #998100;
-  --color-accent-800: #665600;
-  --color-accent-900: #332B00;
-  
+  --color-primary-50: #f0f7ff;
+  --color-primary-100: #e0efff;
+  --color-primary-200: #b9e0ff;
+  --color-primary-300: #7dc9ff;
+  --color-primary-400: #38b6ff;
+  --color-primary-500: #1848a0;
+  --color-primary-600: #0069c2;
+  --color-primary-700: #015397;
+  --color-primary-800: #04447a;
+  --color-primary-900: #083a66;
+  --color-primary-950: #04213e;
+
+  --color-accent-50: #fffceb;
+  --color-accent-100: #fff4c6;
+  --color-accent-200: #fee98a;
+  --color-accent-300: #fed44a;
+  --color-accent-400: #febd1b;
+  --color-accent-500: #ffa500;
+  --color-accent-600: #e68a00;
+  --color-accent-700: #bd6800;
+  --color-accent-800: #9a5100;
+  --color-accent-900: #7c4400;
+  --color-accent-950: #432400;
+
   --color-gray-50: #191919;
   --color-gray-100: #262626;
   --color-gray-200: #333333;
@@ -68,13 +95,13 @@
   --color-gray-700: #d4d4d4;
   --color-gray-800: #e5e5e5;
   --color-gray-900: #f5f5f5;
-  
+
   /* Typographie selon le styleguide */
-  --font-sans: "Montserrat", sans-serif;
+  --font-sans: "Lato", sans-serif;
   --font-heading: "Montserrat", sans-serif;
   --font-subheading: "Lato", sans-serif;
   --font-special: "Poppins", sans-serif;
-  
+
   /* Tailles d'écran (breakpoints) */
   --breakpoint-sm: 640px;
   --breakpoint-md: 768px;
@@ -89,23 +116,41 @@
   --animate-shimmer: shimmerEffect 2s infinite linear;
 
   @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
-  
+
   @keyframes fadeOut {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
-  
+
   @keyframes glowEffect {
-    0% { text-shadow: 0 0 5px rgba(var(--color-accent-500-rgb), 0.3); }
-    100% { text-shadow: 0 0 15px rgba(var(--color-accent-500-rgb), 0.7), 0 0 30px rgba(var(--color-accent-500-rgb), 0.5); }
+    0% {
+      text-shadow: 0 0 5px rgba(var(--color-accent-500-rgb), 0.3);
+    }
+    100% {
+      text-shadow:
+        0 0 15px rgba(var(--color-accent-500-rgb), 0.7),
+        0 0 30px rgba(var(--color-accent-500-rgb), 0.5);
+    }
   }
-  
+
   @keyframes shimmerEffect {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
+    0% {
+      background-position: -200% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
   }
 }
 
@@ -129,26 +174,33 @@
   html {
     @apply font-sans text-gray-300 bg-black;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading font-bold text-white;
   }
-  
+
   h1 {
     @apply text-3xl md:text-4xl lg:text-5xl uppercase tracking-wider;
   }
-  
+
   h2 {
     @apply text-2xl md:text-3xl uppercase tracking-wider;
   }
-  
+
   h3 {
     @apply text-xl md:text-2xl uppercase tracking-wider;
   }
-  
+
   p {
     @apply mb-4 leading-relaxed text-white;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 }
 
@@ -156,15 +208,27 @@
 @layer components {
   /* Keyframes pour les animations des boutons */
   @keyframes btnShine {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
-  
+
   @keyframes primaryGlow {
-    0% { box-shadow: 0 0 10px 0px rgba(var(--color-accent-500-rgb), 0.3); }
-    50% { box-shadow: 0 0 18px 3px rgba(var(--color-accent-500-rgb), 0.5); }
-    100% { box-shadow: 0 0 10px 0px rgba(var(--color-accent-500-rgb), 0.3); }
+    0% {
+      box-shadow: 0 0 10px 0px rgba(var(--color-accent-500-rgb), 0.3);
+    }
+    50% {
+      box-shadow: 0 0 18px 3px rgba(var(--color-accent-500-rgb), 0.5);
+    }
+    100% {
+      box-shadow: 0 0 10px 0px rgba(var(--color-accent-500-rgb), 0.3);
+    }
   }
 
   /* Style de base pour tous les boutons */
@@ -172,56 +236,66 @@
     @apply inline-flex items-center justify-center px-6 py-3 rounded-md font-medium text-base relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none;
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
-  
+
   /* Bouton primaire optimisé */
   .btn-primary {
-    background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-500) 50%, var(--color-accent-600) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-accent-400) 0%,
+      var(--color-accent-500) 50%,
+      var(--color-accent-600) 100%
+    );
     background-size: 200% 200%;
     @apply text-black focus:ring-accent-300;
     position: relative;
     overflow: hidden;
   }
-  
+
   .btn-primary::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
     transition: all 0.6s cubic-bezier(0.42, 0, 0.58, 1);
     z-index: 2;
   }
-  
+
   .btn-primary:hover {
     @apply shadow-lg shadow-accent-500/30 transform translate-y-[-1px];
     animation: primaryGlow 2s infinite;
     background-position: right center;
   }
-  
+
   .btn-primary:hover::before {
     left: 100%;
   }
-  
+
   .btn-primary:active {
     @apply shadow-inner transform scale-[0.98] translate-y-0;
   }
-  
+
   /* Bouton secondaire simplifié */
   .btn-secondary {
     @apply bg-gray-900 text-accent-500 border border-accent-500 focus:ring-accent-400;
     transition: all 0.3s ease;
   }
-  
+
   .btn-secondary:hover {
     @apply shadow-md shadow-accent-500/20 border-accent-400 text-accent-400 bg-gray-800;
   }
-  
+
   .btn-secondary:active {
     @apply shadow-inner;
   }
-  
+
   /* Bouton accent optimisé */
   .btn-accent {
     background: var(--color-gold-gradient-1);
@@ -229,31 +303,36 @@
     position: relative;
     overflow: hidden;
   }
-  
+
   .btn-accent::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     width: 200%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
     transform: translateX(-100%);
     transition: transform 0.6s ease;
   }
-  
+
   .btn-accent:hover {
     @apply shadow-lg shadow-accent-500/30;
   }
-  
+
   .btn-accent:hover::after {
     transform: translateX(100%);
   }
-  
+
   .btn-accent:active {
     @apply shadow-inner transform scale-95;
   }
-  
+
   /* Bouton outline simplifié */
   .btn-outline {
     @apply bg-transparent text-accent-500 border border-accent-500 focus:ring-accent-400;
@@ -261,20 +340,20 @@
     overflow: hidden;
     z-index: 1;
   }
-  
+
   .btn-outline:hover {
     @apply text-black border-accent-500 bg-accent-500;
   }
-  
+
   .btn-outline:active {
     @apply shadow-inner transform scale-95;
   }
-  
+
   /* Variantes de taille */
   .btn-small {
     @apply px-4 py-2 text-sm;
   }
-  
+
   .btn-large {
     @apply px-8 py-4 text-lg;
   }
@@ -283,113 +362,113 @@
   .section-title {
     @apply relative z-10;
   }
-  
+
   .section-title::after {
-    content: '';
+    content: "";
     @apply absolute -bottom-4 left-0 right-0 mx-auto h-1 w-20 bg-accent-500 rounded opacity-70;
   }
-  
+
   .section-title-heading {
     @apply text-3xl md:text-4xl font-bold mb-4 text-white;
   }
-  
+
   .section-title-subtitle {
     @apply text-xl text-gray-400 max-w-xl mx-auto;
   }
-  
+
   /* Lignes diagonales décoratives */
   .diagonal-lines {
     @apply absolute inset-0 overflow-hidden;
   }
-  
+
   .diagonal-lines::before,
   .diagonal-lines::after {
-    content: '';
+    content: "";
     @apply absolute block transform -rotate-45;
   }
-  
+
   .diagonal-lines::before {
     @apply w-screen h-0.5 bg-accent-500/20 -left-1/4 top-1/3;
   }
-  
+
   .diagonal-lines::after {
     @apply w-screen h-0.5 bg-blue-500/10 -right-1/4 bottom-1/3;
   }
-  
+
   /* Styles pour les sections CTA */
   .cta-section {
     @apply relative py-16 bg-black overflow-hidden;
   }
-  
+
   .cta-container {
     @apply relative z-10 max-w-4xl mx-auto text-center;
   }
-  
+
   .cta-title {
     @apply text-3xl md:text-4xl font-bold mb-6 text-white;
   }
-  
+
   .cta-description {
     @apply text-lg mb-8 text-gray-400 max-w-2xl mx-auto;
   }
-  
+
   .cta-button-container {
     @apply flex flex-col sm:flex-row justify-center items-center gap-4;
   }
-  
+
   /* Container principal */
   .container {
     @apply px-4 md:px-6 max-w-7xl mx-auto;
   }
-  
+
   /* Styles pour les cartes unifiés */
   .card {
     @apply bg-gray-900 border border-gray-800 rounded-lg p-6 shadow-lg transition-all duration-500 ease-in-out;
   }
-  
+
   /* Carte pour les services (unifiée) */
   .service-card {
     @apply bg-gray-900 rounded-xl border border-gray-800 p-8 shadow-lg relative overflow-hidden;
     transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   }
-  
+
   .service-card-icon {
     @apply flex-shrink-0 text-primary-500 mb-5;
     transition: all 0.3s ease;
   }
-  
+
   .service-card-title {
     @apply text-2xl font-bold text-primary-500 mb-4;
     transition: color 0.3s ease;
   }
-  
+
   .service-card-description {
     @apply text-gray-400 mb-6;
     transition: color 0.3s ease;
   }
-  
+
   .service-card-features {
     @apply space-y-3;
   }
-  
+
   .service-card-feature {
     @apply flex items-center;
   }
-  
+
   .service-card-feature-icon {
     @apply h-5 w-5 text-accent-500 mr-3;
   }
-  
+
   .service-card-link {
     @apply inline-flex items-center text-accent-500 font-medium;
     transition: color 0.3s ease;
   }
-  
+
   .service-card-link-icon {
     @apply ml-2 w-5 h-5;
     transition: transform 0.3s ease;
   }
-  
+
   /* Texte avec dégradé doré */
   .text-gradient {
     @apply bg-clip-text text-transparent;
@@ -399,24 +478,33 @@
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     filter: drop-shadow(0 1px 2px rgba(255, 215, 0, 0.15));
   }
-  
+
   /* Styles pour le texte spécial */
   .text-special {
     @apply font-special uppercase tracking-wider;
     text-shadow: 0 0 10px rgba(var(--color-accent-500-rgb), 0.3);
     animation: var(--animate-glow);
   }
-  
+
   /* Background premium amélioré avec textures et éléments de marque */
   .bg-gradient-premium {
-    position: relative;
-    background: var(--color-bg-radial-gradient);
-    overflow: hidden;
+    @apply bg-black relative;
+    background-image:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(var(--color-primary-950), 0.6) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(var(--color-accent-950), 0.4) 0%,
+        transparent 40%
+      );
   }
-  
+
   /* Texture grain subtile */
   .bg-gradient-premium::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     /* Suppression de la texture grain qui n'est pas appréciée */
@@ -425,98 +513,66 @@
     pointer-events: none;
     z-index: 1;
   }
-  
+
   /* Éléments carrés dorés inspirés du logo */
   .bg-premium-golden-square {
-    position: absolute;
-    background-color: var(--color-gold);
-    opacity: 0.25;
-    filter: blur(1px);
-    z-index: 1;
+    @apply fixed rounded-full bg-accent-500/10 backdrop-blur-3xl z-0;
   }
-  
-  /* Positionnement des carrés dorés */
+
   .bg-premium-golden-square-1 {
-    top: 5%;
-    left: 8%;
-    width: 120px;
-    height: 120px;
-    opacity: 0.2;
-    transform: rotate(15deg);
+    @apply w-96 h-96 -bottom-48 -left-48;
   }
-  
+
   .bg-premium-golden-square-2 {
-    bottom: 10%;
-    right: 7%;
-    width: 80px;
-    height: 80px;
-    opacity: 0.15;
-    transform: rotate(-10deg);
+    @apply w-80 h-80 -top-40 right-40;
   }
-  
+
   .bg-premium-golden-square-3 {
-    top: 35%;
-    left: 3%;
-    width: 60px;
-    height: 60px;
-    opacity: 0.1;
+    @apply w-64 h-64 top-1/2 -right-32;
   }
-  
+
   /* Traits bleus diagonaux */
   .bg-premium-blue-line {
-    position: absolute;
-    background: linear-gradient(135deg, var(--color-blue) 0%, rgba(24, 72, 160, 0.2) 100%);
-    height: 10px;
-    transform: rotate(45deg);
-    transform-origin: 0 0;
-    z-index: 1;
+    @apply fixed bg-primary-600/20 rounded-full blur-3xl z-0;
   }
-  
-  /* Positionnement des traits bleus */
+
   .bg-premium-blue-line-1 {
-    top: 15%;
-    left: 10%;
-    width: 300px;
+    @apply w-full h-1 top-1/3 -left-1/2 rotate-12;
   }
-  
+
   .bg-premium-blue-line-2 {
-    bottom: 20%;
-    right: 0;
-    width: 400px;
-    transform: rotate(-45deg);
-    transform-origin: 100% 100%;
+    @apply w-full h-2 bottom-1/4 -right-1/2 -rotate-6;
   }
-  
+
   /* Effets de lumière subtils */
   .bg-premium-highlight {
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, 
-      rgba(255, 255, 255, 0) 0%, 
-      rgba(255, 255, 255, 0.015) 20%, 
-      rgba(255, 255, 255, 0.02) 50%, 
-      rgba(255, 255, 255, 0.015) 80%, 
-      rgba(255, 255, 255, 0) 100%);
-    top: 80px;
-    left: 0;
-    z-index: 1;
+    @apply fixed w-96 h-96 rounded-full bg-accent-500/5 blur-3xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0;
   }
-  
+
   /* Lueur dorée autour des éléments */
   .golden-glow {
-    box-shadow: 0 0 20px 5px rgba(var(--color-accent-500-rgb), 0.1);
+    @apply relative;
   }
-  
+
+  .golden-glow::after {
+    content: "";
+    @apply absolute inset-0 rounded-full bg-accent-500 opacity-20 blur-2xl;
+  }
+
   /* Animation douce pour les lueurs */
   @keyframes subtle-glow {
-    0% { box-shadow: 0 0 15px 2px rgba(var(--color-accent-500-rgb), 0.05); }
-    50% { box-shadow: 0 0 25px 8px rgba(var(--color-accent-500-rgb), 0.1); }
-    100% { box-shadow: 0 0 15px 2px rgba(var(--color-accent-500-rgb), 0.05); }
+    0% {
+      opacity: 0.1;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 0.3;
+      transform: scale(1.05);
+    }
   }
-  
+
   .animate-subtle-glow {
-    animation: subtle-glow 4s infinite alternate;
+    animation: subtle-glow 5s ease-in-out infinite alternate;
   }
 }
 
@@ -536,7 +592,7 @@
 .typing-cursor-active::after,
 .typing-cursor-delete::after,
 .typing-cursor-waiting::after {
-  content: '|';
+  content: "|";
   display: inline-block;
   margin-left: 0.05em;
   animation: caretBlink 0.7s infinite;
@@ -554,24 +610,29 @@
 }
 
 @keyframes caretBlink {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Animation unifiée pour les éléments dorés */
 @keyframes goldEffect {
-  0% { 
-    opacity: 0.5; 
+  0% {
+    opacity: 0.5;
     transform: scale(0.98) rotate(-1deg);
     filter: brightness(0.9);
   }
-  50% { 
-    opacity: 0.7; 
+  50% {
+    opacity: 0.7;
     transform: scale(1) rotate(0deg);
     filter: brightness(1.1);
   }
-  100% { 
-    opacity: 0.5; 
+  100% {
+    opacity: 0.5;
     transform: scale(0.98) rotate(1deg);
     filter: brightness(0.9);
   }
@@ -599,7 +660,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('data:image/png;base64,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');
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAOh0lEQVR4Xu1dS5LjOA6stbXwpXwLn8nH8TV8Ce/aGmcVFSFbBSmAIEGS0tONQITDYZEQiI8AEJT619fX12gRf3x8LLU8n89L9Ww3O53Gu+2dTqeh8azg5/M5xLvdbgPe7/cbPOI5jsP12VUQ9m/9AHqiIP7tqAh7Y1VwoiIZFcHzZEiPrNxImxgEjYIiBoUK2ev1elmB4PNSCqicU3aZ0eE8DUoYSZZ41/st0I9SQMkoGqmbaSGlHhLMzVJApYbHcWzWS8ooM4oW+k7mLzzdkDtDcmS1kTtj74oeFmR8ZIXq7l3Rw4Ichc3jOHY1y4oefmpCviJoHrU8Pbq8qvvHJ+Qrgrc3G7I6rBXvP3Jofjwhn5+fXdU7m6g9H+5NpV9fX24OfzQhX19fbuVn8ot0LNSL2Ls9oY8lpNfJzzZd2eQ9Q29wWXvRdKbKE7UnwFkK/Xs/s71o4r1cLlNJ/vvPn20Uam+XRGWlB/Ns9mQPFP3TacTpV0XqV9JaKYZ04V3WDC9qw6KlHhJRZeWW85SxR4X4+vo6TbKf3UMWdEWElbH7TkLGOtSYoTNT8jtSWnYu06BKBUH2mKLunhMzXGvP0jPKs7I+JeXrOlHJigFPyhIzqKwcT1OmBdnj6Y5UT8V/ffDIVKB19pqw9QKzKtaT7WxMKN8e27uqpJJSNJ4bEak8y+Pplh5nkuOVohFx3aOHeMXWtbKDvWQPL4GCMnSdvVrPSPfwvSTCixaZXqUxXK2wZVTbMxwRVsRb6vVIHrOoRaWnVDdWuysYbTjTYPUQnIeqaiyGJuRsSvNMcP3zdrsVm5GVVO80qkxPwOPxODFRx4VGe/7f7fbfMnFyWZY9r66yItJXdxHJUfNOyRgVZXrX1K8fplf+KumKy9oT/z1GyZ6CVLGtJG15Ys++/BgR8v7+PrVVS7qizF6ithcE4iqlq6yPj49UDOiV5Mx05ckm/L3ahDzdS4JIYW/hRxJg1kPu93sxR8BrsWdEtWVPKEu4rRlRLynGf7cJeTgFc7Ux3B7PkD6CbsHGYdzGw3t4WRXqSUIUj8X3bkLGTGa/IWXtDVSZwi2fW3haMRY8M4W19BBk3ZvJITHRkNqaxIzLgqG5lfx1zGO4R7PW/5WQnoW/tKhLQyzMzPHaiLCn9Kj5XRa7qDxEKUrVtOxcZaXDjMdahzXusZBXfJGnDMV9QkJmZSVkSfWK1lWl28sA7H3YO+ytlJsZyRJfNbqyvSm7zpbsH5uQ9SmJ1pXdvdpDZoW9lWcL/2MTsi5FvQn5FYSMSVKKwpqsyopVt0VZ7+/v3VQiWzd6Fa7HX9Uy5kx5uHdpz6rsw1PW58f5dFLOT3xf3PUFtWnEbNLsn//8w1PU/Jktcm6NSGu+KvjWs4Vrvvnm3U1Zw6Pdbvgm5YilK6toa4W8eohnsJb02e2HXpSlFcbUJuQuG7+HkLc/i7XS1KdX3d77TcpS0wglezqd0I/h9sxLkEfKitjOTOEttSlqWdcPWUTF07SkbHvL1h2vO8oqS3OZLl3xOj/VQ2prV1ZhCGGEbE12xWVZXpWdXdHY47JqDGSuYm97d6J4s8v+YdN/9bJZbW9K6MlmV5WQ1h4SWZIt6vOuaBG0hbV6I5lqzqjd3DukW0VUlmVZKfS1S9/xoVAkmD3CboHbg9GCL6w/o7pSJcQrpK37aHf0wEOWlZSHcfXZ07LH2YLj2WslJFrcW9Tm8bySZckmy2ptqFYv8SJHi7JaH8vN4I2WKO9qRDYha0lpPQ/J9qZHSvIi0Bq/5XyI1Tws58MeUmNvdEQWWRaeMxlRZll2ZdlpKzlWVG6xV8UjZaHbaQlxvc2UbE5ShaGVEm8tZMmz9zxd32l5k7JX2lKXNGpgL8ryi1YvIpqtaUXpUV6iBRLJi+RFQlYULo32bMsRVXnOZcUlfdGaxFKWpaTWYZvxXpvL0ga8M+JsbGtJbVZpe3TmKVzK8qqfq1PW+XS6HS7+KLOmvvx8eIfJJqSUFSFnbBzHsbt8taQsT8mYJL07K/1T1u12u31+fr6yHqLzBiuJxpUTk2M0yM8Ssu//FsXjcl4ZJrwejZTkz1QeBsnxTLyPj4/H4/F4eVFX9CwJhzS1+LL0lHFrWo///eN/r/v9/Qml29XTIu7FGspj73kJKckmrPPl/f50PCRZQkLsXX8SIXX2erVaKLh3dLKe4TnCcqD5p6Ssa7hwN56x3t4ZjddVWvB6eVaIyVlZlkw8lL1aqYdEyVcUVXmCx+PJ6t5DZc5KSZ7yPZdl4RuVH94VLSWXBuVtAc52A+9Ql9dDWnpJryzLKwFeyYqktvCslPSLJi1ZVvS8e7Yx8NysxQe83NXCw+kv2hY7+lkSXtT0Lmlo7SWeMm1cC9+zFy1d+l42Zf1iFiWf13UJvdRr6Tr8z4TUebhXlr0vXXppSWXl9/fn8mLfG7vlVWZJYcpLvGdGRQtP9hLZFQ0tPItHyk++XtnTlRZE3uLeSrr1p7Nq37fS7q9//f31889/DZpx1Yl7JLU2IfMUXaKHlGqpJkzLy6LErYUn5VhRrRVleSVL48k01npWUhZbeAjL6pSpJAu9Gl2DpSxrJsnKFv4KT9Zb2Xk0rTnEcp22l2UlSMqKEnj2y86ZhGgePauytHJ1lGW5lLqmLK+XZNddylHZdZbyrLOykpXhKUWr/VZC1j1gupTl9YBsb9DCtCjDU7iVsLWysidoLRVZZdnLWy7K0kv6s97h9S7La57O7YfVlpU9K8JmWZZHzTNIa9bV2ksiilq9RCtb92Z4Usaa77XwLGprfdZ6lj0ry+olrRUCb69XBnYrIW8vL4OMx3Gczpfb6XK73I6XYdWdx5MJwZ70fwz3dBf2xhaPx5OTQy7g88b2zsiyJN6CL++7JXvjPXlS1ljO69LWW+raMKrwNB6vLNtrFrbwoqQtm5yzhdfa01GWp3ClcG9xr8Xz7FlJV16W5WVJXr31qix8h8Zz9rbw0IX+BxiyDsXRCuPDAAAAAElFTkSuQmCC");
   pointer-events: none;
   opacity: 0.02;
   z-index: -1;
@@ -610,50 +671,46 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, var(--color-accent-500) 0%, rgba(var(--color-accent-500-rgb), 0.15) 30%, rgba(var(--color-accent-500-rgb), 0) 70%);
+  background: radial-gradient(
+    circle at center,
+    var(--color-accent-500) 0%,
+    rgba(var(--color-accent-500-rgb), 0.15) 30%,
+    rgba(var(--color-accent-500-rgb), 0) 70%
+  );
   opacity: 0.1;
   z-index: -1;
 }
 
 /* Élément de décoration flottant */
 .gold-decor-floating {
-  position: fixed;
-  width: 400px;
-  height: 400px;
-  border-radius: 50%;
-  background: radial-gradient(circle at center, var(--color-accent-500) 0%, rgba(var(--color-accent-500-rgb), 0.1) 40%, rgba(var(--color-accent-500-rgb), 0) 70%);
-  filter: blur(40px);
-  opacity: 0.05;
-  z-index: -1;
-  animation: goldEffect 15s ease-in-out infinite alternate;
-  pointer-events: none;
+  @apply absolute rounded-full bg-accent-500 opacity-10 blur-3xl z-0;
 }
 
 /* Élément avec effet de scintillement */
 .gold-decor-shimmer {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: linear-gradient(90deg, 
-    rgba(var(--color-accent-500-rgb), 0) 0%, 
-    rgba(var(--color-accent-500-rgb), 0.3) 50%, 
-    rgba(var(--color-accent-500-rgb), 0) 100%
-  );
-  background-size: 200% 200%;
-  filter: blur(8px);
-  animation: goldShimmer 4s ease-in-out infinite;
-  z-index: -1;
-  pointer-events: none;
+  @apply absolute w-2 h-20 bg-accent-400/30 blur-sm z-0;
+  animation: shimmer 3s ease-in-out infinite alternate;
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.2;
+    transform: rotate(20deg) translateY(0);
+  }
+  100% {
+    opacity: 0.4;
+    transform: rotate(15deg) translateY(-15px);
+  }
 }
 
 /* Ligne dorée diagonale */
 .gold-line-diagonal {
   position: absolute;
   height: 1px;
-  background: linear-gradient(90deg, 
-    rgba(var(--color-accent-500-rgb), 0) 0%, 
-    rgba(var(--color-accent-500-rgb), 0.6) 50%, 
+  background: linear-gradient(
+    90deg,
+    rgba(var(--color-accent-500-rgb), 0) 0%,
+    rgba(var(--color-accent-500-rgb), 0.6) 50%,
     rgba(var(--color-accent-500-rgb), 0) 100%
   );
   transform: rotate(-2deg);
@@ -674,7 +731,8 @@
     opacity: var(--particle-opacity, 0.6);
   }
   100% {
-    transform: translate(var(--particle-x, 20px), var(--particle-y, -30px)) rotate(var(--particle-rotate, 10deg));
+    transform: translate(var(--particle-x, 20px), var(--particle-y, -30px))
+      rotate(var(--particle-rotate, 10deg));
     opacity: 0;
   }
 }
@@ -748,8 +806,9 @@
 
 .gold-particle-accent {
   --particle-opacity: 0.8;
-  background: radial-gradient(circle at center, 
-    var(--color-accent-500) 0%, 
+  background: radial-gradient(
+    circle at center,
+    var(--color-accent-500) 0%,
     rgba(var(--color-accent-500-rgb), 0.5) 70%
   );
 }
@@ -762,19 +821,21 @@
 }
 
 .highlight-text-animated::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: 0.08em; /* Décalage vertical pour effet stylé */
   width: 100%;
   height: 0.55em;
-  background: #1848A0;
+  background: #1848a0;
   border-radius: 0.18em;
   z-index: -1;
   transform: scaleX(0.2) translateY(0.15em) skewX(-12deg);
   opacity: 0.85;
-  transition: transform 0.7s cubic-bezier(.77,0,.18,1), opacity 0.4s;
-  animation: highlight-wipe-in 1s cubic-bezier(.77,0,.18,1) 0.2s both;
+  transition:
+    transform 0.7s cubic-bezier(0.77, 0, 0.18, 1),
+    opacity 0.4s;
+  animation: highlight-wipe-in 1s cubic-bezier(0.77, 0, 0.18, 1) 0.2s both;
 }
 
 @keyframes highlight-wipe-in {
@@ -793,7 +854,8 @@
 
 /* Animation de pulsation lente */
 @keyframes pulseSlow {
-  0%, 100% {
+  0%,
+  100% {
     opacity: var(--pulse-min-opacity, 0.4);
     transform: scale(var(--pulse-min-scale, 0.95));
   }
@@ -810,10 +872,18 @@
 /* Fond et sections de page */
 body {
   background-color: #030303;
-  background-image: 
+  background-image:
     radial-gradient(circle at center, #0a0a0a 0%, #050505 40%, #000000 100%),
-    radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.02) 0%, transparent 60%);
+    radial-gradient(
+      circle at 25% 25%,
+      rgba(255, 215, 0, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 75% 75%,
+      rgba(255, 215, 0, 0.02) 0%,
+      transparent 60%
+    );
   position: relative;
   min-height: 100vh;
   overflow-y: auto;
@@ -824,8 +894,9 @@ body {
   position: relative;
   background: linear-gradient(to bottom, #000000, #050505);
   color: #ffffff;
-  box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7), 
-              inset 0 0 80px rgba(10, 10, 10, 0.3);
+  box-shadow:
+    inset 0 0 150px rgba(0, 0, 0, 0.7),
+    inset 0 0 80px rgba(10, 10, 10, 0.3);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   animation: heroEntrance 0.8s ease-out forwards;
 }
@@ -849,7 +920,9 @@ body {
 }
 
 .logo-container img {
-  transition: transform 0.5s ease, filter 0.5s ease;
+  transition:
+    transform 0.5s ease,
+    filter 0.5s ease;
   filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.2));
 }
 
@@ -860,7 +933,13 @@ body {
 
 /* Section avec un dégradé raffiné */
 .bg-gradient-premium {
-  background: radial-gradient(ellipse at center, #0c0c0c 0%, #080808 50%, #030303 80%, #000000 100%);
+  background: radial-gradient(
+    ellipse at center,
+    #0c0c0c 0%,
+    #080808 50%,
+    #030303 80%,
+    #000000 100%
+  );
   position: relative;
   min-height: 100vh;
   z-index: 0;
@@ -868,7 +947,121 @@ body {
 
 /* Assurez-vous que les sections ont un z-index approprié */
 section {
+  @apply py-20;
+  position: relative;
+}
+
+#ma-vision {
+  @apply pb-32;
   position: relative;
   z-index: 1;
 }
 
+#a-propos {
+  @apply pt-32 pb-32;
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+}
+
+/* Styles optimisés pour la transition de fond */
+#site-background-transition {
+  @apply fixed inset-0 bg-white pointer-events-none z-0;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: opacity 80ms linear;
+  opacity: 0;
+}
+
+/* Correction des éléments décoratifs pour éviter l'espace en haut */
+.bg-premium-golden-square,
+.bg-premium-blue-line {
+  position: fixed; /* Assurez-vous qu'ils sont bien fixés */
+  will-change: opacity;
+  transition: opacity 0.3s ease-out;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateZ(0);
+}
+
+/* Position des carrés dorés qui pourraient causer des problèmes */
+.bg-premium-golden-square-1 {
+  bottom: -48vh; /* Positionnement par rapport à la hauteur de viewport */
+  left: -48vh;
+}
+
+.bg-premium-golden-square-2 {
+  top: -40vh;
+  right: 40vh;
+}
+
+.bg-premium-golden-square-3 {
+  top: 50%;
+  right: -32vh;
+}
+
+/* Position des lignes bleues */
+.bg-premium-blue-line-1 {
+  top: 33%;
+  left: -50%;
+  width: 100%;
+  height: 1px;
+  transform: rotate(12deg);
+}
+
+.bg-premium-blue-line-2 {
+  bottom: 25%;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  transform: rotate(-6deg);
+}
+
+/* Styles spécifiques pour la section à propos (fond blanc) */
+#a-propos {
+  @apply pt-32 pb-32;
+  position: relative;
+  isolation: isolate;
+  z-index: 1;
+}
+
+/* S'assurer que les textes dans la section à propos changent de couleur */
+#a-propos .prose p,
+#a-propos .prose-p\:text-primary-600,
+#a-propos h3 {
+  will-change: color;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transition: color 0.2s ease-out;
+}
+
+/* Ajouter des classes spécifiques pour les états de la transition */
+#a-propos.transition-active .prose p,
+#a-propos.transition-active .prose-p\:text-primary-600 {
+  color: rgb(24, 72, 160);
+}
+
+/* La classe utilisée pour l'animation subtile sur certains éléments */
+.animate-subtle-glow {
+  animation: subtle-glow 5s ease-in-out infinite alternate;
+}
+
+@keyframes subtle-glow {
+  0% {
+    opacity: 0.1;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0.25;
+    transform: scale(1.02);
+  }
+}
+
+/* S'assurer que le corps de page est bien positionné */
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}

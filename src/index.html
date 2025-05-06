@@ -1,441 +1,653 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  
-  <!-- SEO -->
-  <title>Rey-Bellet Consulting | Gestion du changement et coaching professionnel</title>
-  <meta name="description" content="Rey-Bellet Consulting accompagne entreprises et particuliers en gestion du changement, coaching et formation, avec des solutions sur mesure.">
-  <meta name="keywords" content="consulting, coaching, gestion du changement, formation, entreprises, particuliers">
-  <meta name="author" content="Laure Rey-Bellet">
-  <link rel="canonical" href="https://reybellet.com/">
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://reybellet.com/">
-  <meta property="og:title" content="Rey-Bellet Consulting | Gestion du changement et coaching professionnel">
-  <meta property="og:description" content="Rey-Bellet Consulting accompagne entreprises et particuliers dans leurs transformations personnelles et professionnelles.">
-  <meta property="og:image" content="https://reybellet.com/images/og-image.jpg">
-  <meta property="og:locale" content="fr_FR">
-  <meta property="og:site_name" content="Rey-Bellet Consulting">
-  
-  <!-- Favicon -->
-  <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any">
-  <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#000000">
-  
-  <!-- Préconnexions pour améliorer les performances -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles/main.css">
-  
-  <!-- Lordicon pour les icônes animées -->
-  <script src="https://cdn.lordicon.com/lordicon.js"></script>
-  
-  <!-- Alpine.js - Chargement avec l'attribut defer pour résoudre le problème d'initialisation -->
-  <script defer src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"></script>
-  <script defer src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js"></script>
-  
-  <!-- Initialisation des configurations Alpine -->
-  <script>
-    document.addEventListener('alpine:init', () => {
-      // Définir les composants Alpine avant de démarrer l'application
-      Alpine.data('typingAnimation', function() {
-        return {
-          text: '',
-          fullText: 'Consultante.',
-          textArray: ['Consultante.', 'Coach.', 'Formatrice.'],
-          textIndex: 0,
-          charIndex: 0,
-          typeSpeed: 100,
-          eraseSpeed: 80,
-          delayBetweenWords: 2000,
-          isDeleting: false,
-          isWaiting: false,
-          
-          init() {
-            this.typeText();
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- SEO -->
+    <title>
+      Rey-Bellet Consulting | Gestion du changement et coaching professionnel
+    </title>
+    <meta
+      name="description"
+      content="Rey-Bellet Consulting accompagne entreprises et particuliers en gestion du changement, coaching et formation, avec des solutions sur mesure."
+    />
+    <meta
+      name="keywords"
+      content="consulting, coaching, gestion du changement, formation, entreprises, particuliers"
+    />
+    <meta name="author" content="Laure Rey-Bellet" />
+    <link rel="canonical" href="https://reybellet.com/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://reybellet.com/" />
+    <meta
+      property="og:title"
+      content="Rey-Bellet Consulting | Gestion du changement et coaching professionnel"
+    />
+    <meta
+      property="og:description"
+      content="Rey-Bellet Consulting accompagne entreprises et particuliers dans leurs transformations personnelles et professionnelles."
+    />
+    <meta
+      property="og:image"
+      content="https://reybellet.com/images/og-image.jpg"
+    />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Rey-Bellet Consulting" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#000000" />
+
+    <!-- Préconnexions pour améliorer les performances -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css" />
+
+    <!-- Lordicon pour les icônes animées -->
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+
+    <!-- Alpine.js - Chargement avec l'attribut defer pour résoudre le problème d'initialisation -->
+    <script
+      defer
+      src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"
+    ></script>
+    <script
+      defer
+      src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js"
+    ></script>
+
+    <!-- Initialisation des configurations Alpine -->
+    <script>
+      document.addEventListener("alpine:init", () => {
+        // Définir les composants Alpine avant de démarrer l'application
+        Alpine.data("typingAnimation", function () {
+          return {
+            text: "",
+            fullText: "Consultante.",
+            textArray: ["Consultante.", "Coach.", "Formatrice."],
+            textIndex: 0,
+            charIndex: 0,
+            typeSpeed: 100,
+            eraseSpeed: 80,
+            delayBetweenWords: 2000,
+            isDeleting: false,
+            isWaiting: false,
+
+            init() {
+              this.typeText();
+            },
+
+            typeText() {
+              const current = this.textArray[this.textIndex];
+              this.fullText = current;
+
+              if (!this.isDeleting && this.charIndex < current.length) {
+                // Ajouter un caractère
+                this.text = current.substring(0, this.charIndex + 1);
+                this.charIndex++;
+
+                setTimeout(() => this.typeText(), this.typeSpeed);
+              } else if (this.isDeleting && this.charIndex > 0) {
+                // Supprimer un caractère
+                this.text = current.substring(0, this.charIndex - 1);
+                this.charIndex--;
+
+                setTimeout(() => this.typeText(), this.eraseSpeed);
+              } else if (
+                !this.isDeleting &&
+                this.charIndex === current.length
+              ) {
+                // Pause avant de commencer à supprimer
+                this.isWaiting = true;
+                this.isDeleting = true;
+
+                setTimeout(() => {
+                  this.isWaiting = false;
+                  this.typeText();
+                }, this.delayBetweenWords);
+              } else if (this.isDeleting && this.charIndex === 0) {
+                // Passer au texte suivant
+                this.isDeleting = false;
+                this.textIndex = (this.textIndex + 1) % this.textArray.length;
+
+                setTimeout(() => this.typeText(), this.typeSpeed);
+              }
+            },
+          };
+        });
+
+        // Composant d'animation générique pour les sections et CTA
+        Alpine.data("animateOnScroll", function () {
+          return {
+            visible: false,
+
+            init() {
+              // Vérifier si l'élément est déjà visible au chargement
+              if (this.isElementInViewport(this.$el)) {
+                this.visible = true;
+              } else {
+                // Sinon, configurer l'observation du scroll
+                this.observeIntersection();
+              }
+            },
+
+            isElementInViewport(el, offset = 100) {
+              if (!el) return false;
+
+              const rect = el.getBoundingClientRect();
+              return (
+                rect.top <=
+                  (window.innerHeight ||
+                    document.documentElement.clientHeight) -
+                    offset &&
+                rect.bottom >= 0 &&
+                rect.left <=
+                  (window.innerWidth || document.documentElement.clientWidth) &&
+                rect.right >= 0
+              );
+            },
+
+            observeIntersection() {
+              const observer = new IntersectionObserver(
+                (entries) => {
+                  entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                      this.visible = true;
+                      observer.unobserve(entry.target);
+                    }
+                  });
+                },
+                { threshold: 0.1 },
+              );
+
+              observer.observe(this.$el);
+            },
+          };
+        });
+
+        // Ajout des composants manquants
+        Alpine.data("mobileMenu", () => ({
+          open: false,
+
+          toggle() {
+            this.open = !this.open;
           },
-          
-          typeText() {
-            const current = this.textArray[this.textIndex];
-            this.fullText = current;
-            
-            if (!this.isDeleting && this.charIndex < current.length) {
-              // Ajouter un caractère
-              this.text = current.substring(0, this.charIndex + 1);
-              this.charIndex++;
-              
-              setTimeout(() => this.typeText(), this.typeSpeed);
-            } else if (this.isDeleting && this.charIndex > 0) {
-              // Supprimer un caractère
-              this.text = current.substring(0, this.charIndex - 1);
-              this.charIndex--;
-              
-              setTimeout(() => this.typeText(), this.eraseSpeed);
-            } else if (!this.isDeleting && this.charIndex === current.length) {
-              // Pause avant de commencer à supprimer
-              this.isWaiting = true;
-              this.isDeleting = true;
-              
-              setTimeout(() => {
-                this.isWaiting = false;
-                this.typeText();
-              }, this.delayBetweenWords);
-            } else if (this.isDeleting && this.charIndex === 0) {
-              // Passer au texte suivant
-              this.isDeleting = false;
-              this.textIndex = (this.textIndex + 1) % this.textArray.length;
-              
-              setTimeout(() => this.typeText(), this.typeSpeed);
-            }
-          }
-        };
+
+          close() {
+            this.open = false;
+          },
+        }));
+
+        Alpine.data("dropdown", () => ({
+          open: false,
+
+          toggle() {
+            this.open = !this.open;
+          },
+
+          close() {
+            this.open = false;
+          },
+        }));
+
+        Alpine.data("accordion", () => ({
+          open: false,
+
+          toggle() {
+            this.open = !this.open;
+          },
+        }));
+
+        // Ne pas appeler Alpine.start() ici, il est déjà démarré par le script defer
       });
-      
-      // Composant d'animation générique pour les sections et CTA
-      Alpine.data('animateOnScroll', function() {
-        return {
-          visible: false,
-          
-          init() {
-            // Vérifier si l'élément est déjà visible au chargement
-            if (this.isElementInViewport(this.$el)) {
-              this.visible = true;
-            } else {
-              // Sinon, configurer l'observation du scroll
-              this.observeIntersection();
-            }
-          },
-          
-          isElementInViewport(el, offset = 100) {
-            if (!el) return false;
-            
-            const rect = el.getBoundingClientRect();
-            return (
-              rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
-              rect.bottom >= 0 &&
-              rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-              rect.right >= 0
-            );
-          },
-          
-          observeIntersection() {
-            const observer = new IntersectionObserver((entries) => {
-              entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                  this.visible = true;
-                  observer.unobserve(entry.target);
-                }
-              });
-            }, { threshold: 0.1 });
-            
-            observer.observe(this.$el);
-          }
-        };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("Démarrage d'Alpine.js...");
+        // Ne pas appeler Alpine.start() une seconde fois
       });
-      
-      // Ajout des composants manquants
-      Alpine.data('mobileMenu', () => ({
-        open: false,
-        
-        toggle() {
-          this.open = !this.open;
-        },
-        
-        close() {
-          this.open = false;
-        }
-      }));
-      
-      Alpine.data('dropdown', () => ({
-        open: false,
-        
-        toggle() {
-          this.open = !this.open;
-        },
-        
-        close() {
-          this.open = false;
-        }
-      }));
-      
-      Alpine.data('accordion', () => ({
-        open: false,
-        
-        toggle() {
-          this.open = !this.open;
-        }
-      }));
-      
-      // Ne pas appeler Alpine.start() ici, il est déjà démarré par le script defer
-    });
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('Démarrage d\'Alpine.js...');
-      // Ne pas appeler Alpine.start() une seconde fois
-    });
-  </script>
-</head>
-<body class="antialiased text-gray-400 bg-gradient-premium">
-  
-  <!-- Éléments de background premium -->
-  <div class="bg-premium-golden-square bg-premium-golden-square-1 golden-glow animate-subtle-glow"></div>
-  <div class="bg-premium-golden-square bg-premium-golden-square-2 golden-glow animate-subtle-glow"></div>
-  <div class="bg-premium-golden-square bg-premium-golden-square-3"></div>
-  <div class="bg-premium-blue-line bg-premium-blue-line-1"></div>
-  <div class="bg-premium-blue-line bg-premium-blue-line-2"></div>
-  <div class="bg-premium-highlight"></div>
-  
-  <!-- Placeholder pour le header -->
-  <div id="app-header"></div>
-  
-  <!-- Élément animé avec effet de scintillement unique -->
-  <div class="gold-decor-shimmer top-[60%] right-[20%] rotate-45"></div>
-  
-  <main>
-    <!-- Le reste du contenu de la page reste identique -->
-    <!-- Section Hero est maintenant injectée via JS -->
-    
-  
-    
-    <!-- Section Ma Vision -->
-    <section id="ma-vision" class="relative overflow-hidden pt-12 pb-16">
-      
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-5xl mx-auto">
-          <!-- Titre avec surlignement bleu animé -->
-          <div class="section-title text-center mb-14" data-scroll-animation>
-            <h2 class="section-title-heading highlight-text-animated text-4xl md:text-5xl">
-              Ma Vision
+    </script>
+  </head>
+  <body class="antialiased text-gray-400 bg-gradient-premium">
+    <!-- Éléments de background premium -->
+    <div
+      class="bg-premium-golden-square bg-premium-golden-square-1 golden-glow animate-subtle-glow"
+    ></div>
+    <div
+      class="bg-premium-golden-square bg-premium-golden-square-2 golden-glow animate-subtle-glow"
+    ></div>
+    <div class="bg-premium-golden-square bg-premium-golden-square-3"></div>
+    <div class="bg-premium-blue-line bg-premium-blue-line-1"></div>
+    <div class="bg-premium-blue-line bg-premium-blue-line-2"></div>
+    <div class="bg-premium-highlight"></div>
+
+    <!-- L'overlay est maintenant créé et géré par le composant -->
+
+    <!-- Placeholder pour le header -->
+    <div id="app-header"></div>
+
+    <!-- Élément animé avec effet de scintillement unique -->
+    <div class="gold-decor-shimmer top-[60%] right-[20%] rotate-45"></div>
+
+    <main>
+      <!-- Le reste du contenu de la page reste identique -->
+      <!-- Section Hero est maintenant injectée via JS -->
+
+      <!-- Section Ma Vision -->
+      <section id="ma-vision" class="relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="max-w-5xl mx-auto">
+            <!-- Titre avec surlignement bleu animé -->
+            <div class="section-title text-center mb-14" data-scroll-animation>
+              <h2
+                class="section-title-heading highlight-text-animated text-4xl md:text-5xl"
+              >
+                Ma Vision
+              </h2>
+            </div>
+            <!-- Citation premium -->
+            <blockquote
+              class="relative bg-white/5 border-l-4 border-blue-600 rounded-xl px-8 py-6 mb-12 shadow-lg animate-fade-in-up"
+            >
+              <span
+                class="block text-xl md:text-2xl font-poppins text-blue-400 font-semibold uppercase tracking-wide leading-tight"
+              >
+                « Si t'attends que ça bouge, c'est que t'es déjà en retard »
+              </span>
+              <span
+                class="absolute -bottom-3 right-8 w-16 h-1 bg-gradient-to-r from-blue-600 to-accent-500 rounded"
+              ></span>
+            </blockquote>
+            <!-- Texte narratif et mission -->
+            <div
+              class="vision-content text-gray-300 space-y-8 animate-fade-in-up delay-200"
+            >
+              <p>
+                <span class="text-white font-semibold"
+                  >Le changement n'est pas une option.</span
+                >
+                C'est une <span class="text-blue-400 font-bold">force</span>, un
+                levier, un passage obligé vers l'<span
+                  class="text-accent-500 font-bold"
+                  >évolution</span
+                >. Chez Rey-Bellet Consulting, on ne se contente pas d'analyser
+                le changement – on le rend concret, stratégique et impossible à
+                ignorer.
+              </p>
+              <p>
+                Je ne suis pas là pour rassurer. Je suis là pour
+                <span class="text-accent-500 font-bold">provoquer</span>,
+                structurer et faire émerger un changement assumé, percutant et
+                aligné avec vos ambitions profondes.
+              </p>
+              <!-- Bloc mission -->
+              <div
+                class="flex items-start gap-4 py-6 pl-0 md:pl-8 my-4 border-l-4 border-accent-500/70 relative bg-black/30 rounded-lg shadow-md"
+              >
+                <div class="flex-shrink-0 mt-1">
+                  <!-- Icône de mission (flèche ascendante) -->
+                  <svg
+                    class="w-8 h-8 text-accent-500"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 19V5m0 0l-7 7m7-7l7 7"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="text-2xl md:text-3xl font-bold text-white mb-2 flex items-center gap-2"
+                  >
+                    <span>Ma mission&nbsp;?</span>
+                    <span
+                      class="inline-block bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-semibold"
+                      >Action</span
+                    >
+                  </h3>
+                  <p>
+                    Faire du mouvement un choix puissant, non une contrainte.
+                    Redéfinir chaque transition pour qu'elle devienne un
+                    accélérateur de réussite. Transformer l'incertitude en
+                    maîtrise, et l'audace en résultats concrets.
+                  </p>
+                </div>
+              </div>
+              <p>
+                Parce qu'rester immobile, c'est renoncer à toute évolution.
+                Parce qu'évoluer avec clarté et courage, c'est bâtir un avenir
+                qui nous inspire.
+              </p>
+              <p
+                class="text-lg md:text-xl font-semibold text-white py-4 relative"
+              >
+                <span class="relative inline-block">
+                  Avec Rey-Bellet Consulting, on ne subit pas le changement – on
+                  le façonne, on l'impose et on en fait une force inarrêtable.
+                  <span
+                    class="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-500/80 to-blue-600"
+                  ></span>
+                </span>
+              </p>
+            </div>
+            <!-- Signature manuscrite et clin d'œil à Mia -->
+            <div class="flex items-center justify-end mt-10 gap-4">
+              <img
+                src="assets/signature-laure.svg"
+                alt="Signature Laure Rey-Bellet"
+                class="h-10 opacity-80"
+              />
+              <span
+                class="text-xs text-gray-500 italic flex items-center gap-1"
+              >
+                <svg
+                  class="w-5 h-5 text-accent-500"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M8 15s1.5-2 4-2 4 2 4 2" />
+                  <circle cx="9" cy="10" r="1" />
+                  <circle cx="15" cy="10" r="1" />
+                </svg>
+                Mia, meilleure négociatrice
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section À Propos -->
+      <section
+        id="a-propos"
+        class="relative overflow-visible"
+        x-data="backgroundTransition"
+      >
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="max-w-6xl mx-auto">
+            <div
+              class="section-title text-center mb-16 md:mb-20"
+              data-scroll-animation
+              role="heading"
+              aria-level="2"
+            >
+              <h2
+                class="section-title-heading highlight-text-animated text-4xl md:text-5xl"
+              >
+                À propos
+              </h2>
+            </div>
+
+            <!-- Contenu principal -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+              <!-- Image avec éléments décoratifs -->
+              <div class="lg:col-span-5 relative" x-data="animateOnScroll">
+                <div
+                  class="relative mb-12 lg:mb-0 opacity-0 transform transition-all duration-700 delay-100"
+                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
+                >
+                  <!-- Image avec gabarit et ombre portée -->
+                  <div
+                    class="relative overflow-hidden rounded-tr-3xl rounded-bl-3xl aspect-[3/4] shadow-xl bg-gray-800"
+                  >
+                    <!-- Calque avec dégradé subtil -->
+                    <div
+                      class="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent pointer-events-none"
+                    ></div>
+
+                    <!-- Légende sur l'image -->
+                    <div
+                      class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent"
+                    >
+                      <p class="text-white text-sm italic">
+                        Mia, ma meilleure négociatrice et associée fidèle
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Éléments décoratifs autour de l'image -->
+                  <div
+                    class="absolute -bottom-5 -left-5 w-24 h-24 border border-accent-500/30 rounded-xl -z-10"
+                  ></div>
+                  <div
+                    class="absolute -top-4 -right-4 w-16 h-16 bg-accent-500/10 rounded-full backdrop-blur-sm -z-10"
+                  ></div>
+                  <div
+                    class="absolute top-1/2 -right-3 w-6 h-6 bg-accent-500/20 rounded-full -z-10"
+                  ></div>
+                </div>
+              </div>
+
+              <!-- Histoire personnelle -->
+              <div class="lg:col-span-7" x-data="animateOnScroll">
+                <div
+                  class="prose prose-lg max-w-none opacity-0 transform transition-all duration-700 delay-200 prose-p:text-primary-600"
+                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
+                >
+                  <!-- Titre accrocheur -->
+                  <h3
+                    class="text-2xl md:text-3xl font-bold text-primary-600 mb-8 relative inline-block"
+                  >
+                    LE CHOIX DE NE PLUS SUBIR
+                    <span
+                      class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent-500/80 via-accent-500/50 to-transparent"
+                    ></span>
+                  </h3>
+
+                  <!-- Histoire avec mise en forme élégante -->
+                  <div class="space-y-6 text-primary-600">
+                    <p class="!text-primary-600">
+                      J'ai longtemps cherché ma place. À endosser des rôles
+                      qu'on m'imposait, sans jamais me demander s'ils étaient
+                      faits pour moi. À rentrer dans des moules, jusqu'à en
+                      oublier qui j'étais vraiment.
+                    </p>
+
+                    <p class="!text-primary-600">
+                      On m'a confié des postes à responsabilités jeunes, comme
+                      <span class="text-primary-600 font-semibold"
+                        >Responsable RH</span
+                      >
+                      ou
+                      <span class="text-primary-600 font-semibold"
+                        >Responsable Qualité</span
+                      >. Des missions où il fallait créer, structurer, s'adapter
+                      immédiatement. Alors j'ai appris vite. Absorbé, testé,
+                      ajusté, avancé.
+                    </p>
+
+                    <p class="!text-primary-600">
+                      Mais à un moment, quelque chose s'est brisé. Un malaise
+                      que je n'arrivais pas à expliquer. Le genre qui te suit,
+                      même quand tout semble aller bien. Je donnais tout. Mais
+                      pour quoi ? Pour qui ?
+                    </p>
+
+                    <div class="pl-6 border-l-2 border-accent-500/40 my-8">
+                      <p class="italic !text-primary-600">
+                        Et puis, après des nuits à ressasser, une évidence
+                        s'impose :
+                        <span class="text-primary-600 font-semibold"
+                          >Je ne veux plus jouer un rôle. Je ne veux plus suivre
+                          un scénario écrit par quelqu'un d'autre. Je veux créer
+                          la vie que je mérite.</span
+                        >
+                      </p>
+                    </div>
+
+                    <p class="!text-primary-600">
+                      Alors j'ai quitté ces postes par respect pour moi-même.
+                      Parce qu'accepter un chemin qui ne nous ressemble pas, ce
+                      n'est pas réussir. C'est juste s'éloigner de soi.
+                    </p>
+
+                    <p class="!text-primary-600">
+                      Alors j'ai exploré. Testé. Cherché à comprendre. Appris.
+                      Pas juste les métiers. Les gens. Leur mentalité. Leur
+                      blocage. Leur évolution. Ce qui les pousse à avancer… ou à
+                      rester figés.
+                    </p>
+
+                    <p class="!text-primary-600">
+                      Il y a eu des échecs, oui. Des ajustements. Des retours en
+                      arrière. Des leçons qui cognent fort. Mais grâce à ça,
+                      j'ai décodé ce qui fonctionne. Ce qui impacte. Ce qui
+                      transforme.
+                    </p>
+
+                    <div
+                      class="bg-gray-900 p-6 rounded-tr-2xl rounded-bl-2xl shadow-md my-8 relative"
+                    >
+                      <div
+                        class="absolute top-0 right-0 w-16 h-16 border-t border-r border-accent-500/40 rounded-tr-2xl"
+                      ></div>
+                      <p class="text-lg md:text-xl mb-0 text-white">
+                        Aujourd'hui, ma formule est solide. Elle propulse. Elle
+                        casse les limitations. J'accompagne ceux qui refusent de
+                        subir et veulent reprendre leur pouvoir sur leur vie.
+                      </p>
+                      <div
+                        class="absolute bottom-0 left-0 w-16 h-16 border-b border-l border-accent-500/40 rounded-bl-2xl"
+                      ></div>
+                    </div>
+
+                    <p class="italic !text-primary-600">
+                      Ah oui, si jamais… Mia (sur la photo à gauche), c'est mon
+                      associée. La meilleure négociatrice du game. Elle amadoue,
+                      elle convainc, elle charme mieux que moi. Moi ? Je fais le
+                      reste.
+                    </p>
+                  </div>
+
+                  <!-- Conteneur pour le bouton "Me contacter" -->
+                  <div id="about-contact-button" class="mt-8"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conteneur pour l'injection du composant ServicesSection -->
+      <div id="services" class="section"></div>
+
+      <!-- Modification de la section CTA pour s'assurer qu'elle s'affiche correctement -->
+      <section
+        id="cta"
+        class="py-16 relative overflow-hidden section-dark-enhanced my-16"
+        x-data="animateOnScroll"
+      >
+        <!-- Éléments décoratifs dorés -->
+        <div
+          class="gold-decor-floating w-96 h-96 top-0 left-1/4 opacity-[0.04]"
+        ></div>
+        <div
+          class="gold-decor-floating w-80 h-80 bottom-0 right-1/4 opacity-[0.03]"
+        ></div>
+        <div
+          class="gold-decor-shimmer top-1/2 left-1/4 w-2/3 opacity-[0.05]"
+        ></div>
+
+        <!-- Arrière-plan avec dégradé doré amélioré - Modification pour permettre la transparence vers le fond de la page -->
+        <div class="absolute inset-0">
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-black/80 via-gray-900/80 to-black/80"
+          ></div>
+          <div
+            class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"
+          ></div>
+          <div
+            class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"
+          ></div>
+          <!-- Rayons dorés subtils -->
+          <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-accent-500/5 blur-3xl"
+          ></div>
+          <div
+            class="absolute top-1/4 left-3/4 w-48 h-48 rounded-full bg-accent-500/3 blur-2xl"
+          ></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+          <div class="section-title text-center mb-10" data-scroll-animation>
+            <h2
+              class="section-title-heading highlight-text-animated text-4xl md:text-5xl"
+            >
+              Prêt à transformer votre avenir professionnel ?
             </h2>
           </div>
-          <!-- Citation premium -->
-          <blockquote class="relative bg-white/5 border-l-4 border-blue-600 rounded-xl px-8 py-6 mb-12 shadow-lg animate-fade-in-up">
-            <span class="block text-xl md:text-2xl font-poppins text-blue-400 font-semibold uppercase tracking-wide leading-tight">
-              « Si t'attends que ça bouge, c'est que t'es déjà en retard »
-            </span>
-            <span class="absolute -bottom-3 right-8 w-16 h-1 bg-gradient-to-r from-blue-600 to-accent-500 rounded"></span>
-          </blockquote>
-          <!-- Texte narratif et mission -->
-          <div class="vision-content text-gray-300 space-y-8 animate-fade-in-up delay-200">
-            <p>
-              <span class="text-white font-semibold">Le changement n'est pas une option.</span> C'est une <span class="text-blue-400 font-bold">force</span>, un levier, un passage obligé vers l'<span class="text-accent-500 font-bold">évolution</span>. Chez Rey-Bellet Consulting, on ne se contente pas d'analyser le changement – on le rend concret, stratégique et impossible à ignorer.
-            </p>
-            <p>
-              Je ne suis pas là pour rassurer. Je suis là pour <span class="text-accent-500 font-bold">provoquer</span>, structurer et faire émerger un changement assumé, percutant et aligné avec vos ambitions profondes.
-            </p>
-            <!-- Bloc mission -->
-            <div class="flex items-start gap-4 py-6 pl-0 md:pl-8 my-4 border-l-4 border-accent-500/70 relative bg-black/30 rounded-lg shadow-md">
-              <div class="flex-shrink-0 mt-1">
-                <!-- Icône de mission (flèche ascendante) -->
-                <svg class="w-8 h-8 text-accent-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7"/></svg>
-              </div>
-              <div>
-                <h3 class="text-2xl md:text-3xl font-bold text-white mb-2 flex items-center gap-2">
-                  <span>Ma mission&nbsp;?</span>
-                  <span class="inline-block bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-semibold">Action</span>
-                </h3>
-                <p>
-                  Faire du mouvement un choix puissant, non une contrainte. Redéfinir chaque transition pour qu'elle devienne un accélérateur de réussite. Transformer l'incertitude en maîtrise, et l'audace en résultats concrets.
+          <div
+            class="flex flex-col lg:flex-row lg:items-center lg:justify-between"
+          >
+            <div
+              class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }"
+            >
+              <p class="cta-description">
+                Découvrez comment mon accompagnement personnalisé peut vous
+                aider à atteindre vos objectifs et à réaliser votre plein
+                potentiel.
+              </p>
+            </div>
+
+            <div
+              class="cta-button-container transition-all duration-500"
+              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }"
+            >
+              <div id="cta-contact-button"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Contact -->
+      <section id="contact" class="py-20 relative overflow-hidden">
+        <!-- Éléments décoratifs d'arrière-plan -->
+        <div class="absolute inset-0 bg-pattern-dots opacity-5"></div>
+        <div
+          class="absolute top-0 right-0 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"
+        ></div>
+        <div
+          class="absolute bottom-0 left-0 w-64 h-64 bg-accent-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"
+        ></div>
+        <div class="container mx-auto px-4 relative z-10">
+          <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+              <!-- Colonne gauche : titre + description -->
+              <div class="section-title text-center mb-12 md:mb-0 max-w-xl">
+                <h2
+                  class="section-title-heading highlight-text-animated text-4xl md:text-5xl"
+                >
+                  Contact
+                </h2>
+                <p class="section-title-subtitle">
+                  Besoin d'information ou envie de discuter de votre projet ? Je
+                  serais ravie d'échanger avec vous.
                 </p>
               </div>
-            </div>
-            <p>
-              Parce qu'rester immobile, c'est renoncer à toute évolution. Parce qu'évoluer avec clarté et courage, c'est bâtir un avenir qui nous inspire.
-            </p>
-            <p class="text-lg md:text-xl font-semibold text-white py-4 relative">
-              <span class="relative inline-block">
-                Avec Rey-Bellet Consulting, on ne subit pas le changement – on le façonne, on l'impose et on en fait une force inarrêtable.
-                <span class="absolute -bottom-2 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-500/80 to-blue-600"></span>
-              </span>
-            </p>
-          </div>
-          <!-- Signature manuscrite et clin d'œil à Mia -->
-          <div class="flex items-center justify-end mt-10 gap-4">
-            <img src="assets/signature-laure.svg" alt="Signature Laure Rey-Bellet" class="h-10 opacity-80" />
-            <span class="text-xs text-gray-500 italic flex items-center gap-1">
-              <svg class="w-5 h-5 text-accent-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5-2 4-2 4 2 4 2"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/></svg>
-              Mia, meilleure négociatrice
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section À Propos -->
-    <section id="a-propos" class="py-20 relative overflow-hidden">
-          <!-- Éléments de design d'arrière-plan - Remplacement du fond blanc par un fond transparent avec légère opacité -->
-          <div class="absolute inset-0 bg-white opacity-50 z-0"></div>
-          
-          <!-- Éléments décoratifs dorés subtils -->
-          <div class="absolute w-64 h-64 rounded-full bg-accent-500/5 blur-3xl top-1/4 right-1/4 z-0"></div>
-          <div class="absolute w-96 h-96 rounded-full bg-primary-500/5 blur-3xl bottom-1/3 left-1/3 z-0"></div>
-          
-          <div class="container mx-auto px-4 relative z-10">
-            <div class="max-w-6xl mx-auto">
-              <div class="section-title text-center mb-16 md:mb-20" data-scroll-animation role="heading" aria-level="2">
-                <h2 class="section-title-heading highlight-text-animated text-4xl md:text-5xl">À propos</h2>
-              </div>
-              
-              <!-- Contenu principal -->
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                <!-- Image avec éléments décoratifs -->
-                <div class="lg:col-span-5 lg:sticky lg:top-28" x-data="animateOnScroll">
-                  <div class="relative transform opacity-0 transition-all duration-700"
-                       x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-8': !visible }">
-                    
-                    <!-- Image principale -->
-                    <div class="rounded-xl overflow-hidden shadow-xl relative z-10">
-                      <img 
-                        src="assets/images/laure-rey-bellet.webp" 
-                        alt="Séance de coaching personnel avec Mia" 
-                        class="w-full h-auto object-cover"
-                      >
-                      
-                      <!-- Calque avec dégradé subtil -->
-                      <div class="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent pointer-events-none"></div>
-                      
-                      <!-- Légende sur l'image -->
-                      <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 to-transparent">
-                        <p class="text-white text-sm italic">Mia, ma meilleure négociatrice et associée fidèle</p>
-                      </div>
-                    </div>
-                    
-                    <!-- Éléments décoratifs autour de l'image -->
-                    <div class="absolute -bottom-5 -left-5 w-24 h-24 border border-accent-500/30 rounded-xl -z-10"></div>
-                    <div class="absolute -top-4 -right-4 w-16 h-16 bg-accent-500/10 rounded-full backdrop-blur-sm -z-10"></div>
-                    <div class="absolute top-1/2 -right-3 w-6 h-6 bg-accent-500/20 rounded-full -z-10"></div>
-                  </div>
-                </div>
-                
-                <!-- Histoire personnelle -->
-                <div class="lg:col-span-7" x-data="animateOnScroll">
-                  <div class="prose prose-lg max-w-none opacity-0 transform transition-all duration-700 delay-200 prose-p:text-primary-600"
-                       x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }">
-                    
-                    <!-- Titre accrocheur -->
-                    <h3 class="text-2xl md:text-3xl font-bold text-primary-600 mb-8 relative inline-block">
-                      LE CHOIX DE NE PLUS SUBIR
-                      <span class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent-500/80 via-accent-500/50 to-transparent"></span>
-                    </h3>
-                    
-                    <!-- Histoire avec mise en forme élégante -->
-                    <div class="space-y-6 text-primary-600">
-                      <p class="!text-primary-600">
-                        J'ai longtemps cherché ma place. À endosser des rôles qu'on m'imposait, sans jamais me demander s'ils étaient faits pour moi. À rentrer dans des moules, jusqu'à en oublier qui j'étais vraiment.
-                      </p>
-                      
-                      <p class="!text-primary-600">
-                        On m'a confié des postes à responsabilités jeunes, comme <span class="text-primary-600 font-semibold">Responsable RH</span> ou <span class="text-primary-600 font-semibold">Responsable Qualité</span>. Des missions où il fallait créer, structurer, s'adapter immédiatement. Alors j'ai appris vite. Absorbé, testé, ajusté, avancé.
-                      </p>
-                      
-                      <p class="!text-primary-600">
-                        Mais à un moment, quelque chose s'est brisé. Un malaise que je n'arrivais pas à expliquer. Le genre qui te suit, même quand tout semble aller bien. Je donnais tout. Mais pour quoi ? Pour qui ?
-                      </p>
-                      
-                      <div class="pl-6 border-l-2 border-accent-500/40 my-8">
-                        <p class="italic !text-primary-600">
-                          Et puis, après des nuits à ressasser, une évidence s'impose : <span class="text-primary-600 font-semibold">Je ne veux plus jouer un rôle. Je ne veux plus suivre un scénario écrit par quelqu'un d'autre. Je veux créer la vie que je mérite.</span>
-                        </p>
-                      </div>
-                      
-                      <p class="!text-primary-600">
-                        Alors j'ai quitté ces postes par respect pour moi-même. Parce qu'accepter un chemin qui ne nous ressemble pas, ce n'est pas réussir. C'est juste s'éloigner de soi.
-                      </p>
-                      
-                      <p class="!text-primary-600">
-                        Alors j'ai exploré. Testé. Cherché à comprendre. Appris. Pas juste les métiers. Les gens. Leur mentalité. Leur blocage. Leur évolution. Ce qui les pousse à avancer… ou à rester figés.
-                      </p>
-                      
-                      <p class="!text-primary-600">
-                        Il y a eu des échecs, oui. Des ajustements. Des retours en arrière. Des leçons qui cognent fort. Mais grâce à ça, j'ai décodé ce qui fonctionne. Ce qui impacte. Ce qui transforme.
-                      </p>
-                      
-                      <div class="bg-gray-900 p-6 rounded-tr-2xl rounded-bl-2xl shadow-md my-8 relative">
-                        <div class="absolute top-0 right-0 w-16 h-16 border-t border-r border-accent-500/40 rounded-tr-2xl"></div>
-                        <p class="text-lg md:text-xl mb-0 text-white">
-                          Aujourd'hui, ma formule est solide. Elle propulse. Elle casse les limitations. J'accompagne ceux qui refusent de subir et veulent reprendre leur pouvoir sur leur vie.
-                        </p>
-                        <div class="absolute bottom-0 left-0 w-16 h-16 border-b border-l border-accent-500/40 rounded-bl-2xl"></div>
-                      </div>
-                      
-                      <p class="italic !text-primary-600">
-                        Ah oui, si jamais… Mia (sur la photo à gauche), c'est mon associée. La meilleure négociatrice du game. Elle amadoue, elle convainc, elle charme mieux que moi. Moi ? Je fais le reste.
-                      </p>
-                    </div>
-                    
-                    <!-- Conteneur pour le bouton "Me contacter" -->
-                    <div id="about-contact-button" class="mt-8"></div>
-                  </div>
-                </div>
-              </div>
-          </div>
-      </section>
-    
-    <!-- Conteneur pour l'injection du composant ServicesSection -->
-    <div id="services" class="section"></div>
-
-    <!-- Modification de la section CTA pour s'assurer qu'elle s'affiche correctement -->
-    <section id="cta" class="py-16 relative overflow-hidden section-dark-enhanced my-16" x-data="animateOnScroll">
-      <!-- Éléments décoratifs dorés -->
-      <div class="gold-decor-floating w-96 h-96 top-0 left-1/4 opacity-[0.04]"></div>
-      <div class="gold-decor-floating w-80 h-80 bottom-0 right-1/4 opacity-[0.03]"></div>
-      <div class="gold-decor-shimmer top-1/2 left-1/4 w-2/3 opacity-[0.05]"></div>
-      
-      <!-- Arrière-plan avec dégradé doré amélioré - Modification pour permettre la transparence vers le fond de la page -->
-      <div class="absolute inset-0">
-        <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-gray-900/80 to-black/80"></div>
-        <div class="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
-        <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-accent-600/20 via-accent-500 to-accent-600/20"></div>
-        <!-- Rayons dorés subtils -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-accent-500/5 blur-3xl"></div>
-        <div class="absolute top-1/4 left-3/4 w-48 h-48 rounded-full bg-accent-500/3 blur-2xl"></div>
-      </div>
-      
-      <div class="container mx-auto px-6 relative z-10">
-        <div class="section-title text-center mb-10" data-scroll-animation>
-          <h2 class="section-title-heading highlight-text-animated text-4xl md:text-5xl">Prêt à transformer votre avenir professionnel ?</h2>
-        </div>
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-          <div class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500" 
-               x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
-            <p class="cta-description">Découvrez comment mon accompagnement personnalisé peut vous aider à atteindre vos objectifs et à réaliser votre plein potentiel.</p>
-          </div>
-          
-          <div class="cta-button-container transition-all duration-500"
-               x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }">
-            <div id="cta-contact-button"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-    
-    <!-- Section Contact -->
-    <section id="contact" class="py-20 relative overflow-hidden">
-      <!-- Éléments décoratifs d'arrière-plan -->
-      <div class="absolute inset-0 bg-pattern-dots opacity-5"></div>
-      <div class="absolute top-0 right-0 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-      <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"></div>
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-6xl mx-auto">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <!-- Colonne gauche : titre + description -->
-            <div class="section-title text-center mb-12 md:mb-0 max-w-xl">
-              <h2 class="section-title-heading highlight-text-animated text-4xl md:text-5xl">Contact</h2>
-              <p class="section-title-subtitle">Besoin d'information ou envie de discuter de votre projet ? Je serais ravie d'échanger avec vous.</p>
-            </div>
-            <!-- Colonne droite : formulaire -->
-            <div>
-              <div class="bg-white rounded-xl shadow-lg p-8 md:p-10 relative transform transition-all duration-500 hover:shadow-xl"
+              <!-- Colonne droite : formulaire -->
+              <div>
+                <div
+                  class="bg-white rounded-xl shadow-lg p-8 md:p-10 relative transform transition-all duration-500 hover:shadow-xl"
                   x-data="{ 
                     formVisible: true,
                     successVisible: false,
@@ -443,157 +655,328 @@
                       this.formVisible = false;
                       this.successVisible = true;
                     }
-                  }">
-                <!-- Éléments décoratifs -->
-                <div class="absolute top-0 left-0 w-1.5 h-24 bg-accent-500 rounded-tl-xl rounded-bl"></div>
-                <div class="absolute top-0 right-0 w-24 h-24 border-t border-r border-accent-500/20 rounded-tr-xl -z-10"></div>
-                <div class="absolute -bottom-3 -right-3 w-16 h-16 bg-accent-500/10 rounded-br blur-sm -z-10"></div>
-                <!-- Formulaire (visible par défaut) -->
-                <form id="contact-form" class="space-y-6" x-show="formVisible" @submit.prevent="submitForm">
-                  <!-- Champ caché pour honeypot anti-spam -->
-                  <div class="hidden">
-                    <label for="honeypot">Ne pas remplir ce champ</label>
-                    <input type="text" id="honeypot" name="honeypot">
-                  </div>
-                  <!-- En-tête du formulaire -->
-                  <div class="text-center mb-8">
-                    <h3 class="text-xl font-bold text-primary-600 mb-2">Démarrons une conversation</h3>
-                    <p class="text-gray-500">Tous les champs marqués d'un * sont obligatoires</p>
-                  </div>
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Type de service -->
-                    <div class="space-y-2 md:col-span-2">
-                      <label for="service" class="sr-only">Type de service *</label>
-                      <select id="service" name="service" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required placeholder="Type de service *">
-                        <option value="" selected disabled>Sélectionnez un type de service *</option>
-                        <option value="entreprise">Services pour entreprises</option>
-                        <option value="particulier">Services pour particuliers</option>
-                        <option value="autre">Autre demande</option>
-                      </select>
+                  }"
+                >
+                  <!-- Éléments décoratifs -->
+                  <div
+                    class="absolute top-0 left-0 w-1.5 h-24 bg-accent-500 rounded-tl-xl rounded-bl"
+                  ></div>
+                  <div
+                    class="absolute top-0 right-0 w-24 h-24 border-t border-r border-accent-500/20 rounded-tr-xl -z-10"
+                  ></div>
+                  <div
+                    class="absolute -bottom-3 -right-3 w-16 h-16 bg-accent-500/10 rounded-br blur-sm -z-10"
+                  ></div>
+                  <!-- Formulaire (visible par défaut) -->
+                  <form
+                    id="contact-form"
+                    class="space-y-6"
+                    x-show="formVisible"
+                    @submit.prevent="submitForm"
+                  >
+                    <!-- Champ caché pour honeypot anti-spam -->
+                    <div class="hidden">
+                      <label for="honeypot">Ne pas remplir ce champ</label>
+                      <input type="text" id="honeypot" name="honeypot" />
                     </div>
-                    <!-- Nom -->
-                    <div class="space-y-2">
-                      <label for="name" class="sr-only">Nom complet *</label>
-                      <input type="text" id="name" name="name" placeholder="Nom complet *" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required>
+                    <!-- En-tête du formulaire -->
+                    <div class="text-center mb-8">
+                      <h3 class="text-xl font-bold text-primary-600 mb-2">
+                        Démarrons une conversation
+                      </h3>
+                      <p class="text-gray-500">
+                        Tous les champs marqués d'un * sont obligatoires
+                      </p>
                     </div>
-                    <!-- Email -->
-                    <div class="space-y-2">
-                      <label for="email" class="sr-only">Email *</label>
-                      <input type="email" id="email" name="email" placeholder="Email *" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <!-- Type de service -->
+                      <div class="space-y-2 md:col-span-2">
+                        <label for="service" class="sr-only"
+                          >Type de service *</label
+                        >
+                        <select
+                          id="service"
+                          name="service"
+                          class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all"
+                          required
+                          placeholder="Type de service *"
+                        >
+                          <option value="" selected disabled>
+                            Sélectionnez un type de service *
+                          </option>
+                          <option value="entreprise">
+                            Services pour entreprises
+                          </option>
+                          <option value="particulier">
+                            Services pour particuliers
+                          </option>
+                          <option value="autre">Autre demande</option>
+                        </select>
+                      </div>
+                      <!-- Nom -->
+                      <div class="space-y-2">
+                        <label for="name" class="sr-only">Nom complet *</label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          placeholder="Nom complet *"
+                          class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all"
+                          required
+                        />
+                      </div>
+                      <!-- Email -->
+                      <div class="space-y-2">
+                        <label for="email" class="sr-only">Email *</label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          placeholder="Email *"
+                          class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all"
+                          required
+                        />
+                      </div>
+                      <!-- Téléphone -->
+                      <div class="space-y-2 md:col-span-2">
+                        <label for="phone" class="sr-only">Téléphone</label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          placeholder="Téléphone"
+                          class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all"
+                        />
+                      </div>
+                      <!-- Message -->
+                      <div class="space-y-2 md:col-span-2">
+                        <label for="message" class="sr-only">Message *</label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          rows="5"
+                          placeholder="Votre message *"
+                          class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all"
+                          required
+                        ></textarea>
+                      </div>
                     </div>
-                    <!-- Téléphone -->
-                    <div class="space-y-2 md:col-span-2">
-                      <label for="phone" class="sr-only">Téléphone</label>
-                      <input type="tel" id="phone" name="phone" placeholder="Téléphone" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all">
+                    <!-- Consentement RGPD -->
+                    <div class="space-y-2 pt-2 border-t border-gray-100">
+                      <div class="flex items-start">
+                        <input
+                          type="checkbox"
+                          id="privacy"
+                          name="privacy"
+                          class="mt-1 rounded border-gray-300 text-accent-500 shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50 focus:ring-offset-0"
+                          required
+                        />
+                        <label
+                          for="privacy"
+                          class="ml-2 block text-sm text-gray-600"
+                        >
+                          J'accepte que mes données soient utilisées uniquement
+                          pour permettre le traitement de ma demande. *
+                        </label>
+                      </div>
                     </div>
-                    <!-- Message -->
-                    <div class="space-y-2 md:col-span-2">
-                      <label for="message" class="sr-only">Message *</label>
-                      <textarea id="message" name="message" rows="5" placeholder="Votre message *" class="w-full rounded-md border-gray-300 shadow-sm focus:border-accent-500 focus:ring-accent-500 transition-all" required></textarea>
+                    <!-- Bouton d'envoi -->
+                    <div class="pt-4 text-center">
+                      <button
+                        type="submit"
+                        class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-all duration-200"
+                      >
+                        <span>Envoyer ma demande</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          class="h-5 w-5 ml-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 7l5 5m0 0l-5 5m5-5H6"
+                          />
+                        </svg>
+                      </button>
                     </div>
-                  </div>
-                  <!-- Consentement RGPD -->
-                  <div class="space-y-2 pt-2 border-t border-gray-100">
-                    <div class="flex items-start">
-                      <input type="checkbox" id="privacy" name="privacy" class="mt-1 rounded border-gray-300 text-accent-500 shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50 focus:ring-offset-0" required>
-                      <label for="privacy" class="ml-2 block text-sm text-gray-600">
-                        J'accepte que mes données soient utilisées uniquement pour permettre le traitement de ma demande. *
-                      </label>
+                    <!-- Email de contact direct -->
+                    <div class="text-center mt-8 pt-4 border-t border-gray-100">
+                      <p class="text-sm text-gray-500">
+                        Ou contactez-moi directement par email :
+                        <a
+                          href="mailto:laure@reybellet.com"
+                          class="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                        >
+                          laure@reybellet.com
+                        </a>
+                      </p>
                     </div>
-                  </div>
-                  <!-- Bouton d'envoi -->
-                  <div class="pt-4 text-center">
-                    <button type="submit" class="inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent-500 hover:bg-accent-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-500 transition-all duration-200">
-                      <span>Envoyer ma demande</span>
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </button>
-                  </div>
-                  <!-- Email de contact direct -->
-                  <div class="text-center mt-8 pt-4 border-t border-gray-100">
-                    <p class="text-sm text-gray-500">
-                      Ou contactez-moi directement par email : 
-                      <a href="mailto:laure@reybellet.com" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">
-                        laure@reybellet.com
-                      </a>
-                    </p>
-                  </div>
-                </form>
-                <!-- Message de confirmation (caché par défaut) -->
-                <div id="success-message" class="bg-green-50 text-green-800 p-8 rounded-md text-center" x-show="successVisible" x-cloak>
-                  <svg class="w-16 h-16 mx-auto text-green-500 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
-                  <h3 class="text-2xl font-bold mb-3">Message envoyé avec succès !</h3>
-                  <p class="text-lg mb-6">Merci pour votre demande. Je vous répondrai dans les plus brefs délais.</p>
-                  <div class="inline-flex items-center justify-center text-green-700 hover:text-green-800 font-medium transition-colors cursor-pointer" @click="formVisible = true; successVisible = false">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </form>
+                  <!-- Message de confirmation (caché par défaut) -->
+                  <div
+                    id="success-message"
+                    class="bg-green-50 text-green-800 p-8 rounded-md text-center"
+                    x-show="successVisible"
+                    x-cloak
+                  >
+                    <svg
+                      class="w-16 h-16 mx-auto text-green-500 mb-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
                     </svg>
-                    <span>Retour au formulaire</span>
+                    <h3 class="text-2xl font-bold mb-3">
+                      Message envoyé avec succès !
+                    </h3>
+                    <p class="text-lg mb-6">
+                      Merci pour votre demande. Je vous répondrai dans les plus
+                      brefs délais.
+                    </p>
+                    <div
+                      class="inline-flex items-center justify-center text-green-700 hover:text-green-800 font-medium transition-colors cursor-pointer"
+                      @click="formVisible = true; successVisible = false"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5 mr-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                        />
+                      </svg>
+                      <span>Retour au formulaire</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    
-  </main>
-  
-  <!-- Placeholder pour le footer -->
-  <div id="app-footer"></div>
-  
-  <!-- Scripts -->
-  <script type="module" src="./utils/main.js"></script>
-  
-  <!-- Script pour injecter le composant ServicesSection -->
-  <script type="module" src="./js/inject-services-section.js"></script>
-  
-  <!-- Script pour injecter la section Hero -->
-  <script type="module" src="./js/inject-hero-section.js"></script>
-  
-  <!-- Script pour injecter le bouton du hero -->
-  <script type="module">
-    import { createButton, buttonIcons } from './components/common/Button.js';
-    import { addButtonTo } from './utils/initComponents.js';
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      // Utiliser la fonction addButtonTo du système de composants unifié
-      addButtonTo('#hero-cta-button', {
-        text: 'Découvrir mes services',
-        type: 'accent',
-        url: '#services',
-        icon: buttonIcons.arrowRight
+      </section>
+    </main>
+
+    <!-- Placeholder pour le footer -->
+    <div id="app-footer"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="./utils/main.js"></script>
+
+    <!-- Script pour injecter le composant ServicesSection -->
+    <script type="module" src="./js/inject-services-section.js"></script>
+
+    <!-- Script pour injecter la section Hero -->
+    <script type="module" src="./js/inject-hero-section.js"></script>
+
+    <!-- Script pour injecter le bouton du hero -->
+    <script type="module">
+      import { createButton, buttonIcons } from "./components/common/Button.js";
+      import { addButtonTo } from "./utils/initComponents.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Utiliser la fonction addButtonTo du système de composants unifié
+        addButtonTo("#hero-cta-button", {
+          text: "Découvrir mes services",
+          type: "accent",
+          url: "#services",
+          icon: buttonIcons.arrowRight,
+        });
       });
-    });
-  </script>
-  
-  <!-- Script pour injecter les autres boutons -->
-  <script type="module">
-    import { createButton, buttonIcons } from './components/common/Button.js';
-    import { addButtonTo } from './utils/initComponents.js';
-    
-    document.addEventListener('DOMContentLoaded', () => {
-      // Bouton "Me contacter" dans la section À propos
-      addButtonTo('#about-contact-button', {
-        text: 'Me contacter',
-        type: 'outline',
-        url: '#contact',
-        icon: buttonIcons.arrowRight
+    </script>
+
+    <!-- Script pour injecter les autres boutons -->
+    <script type="module">
+      import { createButton, buttonIcons } from "./components/common/Button.js";
+      import { addButtonTo } from "./utils/initComponents.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Bouton "Me contacter" dans la section À propos
+        addButtonTo("#about-contact-button", {
+          text: "Me contacter",
+          type: "outline",
+          url: "#contact",
+          icon: buttonIcons.arrowRight,
+        });
+
+        // Bouton "Contactez-moi" dans la section CTA
+        addButtonTo("#cta-contact-button", {
+          text: "Contactez-moi dès maintenant",
+          type: "accent",
+          url: "mailto:laure@reybellet.com?subject=Demande%20d'information",
+          icon: buttonIcons.arrowRight,
+          size: "large",
+        });
       });
-      
-      // Bouton "Contactez-moi" dans la section CTA
-      addButtonTo('#cta-contact-button', {
-        text: 'Contactez-moi dès maintenant',
-        type: 'accent',
-        url: 'mailto:laure@reybellet.com?subject=Demande%20d\'information',
-        icon: buttonIcons.arrowRight,
-        size: 'large'
+    </script>
+
+    <!-- Script pour la transition de fond globale immersive -->
+    <script>
+      document.addEventListener("alpine:init", () => {
+        Alpine.data("aproposTransition", () => ({
+          init() {
+            // L'initialisation est maintenant gérée par le composant BackgroundTransition.js
+          },
+        }));
       });
-    });
-  </script>
-</body>
-</html> 
+    </script>
+
+    <!-- Script de débogage pour la transition de fond -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Vérifier si l'overlay existe
+        const overlay = document.getElementById("site-background-transition");
+        console.log("Overlay de transition trouvé:", !!overlay);
+
+        // Vérifier si la section À propos a le bon x-data
+        const aproposSection = document.getElementById("a-propos");
+        if (aproposSection) {
+          console.log(
+            "Section À propos trouvée avec x-data:",
+            aproposSection.getAttribute("x-data"),
+          );
+
+          // Forcer manuellement l'initialisation du composant
+          if (window.Alpine) {
+            console.log(
+              "Alpine est disponible, initialisation manuelle du composant",
+            );
+
+            // Créer manuellement un overlay si besoin
+            if (!overlay) {
+              const newOverlay = document.createElement("div");
+              newOverlay.id = "site-background-transition";
+              newOverlay.className =
+                "fixed inset-0 bg-white pointer-events-none z-0";
+              newOverlay.style.opacity = "0";
+              document.body.appendChild(newOverlay);
+              console.log("Overlay créé manuellement");
+            }
+
+            // Forcer un événement de défilement après un délai
+            setTimeout(() => {
+              console.log("Déclenchement d'un événement de défilement");
+              window.dispatchEvent(new Event("scroll"));
+            }, 500);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
