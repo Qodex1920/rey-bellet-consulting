@@ -1,18 +1,22 @@
+/**
+ * Point d'entrée principal du site Rey-Bellet Consulting
+ * Ce fichier sert uniquement d'orchestrateur pour initialiser les différents modules
+ */
+
+// Mode strict pour éviter les erreurs courantes
+"use strict";
+
 // Importation des styles
 import './styles/main.css';
 
-// Importation des utilitaires d'animation
+// Importation des utilitaires
 import * as animations from './utils/animations.js';
-window.animations = animations;
-
-// Importation de la fonction d'initialisation principale
-import { initSite } from './utils/main.js';
+import { initSite } from './utils/site.js';
 import initComponents from './utils/initComponents.js';
-
 
 // Attendre le chargement complet du DOM
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("Initialisation du site");
+  console.log("Initialisation du site Rey-Bellet Consulting");
   
   // Vérifier si Alpine.js est disponible via CDN
   if (typeof window.Alpine === 'undefined') {
@@ -29,6 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialiser le site
   initSite();
   
-  // Initialiser les composants (dont la bannière de cookies)
+  // Initialiser les composants
   initComponents();
 }); 

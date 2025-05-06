@@ -1,6 +1,6 @@
 /**
- * Module de gestion du formulaire de contact
- * Validation et soumission AJAX
+ * Module de gestion des formulaires
+ * Validation et soumission des formulaires du site
  */
 
 "use strict";
@@ -9,6 +9,49 @@
  * Initialise le gestionnaire de formulaire
  */
 export const initContactForm = () => {
+  // Configuration du formulaire simple
+  setupSimpleContactForm();
+  
+  // Configuration du formulaire complet avec validation avancée
+  setupCompleteContactForm();
+};
+
+/**
+ * Configure le formulaire de contact simple
+ */
+function setupSimpleContactForm() {
+  const contactForm = document.getElementById('contact-form');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      // Validation côté client
+      const email = contactForm.querySelector('input[type="email"]').value;
+      if (!isValidEmail(email)) {
+        alert('Veuillez entrer une adresse email valide.');
+        return;
+      }
+      
+      // Envoyer une requête à un service de traitement de formulaire
+      console.log('Formulaire simple soumis, traitement...');
+      
+      // Afficher un message de confirmation
+      const formContainer = contactForm.parentElement;
+      formContainer.innerHTML = `
+        <div class="text-center py-10">
+          <h3 class="text-xl font-bold mb-4">Merci pour votre message!</h3>
+          <p>Nous vous répondrons dans les plus brefs délais.</p>
+        </div>
+      `;
+    });
+  }
+}
+
+/**
+ * Configure le formulaire de contact complet
+ */
+function setupCompleteContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
 
@@ -27,7 +70,17 @@ export const initContactForm = () => {
   
   // Gérer la soumission du formulaire
   form.addEventListener('submit', handleSubmit);
-};
+}
+
+/**
+ * Valide une adresse email
+ * @param {string} email - L'adresse email à valider
+ * @returns {boolean} - True si l'email est valide
+ */
+export function isValidEmail(email) {
+  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 
 /**
  * Configure l'affichage des fichiers téléchargés

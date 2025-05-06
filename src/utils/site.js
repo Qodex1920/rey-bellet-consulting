@@ -1,6 +1,6 @@
 /**
- * Fichier principal d'initialisation pour le site Rey-Bellet Consulting
- * Fonctionnalités de base pour le site statique
+ * Fonctionnalités principales du site Rey-Bellet Consulting
+ * Gère l'initialisation des modules et des comportements globaux
  */
 
 // Mode strict pour éviter les erreurs courantes
@@ -11,12 +11,13 @@ import { getTemplate } from "./templates.js";
 import { initComponentSystem } from "./componentInjector.js";
 import { initContactForm } from "./formHandler.js";
 import { initBackgroundTransition } from "../components/effects/BackgroundTransition.js";
+import { initScrollAnimations, isElementInViewport } from "./animations.js";
 
 /**
  * Fonction d'initialisation du site
  */
 export const initSite = async () => {
-  console.log("Initialisation du site Rey-Bellet Consulting");
+  console.log("Initialisation des fonctionnalités du site");
 
   // Initialisation du système de composants
   await initComponentSystem();
@@ -24,7 +25,7 @@ export const initSite = async () => {
   // Injecter les composants depuis templates.js
   injectTemplateComponents();
 
-  // Initialisation du formulaire de contact via le module externe
+  // Initialisation du formulaire de contact
   initContactForm();
 
   // Animation des éléments au scroll
@@ -39,58 +40,13 @@ export const initSite = async () => {
   // Initialiser la transition de fond
   initBackgroundTransition();
 
-  console.log("Composants initialisés avec succès");
+  console.log("Fonctionnalités initialisées avec succès");
 };
 
 /**
  * Fonction utilitaire pour vérifier si un élément est dans le viewport
  */
-export const isInViewport = (element, offset = 100) => {
-  if (!element) return false;
-
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.top <=
-      (window.innerHeight || document.documentElement.clientHeight) - offset &&
-    rect.bottom >= 0 &&
-    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-    rect.right >= 0
-  );
-};
-
-/**
- * Animation des éléments au scroll avec IntersectionObserver
- */
-export const initScrollAnimations = () => {
-  // Éviter les animations pour les utilisateurs qui préfèrent les réduire
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)",
-  ).matches;
-  if (prefersReducedMotion) {
-    return;
-  }
-
-  // Configurer l'observateur d'intersection pour les animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const element = entry.target;
-        element.classList.add("animated");
-        observer.unobserve(element);
-      }
-    });
-  }, observerOptions);
-
-  // Observer tous les éléments à animer
-  document.querySelectorAll(".animate-on-scroll").forEach((element) => {
-    observer.observe(element);
-  });
-};
+export const isInViewport = isElementInViewport;
 
 /**
  * Initialise le bouton retour en haut
@@ -118,9 +74,6 @@ export const initBackToTopButton = () => {
   }
 };
 
-// Initialisation du site quand le DOM est chargé
-document.addEventListener("DOMContentLoaded", initSite);
-
 /**
  * Initialise la navigation et les éléments interactifs du menu
  */
@@ -139,7 +92,7 @@ export const initNavigation = () => {
     });
   }
 
-  // Fonction pour les sous-menus mobiles (définie globalement pour être accessible via inline onclick)
+  // Fonction pour les sous-menus mobiles
   window.toggleMobileSubmenu = (id) => {
     const submenu = document.getElementById("submenu-" + id);
     const icon = document.getElementById("icon-" + id);
@@ -159,7 +112,7 @@ export const initNavigation = () => {
 /**
  * Injecte les composants depuis les templates JS
  */
-export function injectTemplateComponents() {
+function injectTemplateComponents() {
   // Injecter le header
   const headerElement = document.getElementById("app-header");
   if (headerElement) {
@@ -178,7 +131,6 @@ export function injectTemplateComponents() {
 
   // Initialiser les comportements Alpine après injection
   if (window.Alpine) {
-    console.log("Alpine.js détecté, initialisation...");
     try {
       window.Alpine.initTree(document.body);
     } catch (error) {
@@ -186,19 +138,5 @@ export function injectTemplateComponents() {
     }
   } else {
     console.warn("Alpine.js non détecté lors de l'injection des composants");
-    // Attendre que le script Alpine.js soit chargé avant d'initialiser
-    document.addEventListener("alpine:init", () => {
-      console.log(
-        "Événement alpine:init détecté - Les composants sont maintenant définis dans index.html",
-      );
-    });
   }
-}
-
-// Alpine.js components
-document.addEventListener("alpine:init", () => {
-  // Ces composants sont maintenant définis directement dans le HTML principal
-  console.log(
-    "Événement alpine:init détecté - Les composants sont maintenant définis dans index.html",
-  );
-});
+} 

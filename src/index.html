@@ -69,154 +69,17 @@
       src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js"
     ></script>
 
-    <!-- Initialisation des configurations Alpine -->
+    <!-- Import des comportements Alpine.js - ajout de l'attribut defer pour s'assurer qu'il se charge après Alpine.js -->
+    <script defer src="./utils/alpine-behaviors.js"></script>
+
     <script>
-      document.addEventListener("alpine:init", () => {
-        // Définir les composants Alpine avant de démarrer l'application
-        Alpine.data("typingAnimation", function () {
-          return {
-            text: "",
-            fullText: "Consultante.",
-            textArray: ["Consultante.", "Coach.", "Formatrice."],
-            textIndex: 0,
-            charIndex: 0,
-            typeSpeed: 100,
-            eraseSpeed: 80,
-            delayBetweenWords: 2000,
-            isDeleting: false,
-            isWaiting: false,
-
-            init() {
-              this.typeText();
-            },
-
-            typeText() {
-              const current = this.textArray[this.textIndex];
-              this.fullText = current;
-
-              if (!this.isDeleting && this.charIndex < current.length) {
-                // Ajouter un caractère
-                this.text = current.substring(0, this.charIndex + 1);
-                this.charIndex++;
-
-                setTimeout(() => this.typeText(), this.typeSpeed);
-              } else if (this.isDeleting && this.charIndex > 0) {
-                // Supprimer un caractère
-                this.text = current.substring(0, this.charIndex - 1);
-                this.charIndex--;
-
-                setTimeout(() => this.typeText(), this.eraseSpeed);
-              } else if (
-                !this.isDeleting &&
-                this.charIndex === current.length
-              ) {
-                // Pause avant de commencer à supprimer
-                this.isWaiting = true;
-                this.isDeleting = true;
-
-                setTimeout(() => {
-                  this.isWaiting = false;
-                  this.typeText();
-                }, this.delayBetweenWords);
-              } else if (this.isDeleting && this.charIndex === 0) {
-                // Passer au texte suivant
-                this.isDeleting = false;
-                this.textIndex = (this.textIndex + 1) % this.textArray.length;
-
-                setTimeout(() => this.typeText(), this.typeSpeed);
-              }
-            },
-          };
-        });
-
-        // Composant d'animation générique pour les sections et CTA
-        Alpine.data("animateOnScroll", function () {
-          return {
-            visible: false,
-
-            init() {
-              // Vérifier si l'élément est déjà visible au chargement
-              if (this.isElementInViewport(this.$el)) {
-                this.visible = true;
-              } else {
-                // Sinon, configurer l'observation du scroll
-                this.observeIntersection();
-              }
-            },
-
-            isElementInViewport(el, offset = 100) {
-              if (!el) return false;
-
-              const rect = el.getBoundingClientRect();
-              return (
-                rect.top <=
-                  (window.innerHeight ||
-                    document.documentElement.clientHeight) -
-                    offset &&
-                rect.bottom >= 0 &&
-                rect.left <=
-                  (window.innerWidth || document.documentElement.clientWidth) &&
-                rect.right >= 0
-              );
-            },
-
-            observeIntersection() {
-              const observer = new IntersectionObserver(
-                (entries) => {
-                  entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                      this.visible = true;
-                      observer.unobserve(entry.target);
-                    }
-                  });
-                },
-                { threshold: 0.1 },
-              );
-
-              observer.observe(this.$el);
-            },
-          };
-        });
-
-        // Ajout des composants manquants
-        Alpine.data("mobileMenu", () => ({
-          open: false,
-
-          toggle() {
-            this.open = !this.open;
-          },
-
-          close() {
-            this.open = false;
-          },
-        }));
-
-        Alpine.data("dropdown", () => ({
-          open: false,
-
-          toggle() {
-            this.open = !this.open;
-          },
-
-          close() {
-            this.open = false;
-          },
-        }));
-
-        Alpine.data("accordion", () => ({
-          open: false,
-
-          toggle() {
-            this.open = !this.open;
-          },
-        }));
-
-        // Ne pas appeler Alpine.start() ici, il est déjà démarré par le script defer
-      });
-
       document.addEventListener("DOMContentLoaded", () => {
-        console.log("Démarrage d'Alpine.js...");
-        // Ne pas appeler Alpine.start() une seconde fois
+        // Vérifier que les composants Alpine sont disponibles
+        if (window.Alpine) {
+          console.log("Alpine.js est disponible dans le DOMContentLoaded");
+        } else {
+          console.warn("Alpine.js n'est pas disponible dans le DOMContentLoaded");
+        }
       });
     </script>
   </head>
@@ -640,7 +503,7 @@
                   Contact
                 </h2>
                 <p class="section-title-subtitle">
-                  Besoin d'information ou envie de discuter de votre projet ? Je
+                  Besoin d'information ou envie de discuter de votre projet ? Je
                   serais ravie d'échanger avec vous.
                 </p>
               </div>
@@ -877,7 +740,7 @@
     <div id="app-footer"></div>
 
     <!-- Scripts -->
-    <script type="module" src="./utils/main.js"></script>
+    <script type="module" src="./main.js"></script>
 
     <!-- Script pour injecter le composant ServicesSection -->
     <script type="module" src="./js/inject-services-section.js"></script>
@@ -923,59 +786,6 @@
           icon: buttonIcons.arrowRight,
           size: "large",
         });
-      });
-    </script>
-
-    <!-- Script pour la transition de fond globale immersive -->
-    <script>
-      document.addEventListener("alpine:init", () => {
-        Alpine.data("aproposTransition", () => ({
-          init() {
-            // L'initialisation est maintenant gérée par le composant BackgroundTransition.js
-          },
-        }));
-      });
-    </script>
-
-    <!-- Script de débogage pour la transition de fond -->
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Vérifier si l'overlay existe
-        const overlay = document.getElementById("site-background-transition");
-        console.log("Overlay de transition trouvé:", !!overlay);
-
-        // Vérifier si la section À propos a le bon x-data
-        const aproposSection = document.getElementById("a-propos");
-        if (aproposSection) {
-          console.log(
-            "Section À propos trouvée avec x-data:",
-            aproposSection.getAttribute("x-data"),
-          );
-
-          // Forcer manuellement l'initialisation du composant
-          if (window.Alpine) {
-            console.log(
-              "Alpine est disponible, initialisation manuelle du composant",
-            );
-
-            // Créer manuellement un overlay si besoin
-            if (!overlay) {
-              const newOverlay = document.createElement("div");
-              newOverlay.id = "site-background-transition";
-              newOverlay.className =
-                "fixed inset-0 bg-white pointer-events-none z-0";
-              newOverlay.style.opacity = "0";
-              document.body.appendChild(newOverlay);
-              console.log("Overlay créé manuellement");
-            }
-
-            // Forcer un événement de défilement après un délai
-            setTimeout(() => {
-              console.log("Déclenchement d'un événement de défilement");
-              window.dispatchEvent(new Event("scroll"));
-            }, 500);
-          }
-        }
       });
     </script>
   </body>

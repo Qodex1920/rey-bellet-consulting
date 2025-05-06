@@ -1,5 +1,7 @@
 // Initialiser les comportements Alpine réutilisables
 document.addEventListener('alpine:init', () => {
+  console.log("Initialisation des comportements Alpine dans alpine-behaviors.js");
+  
   // Animation de texte type machine à écrire (typewriter)
   Alpine.data('typingAnimation', function() {
     return {
@@ -57,6 +59,15 @@ document.addEventListener('alpine:init', () => {
 
         // Continuer l'animation
         setTimeout(() => this.startTyping(), speed);
+      }
+    };
+  });
+
+  // Composant pour la transition de fond (background)
+  Alpine.data('backgroundTransition', function() {
+    return {
+      init() {
+        console.log("Initialisation du composant backgroundTransition");
       }
     };
   });
@@ -151,26 +162,6 @@ document.addEventListener('alpine:init', () => {
     }
   });
 
-  // Comportement pour sectionTitle (animation des titres)
-  Alpine.data('sectionTitle', () => ({
-    isVisible: false,
-    init() {
-      this.$nextTick(() => {
-        // Observer l'intersection pour déclencher l'animation
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              this.isVisible = true;
-              observer.unobserve(this.$el);
-            }
-          });
-        }, {
-          threshold: 0.1,
-          rootMargin: '0px 0px -100px 0px'
-        });
-        
-        observer.observe(this.$el);
-      });
-    }
-  }));
+  // Note: Les composants d'animations ont été déplacés dans animations.js
+  console.log("Comportements Alpine sans animations chargés et prêts à l'emploi");
 }); 

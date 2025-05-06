@@ -1,21 +1,67 @@
 /**
- * Animations.js
- * Ce fichier contient toutes les fonctions d'animation et les utilitaires
- * pour les transitions et effets d'interface utilisateur.
+ * Animations.js - Système d'animation centralisé
+ * 
+ * Ce fichier gère toutes les animations du site:
+ * - Animations JavaScript pures (utilisables n'importe où)
+ * - Intégration avec Alpine.js (pour les composants déclaratifs)
+ * - Détection du viewport et animation au scroll
+ * - Support pour "prefers-reduced-motion"
+ */
+
+// Mode strict
+"use strict";
+
+/**
+ * ========================================
+ * 1. UTILITAIRES D'ANIMATION DE BASE
+ * ========================================
  */
 
 /**
- * Utilitaires pour les animations
+ * Vérifie si l'utilisateur préfère réduire les animations
+ * @returns {boolean} - True si les animations doivent être réduites
  */
+export function prefersReducedMotion() {
+  return typeof window !== 'undefined' && 
+         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 /**
- * Anime un élément avec une transition fluide
+ * Vérifie si un élément est visible dans le viewport
+ * @param {HTMLElement} el - L'élément à vérifier
+ * @param {number} offset - Décalage (en px) pour déclencher plus tôt
+ * @returns {boolean} - True si l'élément est visible
+ */
+export function isElementInViewport(el, offset = 100) {
+  if (!el) return false;
+  
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+    rect.bottom >= 0 &&
+    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+    rect.right >= 0
+  );
+}
+
+/**
+ * Anime un élément avec l'API d'animation Web
  * @param {HTMLElement} element - L'élément à animer
  * @param {Object} properties - Propriétés CSS à animer
  * @param {Object} options - Options d'animation
  * @returns {Promise} - Promise résolue à la fin de l'animation
  */
 export function animate(element, properties, options = {}) {
+  // Ne pas animer si l'utilisateur préfère réduire les animations
+  if (prefersReducedMotion()) {
+    // Appliquer l'état final directement
+    const lastKeyframe = properties[properties.length - 1];
+    Object.entries(lastKeyframe).forEach(([prop, value]) => {
+      element.style[prop] = value;
+    });
+    return Promise.resolve();
+  }
+  
   const defaults = {
     duration: 300,
     easing: 'ease-in-out',
@@ -23,53 +69,40 @@ export function animate(element, properties, options = {}) {
   };
 
   const config = { ...defaults, ...options };
-
-  return element.animate(properties, config).finished;
+  
+  // Utiliser l'API Web Animation si disponible
+  if ('animate' in element) {
+    return element.animate(properties, config).finished;
+  } else {
+    // Fallback pour les navigateurs plus anciens
+    const lastKeyframe = properties[properties.length - 1];
+    element.style.transition = `all ${config.duration}ms ${config.easing}`;
+    
+    // Appliquer les propriétés
+    Object.entries(lastKeyframe).forEach(([prop, value]) => {
+      element.style[prop] = value;
+    });
+    
+    return new Promise(resolve => {
+      setTimeout(resolve, config.duration);
+    });
+  }
 }
 
 /**
- * Crée une animation de fade
- * @param {HTMLElement} element - L'élément à animer
- * @param {string} type - Type d'animation ('in' ou 'out')
- * @param {Object} options - Options d'animation
+ * ========================================
+ * 2. EFFETS D'ANIMATION STANDARD
+ * ========================================
  */
-export function fade(element, type = 'in', options = {}) {
-  const opacity = type === 'in' ? [0, 1] : [1, 0];
-  return animate(element, [
-    { opacity: opacity[0] },
-    { opacity: opacity[1] }
-  ], options);
-}
 
 /**
- * Crée une animation de slide
- * @param {HTMLElement} element - L'élément à animer
- * @param {string} direction - Direction du slide ('left', 'right', 'up', 'down')
- * @param {Object} options - Options d'animation
- */
-export function slide(element, direction = 'left', options = {}) {
-  const transforms = {
-    left: ['translateX(-100%)', 'translateX(0)'],
-    right: ['translateX(100%)', 'translateX(0)'],
-    up: ['translateY(-100%)', 'translateY(0)'],
-    down: ['translateY(100%)', 'translateY(0)']
-  };
-
-  return animate(element, [
-    { transform: transforms[direction][0] },
-    { transform: transforms[direction][1] }
-  ], options);
-}
-
-/**
- * Anime l'entrée d'un élément avec un effet de fondu et déplacement vers le haut
- * @param {HTMLElement} element - L'élément à animer
- * @param {Object} options - Options d'animation
+ * Effet de fondu entrant avec déplacement vers le haut
  */
 export function fadeInUp(element, options = {}) {
   if (prefersReducedMotion()) {
     element.style.opacity = '1';
     element.style.transform = 'translateY(0)';
+    if (options.complete) options.complete();
     return Promise.resolve();
   }
   
@@ -88,13 +121,12 @@ export function fadeInUp(element, options = {}) {
 }
 
 /**
- * Anime la sortie d'un élément avec un effet de fondu et déplacement vers le bas
- * @param {HTMLElement} element - L'élément à animer
- * @param {Object} options - Options d'animation
+ * Effet de fondu sortant avec déplacement vers le bas
  */
 export function fadeOutDown(element, options = {}) {
   if (prefersReducedMotion()) {
     element.style.opacity = '0';
+    if (options.complete) options.complete();
     return Promise.resolve();
   }
   
@@ -112,41 +144,19 @@ export function fadeOutDown(element, options = {}) {
 }
 
 /**
- * Effet de pulsation pour les éléments interactifs
- * @param {HTMLElement} element - L'élément à animer
- */
-export function pulseElement(element) {
-  if (prefersReducedMotion()) return;
-  
-  element.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-  element.style.transform = 'scale(1.05)';
-  element.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-}
-
-/**
- * Réinitialise un élément après une animation de pulsation
- * @param {HTMLElement} element - L'élément à réinitialiser
- */
-export function resetElement(element) {
-  element.style.transform = '';
-  element.style.boxShadow = '';
-}
-
-/**
- * Anime l'entrée d'un élément avec un effet de scale
- * @param {HTMLElement} element - L'élément à animer
- * @param {Object} options - Options d'animation
+ * Effet de mise à l'échelle (apparition avec zoom)
  */
 export function scaleIn(element, options = {}) {
   if (prefersReducedMotion()) {
     element.style.opacity = '1';
     element.style.transform = 'scale(1)';
+    if (options.complete) options.complete();
     return Promise.resolve();
   }
   
   const defaults = {
     duration: 700,
-    easing: 'ease-out',
+    easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
   };
   
   const config = { ...defaults, ...options };
@@ -158,193 +168,305 @@ export function scaleIn(element, options = {}) {
 }
 
 /**
- * Vérifie si les animations sont supportées
- * @returns {boolean} - True si les animations sont supportées
+ * Effet de fondu simple
  */
-export function supportsAnimations() {
-  return typeof document !== 'undefined' && 
-         'animate' in document.createElement('div');
+export function fadeIn(element, options = {}) {
+  if (prefersReducedMotion()) {
+    element.style.opacity = '1';
+    if (options.complete) options.complete();
+    return Promise.resolve();
+  }
+  
+  const defaults = {
+    duration: 500,
+    easing: 'ease',
+  };
+  
+  const config = { ...defaults, ...options };
+  
+  return animate(element, [
+    { opacity: 0 },
+    { opacity: 1 }
+  ], config);
 }
 
 /**
- * Réduit les animations si l'utilisateur le préfère
- * @returns {boolean} - True si les animations doivent être réduites
+ * Effet de pulsation pour les éléments interactifs
  */
-export function prefersReducedMotion() {
-  return typeof window !== 'undefined' && 
-         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-// Fonction pour vérifier si un élément est visible dans le viewport
-function isElementInViewport(el, offset = 200) {
-  if (!el) return false;
+export function pulseElement(element) {
+  if (prefersReducedMotion()) return;
   
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
-    rect.bottom >= 0 &&
-    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-    rect.right >= 0
-  );
+  element.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+  element.style.transform = 'scale(1.05)';
+  element.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
 }
 
-// Alpine.js - Fonctions disponibles pour les animations
+/**
+ * Réinitialise un élément après une animation de pulsation
+ */
+export function resetElement(element) {
+  element.style.transform = '';
+  element.style.boxShadow = '';
+}
+
+/**
+ * Animation de compteur pour les statistiques
+ */
+export function animateCounter(element, targetValue, options = {}) {
+  if (!element || isNaN(targetValue)) return;
+  
+  const defaults = {
+    duration: 1500,
+    easing: 'linear',
+    formatter: (value) => Math.round(value)
+  };
+  
+  const config = { ...defaults, ...options };
+  
+  // Si l'utilisateur préfère réduire les animations, définir directement la valeur finale
+  if (prefersReducedMotion()) {
+    element.textContent = config.formatter(targetValue);
+    return;
+  }
+  
+  const startTime = performance.now();
+  const startValue = 0;
+  
+  function updateCounter(currentTime) {
+    const elapsedTime = currentTime - startTime;
+    
+    if (elapsedTime < config.duration) {
+      const progress = elapsedTime / config.duration;
+      const currentValue = startValue + (targetValue - startValue) * progress;
+      element.textContent = config.formatter(currentValue);
+      requestAnimationFrame(updateCounter);
+    } else {
+      element.textContent = config.formatter(targetValue);
+    }
+  }
+  
+  requestAnimationFrame(updateCounter);
+}
+
+/**
+ * ========================================
+ * 3. SYSTÈME D'ANIMATION AU SCROLL
+ * ========================================
+ */
+
+/**
+ * Initialise les animations au scroll pour les éléments avec la classe animate-on-scroll
+ */
+export function initScrollAnimations() {
+  console.log("Initialisation des animations au scroll");
+  
+  // Éviter les animations pour les utilisateurs qui préfèrent les réduire
+  if (prefersReducedMotion()) {
+    // Rendre tous les éléments visibles sans animation
+    document.querySelectorAll('.animate-on-scroll, [data-animate]').forEach(element => {
+      element.style.opacity = '1';
+      element.style.transform = 'none';
+    });
+    return;
+  }
+
+  // Configurer l'observateur d'intersection pour les animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: "0px 0px -100px 0px",
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const element = entry.target;
+        const animationType = element.dataset.animate || 'fade-in';
+        
+        // Ajouter la classe animated qui déclenchera les animations CSS
+        element.classList.add('animated');
+        
+        // Ajouter la classe spécifique si elle existe
+        if (animationType) {
+          element.classList.add(animationType);
+        }
+        
+        // Désinscrire l'élément après l'animation
+        observer.unobserve(element);
+      }
+    });
+  }, observerOptions);
+
+  // Observer tous les éléments à animer
+  document.querySelectorAll('.animate-on-scroll, [data-animate]').forEach((element) => {
+    // Configurer l'état initial
+    element.style.opacity = '0';
+    observer.observe(element);
+  });
+}
+
+/**
+ * ========================================
+ * 4. INTÉGRATION AVEC ALPINE.JS
+ * ========================================
+ */
+
+// Initialisation des comportements Alpine pour les animations
 document.addEventListener('alpine:init', () => {
   
-  // Gestion des SectionTitle animés
-  Alpine.data('sectionTitleAnimation', () => ({
-    visible: false,
-    
-    init() {
-      if (isElementInViewport(this.$el, 250)) {
-        this.visible = true;
-      } else {
-        this.checkVisibility();
+  // Comportement générique d'animation au scroll pour tous les éléments
+  Alpine.data('animateOnScroll', function(options = {}) {
+    return {
+      visible: false,
+      options: {
+        threshold: options.threshold || 0.1,
+        offset: options.offset || 100,
+        animation: options.animation || 'fade-in-up',
+        ...options
+      },
+
+      init() {
+        // Si l'utilisateur préfère réduire les animations, rendre immédiatement visible
+        if (prefersReducedMotion()) {
+          this.visible = true;
+          return;
+        }
         
-        window.addEventListener('scroll', () => {
-          if (!this.visible) {
-            this.checkVisibility();
+        // Vérifier si l'élément est déjà visible au chargement
+        if (isElementInViewport(this.$el, this.options.offset)) {
+          this.visible = true;
+        } else {
+          // Sinon, configurer l'observation du scroll
+          this.observeIntersection();
+        }
+      },
+
+      observeIntersection() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                this.visible = true;
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { 
+            threshold: this.options.threshold,
+            rootMargin: `0px 0px -${this.options.offset}px 0px`
           }
-        }, { passive: true });
+        );
+
+        observer.observe(this.$el);
       }
-    },
-    
-    checkVisibility() {
-      if (isElementInViewport(this.$el, 250)) {
-        this.visible = true;
-      }
-    }
-  }));
+    };
+  });
   
-  // Gestion des témoignages animés
-  Alpine.data('testimonialAnimation', () => ({
-    testimonials: [],
+  // Animation des titres de section
+  Alpine.data('sectionTitle', () => ({
+    isVisible: false,
     init() {
-      // Sélectionner tous les témoignages dans cette section
-      this.testimonials = this.$el.querySelectorAll('.testimonial-card');
-      this.checkVisibility();
+      // Rendre visible immédiatement si l'utilisateur préfère réduire les animations
+      if (prefersReducedMotion()) {
+        this.isVisible = true;
+        return;
+      }
       
-      window.addEventListener('scroll', () => {
-        this.checkVisibility();
-      }, { passive: true });
-    },
-    
-    checkVisibility() {
-      this.testimonials.forEach((testimonial, index) => {
-        if (isElementInViewport(testimonial)) {
-          setTimeout(() => {
-            testimonial.classList.add('visible');
-          }, index * 75);
-        }
+      // Utiliser l'API Intersection Observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.isVisible = true;
+            observer.unobserve(this.$el);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -100px 0px'
       });
-    }
-  }));
-  
-  // Gestion de l'animation du Call-to-Action
-  Alpine.data('ctaAnimation', () => ({
-    visible: false,
-    
-    init() {
-      this.checkVisibility();
       
-      window.addEventListener('scroll', () => {
-        this.checkVisibility();
-      }, { passive: true });
-    },
-    
-    checkVisibility() {
-      if (isElementInViewport(this.$el)) {
-        this.visible = true;
-        this.$el.classList.add('scale-in');
-      }
-    }
-  }));
-  
-  // Gestion des animations de cartes de service
-  Alpine.data('serviceCardAnimation', () => ({
-    services: [],
-    
-    init() {
-      this.services = this.$el.querySelectorAll('.service-card');
-      this.checkVisibility();
-      
-      window.addEventListener('scroll', () => {
-        this.checkVisibility();
-      }, { passive: true });
-    },
-    
-    checkVisibility() {
-      this.services.forEach((service, index) => {
-        if (isElementInViewport(service)) {
-          setTimeout(() => {
-            service.classList.add('fade-in-up');
-            service.style.opacity = '1';
-          }, index * 150); // Délai échelonné pour chaque carte de service
-        }
-      });
+      observer.observe(this.$el);
     }
   }));
   
   // Animation du compteur pour les statistiques
-  Alpine.data('counter', (target) => ({
+  Alpine.data('counter', (target = 0, options = {}) => ({
     current: 0,
     target: parseInt(target),
-    increment: 1,
-    duration: 1500, // durée en millisecondes
-    
-    init() {
-      // Définir l'incrément en fonction de la valeur cible
-      this.increment = Math.ceil(this.target / (this.duration / 30));
-      if (this.increment < 1) this.increment = 1;
-      
-      this.$watch('current', (value) => {
-        this.$el.textContent = value;
-      });
-      
-      // Attendre que l'élément soit visible avant de commencer à compter
-      this.checkVisibility();
-      window.addEventListener('scroll', () => {
-        this.checkVisibility();
-      }, { passive: true });
+    options: {
+      duration: options.duration || 1500,
+      format: options.format || (v => Math.round(v)),
+      ...options
     },
     
-    checkVisibility() {
-      if (isElementInViewport(this.$el) && this.current === 0) {
-        this.startCounting();
+    init() {
+      // Si l'utilisateur préfère réduire les animations, définir directement la valeur finale
+      if (prefersReducedMotion()) {
+        this.current = this.target;
+        return;
       }
+      
+      // Observer quand l'élément est visible
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && this.current === 0) {
+          this.startCounting();
+          observer.unobserve(this.$el);
+        }
+      }, { threshold: 0.1 });
+      
+      observer.observe(this.$el);
     },
     
     startCounting() {
-      const interval = setInterval(() => {
-        this.current += this.increment;
-        if (this.current >= this.target) {
+      const startTime = performance.now();
+      const duration = this.options.duration;
+      
+      const updateCounter = (timestamp) => {
+        const progress = Math.min((timestamp - startTime) / duration, 1);
+        this.current = this.options.format(this.target * progress);
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter);
+        } else {
           this.current = this.target;
-          clearInterval(interval);
         }
-      }, 30);
+      };
+      
+      requestAnimationFrame(updateCounter);
     }
   }));
 });
 
-// Animation des éléments au défilement
+/**
+ * ========================================
+ * 5. INITIALISATION AUTOMATIQUE
+ * ========================================
+ */
+
+// Initialiser automatiquement les animations de base au chargement de la page
 document.addEventListener('DOMContentLoaded', () => {
-  // Animation générale pour les éléments avec la classe .animate-on-scroll
-  const animateElements = document.querySelectorAll('.animate-on-scroll');
+  // Initialiser les animations au scroll
+  initScrollAnimations();
   
-  function checkAnimations() {
-    animateElements.forEach(element => {
-      if (isElementInViewport(element)) {
-        element.classList.add('animated');
-      }
-    });
+  // Initialiser les animations Alpine.js si Alpine est disponible
+  if (window.Alpine) {
+    try {
+      // Forcer une initialisation sur tous les éléments avec x-data
+      window.Alpine.initTree(document.body);
+    } catch (error) {
+      console.error("Erreur lors de l'initialisation d'Alpine:", error);
+    }
   }
-  
-  // Vérifier les animations au chargement et au défilement
-  checkAnimations();
-  window.addEventListener('scroll', checkAnimations, { passive: true });
-  
-  // Forcer le rafraîchissement sur redimensionnement
-  window.addEventListener('resize', () => {
-    checkAnimations();
-  }, { passive: true });
-}); 
+});
+
+// Exposer l'API d'animation globalement pour faciliter son utilisation
+window.siteAnimations = {
+  fadeIn,
+  fadeInUp,
+  fadeOutDown,
+  scaleIn,
+  pulse: pulseElement,
+  reset: resetElement,
+  counter: animateCounter,
+  inViewport: isElementInViewport,
+  prefersReducedMotion
+}; 
