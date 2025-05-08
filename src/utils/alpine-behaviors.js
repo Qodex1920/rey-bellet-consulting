@@ -14,7 +14,7 @@ export function initAlpineBehaviors() {
   } else {
     console.warn("Alpine.js n'est pas disponible pour l'initialisation des comportements");
     
-    // Ajouter un écouteur pour le moment où Alpine sera disponible
+    // Si Alpine n'est pas encore disponible, on attend qu'il soit chargé
     document.addEventListener('alpine:init', () => {
       console.log("Événement alpine:init détecté, initialisation des comportements");
       registerBehaviors();
@@ -23,10 +23,17 @@ export function initAlpineBehaviors() {
 }
 
 /**
- * Enregistre tous les comportements Alpine.js réutilisables
+ * Enregistre tous les comportements (data) Alpine
+ * Cette fonction est appelée quand Alpine est prêt
  */
 function registerBehaviors() {
-  // Comportement de base pour dropdown/toggle (ouverture/fermeture)
+  // Vérifier que Alpine est bien disponible
+  if (typeof window.Alpine === 'undefined') {
+    console.error("Alpine.js n'est pas disponible pour enregistrer les comportements");
+    return;
+  }
+  
+  // Registre pour le dropdown
   window.Alpine.data('dropdown', () => ({
     open: false,
     toggle() {
@@ -55,9 +62,17 @@ function registerBehaviors() {
     open: false,
     toggle() {
       this.open = !this.open;
+      
+      // Bloquer le scroll quand le menu est ouvert
+      if (this.open) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     },
     close() {
       this.open = false;
+      document.body.style.overflow = '';
     },
     init() {
       this.$nextTick(() => {
@@ -96,6 +111,92 @@ function registerBehaviors() {
       return this.activeTab === index;
     }
   }));
+  
+  // Comportement pour l'animation de texte typing
+  window.Alpine.data('typingAnimation', function() {
+    return {
+      text: '',
+      fullText: '',
+      textArray: [],
+      currentIndex: 0,
+      isDeleting: false,
+      // Paramètres simplifiés
+      typeSpeed: 80,        // Vitesse constante de frappe
+      deleteSpeed: 40,      // Vitesse constante d'effacement
+      pauseBeforeDelete: 2000, // Pause avant d'effacer
+      pauseBeforeType: 500,  // Pause avant de taper
+      animationTimeout: null, // Pour stocker la référence du timeout
+
+      init() {
+        console.log('Init typingAnimation', this.$el.dataset);
+        if (this.$el.dataset.texts) {
+          this.textArray = this.$el.dataset.texts.split('|');
+          console.log('Textes pour animation:', this.textArray);
+          if (this.textArray.length === 0) {
+            this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
+          }
+        } else {
+          console.warn('Aucun attribut data-texts trouvé');
+          this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
+        }
+        
+        // Initialiser avec le premier texte
+        this.fullText = this.textArray[0];
+        
+        // Nettoyer tout timeout existant avant de démarrer une nouvelle animation
+        if (this.animationTimeout) {
+          clearTimeout(this.animationTimeout);
+        }
+        
+        // Démarrer l'animation après un court délai
+        this.animationTimeout = setTimeout(() => this.startTyping(), 300);
+      },
+
+      startTyping() {
+        // Nettoyer tout timeout existant avant de planifier le prochain
+        if (this.animationTimeout) {
+          clearTimeout(this.animationTimeout);
+        }
+        
+        // Récupérer le texte actuel
+        const currentFullText = this.textArray[this.currentIndex];
+        this.fullText = currentFullText;
+        
+        // Déterminer si nous avons terminé de taper ou d'effacer
+        const isComplete = this.text === currentFullText;
+        
+        // Si on a fini d'effacer, passer au texte suivant
+        if (this.isDeleting && this.text === '') {
+          this.isDeleting = false;
+          this.currentIndex = (this.currentIndex + 1) % this.textArray.length;
+          
+          // Planifier le début de la frappe du prochain mot
+          this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeType);
+          return;
+        }
+
+        // Si on a fini de taper, commencer à effacer après une pause
+        if (!this.isDeleting && isComplete) {
+          this.isDeleting = true;
+          this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeDelete);
+          return;
+        }
+
+        // Vitesse fixe selon l'action (taper ou effacer)
+        const speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+
+        // Effectuer l'action (taper ou effacer)
+        if (this.isDeleting) {
+          this.text = currentFullText.substring(0, this.text.length - 1);
+        } else {
+          this.text = currentFullText.substring(0, this.text.length + 1);
+        }
+
+        // Planifier la prochaine étape
+        this.animationTimeout = setTimeout(() => this.startTyping(), speed);
+      }
+    };
+  });
   
   // Comportement pour animation au scroll
   window.Alpine.data('animateOnScroll', function(options = {}) {

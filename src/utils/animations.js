@@ -3,7 +3,7 @@
  * 
  * Ce fichier gère toutes les animations du site:
  * - Animations JavaScript pures (utilisables n'importe où)
- * - Intégration avec Alpine.js (pour les composants déclaratifs)
+ * - Intégration avec GSAP si disponible
  * - Détection du viewport et animation au scroll
  * - Support pour "prefers-reduced-motion"
  */
@@ -13,465 +13,366 @@
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-  // Vérifier si Alpine.js est disponible
-  if (typeof window.Alpine !== 'undefined') {
-    console.log("Initialisation des composants d'animation dans animations.js");
-    
-    // Enregistrer seulement les comportements d'animation qui ne sont pas dans alpine-behaviors.js
-    registerAnimationComponents();
-  } else {
-    console.warn('Alpine.js n\'est pas disponible. Les animations Alpine ne sont pas initialisées.');
-  }
+  console.log("Initialisation du système d'animation");
   
   // Initialiser les animations au scroll
   initScrollAnimations();
+  
+  // Détecter si les animations sont désactivées
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    console.log("prefers-reduced-motion est activé, animations simplifiées");
+    document.documentElement.classList.add('reduce-motion');
+  } else {
+    console.log("prefers-reduced-motion est désactivé, animations normales");
+  }
 });
 
 /**
- * Enregistre les composants Alpine spécifiques aux animations
- * qui ne sont pas déjà définis dans alpine-behaviors.js
+ * Utilitaire pour vérifier si un élément est visible dans le viewport
+ * @param {HTMLElement} element - L'élément à vérifier
+ * @param {number} threshold - Pourcentage de visibilité requis (0-1)
+ * @returns {boolean} - true si l'élément est visible
  */
-function registerAnimationComponents() {
-  // typingAnimation n'est pas défini dans alpine-behaviors.js, donc on peut le définir ici
-  if (!window.Alpine.data('typingAnimation')) {
-    window.Alpine.data('typingAnimation', function() {
-      return {
-        text: '',
-        fullText: '',
-        textArray: [],
-        currentIndex: 0,
-        isDeleting: false,
-        // Paramètres simplifiés
-        typeSpeed: 80,        // Vitesse constante de frappe
-        deleteSpeed: 40,      // Vitesse constante d'effacement
-        pauseBeforeDelete: 2000, // Pause avant d'effacer
-        pauseBeforeType: 500,  // Pause avant de taper
-        animationTimeout: null, // Pour stocker la référence du timeout
-
-        init() {
-          console.log('Init typingAnimation', this.$el.dataset);
-          if (this.$el.dataset.texts) {
-            this.textArray = this.$el.dataset.texts.split('|');
-            console.log('Textes pour animation:', this.textArray);
-            if (this.textArray.length === 0) {
-              this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
-            }
-          } else {
-            console.warn('Aucun attribut data-texts trouvé');
-            this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
-          }
-          
-          // Initialiser avec le premier texte
-          this.fullText = this.textArray[0];
-          
-          // Nettoyer tout timeout existant avant de démarrer une nouvelle animation
-          if (this.animationTimeout) {
-            clearTimeout(this.animationTimeout);
-          }
-          
-          // Démarrer l'animation après un court délai
-          this.animationTimeout = setTimeout(() => this.startTyping(), 300);
-        },
-
-        startTyping() {
-          // Nettoyer tout timeout existant avant de planifier le prochain
-          if (this.animationTimeout) {
-            clearTimeout(this.animationTimeout);
-          }
-          
-          // Récupérer le texte actuel
-          const currentFullText = this.textArray[this.currentIndex];
-          this.fullText = currentFullText;
-          
-          // Déterminer si nous avons terminé de taper ou d'effacer
-          const isComplete = this.text === currentFullText;
-          
-          // Si on a fini d'effacer, passer au texte suivant
-          if (this.isDeleting && this.text === '') {
-            this.isDeleting = false;
-            this.currentIndex = (this.currentIndex + 1) % this.textArray.length;
-            
-            // Planifier le début de la frappe du prochain mot
-            this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeType);
-            return;
-          }
-
-          // Si on a fini de taper, commencer à effacer après une pause
-          if (!this.isDeleting && isComplete) {
-            this.isDeleting = true;
-            this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeDelete);
-            return;
-          }
-
-          // Vitesse fixe selon l'action (taper ou effacer)
-          const speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
-
-          // Effectuer l'action (taper ou effacer)
-          if (this.isDeleting) {
-            this.text = currentFullText.substring(0, this.text.length - 1);
-          } else {
-            this.text = currentFullText.substring(0, this.text.length + 1);
-          }
-
-          // Planifier la prochaine étape
-          this.animationTimeout = setTimeout(() => this.startTyping(), speed);
-        }
-      };
-    });
-    
-    // Ajouter le composant sectionTitle qui n'existe pas dans alpine-behaviors.js
-    window.Alpine.data('sectionTitle', () => ({
-      isVisible: false,
-      init() {
-        // Rendre visible immédiatement si l'utilisateur préfère réduire les animations
-        if (prefersReducedMotion()) {
-          this.isVisible = true;
-          return;
-        }
-        
-        // Utiliser l'API Intersection Observer
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              this.isVisible = true;
-              observer.unobserve(this.$el);
-            }
-          });
-        }, {
-          threshold: 0.1,
-          rootMargin: '0px 0px -100px 0px'
-        });
-        
-        observer.observe(this.$el);
+export function isElementInViewport(element, threshold = 0.1) {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        observer.disconnect();
+        return true;
       }
-    }));
-    
-    // Ajouter le composant counter qui n'existe pas dans alpine-behaviors.js
-    window.Alpine.data('counter', (target = 0, options = {}) => ({
-      current: 0,
-      target: parseInt(target),
-      options: {
-        duration: options.duration || 1500,
-        format: options.format || (v => Math.round(v)),
-        ...options
-      },
-      
-      init() {
-        // Si l'utilisateur préfère réduire les animations, définir directement la valeur finale
-        if (prefersReducedMotion()) {
-          this.current = this.target;
-          return;
-        }
-        
-        // Observer quand l'élément est visible
-        const observer = new IntersectionObserver((entries) => {
-          if (entries[0].isIntersecting && this.current === 0) {
-            this.startCounting();
-            observer.unobserve(this.$el);
-          }
-        }, { threshold: 0.1 });
-        
-        observer.observe(this.$el);
-      },
-      
-      startCounting() {
-        const startTime = performance.now();
-        const duration = this.options.duration;
-        
-        const updateCounter = (timestamp) => {
-          const progress = Math.min((timestamp - startTime) / duration, 1);
-          this.current = this.options.format(this.target * progress);
-          
-          if (progress < 1) {
-            requestAnimationFrame(updateCounter);
-          } else {
-            this.current = this.target;
-          }
-        };
-        
-        requestAnimationFrame(updateCounter);
-      }
-    }));
-  }
-  
-  console.log("Composants d'animation Alpine.js enregistrés avec succès");
-}
-
-/**
- * ========================================
- * 1. UTILITAIRES D'ANIMATION DE BASE
- * ========================================
- */
-
-/**
- * Vérifie si l'utilisateur préfère réduire les animations
- * @returns {boolean} - True si les animations doivent être réduites
- */
-export function prefersReducedMotion() {
-  return typeof window !== 'undefined' && 
-         window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-/**
- * Vérifie si un élément est visible dans le viewport
- * @param {HTMLElement} el - L'élément à vérifier
- * @param {number} offset - Décalage (en px) pour déclencher plus tôt
- * @returns {boolean} - True si l'élément est visible
- */
-export function isElementInViewport(el, offset = 100) {
-  if (!el) return false;
-  
-  const rect = el.getBoundingClientRect();
-  return (
-    rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
-    rect.bottom >= 0 &&
-    rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
-    rect.right >= 0
+      return false;
+    },
+    { threshold }
   );
+  
+  observer.observe(element);
+  return false;
 }
 
 /**
- * Anime un élément avec l'API d'animation Web
- * @param {HTMLElement} element - L'élément à animer
- * @param {Object} properties - Propriétés CSS à animer
- * @param {Object} options - Options d'animation
- * @returns {Promise} - Promise résolue à la fin de l'animation
+ * Initialise les animations au défilement
+ * Regarde les éléments avec l'attribut 'data-scroll-animation'
  */
-export function animate(element, properties, options = {}) {
+export function initScrollAnimations() {
   // Ne pas animer si l'utilisateur préfère réduire les animations
-  if (prefersReducedMotion()) {
-    // Appliquer l'état final directement
-    const lastKeyframe = properties[properties.length - 1];
-    Object.entries(lastKeyframe).forEach(([prop, value]) => {
-      element.style[prop] = value;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Appliquer immédiatement l'état final à tous les éléments animés
+    document.querySelectorAll('[data-scroll-animation]').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.classList.add('animated');
     });
-    return Promise.resolve();
-  }
-  
-  const defaults = {
-    duration: 300,
-    easing: 'ease-in-out',
-    fill: 'forwards'
-  };
-
-  const config = { ...defaults, ...options };
-  
-  // Utiliser l'API Web Animation si disponible
-  if ('animate' in element) {
-    return element.animate(properties, config).finished;
-  } else {
-    // Fallback pour les navigateurs plus anciens
-    const lastKeyframe = properties[properties.length - 1];
-    element.style.transition = `all ${config.duration}ms ${config.easing}`;
-    
-    // Appliquer les propriétés
-    Object.entries(lastKeyframe).forEach(([prop, value]) => {
-      element.style[prop] = value;
-    });
-    
-    return new Promise(resolve => {
-      setTimeout(resolve, config.duration);
-    });
-  }
-}
-
-/**
- * ========================================
- * 2. EFFETS D'ANIMATION STANDARD
- * ========================================
- */
-
-/**
- * Effet de fondu entrant avec déplacement vers le haut
- */
-export function fadeInUp(element, options = {}) {
-  if (prefersReducedMotion()) {
-    element.style.opacity = '1';
-    element.style.transform = 'translateY(0)';
-    if (options.complete) options.complete();
-    return Promise.resolve();
-  }
-  
-  const defaults = {
-    duration: 500,
-    easing: 'ease-out',
-    delay: 0
-  };
-  
-  const config = { ...defaults, ...options };
-  
-  return animate(element, [
-    { opacity: 0, transform: 'translateY(1rem)' },
-    { opacity: 1, transform: 'translateY(0)' }
-  ], config);
-}
-
-/**
- * Effet de fondu sortant avec déplacement vers le bas
- */
-export function fadeOutDown(element, options = {}) {
-  if (prefersReducedMotion()) {
-    element.style.opacity = '0';
-    if (options.complete) options.complete();
-    return Promise.resolve();
-  }
-  
-  const defaults = {
-    duration: 500,
-    easing: 'ease-in',
-  };
-  
-  const config = { ...defaults, ...options };
-  
-  return animate(element, [
-    { opacity: 1, transform: 'translateY(0)' },
-    { opacity: 0, transform: 'translateY(1rem)' }
-  ], config);
-}
-
-/**
- * Effet de mise à l'échelle (apparition avec zoom)
- */
-export function scaleIn(element, options = {}) {
-  if (prefersReducedMotion()) {
-    element.style.opacity = '1';
-    element.style.transform = 'scale(1)';
-    if (options.complete) options.complete();
-    return Promise.resolve();
-  }
-  
-  const defaults = {
-    duration: 700,
-    easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-  };
-  
-  const config = { ...defaults, ...options };
-  
-  return animate(element, [
-    { opacity: 0, transform: 'scale(0.95)' },
-    { opacity: 1, transform: 'scale(1)' }
-  ], config);
-}
-
-/**
- * Effet de fondu simple
- */
-export function fadeIn(element, options = {}) {
-  if (prefersReducedMotion()) {
-    element.style.opacity = '1';
-    if (options.complete) options.complete();
-    return Promise.resolve();
-  }
-  
-  const defaults = {
-    duration: 500,
-    easing: 'ease',
-  };
-  
-  const config = { ...defaults, ...options };
-  
-  return animate(element, [
-    { opacity: 0 },
-    { opacity: 1 }
-  ], config);
-}
-
-/**
- * Effet de pulsation pour les éléments interactifs
- */
-export function pulseElement(element) {
-  if (prefersReducedMotion()) return;
-  
-  element.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-  element.style.transform = 'scale(1.05)';
-  element.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-}
-
-/**
- * Réinitialise un élément après une animation de pulsation
- */
-export function resetElement(element) {
-  element.style.transform = '';
-  element.style.boxShadow = '';
-}
-
-/**
- * Animation de compteur pour les statistiques
- */
-export function animateCounter(element, targetValue, options = {}) {
-  if (!element || isNaN(targetValue)) return;
-  
-  const defaults = {
-    duration: 1500,
-    easing: 'linear',
-    formatter: (value) => Math.round(value)
-  };
-  
-  const config = { ...defaults, ...options };
-  
-  // Si l'utilisateur préfère réduire les animations, définir directement la valeur finale
-  if (prefersReducedMotion()) {
-    element.textContent = config.formatter(targetValue);
     return;
   }
   
-  const startTime = performance.now();
-  const startValue = 0;
+  // Configuration de l'observateur d'intersection
+  const options = {
+    root: null, // viewport
+    rootMargin: '0px 0px -100px 0px', // déclencher un peu avant que l'élément soit visible
+    threshold: 0.15, // 15% de l'élément doit être visible
+  };
   
-  function updateCounter(currentTime) {
-    const elapsedTime = currentTime - startTime;
+  // Créer l'observateur
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // L'élément est visible dans le viewport
+        entry.target.classList.add('animated');
+        
+        // Une fois animé, arrêter d'observer cet élément
+        observer.unobserve(entry.target);
+      }
+    });
+  }, options);
+  
+  // Observer tous les éléments avec l'attribut data-scroll-animation
+  document.querySelectorAll('[data-scroll-animation]').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+/**
+ * Crée une animation de comptage pour un élément
+ * @param {string|HTMLElement} selector - Sélecteur ou élément à animer
+ * @param {number} startValue - Valeur de départ
+ * @param {number} endValue - Valeur finale
+ * @param {number} duration - Durée en millisecondes
+ * @param {Function} formatFn - Fonction pour formater la valeur (optionnelle)
+ */
+export function animateCounter(selector, startValue, endValue, duration = 2000, formatFn = null) {
+  const element = typeof selector === 'string' ? document.querySelector(selector) : selector;
+  
+  if (!element) {
+    console.warn(`Élément non trouvé pour l'animation de compteur: ${selector}`);
+    return;
+  }
+  
+  // Vérifier si l'utilisateur préfère réduire les animations
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Afficher directement la valeur finale
+    element.textContent = formatFn ? formatFn(endValue) : endValue;
+    return;
+  }
+  
+  let startTime = null;
+  const step = timestamp => {
+    if (!startTime) startTime = timestamp;
+    const progress = Math.min((timestamp - startTime) / duration, 1);
+    const value = Math.floor(startValue + progress * (endValue - startValue));
     
-    if (elapsedTime < config.duration) {
-      const progress = elapsedTime / config.duration;
-      const currentValue = startValue + (targetValue - startValue) * progress;
-      element.textContent = config.formatter(currentValue);
-      requestAnimationFrame(updateCounter);
+    element.textContent = formatFn ? formatFn(value) : value;
+    
+    if (progress < 1) {
+      window.requestAnimationFrame(step);
+    }
+  };
+  
+  window.requestAnimationFrame(step);
+}
+
+/**
+ * Ajoute une classe lorsqu'un élément entre dans le viewport
+ * @param {string} selector - Sélecteur CSS des éléments à observer
+ * @param {string} className - Classe à ajouter
+ * @param {Object} options - Options pour IntersectionObserver
+ */
+export function addClassOnScroll(selector, className, options = {}) {
+  const elements = document.querySelectorAll(selector);
+  
+  if (elements.length === 0) {
+    return;
+  }
+  
+  // Options par défaut
+  const defaultOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -10% 0px',
+  };
+  
+  // Fusionner les options
+  const observerOptions = { ...defaultOptions, ...options };
+  
+  // Créer l'observateur
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add(className);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  // Observer chaque élément
+  elements.forEach(element => {
+    observer.observe(element);
+  });
+}
+
+// Exporter les animations spécifiques
+export { fadeIn, fadeOut, slideIn, slideOut };
+
+/**
+ * Animation de fondu entrant
+ * @param {HTMLElement} element - Élément à animer
+ * @param {number} duration - Durée en ms
+ * @param {Function} callback - Fonction à appeler une fois l'animation terminée
+ */
+function fadeIn(element, duration = 300, callback = null) {
+  // Si les animations sont réduites
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    element.style.opacity = '1';
+    element.style.display = 'block';
+    if (callback) callback();
+    return;
+  }
+  
+  // Animation de fondu
+  element.style.opacity = '0';
+  element.style.display = 'block';
+  
+  let start = null;
+  
+  function animate(timestamp) {
+    if (!start) start = timestamp;
+    const progress = (timestamp - start) / duration;
+    
+    if (progress < 1) {
+      element.style.opacity = progress.toString();
+      window.requestAnimationFrame(animate);
     } else {
-      element.textContent = config.formatter(targetValue);
+      element.style.opacity = '1';
+      if (callback) callback();
     }
   }
   
-  requestAnimationFrame(updateCounter);
+  window.requestAnimationFrame(animate);
 }
 
 /**
- * ========================================
- * 3. SYSTÈME D'ANIMATION AU SCROLL
- * ========================================
+ * Animation de fondu sortant
+ * @param {HTMLElement} element - Élément à animer
+ * @param {number} duration - Durée en ms
+ * @param {Function} callback - Fonction à appeler une fois l'animation terminée
  */
-
-/**
- * Initialise les animations au scroll
- */
-export function initScrollAnimations() {
-  console.log("Initialisation des animations au scroll");
+function fadeOut(element, duration = 300, callback = null) {
+  // Si les animations sont réduites
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    element.style.opacity = '0';
+    element.style.display = 'none';
+    if (callback) callback();
+    return;
+  }
   
-  // Initialiser les animations Alpine.js si Alpine est disponible
-  if (window.Alpine) {
-    try {
-      // Forcer une initialisation sur tous les éléments avec x-data
-      window.Alpine.initTree(document.body);
-    } catch (error) {
-      console.error("Erreur lors de l'initialisation d'Alpine:", error);
+  // Animation de fondu
+  element.style.opacity = '1';
+  
+  let start = null;
+  
+  function animate(timestamp) {
+    if (!start) start = timestamp;
+    const progress = (timestamp - start) / duration;
+    
+    if (progress < 1) {
+      element.style.opacity = (1 - progress).toString();
+      window.requestAnimationFrame(animate);
+    } else {
+      element.style.opacity = '0';
+      element.style.display = 'none';
+      if (callback) callback();
     }
   }
+  
+  window.requestAnimationFrame(animate);
 }
 
 /**
- * ========================================
- * 5. INITIALISATION AUTOMATIQUE
- * ========================================
+ * Animation de glissement entrant
+ * @param {HTMLElement} element - Élément à animer
+ * @param {string} direction - Direction ('left', 'right', 'top', 'bottom')
+ * @param {number} distance - Distance en pixels
+ * @param {number} duration - Durée en ms
+ * @param {Function} callback - Fonction à appeler une fois l'animation terminée
  */
+function slideIn(element, direction = 'right', distance = 50, duration = 300, callback = null) {
+  // Si les animations sont réduites
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    element.style.opacity = '1';
+    element.style.transform = 'none';
+    element.style.display = 'block';
+    if (callback) callback();
+    return;
+  }
+  
+  // Définir la position initiale
+  let transform = '';
+  switch (direction) {
+    case 'left':
+      transform = `translateX(${-distance}px)`;
+      break;
+    case 'right':
+      transform = `translateX(${distance}px)`;
+      break;
+    case 'top':
+      transform = `translateY(${-distance}px)`;
+      break;
+    case 'bottom':
+      transform = `translateY(${distance}px)`;
+      break;
+  }
+  
+  // Configurer l'animation
+  element.style.opacity = '0';
+  element.style.transform = transform;
+  element.style.display = 'block';
+  
+  let start = null;
+  
+  function animate(timestamp) {
+    if (!start) start = timestamp;
+    const progress = (timestamp - start) / duration;
+    
+    if (progress < 1) {
+      element.style.opacity = progress.toString();
+      
+      switch (direction) {
+        case 'left':
+          element.style.transform = `translateX(${-distance + progress * distance}px)`;
+          break;
+        case 'right':
+          element.style.transform = `translateX(${distance - progress * distance}px)`;
+          break;
+        case 'top':
+          element.style.transform = `translateY(${-distance + progress * distance}px)`;
+          break;
+        case 'bottom':
+          element.style.transform = `translateY(${distance - progress * distance}px)`;
+          break;
+      }
+      
+      window.requestAnimationFrame(animate);
+    } else {
+      element.style.opacity = '1';
+      element.style.transform = 'none';
+      if (callback) callback();
+    }
+  }
+  
+  window.requestAnimationFrame(animate);
+}
 
-// Exposer l'API d'animation globalement pour faciliter son utilisation
-window.siteAnimations = {
-  fadeIn,
-  fadeInUp,
-  fadeOutDown,
-  scaleIn,
-  pulse: pulseElement,
-  reset: resetElement,
-  counter: animateCounter,
-  inViewport: isElementInViewport,
-  prefersReducedMotion
-}; 
+/**
+ * Animation de glissement sortant
+ * @param {HTMLElement} element - Élément à animer
+ * @param {string} direction - Direction ('left', 'right', 'top', 'bottom')
+ * @param {number} distance - Distance en pixels
+ * @param {number} duration - Durée en ms
+ * @param {Function} callback - Fonction à appeler une fois l'animation terminée
+ */
+function slideOut(element, direction = 'right', distance = 50, duration = 300, callback = null) {
+  // Si les animations sont réduites
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    element.style.opacity = '0';
+    element.style.display = 'none';
+    if (callback) callback();
+    return;
+  }
+  
+  // Configurer l'animation
+  element.style.opacity = '1';
+  element.style.transform = 'none';
+  
+  let start = null;
+  
+  function animate(timestamp) {
+    if (!start) start = timestamp;
+    const progress = (timestamp - start) / duration;
+    
+    if (progress < 1) {
+      element.style.opacity = (1 - progress).toString();
+      
+      switch (direction) {
+        case 'left':
+          element.style.transform = `translateX(${-progress * distance}px)`;
+          break;
+        case 'right':
+          element.style.transform = `translateX(${progress * distance}px)`;
+          break;
+        case 'top':
+          element.style.transform = `translateY(${-progress * distance}px)`;
+          break;
+        case 'bottom':
+          element.style.transform = `translateY(${progress * distance}px)`;
+          break;
+      }
+      
+      window.requestAnimationFrame(animate);
+    } else {
+      element.style.opacity = '0';
+      element.style.display = 'none';
+      element.style.transform = 'none';
+      if (callback) callback();
+    }
+  }
+  
+  window.requestAnimationFrame(animate);
+} 

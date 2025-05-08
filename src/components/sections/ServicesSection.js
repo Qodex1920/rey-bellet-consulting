@@ -9,6 +9,7 @@
 import { initAlpine } from '../../utils/componentInjector.js';
 import { createServiceCardEnterprise, createServiceCardPersonal } from '../common/ServiceCard.js';
 import { isInViewport } from '../../utils/viewport.js';
+import { initScrollAnimations } from '../../utils/animations.js';
 
 // Options par défaut pour la section de services
 const defaultOptions = {
@@ -228,42 +229,6 @@ export async function injectServicesSectionTo(selector, options = {}) {
     console.error('ServicesSection: Erreur lors de l\'injection de la section', error);
     throw error;
   }
-}
-
-/**
- * Initialise les animations au défilement pour les éléments avec l'attribut data-scroll-animation
- * @private
- */
-function initScrollAnimations() {
-  // Vérifier si l'utilisateur préfère réduire les animations
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  
-  if (prefersReducedMotion) {
-    // Rendre tous les éléments visibles sans animation
-    document.querySelectorAll('[data-scroll-animation]').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
-    return;
-  }
-  
-  // Créer un observateur d'intersection pour animer les éléments quand ils entrent dans le viewport
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animated');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { 
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
-  
-  // Observer tous les éléments avec l'attribut data-scroll-animation
-  document.querySelectorAll('[data-scroll-animation]').forEach(element => {
-    observer.observe(element);
-  });
 }
 
 // Export par défaut pour faciliter l'importation

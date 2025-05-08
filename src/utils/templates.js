@@ -2,6 +2,57 @@
  * Bibliothèque centralisée de templates HTML
  * Avantage: aucun problème d'importation, fonctionne dans tous les environnements
  */
+
+/**
+ * Script pour initialiser les onglets de services lors des clics sur les liens
+ * Cette fonction vérifie si l'élément existe avant de tenter de modifier son état
+ * @param {string} tabName - Nom de l'onglet à activer ('entreprises' ou 'particuliers')
+ */
+function initServicesTab(tabName) {
+  // Vérifier si le DOM est prêt
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setServicesTab(tabName));
+  } else {
+    setServicesTab(tabName);
+  }
+}
+
+/**
+ * Définit l'onglet actif pour la section Services
+ * @param {string} tabName - Nom de l'onglet à activer
+ */
+function setServicesTab(tabName) {
+  // Utiliser setTimeout pour s'assurer que Alpine a eu le temps d'initialiser
+  setTimeout(() => {
+    // Méthode 1: Manipuler directement via Alpine si disponible
+    const servicesSection = document.querySelector('#services [x-data]');
+    if (servicesSection && typeof Alpine !== 'undefined') {
+      try {
+        const scope = Alpine.$data(servicesSection);
+        if (scope && scope.activeTab !== undefined) {
+          scope.activeTab = tabName;
+          console.log(`Onglet services défini sur "${tabName}" via Alpine`);
+          return;
+        }
+      } catch (error) {
+        console.warn('Erreur lors de la manipulation Alpine:', error);
+      }
+    }
+    
+    // Méthode 2: Simuler un clic sur l'onglet correspondant
+    try {
+      const tabButtons = document.querySelectorAll('#services button');
+      const tabIndex = tabName === 'entreprises' ? 0 : 1;
+      if (tabButtons && tabButtons[tabIndex]) {
+        tabButtons[tabIndex].click();
+        console.log(`Onglet services défini sur "${tabName}" via clic simulé`);
+      }
+    } catch (e) {
+      console.warn('Impossible de définir l\'onglet services:', e);
+    }
+  }, 100);
+}
+
 export const templates = {
   // Header du site
   'header': `
@@ -42,10 +93,10 @@ export const templates = {
               <a href="/#services" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
                 Tous les services
               </a>
-              <a href="/#services" @click="window.servicesTab='entreprises'" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
+              <a href="/#services" @click="initServicesTab('entreprises')" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
                 Services Entreprises
               </a>
-              <a href="/#services" @click="window.servicesTab='particuliers'" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
+              <a href="/#services" @click="initServicesTab('particuliers')" class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-accent-500 transition-colors">
                 Services Particuliers
               </a>
             </div>
@@ -120,8 +171,8 @@ export const templates = {
               </button>
               <div x-show="open" x-transition class="mt-2 pl-4" style="display: none;">
                 <a href="/#services" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors" @click="$parent.close()">Tous les services</a>
-                <a href="/#services" @click="window.servicesTab='entreprises'; $parent.close();" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors">Services Entreprises</a>
-                <a href="/#services" @click="window.servicesTab='particuliers'; $parent.close();" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors">Services Particuliers</a>
+                <a href="/#services" @click="initServicesTab('entreprises'); $parent.close();" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors">Services Entreprises</a>
+                <a href="/#services" @click="initServicesTab('particuliers'); $parent.close();" class="block py-2 text-gray-400 hover:text-accent-500 transition-colors">Services Particuliers</a>
               </div>
             </div>
             
@@ -190,8 +241,8 @@ export const templates = {
                 <span class="font-medium text-white">Services</span>
                 <ul class="mt-2 ml-4 space-y-2">
                   <li><a href="/#services" class="text-gray-500 hover:text-accent-500 transition-colors">Tous les services</a></li>
-                  <li><a href="/#services" @click="window.servicesTab='entreprises'" class="text-gray-500 hover:text-accent-500 transition-colors">Entreprises</a></li>
-                  <li><a href="/#services" @click="window.servicesTab='particuliers'" class="text-gray-500 hover:text-accent-500 transition-colors">Particuliers</a></li>
+                  <li><a href="/#services" @click="initServicesTab('entreprises')" class="text-gray-500 hover:text-accent-500 transition-colors">Entreprises</a></li>
+                  <li><a href="/#services" @click="initServicesTab('particuliers')" class="text-gray-500 hover:text-accent-500 transition-colors">Particuliers</a></li>
                 </ul>
               </li>
             </ul>
@@ -228,6 +279,14 @@ export const templates = {
         </div>
       </div>
     </footer>
+
+    <script>
+      // Fonction globale pour initialiser les onglets de services
+      window.initServicesTab = ${initServicesTab.toString()};
+      
+      // Fonction d'assistance pour définir l'onglet actif
+      window.setServicesTab = ${setServicesTab.toString()};
+    </script>
   `,
   
   'nouveau-composant': `

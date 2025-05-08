@@ -3,7 +3,7 @@
  * 
  * REMARQUE IMPORTANTE:
  * Ce fichier s'occupe de l'INJECTION des composants HTML structurels
- * comme l'en-tête (header) et le pied de page (footer) depuis des fichiers HTML externes.
+ * comme l'en-tête (header) et le pied de page (footer) depuis des templates JS.
  * 
  * Il est distinct de initComponents.js qui initialise les composants 
  * INTERACTIFS comme la bannière de cookies, accordéons, etc.
@@ -14,6 +14,8 @@
  */
 
 "use strict";
+
+import { getTemplate } from './templates.js';
 
 /**
  * Vérifie si Alpine.js est disponible
@@ -34,26 +36,6 @@ export async function initAlpine() {
 }
 
 /**
- * Charge un composant HTML depuis un fichier
- * @param {string} componentPath - Chemin vers le fichier du composant
- * @returns {Promise<string>} - Contenu HTML du composant
- */
-async function loadComponent(componentPath) {
-  try {
-    const response = await fetch(componentPath);
-    
-    if (!response.ok) {
-      throw new Error(`Impossible de charger le composant: ${response.status} ${response.statusText}`);
-    }
-    
-    return await response.text();
-  } catch (error) {
-    console.error(`Erreur lors du chargement du composant ${componentPath}:`, error);
-    return '';
-  }
-}
-
-/**
  * Injecte les composants header et footer dans la page
  * @returns {Promise<void>}
  */
@@ -63,9 +45,9 @@ export async function injectComponents() {
   if (headerPlaceholder) {
     // Vérifier si le header a déjà été injecté
     if (headerPlaceholder.children.length === 0) {
-      const headerContent = await loadComponent('/components/header.html');
-      if (headerContent) {
-        headerPlaceholder.innerHTML = headerContent;
+      const headerTemplate = getTemplate('header');
+      if (headerTemplate) {
+        headerPlaceholder.appendChild(headerTemplate);
         console.log('Header injecté avec succès par componentInjector');
         setupMobileMenu();
       }
@@ -81,9 +63,9 @@ export async function injectComponents() {
   if (footerPlaceholder) {
     // Vérifier si le footer a déjà été injecté
     if (footerPlaceholder.children.length === 0) {
-      const footerContent = await loadComponent('/components/footer.html');
-      if (footerContent) {
-        footerPlaceholder.innerHTML = footerContent;
+      const footerTemplate = getTemplate('footer');
+      if (footerTemplate) {
+        footerPlaceholder.appendChild(footerTemplate);
         console.log('Footer injecté avec succès par componentInjector');
       }
     } else {
@@ -132,9 +114,9 @@ async function detectOtherComponents() {
   for (const placeholder of componentPlaceholders) {
     const componentName = placeholder.getAttribute('data-component');
     if (componentName) {
-      const componentContent = await loadComponent(`/components/${componentName}.html`);
-      if (componentContent) {
-        placeholder.innerHTML = componentContent;
+      const componentTemplate = getTemplate(componentName);
+      if (componentTemplate) {
+        placeholder.appendChild(componentTemplate);
         console.log(`Composant ${componentName} injecté avec succès`);
       }
     }
