@@ -88,26 +88,27 @@ const servicesOptions = {
  * Injecte la section Services dans la page
  */
 function injectServicesSection() {
-  // Attendre que le DOM soit chargé
-  document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Injection du composant ServicesSection...');
-    
-    // Chercher le conteneur de services
-    const servicesContainer = document.getElementById('services');
-    
-    if (servicesContainer) {
-      try {
-        // Injecter le composant dans le conteneur
-        await injectServicesSectionTo('#services', servicesOptions);
-        console.log('Composant ServicesSection injecté avec succès');
-      } catch (error) {
-        console.error('Erreur lors de l\'injection du composant ServicesSection:', error);
-      }
-    } else {
-      console.warn('Aucun conteneur #services trouvé dans la page');
+  // Vérifier que la section Services n'a pas déjà été injectée
+  if (document.querySelector('#services .services-section-container')) {
+    console.log('Section Services déjà injectée, opération ignorée');
+    return;
+  }
+  
+  // Chercher le conteneur de services
+  const servicesContainer = document.getElementById('services');
+  
+  if (servicesContainer) {
+    try {
+      // Injecter le composant dans le conteneur
+      injectServicesSectionTo('#services', servicesOptions);
+      console.log('Composant ServicesSection injecté avec succès');
+    } catch (error) {
+      console.error('Erreur lors de l\'injection du composant ServicesSection:', error);
     }
-  });
+  } else {
+    console.warn('Aucun conteneur #services trouvé dans la page');
+  }
 }
 
-// Exécuter l'injection
-injectServicesSection(); 
+// Attendre que le DOM soit chargé et exécuter l'injection
+document.addEventListener('DOMContentLoaded', injectServicesSection); 

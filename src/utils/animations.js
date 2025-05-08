@@ -11,6 +11,192 @@
 // Mode strict
 "use strict";
 
+// Initialisation
+document.addEventListener('DOMContentLoaded', () => {
+  // Vérifier si Alpine.js est disponible
+  if (typeof window.Alpine !== 'undefined') {
+    console.log("Initialisation des composants d'animation dans animations.js");
+    
+    // Enregistrer seulement les comportements d'animation qui ne sont pas dans alpine-behaviors.js
+    registerAnimationComponents();
+  } else {
+    console.warn('Alpine.js n\'est pas disponible. Les animations Alpine ne sont pas initialisées.');
+  }
+  
+  // Initialiser les animations au scroll
+  initScrollAnimations();
+});
+
+/**
+ * Enregistre les composants Alpine spécifiques aux animations
+ * qui ne sont pas déjà définis dans alpine-behaviors.js
+ */
+function registerAnimationComponents() {
+  // typingAnimation n'est pas défini dans alpine-behaviors.js, donc on peut le définir ici
+  if (!window.Alpine.data('typingAnimation')) {
+    window.Alpine.data('typingAnimation', function() {
+      return {
+        text: '',
+        fullText: '',
+        textArray: [],
+        currentIndex: 0,
+        isDeleting: false,
+        // Paramètres simplifiés
+        typeSpeed: 80,        // Vitesse constante de frappe
+        deleteSpeed: 40,      // Vitesse constante d'effacement
+        pauseBeforeDelete: 2000, // Pause avant d'effacer
+        pauseBeforeType: 500,  // Pause avant de taper
+        animationTimeout: null, // Pour stocker la référence du timeout
+
+        init() {
+          console.log('Init typingAnimation', this.$el.dataset);
+          if (this.$el.dataset.texts) {
+            this.textArray = this.$el.dataset.texts.split('|');
+            console.log('Textes pour animation:', this.textArray);
+            if (this.textArray.length === 0) {
+              this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
+            }
+          } else {
+            console.warn('Aucun attribut data-texts trouvé');
+            this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
+          }
+          
+          // Initialiser avec le premier texte
+          this.fullText = this.textArray[0];
+          
+          // Nettoyer tout timeout existant avant de démarrer une nouvelle animation
+          if (this.animationTimeout) {
+            clearTimeout(this.animationTimeout);
+          }
+          
+          // Démarrer l'animation après un court délai
+          this.animationTimeout = setTimeout(() => this.startTyping(), 300);
+        },
+
+        startTyping() {
+          // Nettoyer tout timeout existant avant de planifier le prochain
+          if (this.animationTimeout) {
+            clearTimeout(this.animationTimeout);
+          }
+          
+          // Récupérer le texte actuel
+          const currentFullText = this.textArray[this.currentIndex];
+          this.fullText = currentFullText;
+          
+          // Déterminer si nous avons terminé de taper ou d'effacer
+          const isComplete = this.text === currentFullText;
+          
+          // Si on a fini d'effacer, passer au texte suivant
+          if (this.isDeleting && this.text === '') {
+            this.isDeleting = false;
+            this.currentIndex = (this.currentIndex + 1) % this.textArray.length;
+            
+            // Planifier le début de la frappe du prochain mot
+            this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeType);
+            return;
+          }
+
+          // Si on a fini de taper, commencer à effacer après une pause
+          if (!this.isDeleting && isComplete) {
+            this.isDeleting = true;
+            this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeDelete);
+            return;
+          }
+
+          // Vitesse fixe selon l'action (taper ou effacer)
+          const speed = this.isDeleting ? this.deleteSpeed : this.typeSpeed;
+
+          // Effectuer l'action (taper ou effacer)
+          if (this.isDeleting) {
+            this.text = currentFullText.substring(0, this.text.length - 1);
+          } else {
+            this.text = currentFullText.substring(0, this.text.length + 1);
+          }
+
+          // Planifier la prochaine étape
+          this.animationTimeout = setTimeout(() => this.startTyping(), speed);
+        }
+      };
+    });
+    
+    // Ajouter le composant sectionTitle qui n'existe pas dans alpine-behaviors.js
+    window.Alpine.data('sectionTitle', () => ({
+      isVisible: false,
+      init() {
+        // Rendre visible immédiatement si l'utilisateur préfère réduire les animations
+        if (prefersReducedMotion()) {
+          this.isVisible = true;
+          return;
+        }
+        
+        // Utiliser l'API Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              this.isVisible = true;
+              observer.unobserve(this.$el);
+            }
+          });
+        }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -100px 0px'
+        });
+        
+        observer.observe(this.$el);
+      }
+    }));
+    
+    // Ajouter le composant counter qui n'existe pas dans alpine-behaviors.js
+    window.Alpine.data('counter', (target = 0, options = {}) => ({
+      current: 0,
+      target: parseInt(target),
+      options: {
+        duration: options.duration || 1500,
+        format: options.format || (v => Math.round(v)),
+        ...options
+      },
+      
+      init() {
+        // Si l'utilisateur préfère réduire les animations, définir directement la valeur finale
+        if (prefersReducedMotion()) {
+          this.current = this.target;
+          return;
+        }
+        
+        // Observer quand l'élément est visible
+        const observer = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting && this.current === 0) {
+            this.startCounting();
+            observer.unobserve(this.$el);
+          }
+        }, { threshold: 0.1 });
+        
+        observer.observe(this.$el);
+      },
+      
+      startCounting() {
+        const startTime = performance.now();
+        const duration = this.options.duration;
+        
+        const updateCounter = (timestamp) => {
+          const progress = Math.min((timestamp - startTime) / duration, 1);
+          this.current = this.options.format(this.target * progress);
+          
+          if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+          } else {
+            this.current = this.target;
+          }
+        };
+        
+        requestAnimationFrame(updateCounter);
+      }
+    }));
+  }
+  
+  console.log("Composants d'animation Alpine.js enregistrés avec succès");
+}
+
 /**
  * ========================================
  * 1. UTILITAIRES D'ANIMATION DE BASE
@@ -255,197 +441,10 @@ export function animateCounter(element, targetValue, options = {}) {
  */
 
 /**
- * Initialise les animations au scroll pour les éléments avec la classe animate-on-scroll
+ * Initialise les animations au scroll
  */
 export function initScrollAnimations() {
   console.log("Initialisation des animations au scroll");
-  
-  // Éviter les animations pour les utilisateurs qui préfèrent les réduire
-  if (prefersReducedMotion()) {
-    // Rendre tous les éléments visibles sans animation
-    document.querySelectorAll('.animate-on-scroll, [data-animate]').forEach(element => {
-      element.style.opacity = '1';
-      element.style.transform = 'none';
-    });
-    return;
-  }
-
-  // Configurer l'observateur d'intersection pour les animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -100px 0px",
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const element = entry.target;
-        const animationType = element.dataset.animate || 'fade-in';
-        
-        // Ajouter la classe animated qui déclenchera les animations CSS
-        element.classList.add('animated');
-        
-        // Ajouter la classe spécifique si elle existe
-        if (animationType) {
-          element.classList.add(animationType);
-        }
-        
-        // Désinscrire l'élément après l'animation
-        observer.unobserve(element);
-      }
-    });
-  }, observerOptions);
-
-  // Observer tous les éléments à animer
-  document.querySelectorAll('.animate-on-scroll, [data-animate]').forEach((element) => {
-    // Configurer l'état initial
-    element.style.opacity = '0';
-    observer.observe(element);
-  });
-}
-
-/**
- * ========================================
- * 4. INTÉGRATION AVEC ALPINE.JS
- * ========================================
- */
-
-// Initialisation des comportements Alpine pour les animations
-document.addEventListener('alpine:init', () => {
-  
-  // Comportement générique d'animation au scroll pour tous les éléments
-  Alpine.data('animateOnScroll', function(options = {}) {
-    return {
-      visible: false,
-      options: {
-        threshold: options.threshold || 0.1,
-        offset: options.offset || 100,
-        animation: options.animation || 'fade-in-up',
-        ...options
-      },
-
-      init() {
-        // Si l'utilisateur préfère réduire les animations, rendre immédiatement visible
-        if (prefersReducedMotion()) {
-          this.visible = true;
-          return;
-        }
-        
-        // Vérifier si l'élément est déjà visible au chargement
-        if (isElementInViewport(this.$el, this.options.offset)) {
-          this.visible = true;
-        } else {
-          // Sinon, configurer l'observation du scroll
-          this.observeIntersection();
-        }
-      },
-
-      observeIntersection() {
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                this.visible = true;
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { 
-            threshold: this.options.threshold,
-            rootMargin: `0px 0px -${this.options.offset}px 0px`
-          }
-        );
-
-        observer.observe(this.$el);
-      }
-    };
-  });
-  
-  // Animation des titres de section
-  Alpine.data('sectionTitle', () => ({
-    isVisible: false,
-    init() {
-      // Rendre visible immédiatement si l'utilisateur préfère réduire les animations
-      if (prefersReducedMotion()) {
-        this.isVisible = true;
-        return;
-      }
-      
-      // Utiliser l'API Intersection Observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            this.isVisible = true;
-            observer.unobserve(this.$el);
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
-      });
-      
-      observer.observe(this.$el);
-    }
-  }));
-  
-  // Animation du compteur pour les statistiques
-  Alpine.data('counter', (target = 0, options = {}) => ({
-    current: 0,
-    target: parseInt(target),
-    options: {
-      duration: options.duration || 1500,
-      format: options.format || (v => Math.round(v)),
-      ...options
-    },
-    
-    init() {
-      // Si l'utilisateur préfère réduire les animations, définir directement la valeur finale
-      if (prefersReducedMotion()) {
-        this.current = this.target;
-        return;
-      }
-      
-      // Observer quand l'élément est visible
-      const observer = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && this.current === 0) {
-          this.startCounting();
-          observer.unobserve(this.$el);
-        }
-      }, { threshold: 0.1 });
-      
-      observer.observe(this.$el);
-    },
-    
-    startCounting() {
-      const startTime = performance.now();
-      const duration = this.options.duration;
-      
-      const updateCounter = (timestamp) => {
-        const progress = Math.min((timestamp - startTime) / duration, 1);
-        this.current = this.options.format(this.target * progress);
-        
-        if (progress < 1) {
-          requestAnimationFrame(updateCounter);
-        } else {
-          this.current = this.target;
-        }
-      };
-      
-      requestAnimationFrame(updateCounter);
-    }
-  }));
-});
-
-/**
- * ========================================
- * 5. INITIALISATION AUTOMATIQUE
- * ========================================
- */
-
-// Initialiser automatiquement les animations de base au chargement de la page
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialiser les animations au scroll
-  initScrollAnimations();
   
   // Initialiser les animations Alpine.js si Alpine est disponible
   if (window.Alpine) {
@@ -456,7 +455,13 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("Erreur lors de l'initialisation d'Alpine:", error);
     }
   }
-});
+}
+
+/**
+ * ========================================
+ * 5. INITIALISATION AUTOMATIQUE
+ * ========================================
+ */
 
 // Exposer l'API d'animation globalement pour faciliter son utilisation
 window.siteAnimations = {

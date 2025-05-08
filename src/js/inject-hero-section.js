@@ -5,8 +5,16 @@
 
 import { createHeroSection, injectHeroSection } from '../components/sections/Hero.js';
 
-// Attendre que le DOM soit chargé
-document.addEventListener('DOMContentLoaded', () => {
+/**
+ * Injecte la section Hero dans la page
+ */
+function injectHero() {
+  // Vérifier que la section Hero n'existe pas déjà
+  if (document.getElementById('hero-section')) {
+    console.log('Section Hero déjà présente, injection ignorée');
+    return;
+  }
+
   // Configurer et injecter la section Hero au début du main
   const mainElement = document.querySelector('main');
   if (mainElement && mainElement.firstChild) {
@@ -21,14 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
     injectHeroSection('#hero-section', {
       name: 'Laure Rey-Bellet',
       prefix: 'Je suis',
-      typingTexts: ['Consultante.', 'Coach.', 'Formatrice.'],
+      typingTexts: ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'],
       description: "Le changement ? Tu le prends ou tu le subis. Pas juste du blabla, du vrai mouvement. On casse les vieux schémas, on construit du neuf, on avance !",
       // Les autres options utilisent les valeurs par défaut
     });
     
-    // Note: Le bouton CTA sera injecté par le script existant
-    // car il réutilise le même ID de conteneur 'hero-cta-button'
+    console.log('Section Hero injectée avec succès');
   } else {
     console.error('Élément main non trouvé ou vide pour injecter la section Hero');
   }
-}); 
+}
+
+// Attendre que le DOM soit chargé et exécuter l'injection
+document.addEventListener('DOMContentLoaded', injectHero); 

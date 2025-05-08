@@ -40,8 +40,15 @@ export function initBackgroundTransition() {
     return overlay;
   }
 
-  // Enregistrer le composant Alpine dès que possible
-  document.addEventListener("alpine:init", registerAlpineComponent);
+  // Enregistrer le comportement Alpine (au lieu d'un composant complet)
+  if (typeof window.Alpine !== 'undefined') {
+    console.log("Enregistrement du composant Alpine backgroundTransition");
+    
+    // Le comportement est déjà défini dans alpine-behaviors.js
+    // Nous assurons simplement qu'il fonctionne correctement
+  } else {
+    console.warn("Alpine.js n'est pas disponible pour le composant backgroundTransition");
+  }
 
   // Configuration du gestionnaire de défilement
   function setupScrollHandler() {
@@ -180,23 +187,6 @@ export function initBackgroundTransition() {
     updateTransition(window.scrollY);
 
     console.log("Gestionnaire de transition de fond configuré");
-  }
-
-  // Enregistrement du composant Alpine (simplifié)
-  function registerAlpineComponent() {
-    if (!window.Alpine) {
-      console.warn("Alpine.js n'est pas disponible pour le composant backgroundTransition");
-      return;
-    }
-    
-    console.log("Enregistrement du composant Alpine backgroundTransition");
-
-    window.Alpine.data("backgroundTransition", () => ({
-      init() {
-        console.log("Composant Alpine backgroundTransition initialisé");
-        // Le comportement est géré en-dehors d'Alpine pour plus de fiabilité
-      },
-    }));
   }
 }
 

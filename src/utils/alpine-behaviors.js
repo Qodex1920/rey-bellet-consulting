@@ -1,79 +1,33 @@
-// Initialiser les comportements Alpine réutilisables
-document.addEventListener('alpine:init', () => {
-  console.log("Initialisation des comportements Alpine dans alpine-behaviors.js");
-  
-  // Animation de texte type machine à écrire (typewriter)
-  Alpine.data('typingAnimation', function() {
-    return {
-      text: '',
-      fullText: 'Consultante.',
-      textArray: ['Consultante.', 'Coach.', 'Formatrice.'],
-      currentIndex: 0,
-      charIndex: 0,
-      isDeleting: false,
-      typeSpeed: 100, // vitesse de frappe en ms
-      deleteSpeed: 50, // vitesse d'effacement en ms
-      pauseBeforeDelete: 2000, // pause avant de commencer à effacer
-      pauseBeforeType: 500, // pause avant de commencer à taper
+/**
+ * Alpine Behaviors - Comportements réutilisables pour Alpine.js
+ * 
+ * Ce fichier contient tous les comportements Alpine.js réutilisables
+ * pour les composants interactifs du site.
+ */
 
-      init() {
-        // Récupérer les textes depuis l'attribut data-texts s'il existe
-        if (this.$el.dataset.texts) {
-          this.textArray = this.$el.dataset.texts.split('|');
-        }
-        // Initialiser avec le premier texte
-        this.fullText = this.textArray[0];
-        this.startTyping();
-      },
+// Initialisation des comportements Alpine.js
+export function initAlpineBehaviors() {
+  // Vérifier si Alpine.js est disponible dans le contexte global
+  if (typeof window.Alpine !== 'undefined') {
+    console.log("Initialisation des comportements Alpine dans alpine-behaviors.js");
+    registerBehaviors();
+  } else {
+    console.warn("Alpine.js n'est pas disponible pour l'initialisation des comportements");
+    
+    // Ajouter un écouteur pour le moment où Alpine sera disponible
+    document.addEventListener('alpine:init', () => {
+      console.log("Événement alpine:init détecté, initialisation des comportements");
+      registerBehaviors();
+    });
+  }
+}
 
-      startTyping() {
-        const currentFullText = this.textArray[this.currentIndex];
-        this.fullText = currentFullText;
-        const isComplete = this.text === currentFullText;
-        const isDeleting = this.isDeleting;
-
-        // Si on a fini d'effacer, passer au texte suivant
-        if (isDeleting && this.text === '') {
-          this.isDeleting = false;
-          this.currentIndex = (this.currentIndex + 1) % this.textArray.length;
-          setTimeout(() => this.startTyping(), this.pauseBeforeType);
-          return;
-        }
-
-        // Si on a fini de taper, attendre puis commencer à effacer
-        if (!isDeleting && isComplete) {
-          this.isDeleting = true;
-          setTimeout(() => this.startTyping(), this.pauseBeforeDelete);
-          return;
-        }
-
-        // Déterminer la vitesse d'animation
-        const speed = isDeleting ? this.deleteSpeed : this.typeSpeed;
-
-        // Taper/effacer le prochain caractère
-        if (isDeleting) {
-          this.text = currentFullText.substring(0, this.text.length - 1);
-        } else {
-          this.text = currentFullText.substring(0, this.text.length + 1);
-        }
-
-        // Continuer l'animation
-        setTimeout(() => this.startTyping(), speed);
-      }
-    };
-  });
-
-  // Composant pour la transition de fond (background)
-  Alpine.data('backgroundTransition', function() {
-    return {
-      init() {
-        console.log("Initialisation du composant backgroundTransition");
-      }
-    };
-  });
-
-  // Comportement de base pour toggle (ouverture/fermeture)
-  Alpine.data('dropdown', () => ({
+/**
+ * Enregistre tous les comportements Alpine.js réutilisables
+ */
+function registerBehaviors() {
+  // Comportement de base pour dropdown/toggle (ouverture/fermeture)
+  window.Alpine.data('dropdown', () => ({
     open: false,
     toggle() {
       this.open = !this.open;
@@ -97,7 +51,7 @@ document.addEventListener('alpine:init', () => {
   }));
   
   // Comportement pour menu mobile
-  Alpine.data('mobileMenu', () => ({
+  window.Alpine.data('mobileMenu', () => ({
     open: false,
     toggle() {
       this.open = !this.open;
@@ -125,7 +79,7 @@ document.addEventListener('alpine:init', () => {
   }));
   
   // Comportement pour accordéon
-  Alpine.data('accordion', (initiallyOpen = false) => ({
+  window.Alpine.data('accordion', (initiallyOpen = false) => ({
     open: initiallyOpen,
     toggle() {
       this.open = !this.open;
@@ -133,7 +87,7 @@ document.addEventListener('alpine:init', () => {
   }));
   
   // Comportement pour onglets
-  Alpine.data('tabs', () => ({
+  window.Alpine.data('tabs', () => ({
     activeTab: 0,
     setActiveTab(index) {
       this.activeTab = index;
@@ -143,8 +97,75 @@ document.addEventListener('alpine:init', () => {
     }
   }));
   
+  // Comportement pour animation au scroll
+  window.Alpine.data('animateOnScroll', function(options = {}) {
+    return {
+      visible: false,
+      options: {
+        threshold: options.threshold || 0.1,
+        offset: options.offset || 100,
+        animation: options.animation || 'fade-in-up',
+        ...options
+      },
+
+      init() {
+        // Vérifier si l'élément est déjà visible au chargement
+        this.$nextTick(() => {
+          // Si l'élément est déjà dans le viewport
+          if (this.isElementInViewport(this.$el, this.options.offset)) {
+            this.visible = true;
+          } else {
+            // Sinon, configurer l'observation du scroll
+            this.observeIntersection();
+          }
+        });
+      },
+
+      observeIntersection() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                this.visible = true;
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { 
+            threshold: this.options.threshold,
+            rootMargin: `0px 0px -${this.options.offset}px 0px`
+          }
+        );
+
+        observer.observe(this.$el);
+      },
+
+      isElementInViewport(el, offset = 100) {
+        if (!el) return false;
+        
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+          rect.bottom >= 0 &&
+          rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+          rect.right >= 0
+        );
+      }
+    };
+  });
+  
+  // Comportement pour la transition de fond (background)
+  window.Alpine.data('backgroundTransition', function() {
+    return {
+      init() {
+        console.log("Composant Alpine backgroundTransition initialisé");
+        // Le comportement est géré en-dehors d'Alpine pour plus de fiabilité
+      }
+    };
+  });
+  
   // Gestion de modal/dialog
-  Alpine.store('modal', {
+  window.Alpine.store('modal', {
     active: null,
     
     open(id) {
@@ -162,6 +183,10 @@ document.addEventListener('alpine:init', () => {
     }
   });
 
-  // Note: Les composants d'animations ont été déplacés dans animations.js
-  console.log("Comportements Alpine sans animations chargés et prêts à l'emploi");
+  console.log("Comportements Alpine chargés et prêts à l'emploi");
+}
+
+// Initialiser automatiquement si le script est chargé directement
+document.addEventListener('DOMContentLoaded', () => {
+  initAlpineBehaviors();
 }); 

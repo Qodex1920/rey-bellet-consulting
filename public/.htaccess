@@ -63,11 +63,6 @@ ErrorDocument 404 /404.html
 ErrorDocument 403 /403.html
 ErrorDocument 500 /500.html
 
-# Support du routage SPA
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /index.html [L,QSA]
-
 # Performance PHP (si vous utilisez PHP)
 <IfModule mod_php.c>
     php_value upload_max_filesize 64M

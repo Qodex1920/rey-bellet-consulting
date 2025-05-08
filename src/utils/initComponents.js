@@ -47,35 +47,24 @@ export default function initComponents() {
   } else {
     console.log("Bannière de cookies déjà initialisée, skip");
   }
-  
-  // Vérifier si Alpine.js est disponible
-  if (window.Alpine) {
-    console.log("Alpine.js est disponible, initialisation des composants Alpine...");
-    // Enregistrer les composants personnalisés
-    registerComponents();
-  } else {
-    console.warn('Alpine.js n\'est pas encore chargé. Les composants Alpine seront initialisés par leur propre logique.');
-    // Ajouter un écouteur pour détecter quand Alpine sera disponible
-    document.addEventListener('alpine:init', () => {
-      console.log('Événement alpine:init détecté, initialisation des composants Alpine...');
-      registerComponents();
-    });
-  }
 
-  // Initialiser les autres composants
+  // Initialiser les autres composants qui ne dépendent pas d'Alpine
   document.addEventListener('DOMContentLoaded', () => {
-    initAccordions();
-    initTabs();
-    initCarousel();
-    initToasts();
-    initTestimonials();
-    initCallToAction();
     initButtonComponents();
+    initToasts();
+    
+    // Initialiser les composants d'UI de base seulement si Alpine n'est pas détecté
+    // (sinon ils seront gérés par Alpine)
+    if (typeof window.Alpine === 'undefined') {
+      initAccordions();
+      initTabs();
+      initCarousel();
+    }
   });
 }
 
 /**
- * Initialise les accordéons
+ * Initialise les accordéons (version sans Alpine)
  */
 function initAccordions() {
   const accordions = document.querySelectorAll('.accordion');
@@ -106,7 +95,7 @@ function initAccordions() {
 }
 
 /**
- * Initialise les onglets
+ * Initialise les onglets (version sans Alpine)
  */
 function initTabs() {
   const tabLists = document.querySelectorAll('[role="tablist"]');
@@ -152,7 +141,7 @@ function initTabs() {
 }
 
 /**
- * Initialise le carousel
+ * Initialise le carousel (version sans Alpine)
  */
 function initCarousel() {
   const carousels = document.querySelectorAll('.carousel');
@@ -275,237 +264,6 @@ function initToasts() {
 }
 
 /**
- * Initialise les témoignages (testimonials)
- */
-function initTestimonials() {
-  // S'assurer que Alpine.js est disponible
-  if (!window.Alpine) return;
-  
-  // Charger les fonctions d'animation si elles existent
-  document.addEventListener('alpine:init', () => {
-    // Définir le composant testimonial si pas déjà défini
-    if (!Alpine.store('testimonialsData')) {
-      Alpine.data('testimonialsComponent', () => ({
-        testimonials: [
-          {
-            name: "Emma Laurent",
-            position: "Directrice Marketing",
-            avatar: "/assets/images/testimonials/avatar-1.jpg",
-            quote: "Ce service a complètement transformé notre approche marketing. Les résultats sont impressionnants et l'équipe est vraiment à l'écoute de nos besoins.",
-            rating: 5
-          },
-          {
-            name: "Thomas Dubois",
-            position: "Entrepreneur",
-            avatar: "/assets/images/testimonials/avatar-2.jpg",
-            quote: "En tant que startup, nous avions besoin d'une solution flexible et efficace. C'est exactement ce que nous avons trouvé ici. Je recommande vivement !",
-            rating: 4
-          },
-          {
-            name: "Sophie Martin",
-            position: "Responsable Projet",
-            avatar: "/assets/images/testimonials/avatar-3.jpg",
-            quote: "La qualité du service client est exceptionnelle. Chaque question trouve rapidement une réponse pertinente, ce qui nous fait gagner un temps précieux.",
-            rating: 5
-          }
-        ],
-        
-        init() {
-          // Initialiser les animations
-          this.checkVisibility();
-          
-          // Observer le scroll pour les animations
-          window.addEventListener('scroll', () => {
-            this.checkVisibility();
-          }, { passive: true });
-        },
-        
-        checkVisibility() {
-          // Vérifier si l'élément est dans le viewport
-          const rect = this.$el.getBoundingClientRect();
-          const isVisible = 
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.bottom >= 0;
-          
-          if (isVisible) {
-            this.animateItems();
-          }
-        },
-        
-        animateItems() {
-          // Animer chaque témoignage
-          const cards = this.$el.querySelectorAll('.testimonial-card');
-          cards.forEach((card, index) => {
-            setTimeout(() => {
-              card.classList.add('visible');
-            }, index * 150);
-          });
-        }
-      }));
-    }
-  });
-}
-
-/**
- * Initialise les Call-to-Action
- */
-function initCallToAction() {
-  // S'assurer que Alpine.js est disponible
-  if (!window.Alpine) return;
-  
-  document.addEventListener('alpine:init', () => {
-    // Définir le composant CTA si pas déjà défini
-    if (!Alpine.data('ctaAnimation')) {
-      Alpine.data('ctaAnimation', () => ({
-        isVisible: false,
-        
-        init() {
-          // Initialiser l'état
-          this.checkVisibility();
-          
-          // Observer le scroll pour les animations
-          window.addEventListener('scroll', () => {
-            this.checkVisibility();
-          }, { passive: true });
-        },
-        
-        // Animation à l'initialisation standard
-        initAnimation(el) {
-          if (window.animations && window.animations.prefersReducedMotion()) {
-            el.style.opacity = '1';
-            this.showElements(el);
-            return;
-          }
-          
-          this.hideElements(el);
-        },
-        
-        // Animation à l'initialisation avec scale
-        initScaleAnimation(el) {
-          if (window.animations && window.animations.prefersReducedMotion()) {
-            el.style.opacity = '1';
-            el.style.transform = 'scale(1)';
-            this.showElements(el);
-            return;
-          }
-        },
-        
-        // Vérifier si l'élément est visible
-        checkVisibility() {
-          const rect = this.$el.getBoundingClientRect();
-          const isVisible = 
-            rect.top <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.bottom >= 0;
-          
-          if (isVisible && !this.isVisible) {
-            this.isVisible = true;
-            this.animateIn(this.$el);
-          }
-        },
-        
-        // Animation à l'entrée standard
-        animateIn(el) {
-          if (window.animations && window.animations.prefersReducedMotion()) return;
-          
-          // Anime le contenu
-          const content = el.querySelector('.cta-content');
-          if (content && window.animations) {
-            window.animations.fadeInUp(content);
-          } else if (content) {
-            content.style.opacity = '1';
-            content.style.transform = 'translateY(0)';
-          }
-          
-          // Anime le bouton
-          const button = el.querySelector('.cta-button-container');
-          if (button && window.animations) {
-            setTimeout(() => {
-              window.animations.fadeInUp(button);
-            }, 300);
-          } else if (button) {
-            setTimeout(() => {
-              button.style.opacity = '1';
-              button.style.transform = 'translateY(0)';
-            }, 300);
-          }
-        },
-        
-        // Animation à l'entrée avec scale
-        animateScaleIn(el) {
-          if (window.animations && window.animations.prefersReducedMotion()) return;
-          
-          // Animation de conteneur
-          el.style.opacity = '1';
-          el.style.transform = 'scale(1)';
-          
-          // Anime les éléments intérieurs
-          const title = el.querySelector('.cta-title');
-          if (title) {
-            setTimeout(() => {
-              title.style.opacity = '1';
-              title.style.transform = 'translateY(0)';
-            }, 200);
-          }
-          
-          const description = el.querySelector('.cta-description');
-          if (description) {
-            setTimeout(() => {
-              description.style.opacity = '0.9';
-            }, 400);
-          }
-          
-          const button = el.querySelector('.cta-button-container');
-          if (button) {
-            setTimeout(() => {
-              button.style.opacity = '1';
-              button.style.transform = 'translateY(0)';
-            }, 600);
-          }
-        },
-        
-        // Effet de pulsation pour les boutons
-        pulseButton(button) {
-          if (window.animations) {
-            window.animations.pulseElement(button);
-          } else {
-            button.style.transform = 'scale(1.05)';
-            button.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
-          }
-        },
-        
-        // Réinitialiser le bouton
-        resetButton(button) {
-          if (window.animations) {
-            window.animations.resetElement(button);
-          } else {
-            button.style.transform = '';
-            button.style.boxShadow = '';
-          }
-        },
-        
-        // Afficher les éléments sans animation
-        showElements(el) {
-          const elements = el.querySelectorAll('.cta-content, .cta-button-container, .cta-title, .cta-description');
-          elements.forEach(element => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-          });
-        },
-        
-        // Cacher les éléments pour l'animation
-        hideElements(el) {
-          const elements = el.querySelectorAll('.cta-content, .cta-button-container, .cta-title, .cta-description');
-          elements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(1rem)';
-          });
-        }
-      }));
-    }
-  });
-}
-
-/**
  * Initialise les composants bouton
  */
 function initButtonComponents() {
@@ -624,57 +382,6 @@ function getIconSvg(iconName) {
   };
   
   return icons[iconName] || '';
-}
-
-/**
- * Enregistre les composants Alpine personnalisés
- */
-function registerComponents() {
-  if (!window.Alpine) return;
-  
-  // Enregistrer le composant dropdown
-  window.Alpine.data('dropdown', () => ({
-    open: false,
-    toggle() {
-      this.open = !this.open;
-    },
-    close() {
-      this.open = false;
-    }
-  }));
-  
-  // Enregistrer le composant de menu mobile
-  window.Alpine.data('mobileMenu', () => ({
-    open: false,
-    toggle() {
-      this.open = !this.open;
-    },
-    close() {
-      this.open = false;
-    }
-  }));
-  
-  // Enregistrer le composant d'accordéon
-  window.Alpine.data('accordion', () => ({
-    tabs: [],
-    activeTab: null,
-    init() {
-      this.tabs = Array.from(this.$el.querySelectorAll('[data-tab]')).map(el => ({
-        id: el.dataset.tab,
-        el
-      }));
-      
-      if (this.tabs.length > 0) {
-        this.activeTab = this.tabs[0].id;
-      }
-    },
-    isOpen(tabId) {
-      return this.activeTab === tabId;
-    },
-    toggleTab(tabId) {
-      this.activeTab = this.isOpen(tabId) ? null : tabId;
-    }
-  }));
 }
 
 export { addButtonTo }; 

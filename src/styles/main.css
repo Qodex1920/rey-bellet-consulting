@@ -588,33 +588,41 @@
   }
 }
 
-/* Styles pour l'animation de frappe - unifié */
+/* Styles pour l'animation de frappe - amélioré pour plus de fluidité */
 .typing-cursor-active::after,
 .typing-cursor-delete::after,
 .typing-cursor-waiting::after {
   content: "|";
   display: inline-block;
   margin-left: 0.05em;
-  animation: caretBlink 0.7s infinite;
   font-weight: 300;
   color: var(--color-accent);
-  opacity: 0.9;
+  opacity: 0.95;
+  position: relative;
+  animation-timing-function: cubic-bezier(0.4, 0.0, 0.6, 1);
+}
+
+.typing-cursor-active::after {
+  animation: caretBlink 0.75s infinite;
 }
 
 .typing-cursor-waiting::after {
   animation: caretBlink 1.2s infinite;
+  opacity: 0.8;
 }
 
 .typing-cursor-delete::after {
   animation: caretBlink 0.4s infinite;
+  opacity: 1;
 }
 
 @keyframes caretBlink {
-  0%,
+  0%, 
   100% {
     opacity: 0;
   }
-  50% {
+  40%, 
+  60% {
     opacity: 1;
   }
 }

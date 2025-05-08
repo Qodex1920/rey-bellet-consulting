@@ -57,31 +57,15 @@
     <link rel="stylesheet" href="styles/main.css" />
 
     <!-- Lordicon pour les icônes animées -->
-    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+    <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
 
-    <!-- Alpine.js - Chargement avec l'attribut defer pour résoudre le problème d'initialisation -->
-    <script
-      defer
-      src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js"
-    ></script>
-    <script
-      defer
-      src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js"
-    ></script>
+    <!-- Alpine.js - Ajout de defer pour assurer le chargement après body -->
+    <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js" defer></script>
 
-    <!-- Import des comportements Alpine.js - ajout de l'attribut defer pour s'assurer qu'il se charge après Alpine.js -->
-    <script defer src="./utils/alpine-behaviors.js"></script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // Vérifier que les composants Alpine sont disponibles
-        if (window.Alpine) {
-          console.log("Alpine.js est disponible dans le DOMContentLoaded");
-        } else {
-          console.warn("Alpine.js n'est pas disponible dans le DOMContentLoaded");
-        }
-      });
-    </script>
+    <!-- Import des comportements Alpine.js après le chargement d'Alpine -->
+    <script type="module" src="./utils/alpine-behaviors.js" defer></script>
+    <script type="module" src="./utils/animations.js" defer></script>
   </head>
   <body class="antialiased text-gray-400 bg-gradient-premium">
     <!-- Éléments de background premium -->
