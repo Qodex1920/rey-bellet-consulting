@@ -5,23 +5,29 @@
  * pour les composants interactifs du site.
  */
 
-import Alpine from 'alpinejs';
+// Importer Alpine depuis main-alpine.js pour garantir l'utilisation de la même instance
+import Alpine from '../main-alpine.js';
 
 // Initialisation des comportements Alpine.js
 export function initAlpineBehaviors() {
-  // Vérifier si Alpine.js est disponible dans le contexte global
-  if (typeof window.Alpine !== 'undefined') {
-    console.log("Initialisation des comportements Alpine dans alpine-behaviors.js");
-    registerBehaviors();
-  } else {
-    console.warn("Alpine.js n'est pas disponible pour l'initialisation des comportements");
-    
-    // Si Alpine n'est pas encore disponible, on attend qu'il soit chargé
-    document.addEventListener('alpine:init', () => {
-      console.log("Événement alpine:init détecté, initialisation des comportements");
-      registerBehaviors();
-    });
+  // S'assurer qu'Alpine est disponible
+  if (!window.Alpine) {
+    console.error("Alpine.js n'est pas disponible pour enregistrer les comportements");
+    return;
   }
+  
+  console.log("Initialisation des comportements Alpine.js...");
+  
+  // Appeler directement registerBehaviors pour s'assurer que tous les comportements sont enregistrés
+  // même si aucun élément x-data n'existe encore dans le DOM
+  registerBehaviors();
+  
+  // Écouter également l'événement alpine:init pour s'assurer que les comportements sont disponibles
+  // lorsqu'Alpine démarre
+  document.addEventListener('alpine:init', () => {
+    console.log("Événement alpine:init détecté, initialisation des comportements");
+    registerBehaviors();
+  });
 }
 
 /**
@@ -29,8 +35,8 @@ export function initAlpineBehaviors() {
  * Cette fonction est appelée quand Alpine est prêt
  */
 function registerBehaviors() {
-  // Vérifier que Alpine est bien disponible
-  if (typeof window.Alpine === 'undefined') {
+  // Vérifier encore une fois qu'Alpine est disponible
+  if (!window.Alpine) {
     console.error("Alpine.js n'est pas disponible pour enregistrer les comportements");
     return;
   }
@@ -267,6 +273,46 @@ function registerBehaviors() {
     };
   });
   
+  // Effets pour les éléments décoratifs en fonction de la souris
+  window.Alpine.data('decorativeElements', function() {
+    return {
+      init() {
+        this.setupMouseMovement();
+      },
+      setupMouseMovement() {
+        // Sélectionner certains éléments décoratifs pour les effets de souris
+        const moveElements = document.querySelectorAll('.decorative-square, .decorative-line');
+        
+        // Ajouter un écouteur d'événement de mouvement de souris
+        document.addEventListener('mousemove', (e) => {
+          const { clientX, clientY } = e;
+          const centerX = window.innerWidth / 2;
+          const centerY = window.innerHeight / 2;
+          
+          // Calculer le décalage par rapport au centre
+          const moveX = (clientX - centerX) / centerX;
+          const moveY = (clientY - centerY) / centerY;
+          
+          // Appliquer un léger mouvement aux éléments
+          moveElements.forEach(element => {
+            // Obtenir un facteur aléatoire pour chaque élément
+            const factor = parseFloat(element.getAttribute('data-mouse-factor') || Math.random() * 15 + 5);
+            const invert = element.classList.contains('decorative-square') ? -1 : 1;
+            
+            // Calculer le décalage
+            const offsetX = moveX * factor * invert;
+            const offsetY = moveY * factor * invert;
+            
+            // Appliquer la transformation (uniquement si l'élément n'a pas de transformation parallaxe)
+            if (!element.classList.contains('parallax-element')) {
+              element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            }
+          });
+        });
+      }
+    };
+  });
+  
   // Gestion de modal/dialog
   window.Alpine.store('modal', {
     active: null,
@@ -286,83 +332,223 @@ function registerBehaviors() {
     }
   });
 
-  console.log("Comportements Alpine chargés et prêts à l'emploi");
+  // Comportement pour animer des éléments en séquence
+  window.Alpine.data('animateSequence', function(options = {}) {
+    return {
+      ready: false,
+      children: [],
+      options: {
+        delay: options.delay || 100,          // Délai entre chaque élément (ms)
+        initialDelay: options.initialDelay || 0, // Délai avant de commencer la séquence (ms)
+        selector: options.selector || '.animate-item', // Sélecteur pour les éléments à animer
+        duration: options.duration || 800,    // Durée de l'animation (ms)
+        reverse: options.reverse || false,    // Inverser l'ordre d'animation
+        cascade: options.cascade || true,     // Animation en cascade (sinon, tout en même temps)
+        ...options
+      },
+      
+      init() {
+        // Sélectionner tous les éléments à animer
+        this.children = Array.from(this.$el.querySelectorAll(this.options.selector));
+        
+        // Appliquer les styles initiaux (invisibles)
+        this.children.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = `opacity ${this.options.duration}ms ease-out, transform ${this.options.duration}ms ease-out`;
+        });
+        
+        // Lancer l'animation après le délai initial
+        setTimeout(() => {
+          this.startSequence();
+        }, this.options.initialDelay);
+      },
+      
+      startSequence() {
+        // Si l'animation est inversée, inverser l'ordre des éléments
+        const elements = this.options.reverse ? [...this.children].reverse() : this.children;
+        
+        // Animer chaque élément après un délai progressif
+        elements.forEach((el, index) => {
+          // Si cascade est désactivé, tout apparaît en même temps
+          const delay = this.options.cascade ? index * this.options.delay : 0;
+          
+          setTimeout(() => {
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+          }, delay);
+        });
+        
+        // Marquer la séquence comme terminée après tous les délais
+        const totalDuration = this.options.cascade 
+          ? (elements.length - 1) * this.options.delay + this.options.duration
+          : this.options.duration;
+          
+        setTimeout(() => {
+          this.ready = true;
+        }, totalDuration);
+      }
+    };
+  });
+  
+  // Comportement pour effets de révélation au scroll
+  window.Alpine.data('revealEffect', function(options = {}) {
+    return {
+      visible: false,
+      options: {
+        type: options.type || 'fade',          // Type d'animation: fade, slide, scale, rotate
+        direction: options.direction || 'up',   // Direction pour les slides: up, down, left, right
+        duration: options.duration || 800,      // Durée de l'animation (ms)
+        delay: options.delay || 0,              // Délai avant de démarrer l'animation
+        threshold: options.threshold || 0.2,    // Pourcentage de visibilité nécessaire
+        distance: options.distance || 50,       // Distance pour les animations de slide (px)
+        once: options.once !== false,           // Ne jouer l'animation qu'une seule fois
+        easing: options.easing || 'cubic-bezier(0.5, 0, 0, 1)', // Courbe d'accélération
+        ...options
+      },
+      
+      // Style initial
+      initialStyles: {
+        opacity: 0,
+        transition: '',
+        transform: ''
+      },
+      
+      init() {
+        // Configurer le style initial en fonction du type d'animation
+        this.setupInitialStyles();
+        
+        // Appliquer les styles initiaux
+        Object.keys(this.initialStyles).forEach(style => {
+          if (this.initialStyles[style]) {
+            this.$el.style[style] = this.initialStyles[style];
+          }
+        });
+        
+        // Configurer l'observation de l'intersection
+        this.observeIntersection();
+        
+        // Vérifier si l'élément est déjà visible au chargement
+        if (this.isElementInViewport(this.$el, 50)) {
+          // Ajouter un petit délai pour permettre le rendu initial
+          setTimeout(() => this.reveal(), 100);
+        }
+      },
+      
+      setupInitialStyles() {
+        // Configurer la transition
+        this.initialStyles.transition = `opacity ${this.options.duration}ms ${this.options.easing}, transform ${this.options.duration}ms ${this.options.easing}`;
+        this.initialStyles.opacity = '0';
+        
+        // Configurer la transformation selon le type d'animation
+        switch (this.options.type) {
+          case 'fade':
+            // Pas besoin de transformation supplémentaire
+            break;
+            
+          case 'slide':
+            switch (this.options.direction) {
+              case 'up':
+                this.initialStyles.transform = `translateY(${this.options.distance}px)`;
+                break;
+              case 'down':
+                this.initialStyles.transform = `translateY(-${this.options.distance}px)`;
+                break;
+              case 'left':
+                this.initialStyles.transform = `translateX(${this.options.distance}px)`;
+                break;
+              case 'right':
+                this.initialStyles.transform = `translateX(-${this.options.distance}px)`;
+                break;
+            }
+            break;
+            
+          case 'scale':
+            this.initialStyles.transform = `scale(${this.options.direction === 'down' ? 1.1 : 0.9})`;
+            break;
+            
+          case 'rotate':
+            const angle = this.options.distance || 5;
+            this.initialStyles.transform = `rotate(${angle}deg)`;
+            break;
+        }
+      },
+      
+      observeIntersection() {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                // Ajouter le délai configuré avant de révéler
+                setTimeout(() => {
+                  this.reveal();
+                }, this.options.delay);
+                
+                // Si l'animation ne doit jouer qu'une fois, arrêter l'observation
+                if (this.options.once) {
+                  observer.unobserve(entry.target);
+                }
+              } else if (!this.options.once) {
+                // Si l'élément n'est plus visible et que l'animation peut être répétée
+                this.reset();
+              }
+            });
+          },
+          { 
+            threshold: this.options.threshold
+          }
+        );
+        
+        observer.observe(this.$el);
+      },
+      
+      reveal() {
+        this.visible = true;
+        this.$el.style.opacity = '1';
+        this.$el.style.transform = 'none';
+      },
+      
+      reset() {
+        this.visible = false;
+        
+        // Réappliquer les styles initiaux
+        Object.keys(this.initialStyles).forEach(style => {
+          if (this.initialStyles[style]) {
+            this.$el.style[style] = this.initialStyles[style];
+          }
+        });
+      },
+      
+      isElementInViewport(el, offset = 100) {
+        if (!el) return false;
+        
+        const rect = el.getBoundingClientRect();
+        return (
+          rect.top <= (window.innerHeight || document.documentElement.clientHeight) - offset &&
+          rect.bottom >= 0 &&
+          rect.left <= (window.innerWidth || document.documentElement.clientWidth) &&
+          rect.right >= 0
+        );
+      }
+    };
+  });
+
+  console.log("Tous les comportements Alpine sont chargés et prêts à l'emploi");
 }
 
-// Initialiser automatiquement si le script est chargé directement
+// S'assurer que les comportements sont initialisés au chargement
 document.addEventListener('DOMContentLoaded', () => {
+  // Petit délai pour s'assurer qu'Alpine est déjà initialisé
+  setTimeout(() => {
+    initAlpineBehaviors();
+  }, 10);
+});
+
+// S'assurer que les comportements sont également disponibles pour les appels directs
+document.addEventListener('alpine:init', () => {
+  console.log("Événement alpine:init détecté, initialisation des comportements supplémentaire");
   initAlpineBehaviors();
 });
 
-// Fonction pour gérer le comportement du header
-window.headerBehavior = function() {
-  return {
-    // ...conserver le code existant...
-  };
-};
-
-// Animation au défilement pour les éléments
-window.animateOnScroll = function() {
-  return {
-    visible: false,
-    init() {
-      this.visible = false;
-    }
-  };
-};
-
-// Effets pour les éléments décoratifs en fonction de la souris
-window.decorativeElements = function() {
-  return {
-    init() {
-      this.setupMouseMovement();
-    },
-    setupMouseMovement() {
-      // Sélectionner certains éléments décoratifs pour les effets de souris
-      const moveElements = document.querySelectorAll('.decorative-square, .decorative-line');
-      
-      // Ajouter un écouteur d'événement de mouvement de souris
-      document.addEventListener('mousemove', (e) => {
-        const { clientX, clientY } = e;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        
-        // Calculer le décalage par rapport au centre
-        const moveX = (clientX - centerX) / centerX;
-        const moveY = (clientY - centerY) / centerY;
-        
-        // Appliquer un léger mouvement aux éléments
-        moveElements.forEach(element => {
-          // Obtenir un facteur aléatoire pour chaque élément
-          const factor = parseFloat(element.getAttribute('data-mouse-factor') || Math.random() * 15 + 5);
-          const invert = element.classList.contains('decorative-square') ? -1 : 1;
-          
-          // Calculer le décalage
-          const offsetX = moveX * factor * invert;
-          const offsetY = moveY * factor * invert;
-          
-          // Appliquer la transformation (uniquement si l'élément n'a pas de transformation parallaxe)
-          if (!element.classList.contains('parallax-element')) {
-            element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-          }
-        });
-      });
-    }
-  };
-};
-
-// Transition d'arrière-plan pour la section À propos
-window.backgroundTransition = function() {
-  return {
-    // ...conserver le code existant...
-  };
-};
-
-// Exporter les comportements Alpine.js
-export default function setupAlpineBehaviors() {
-  // Enregistrer les comportements
-  window.Alpine = Alpine;
-  
-  // Démarrer Alpine.js
-  Alpine.start();
-} 
+// Exportation pour permettre l'import depuis d'autres fichiers
+export default initAlpineBehaviors; 

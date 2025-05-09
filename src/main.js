@@ -10,14 +10,16 @@
 import './styles/main.css';
 import './styles/decorative-elements.css';
 
-// Importation Alpine.js (uniquement si pas chargé via CDN)
-// import Alpine from 'alpinejs';
-// import intersect from '@alpinejs/intersect';
+// Initialisation d'Alpine.js via notre fichier dédié (DOIT être en premier)
+import Alpine from './main-alpine.js';
+
+// Importation et initialisation des comportements Alpine
+import { initAlpineBehaviors } from './utils/alpine-behaviors.js';
+initAlpineBehaviors();
 
 // Importation des utilitaires et composants nécessaires
 import { getTemplate } from './utils/templates.js';
 import { initComponentSystem } from './utils/componentInjector.js';
-import { initAlpineBehaviors } from './utils/alpine-behaviors.js';
 import { initContactForm } from './utils/formHandler.js';
 import { initBackgroundTransition } from './components/effects/BackgroundTransition.js';
 import initComponents from './utils/initComponents.js';
@@ -26,43 +28,50 @@ import initComponents from './utils/initComponents.js';
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Initialisation du site Rey-Bellet Consulting");
   
-  // Initialiser Alpine.js si nécessaire (uniquement si pas chargé via CDN)
-  initAlpine();
-  
   // Initialiser toutes les fonctionnalités du site
   initSite();
 });
 
 /**
- * Initialise et configure Alpine.js
+ * Initialise les animations au défilement
  */
-async function initAlpine() {
-  // Vérifier si Alpine.js est déjà disponible via CDN
-  if (typeof window.Alpine === 'undefined') {
-    console.warn("Alpine.js n'est pas chargé via CDN - vérifiez que les scripts sont présents dans le HTML");
-    
-    // Si vous souhaitez charger Alpine.js dynamiquement en cas d'absence du CDN, 
-    // décommentez les lignes suivantes:
-    /*
-    try {
-      const Alpine = await import('alpinejs');
-      const intersect = await import('@alpinejs/intersect');
-      
-      window.Alpine = Alpine.default;
-      Alpine.default.plugin(intersect.default);
-      Alpine.default.start();
-      
-      console.log("Alpine.js chargé dynamiquement avec succès");
-    } catch (error) {
-      console.error("Erreur lors du chargement dynamique d'Alpine.js:", error);
-    }
-    */
-  } else {
-    console.log("Alpine.js détecté via CDN");
-    
-    // Initialiser les comportements Alpine.js
-    initAlpineBehaviors();
+function initScrollAnimations() {
+  // Sélectionner tous les éléments avec les classes d'animation
+  const animatedElements = document.querySelectorAll('.reveal-anim');
+  
+  // Si aucun élément à animer, sortir
+  if (animatedElements.length === 0) {
+    return;
   }
+  
+  console.log(`Initialisation des animations au défilement pour ${animatedElements.length} éléments`);
+  
+  // Vérifier si l'utilisateur préfère réduire les animations
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Si oui, ajouter directement la classe revealed à tous les éléments
+    animatedElements.forEach(el => el.classList.add('revealed'));
+    return;
+  }
+  
+  // Configuration de l'observateur d'intersection
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Si l'élément est visible, ajouter la classe revealed
+        entry.target.classList.add('revealed');
+        // Une fois animé, ne plus observer cet élément
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,        // Déclencher quand 10% de l'élément est visible
+    rootMargin: '0px 0px -5% 0px'  // Déclencher un peu avant que l'élément soit visible
+  });
+  
+  // Observer chaque élément avec la classe d'animation
+  animatedElements.forEach(el => {
+    observer.observe(el);
+  });
 }
 
 /**
@@ -87,6 +96,9 @@ async function initSite() {
     
     // Initialiser la transition de fond
     initBackgroundTransition();
+    
+    // Initialiser les animations au défilement
+    initScrollAnimations();
     
     // Initialiser les composants interactifs
     initComponents();

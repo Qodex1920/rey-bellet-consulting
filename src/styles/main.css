@@ -1179,3 +1179,104 @@ body {
   padding: 0;
   overflow-x: hidden;
 }
+
+/* Animations au défilement */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-fade.revealed {
+  opacity: 1;
+}
+
+.reveal-slide-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-slide-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-slide-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-slide-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-slide-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-slide-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.6s ease-out, transform 0.8s ease-out;
+}
+
+.reveal-scale.revealed {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Délais d'animation */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+
+/* Animations spéciales pour les images */
+.img-hover-scale {
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+.img-hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* Optimisation des performances */
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Désactiver les animations pour prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fade,
+  .reveal-slide-up,
+  .reveal-slide-left,
+  .reveal-slide-right,
+  .reveal-scale {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  
+  .img-hover-scale {
+    transition: none !important;
+  }
+  
+  .img-hover-scale:hover {
+    transform: none !important;
+  }
+}

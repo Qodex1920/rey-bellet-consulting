@@ -17,6 +17,16 @@ const __dirname = path.dirname(__filename);
 // Charger les variables d'environnement
 dotenv.config();
 
+// Définir les variables d'environnement requises
+const requiredEnvVars = ['FTP_HOST', 'FTP_USER', 'FTP_PASSWORD', 'FTP_REMOTE_PATH'];
+const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error(`❌ Variables d'environnement manquantes: ${missingVars.join(', ')}`);
+  console.error('Veuillez vérifier votre fichier .env');
+  process.exit(1);
+}
+
 // Configuration
 const config = {
   host: process.env.FTP_HOST || 'ftp.votredomaine.com',
@@ -30,7 +40,9 @@ const config = {
     'robots.txt',
     'sitemap.xml',
     '.well-known/security.txt',
-    'favicon/'
+    'favicon/',
+    'api/',
+    'cgi-bin/'
   ],
   // Vérifications avant déploiement
   checks: {
@@ -108,6 +120,45 @@ function checkRequiredFiles() {
 }
 
 /**
+ * Vérifie la présence d'images dans le dossier de build
+ */
+function checkImageFiles() {
+  log('Vérification des images...', colors.blue);
+  
+  const imagesDir = path.join(DIST_DIR, 'assets/images');
+  
+  if (!fs.existsSync(imagesDir)) {
+    log('⚠️ Le dossier assets/images n\'existe pas dans le build', colors.yellow);
+    fs.mkdirSync(imagesDir, { recursive: true });
+    log('✅ Dossier assets/images créé', colors.green);
+    
+    // Copier les images du dossier source si nécessaire
+    const sourceImagesDir = path.join(__dirname, '../src/assets/images');
+    if (fs.existsSync(sourceImagesDir)) {
+      log('Copie des images depuis le dossier source...', colors.blue);
+      
+      const imageFiles = fs.readdirSync(sourceImagesDir);
+      for (const file of imageFiles) {
+        const sourcePath = path.join(sourceImagesDir, file);
+        const destPath = path.join(imagesDir, file);
+        
+        if (fs.statSync(sourcePath).isFile()) {
+          fs.copyFileSync(sourcePath, destPath);
+          log(`   - Copié: ${file}`, colors.dim);
+        }
+      }
+      
+      log('✅ Images copiées avec succès', colors.green);
+    }
+  } else {
+    const imageFiles = fs.readdirSync(imagesDir);
+    log(`✅ Le dossier assets/images contient ${imageFiles.length} fichiers`, colors.green);
+  }
+  
+  return true;
+}
+
+/**
  * Exécute le déploiement FTP
  */
 async function deploy() {
@@ -115,12 +166,21 @@ async function deploy() {
   log('🚀 DÉPLOIEMENT FTP', colors.bright);
   log('====================================================', colors.bright);
   
+  // Afficher les informations de connexion (sans le mot de passe)
+  log(`Serveur: ${config.host}`, colors.blue);
+  log(`Utilisateur: ${config.user}`, colors.blue);
+  log(`Chemin distant: ${config.remotePath}`, colors.blue);
+  log(`Connexion sécurisée: ${config.secure ? 'Oui' : 'Non'}`, colors.blue);
+  
   // Vérification des fichiers requis
   if (!checkRequiredFiles()) {
     log('❌ Annulation du déploiement en raison de fichiers manquants.', colors.red);
     log('   Exécutez "npm run build" pour générer les fichiers nécessaires.', colors.yellow);
     return false;
   }
+  
+  // Vérification des images
+  checkImageFiles();
   
   // Demande de confirmation
   const confirmed = await promptConfirmation('Êtes-vous sûr de vouloir déployer le site?');
@@ -181,6 +241,12 @@ async function deploy() {
     
     // Téléchargement des nouveaux fichiers
     log('Téléchargement des nouveaux fichiers...', colors.blue);
+    
+    // Augmenter le timeout pour les grands fichiers
+    client.ftp.socket.setTimeout(60000 * 5); // 5 minutes
+    
+    // Upload tous les fichiers du dossier dist
+    log('Envoi de tous les fichiers du dossier dist...', colors.blue);
     await client.uploadFromDir(DIST_DIR);
     
     log('✅ Déploiement terminé avec succès!', colors.green);

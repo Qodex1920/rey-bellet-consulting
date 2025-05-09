@@ -60,15 +60,14 @@
     <!-- Lordicon pour les icônes animées -->
     <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
 
-    <!-- Alpine.js - Ajout de defer pour assurer le chargement après body -->
-    <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
-    <script src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js" defer></script>
+    <!-- IMPORTANT: Ne pas inclure Alpine.js via CDN car il est déjà importé via ES Modules -->
+    <!-- <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script> -->
+    <!-- <script src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js" defer></script> -->
 
     <!-- Import des comportements Alpine.js après le chargement d'Alpine -->
-    <script type="module" src="./utils/alpine-behaviors.js" defer></script>
-    <script type="module" src="./utils/animations.js" defer></script>
-    <!-- Script pour les effets de parallaxe -->
-    <script type="module" src="./utils/parallax.js" defer></script>
+    <!-- <script type="module" src="./utils/alpine-behaviors.js" defer></script> -->
+    <script type="module" src="./utils/animations.js"></script>
+    <script type="module" src="./utils/parallax.js"></script>
   </head>
   <body class="antialiased text-gray-400 bg-gradient-premium">
     <!-- Éléments de background premium -->
@@ -120,7 +119,7 @@
           
           <div class="max-w-5xl mx-auto">
             <!-- Titre avec surlignement bleu animé -->
-            <div class="section-title text-center mb-14" data-scroll-animation>
+            <div class="section-title text-center mb-14 reveal-anim reveal-fade">
               <h2
                 class="section-title-heading highlight-text-animated text-5xl md:text-6xl"
               >
@@ -129,7 +128,7 @@
             </div>
             <!-- Citation premium -->
             <blockquote
-              class="relative bg-white/5 border-l-4 border-blue-600 rounded-xl px-8 py-6 mb-12 shadow-lg animate-fade-in-up"
+              class="relative bg-white/5 border-l-4 border-blue-600 rounded-xl px-8 py-6 mb-12 shadow-lg reveal-anim reveal-slide-up delay-200"
             >
               <span
                 class="block text-2xl md:text-3xl font-poppins text-blue-400 font-semibold uppercase tracking-wide leading-tight"
@@ -142,8 +141,8 @@
             </blockquote>
             
             <!-- Texte narratif et mission avec image intégrée -->
-            <div class="vision-content text-gray-200 space-y-8 animate-fade-in-up delay-200">
-              <p class="text-lg md:text-xl leading-relaxed">
+            <div class="vision-content text-gray-200 space-y-8">
+              <p class="text-lg md:text-xl leading-relaxed reveal-anim reveal-fade delay-300">
                 <span class="text-white font-semibold"
                   >Le changement n'est pas une option.</span
                 >
@@ -159,8 +158,8 @@
               <!-- Conteneur flex pour image + texte -->
               <div class="flex flex-col md:flex-row items-center gap-8 my-10">
                 <!-- Image avec style élégant -->
-                <div class="md:w-1/3 flex-shrink-0 relative">
-                  <div class="relative transform transition-all duration-500 hover:scale-105">
+                <div class="md:w-1/3 flex-shrink-0 relative reveal-anim reveal-slide-right delay-400">
+                  <div class="relative transform transition-all duration-500 hover:scale-105 img-hover-scale">
                     <!-- Cadre décoratif -->
                     <div class="absolute -inset-0.5 bg-gradient-to-r from-accent-500 to-blue-600 opacity-20 blur-sm rounded-lg"></div>
                     <div class="absolute -inset-1 bg-gradient-to-r from-accent-500 to-blue-600 opacity-10 rounded-lg"></div>
@@ -189,7 +188,7 @@
                 </div>
                 
                 <!-- Texte à côté de l'image -->
-                <div class="md:w-2/3">
+                <div class="md:w-2/3 reveal-anim reveal-slide-left delay-400">
                   <p class="text-lg md:text-xl leading-relaxed">
                     Je ne suis pas là pour rassurer. Je suis là pour
                     <span class="text-accent-500 font-bold">provoquer</span>,
@@ -205,7 +204,7 @@
               
               <!-- Bloc mission -->
               <div
-                class="flex items-start gap-4 py-8 pl-0 md:pl-8 my-6 border-l-4 border-accent-500/70 relative bg-black/30 rounded-lg shadow-md"
+                class="flex items-start gap-4 py-8 pl-0 md:pl-8 my-6 border-l-4 border-accent-500/70 relative bg-black/30 rounded-lg shadow-md reveal-anim reveal-slide-up delay-500"
               >
                 <div class="flex-shrink-0 mt-1">
                   <!-- Icône de mission (flèche ascendante) -->
@@ -241,13 +240,13 @@
                   </p>
                 </div>
               </div>
-              <p class="text-lg md:text-xl leading-relaxed">
+              <p class="text-lg md:text-xl leading-relaxed reveal-anim reveal-fade delay-600">
                 Parce qu'rester immobile, c'est renoncer à toute évolution.
                 Parce qu'évoluer avec clarté et courage, c'est bâtir un avenir
                 qui nous inspire.
               </p>
               <p
-                class="text-xl md:text-2xl font-semibold text-white py-4 relative leading-relaxed"
+                class="text-xl md:text-2xl font-semibold text-white py-4 relative leading-relaxed reveal-anim reveal-slide-up delay-700"
               >
                 <span class="relative inline-block">
                   Avec Rey-Bellet Consulting, on ne subit pas le changement – on
@@ -266,7 +265,6 @@
       <section
         id="a-propos"
         class="relative overflow-visible transition-background"
-        x-data="backgroundTransition"
       >
         <!-- Éléments décoratifs spécifiques à cette section -->
         <div class="section-decorative-elements">
@@ -277,8 +275,7 @@
         <div class="container mx-auto px-4 relative z-10">
           <div class="max-w-6xl mx-auto">
             <div
-              class="section-title text-center mb-16 md:mb-20"
-              data-scroll-animation
+              class="section-title text-center mb-16 md:mb-20 reveal-anim reveal-fade"
               role="heading"
               aria-level="2"
             >
@@ -292,10 +289,9 @@
             <!-- Contenu principal -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
               <!-- Histoire personnelle - Maintenant en premier et plus large -->
-              <div class="lg:col-span-8 order-2 lg:order-1" x-data="animateOnScroll">
+              <div class="lg:col-span-8 order-2 lg:order-1 reveal-anim reveal-slide-left delay-300">
                 <div
-                  class="prose prose-lg max-w-none opacity-0 transform transition-all duration-700 delay-200"
-                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
+                  class="prose prose-lg max-w-none"
                 >
                   <!-- Titre accrocheur -->
                   <h3
@@ -309,14 +305,14 @@
 
                   <!-- Histoire avec mise en forme élégante -->
                   <div class="space-y-6 text-primary-600">
-                    <p>
+                    <p class="reveal-anim reveal-fade delay-400">
                       J'ai longtemps cherché ma place. À endosser des rôles
                       qu'on m'imposait, sans jamais me demander s'ils étaient
                       faits pour moi. À rentrer dans des moules, jusqu'à en
                       oublier qui j'étais vraiment.
                     </p>
 
-                    <p>
+                    <p class="reveal-anim reveal-fade delay-500">
                       On m'a confié des postes à responsabilités jeunes, comme
                       <span class="font-semibold"
                         >Responsable RH</span
@@ -329,14 +325,14 @@
                       ajusté, avancé.
                     </p>
 
-                    <p>
+                    <p class="reveal-anim reveal-fade delay-600">
                       Mais à un moment, quelque chose s'est brisé. Un malaise
                       que je n'arrivais pas à expliquer. Le genre qui te suit,
                       même quand tout semble aller bien. Je donnais tout. Mais
                       pour quoi ? Pour qui ?
                     </p>
 
-                    <div class="pl-6 border-l-2 border-accent-500/40 my-8">
+                    <div class="pl-6 border-l-2 border-accent-500/40 my-8 reveal-anim reveal-slide-up delay-700">
                       <p class="italic">
                         Et puis, après des nuits à ressasser, une évidence
                         s'impose :
@@ -398,10 +394,9 @@
               </div>
 
               <!-- Image avec éléments décoratifs - Maintenant à droite et plus étroite -->
-              <div class="lg:col-span-4 order-1 lg:order-2 relative" x-data="animateOnScroll">
+              <div class="lg:col-span-4 order-1 lg:order-2 relative reveal-anim reveal-slide-right delay-300">
                 <div
-                  class="relative mb-12 lg:mb-0 opacity-0 transform transition-all duration-700 delay-100"
-                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
+                  class="relative mb-12 lg:mb-0 img-hover-scale"
                 >
                   <!-- Image avec gabarit et ombre portée -->
                   <div
@@ -458,8 +453,7 @@
       <!-- Modification de la section CTA pour s'assurer qu'elle s'affiche correctement -->
       <section
         id="cta"
-        class="py-16 relative overflow-hidden section-dark-enhanced my-16"
-        x-data="animateOnScroll"
+        class="py-16 relative overflow-hidden section-dark-enhanced my-16 reveal-anim reveal-fade"
       >
         <!-- Éléments décoratifs dorés -->
         <div
@@ -492,7 +486,7 @@
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
-          <div class="section-title text-center mb-10" data-scroll-animation>
+          <div class="section-title text-center mb-10 reveal-anim reveal-slide-up">
             <h2
               class="section-title-heading text-4xl md:text-5xl"
             >
@@ -503,8 +497,7 @@
             class="flex flex-col lg:flex-row lg:items-center lg:justify-between"
           >
             <div
-              class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500"
-              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }"
+              class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500 reveal-anim reveal-slide-left delay-200"
             >
               <p class="cta-description">
                 Découvrez comment mon accompagnement personnalisé peut vous
@@ -514,8 +507,7 @@
             </div>
 
             <div
-              class="cta-button-container transition-all duration-500"
-              x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-4': !visible }"
+              class="cta-button-container transition-all duration-500 reveal-anim reveal-slide-right delay-300"
             >
               <div id="cta-contact-button"></div>
             </div>
@@ -544,21 +536,21 @@
           <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
               <!-- Colonne gauche : titre + description -->
-              <div class="section-title text-center mb-12 md:mb-0 max-w-xl">
+              <div class="section-title text-center mb-12 md:mb-0 max-w-xl reveal-anim reveal-slide-left">
                 <h2
                   class="section-title-heading highlight-text-animated text-4xl md:text-5xl"
                 >
                   Contact
                 </h2>
-                <p class="section-title-subtitle">
+                <p class="section-title-subtitle reveal-anim reveal-fade delay-200">
                   Besoin d'information ou envie de discuter de votre projet ? Je
                   serais ravie d'échanger avec vous.
                 </p>
               </div>
               <!-- Colonne droite : formulaire -->
-              <div>
+              <div class="reveal-anim reveal-slide-right">
                 <div
-                  class="bg-white rounded-xl shadow-lg p-8 md:p-10 relative transform transition-all duration-500 hover:shadow-xl"
+                  class="bg-white rounded-xl shadow-lg p-8 md:p-10 relative transform transition-all duration-500 hover:shadow-xl img-hover-scale"
                   x-data="{ 
                     formVisible: true,
                     successVisible: false,

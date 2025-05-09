@@ -6,6 +6,7 @@
 "use strict";
 
 import { injectServicesSectionTo } from '../components/sections/ServicesSection.js';
+import { initScrollAnimations } from '../utils/scroll-animations.js';
 
 // Options personnalisées pour la section services
 const servicesOptions = {
@@ -100,7 +101,12 @@ function injectServicesSection() {
   if (servicesContainer) {
     try {
       // Injecter le composant dans le conteneur
-      injectServicesSectionTo('#services', servicesOptions);
+      injectServicesSectionTo('#services', servicesOptions)
+        .then(() => {
+          // S'assurer que les animations sont initialisées après l'injection
+          console.log('Réinitialisation des animations au défilement après injection');
+          initScrollAnimations();
+        });
       console.log('Composant ServicesSection injecté avec succès');
     } catch (error) {
       console.error('Erreur lors de l\'injection du composant ServicesSection:', error);

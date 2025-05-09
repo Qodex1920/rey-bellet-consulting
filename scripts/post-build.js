@@ -5,7 +5,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
 
 // Obtenir le chemin du répertoire actuel en ESM
@@ -26,6 +25,9 @@ const colors = {
 const DIST_DIR = path.join(__dirname, '../dist');
 const ASSETS_CSS_DIR = path.join(DIST_DIR, 'assets/css');
 const STYLES_DIR = path.join(DIST_DIR, 'styles');
+const SRC_STYLES_DIR = path.join(__dirname, '../src/styles');
+const ASSETS_IMAGES_DIR = path.join(DIST_DIR, 'assets/images');
+const SRC_IMAGES_DIR = path.join(__dirname, '../src/assets/images');
 
 /**
  * Affiche un message dans la console avec la couleur spécifiée
@@ -66,6 +68,51 @@ function findCssFiles(dir) {
     log(`Erreur lors de la recherche des fichiers CSS: ${error.message}`, colors.red);
     return [];
   }
+}
+
+/**
+ * Copie un fichier d'un emplacement à un autre
+ */
+function copyFile(source, target) {
+  try {
+    fs.copyFileSync(source, target);
+    return true;
+  } catch (error) {
+    log(`Erreur lors de la copie de ${source} vers ${target}: ${error.message}`, colors.red);
+    return false;
+  }
+}
+
+/**
+ * Copie récursivement un dossier
+ */
+function copyFolderRecursive(source, target) {
+  // Crée le dossier cible s'il n'existe pas
+  ensureDirectoryExists(target);
+
+  // Récupère tous les fichiers et sous-dossiers
+  const items = fs.readdirSync(source);
+  let copiedFiles = 0;
+
+  for (const item of items) {
+    const sourcePath = path.join(source, item);
+    const targetPath = path.join(target, item);
+
+    // Vérifie si c'est un dossier ou un fichier
+    const stats = fs.statSync(sourcePath);
+    
+    if (stats.isDirectory()) {
+      // Récursion pour les sous-dossiers
+      copiedFiles += copyFolderRecursive(sourcePath, targetPath);
+    } else {
+      // Copie les fichiers
+      if (copyFile(sourcePath, targetPath)) {
+        copiedFiles++;
+      }
+    }
+  }
+
+  return copiedFiles;
 }
 
 /**
@@ -185,6 +232,39 @@ function copyCssFiles() {
       } catch (error) {
         log(`❌ Erreur lors de la création de components.css: ${error.message}`, colors.red);
       }
+    }
+  }
+  
+  // Vérification des images
+  log('Vérification des images...', colors.blue);
+  
+  ensureDirectoryExists(ASSETS_IMAGES_DIR);
+  
+  if (fs.existsSync(SRC_IMAGES_DIR)) {
+    log('Copie des images si nécessaire...', colors.blue);
+    
+    // Vérifier si les images source existent dans le dossier de destination
+    const sourceImages = fs.readdirSync(SRC_IMAGES_DIR);
+    const destImages = fs.existsSync(ASSETS_IMAGES_DIR) 
+      ? fs.readdirSync(ASSETS_IMAGES_DIR) 
+      : [];
+      
+    const missingImages = sourceImages.filter(img => !destImages.includes(img));
+    
+    if (missingImages.length > 0) {
+      log(`${missingImages.length} image(s) manquante(s) détectée(s). Copie en cours...`, colors.yellow);
+      
+      for (const img of missingImages) {
+        const srcPath = path.join(SRC_IMAGES_DIR, img);
+        const destPath = path.join(ASSETS_IMAGES_DIR, img);
+        
+        if (fs.statSync(srcPath).isFile()) {
+          copyFile(srcPath, destPath);
+          log(`✅ Copié: ${img}`, colors.green);
+        }
+      }
+    } else {
+      log('✅ Toutes les images sont présentes dans le build', colors.green);
     }
   }
   

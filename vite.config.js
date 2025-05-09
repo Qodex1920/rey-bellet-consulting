@@ -40,6 +40,10 @@ export default defineConfig({
             return `assets/css/main.css`;
           }
           
+          if (/\.(png|jpe?g|gif|svg|webp|ico)$/i.test(assetInfo.name)) {
+            return `assets/images/[name][extname]`;
+          }
+          
           return `assets/[name][extname]`;
         },
       }

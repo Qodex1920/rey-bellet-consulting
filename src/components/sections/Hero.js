@@ -98,7 +98,7 @@ export function createHeroSection({
   return `
     <!-- Section Hero avec animations d'entrée avancées -->
     <section 
-      class="pt-48 pb-20 md:pt-64 md:pb-28 lg:pt-72 xl:pt-80 relative overflow-hidden min-h-screen flex items-center" 
+      class="pt-48 pb-20 md:pt-60 md:pb-28 lg:pt-64 xl:pt-72 relative overflow-hidden min-h-screen flex items-center" 
       x-data="{ animationReady: false }"
       x-init="setTimeout(() => { animationReady = true }, 300)"
     >
@@ -149,40 +149,38 @@ export function createHeroSection({
       ></div>
       
       <div class="container mx-auto px-4 relative z-10">
-        <div class="flex flex-col md:flex-row gap-12 items-center">
-          <!-- Texte à gauche (inverser l'ordre) -->
-          <div class="md:w-7/12 order-2 md:order-1">
+        <div class="flex flex-col md:flex-row gap-8 lg:gap-6 items-center">
+          <!-- Texte à gauche avec animation séquentielle -->
+          <div 
+            class="md:w-7/12 order-2 md:order-1" 
+            x-data="animateSequence({ 
+              initialDelay: 300, 
+              delay: 200, 
+              selector: '.animate-item',
+              duration: 1000
+            })"
+            x-show="animationReady"
+            x-transition.opacity
+          >
             <!-- Élément graphique doré avant le titre -->
-            <div 
-              class="w-0 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 hidden md:block transition-all duration-1000 ease-out-expo"
-              :class="{ 'w-16': animationReady }"
-            ></div>
+            <div class="w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 hidden md:block animate-item"></div>
             
-            <!-- Nom avec effet spécial sur le nom de famille - Correction de l'animation du titre -->
-            <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 overflow-hidden">
-              <span 
-                class="inline-block opacity-0 transform translate-y-0 transition-all duration-1000 delay-300 ease-out-expo"
-                :class="{ 'translate-y-0 opacity-100': animationReady }"
-              >
+            <!-- Nom avec effet spécial sur le nom de famille -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
+              <span class="inline-block animate-item">
                 ${firstName} 
               </span>
-              <span 
-                class="highlight-text-animated inline-block opacity-0 transform translate-y-0 transition-all duration-1000 delay-500 ease-out-expo"
-                :class="{ 'translate-y-0 opacity-100': animationReady }"
-              >
+              <span class="highlight-text-animated inline-block animate-item">
                 ${lastName}
               </span>
             </h1>
             
-            <!-- Texte animé en dessous du nom - PLUS IMPACTANT -->
-            <div 
-              class="mb-8 text-2xl md:text-3xl lg:text-4xl font-bold opacity-0 transform translate-y-6 transition-all duration-1000 delay-800 ease-out-expo"
-              :class="{ 'opacity-100 translate-y-0': animationReady }"
-            >
+            <!-- Texte animé en dessous du nom -->
+            <div class="mb-8 text-2xl md:text-3xl lg:text-4xl font-bold animate-item">
               <span class="text-white opacity-90">${prefix}</span> 
               <span 
                 x-data="typingAnimation"
-                x-init="animationReady && setTimeout(() => init(), 1200)"
+                x-init="ready && setTimeout(() => init(), 300)"
                 data-texts="${typingTexts.join('|')}"
                 x-text="text"
                 class="text-gradient relative"
@@ -190,112 +188,54 @@ export function createHeroSection({
               >${typingTexts[0]}</span>
             </div>
             
-            <p 
-              class="text-xl text-white mb-8 max-w-xl font-medium opacity-0 transform translate-y-6 transition-all duration-1000 delay-1000 ease-out-expo"
-              :class="{ 'opacity-100 translate-y-0': animationReady }"
-            >
+            <p class="text-xl text-white mb-8 max-w-xl font-medium animate-item">
               ${description}
             </p>
             
-            <!-- Éléments de confiance -->
-            <div 
-              class="flex items-center mb-8 space-x-4 opacity-0 transform translate-y-6 transition-all duration-1000 delay-1200 ease-out-expo"
-              :class="{ 'opacity-100 translate-y-0': animationReady }"
-            >
-              <div class="flex">
-                <div 
-                  class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden transform scale-0 transition-transform duration-500 delay-1300 ease-out-back"
-                  :class="{ 'scale-100': animationReady }"
+            <!-- Bouton CTA -->
+            <div class="animate-item">
+              <div id="${ctaButton.containerId}" class="relative inline-flex">
+                <a 
+                  href="${ctaButton.url}" 
+                  class="btn btn-accent rounded-lg text-lg py-4 px-8 inline-flex items-center gap-2 group"
                 >
-                  <span class="text-xs font-bold text-accent-500">15+</span>
-                </div>
-                <div 
-                  class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden -ml-2 transform scale-0 transition-transform duration-500 delay-1400 ease-out-back"
-                  :class="{ 'scale-100': animationReady }"
-                >
-                  <span class="text-xs font-bold text-primary-600">🏆</span>
-                </div>
-                <div 
-                  class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden -ml-2 transform scale-0 transition-transform duration-500 delay-1500 ease-out-back"
-                  :class="{ 'scale-100': animationReady }"
-                >
-                  <span class="text-xs font-bold text-primary-600">🌟</span>
-                </div>
+                  <span>${ctaButton.text}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 transform transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
               </div>
-              <p class="text-sm text-gray-400">15+ ans d'expertise reconnue</p>
             </div>
-            
-            <!-- Conteneur pour le bouton qui sera injecté dynamiquement -->
-            <div 
-              id="${ctaButton.containerId}" 
-              class="opacity-0 transform translate-y-6 transition-all duration-1000 delay-1400 ease-out-expo"
-              :class="{ 'opacity-100 translate-y-0': animationReady }"
-            ></div>
-            
-            <!-- Indication de scroll -->
-            ${showScrollIndicator ? `
-            <div 
-              class="hidden md:flex items-center mt-12 text-gray-500 text-sm opacity-0 transition-opacity duration-1000 delay-2000"
-              :class="{ 'opacity-100 animate-pulse': animationReady }"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-              </svg>
-              Scrollez pour découvrir
-            </div>
-            ` : ''}
           </div>
           
-          <!-- Logo à droite - Taille augmentée avec opacité du halo réduite -->
-          <div class="md:w-5/12 order-1 md:order-2 flex justify-center items-center">
+          <!-- Logo à droite -->
+          <div class="md:w-5/12 order-1 md:order-2 flex justify-center md:justify-end">
             <div 
-              class="logo-container relative w-full opacity-0 transform scale-95 rotate-3 transition-all duration-1200 delay-500 ease-out-expo"
-              :class="{ 'opacity-100 scale-100 rotate-0': animationReady }"
+              class="transform transition-all duration-1000 opacity-0 scale-95"
+              :class="{ 'opacity-100 scale-100': animationReady }"
             >
-              <div class="flex justify-center items-center w-full">
-                <!-- Logo avec taille augmentée et adaptation responsive -->
-                <div class="w-[70%] sm:w-[50%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] relative">
-                  <img 
-                    src="${imageSrc}" 
-                    alt="${imageAlt}" 
-                    class="w-full h-auto filter drop-shadow-lg"
-                    loading="eager"
-                  >
-                  
-                  <!-- Halo lumineux réduit autour du logo -->
-                  <div 
-                    class="absolute -inset-[20%] bg-accent-500/0 blur-2xl rounded-full -z-10 transition-all duration-2000 delay-800"
-                    :class="{ 'bg-accent-500/3': animationReady }"
-                  ></div>
-                </div>
-              </div>
-              
-              <!-- Effet de particules dorées concentré autour du logo - opacité réduite -->
-              <div 
-                class="absolute -inset-10 z-0 opacity-0 transition-opacity duration-2000 delay-1000"
-                :class="{ 'opacity-20': animationReady }"
-              >
-                <div 
-                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-accent-500/0 rounded-full blur-xl"
-                  :class="{ 'bg-accent-500/3 animate-pulse-slow': animationReady }"
-                ></div>
-              </div>
+              <img 
+                src="${imageSrc}" 
+                alt="${imageAlt}" 
+                class="max-w-[200px] md:max-w-[280px] lg:max-w-sm xl:max-w-md 2xl:max-w-lg"
+              />
             </div>
           </div>
         </div>
       </div>
       
-      <!-- Script d'animation custom pour le hero -->
-      <script>
-        // Ajoute une fonction d'easing pour des animations plus fluides
-        document.addEventListener('alpine:initializing', () => {
-          window.Alpine.magic('easeOutExpo', () => {
-            return (t) => {
-              return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-            };
-          });
-        });
-      </script>
+      <!-- Indicateur de défilement -->
+      ${showScrollIndicator ? `
+      <div 
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center opacity-0 transition-opacity duration-1000 delay-1500"
+        :class="{ 'opacity-80': animationReady }"
+      >
+        <span class="text-sm text-white mb-2">Découvrir</span>
+        <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center p-1">
+          <div class="animate-scrollDown w-1 h-2 bg-white rounded-full"></div>
+        </div>
+      </div>
+      ` : ''}
     </section>
   `;
 }
