@@ -263,16 +263,6 @@ function registerBehaviors() {
     };
   });
   
-  // Comportement pour la transition de fond (background)
-  window.Alpine.data('backgroundTransition', function() {
-    return {
-      init() {
-        console.log("Composant Alpine backgroundTransition initialisé");
-        // Le comportement est géré en-dehors d'Alpine pour plus de fiabilité
-      }
-    };
-  });
-  
   // Effets pour les éléments décoratifs en fonction de la souris
   window.Alpine.data('decorativeElements', function() {
     return {

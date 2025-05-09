@@ -21,7 +21,6 @@ initAlpineBehaviors();
 import { getTemplate } from './utils/templates.js';
 import { initComponentSystem } from './utils/componentInjector.js';
 import { initContactForm } from './utils/formHandler.js';
-import { initBackgroundTransition } from './components/effects/BackgroundTransition.js';
 import initComponents from './utils/initComponents.js';
 
 // Attendre le chargement complet du DOM
@@ -93,9 +92,6 @@ async function initSite() {
     
     // Initialiser la navigation
     initNavigation();
-    
-    // Initialiser la transition de fond
-    initBackgroundTransition();
     
     // Initialiser les animations au défilement
     initScrollAnimations();
