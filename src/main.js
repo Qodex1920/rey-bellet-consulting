@@ -8,6 +8,7 @@
 
 // Importation des styles
 import './styles/main.css';
+import './styles/decorative-elements.css';
 
 // Importation Alpine.js (uniquement si pas chargé via CDN)
 // import Alpine from 'alpinejs';
@@ -89,6 +90,9 @@ async function initSite() {
     
     // Initialiser les composants interactifs
     initComponents();
+    
+    // Initialiser les éléments décoratifs parallaxe
+    initDecorativeElements();
     
     console.log("Site initialisé avec succès");
   } catch (error) {
@@ -185,4 +189,48 @@ function initNavigation() {
       }
     }
   };
+}
+
+/**
+ * Initialise les éléments décoratifs avec effet de parallaxe
+ */
+function initDecorativeElements() {
+  // Importer dynamiquement le script de parallaxe
+  import('./utils/parallax.js')
+    .then(() => {
+      console.log("Effets de parallaxe initialisés avec succès");
+      
+      // Ajout d'un effet supplémentaire au défilement pour certains éléments décoratifs
+      const decorativeElements = document.querySelectorAll('.decorative-square, .decorative-line');
+      
+      window.addEventListener('scroll', () => {
+        // Obtenir la position de défilement
+        const scrollPosition = window.scrollY;
+        const viewportHeight = window.innerHeight;
+        
+        // Modifier l'opacité des éléments en fonction de la position
+        decorativeElements.forEach(element => {
+          // Ne pas affecter les éléments qui ont déjà une classe d'animation
+          if (!element.classList.contains('shine') && !element.classList.contains('floating')) {
+            // Calculer un facteur d'opacité basé sur la position
+            const elementPosition = element.getBoundingClientRect().top + scrollPosition;
+            const distanceFromTop = Math.abs(scrollPosition - elementPosition);
+            
+            // Plus l'élément est proche du viewport, plus il est visible
+            const maxDistance = viewportHeight * 2;
+            const opacity = Math.max(0.1, 1 - (distanceFromTop / maxDistance));
+            
+            // Appliquer l'opacité
+            element.style.opacity = Math.min(element.classList.contains('opacity-10') ? 0.1 : 
+                                             element.classList.contains('opacity-20') ? 0.2 : 
+                                             element.classList.contains('opacity-30') ? 0.3 : 
+                                             element.classList.contains('opacity-40') ? 0.4 : 0.2, 
+                                             opacity);
+          }
+        });
+      }, { passive: true });
+    })
+    .catch(error => {
+      console.error("Erreur lors du chargement des effets de parallaxe:", error);
+    });
 } 

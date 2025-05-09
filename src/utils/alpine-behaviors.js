@@ -5,6 +5,8 @@
  * pour les composants interactifs du site.
  */
 
+import Alpine from 'alpinejs';
+
 // Initialisation des comportements Alpine.js
 export function initAlpineBehaviors() {
   // Vérifier si Alpine.js est disponible dans le contexte global
@@ -290,4 +292,77 @@ function registerBehaviors() {
 // Initialiser automatiquement si le script est chargé directement
 document.addEventListener('DOMContentLoaded', () => {
   initAlpineBehaviors();
-}); 
+});
+
+// Fonction pour gérer le comportement du header
+window.headerBehavior = function() {
+  return {
+    // ...conserver le code existant...
+  };
+};
+
+// Animation au défilement pour les éléments
+window.animateOnScroll = function() {
+  return {
+    visible: false,
+    init() {
+      this.visible = false;
+    }
+  };
+};
+
+// Effets pour les éléments décoratifs en fonction de la souris
+window.decorativeElements = function() {
+  return {
+    init() {
+      this.setupMouseMovement();
+    },
+    setupMouseMovement() {
+      // Sélectionner certains éléments décoratifs pour les effets de souris
+      const moveElements = document.querySelectorAll('.decorative-square, .decorative-line');
+      
+      // Ajouter un écouteur d'événement de mouvement de souris
+      document.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        // Calculer le décalage par rapport au centre
+        const moveX = (clientX - centerX) / centerX;
+        const moveY = (clientY - centerY) / centerY;
+        
+        // Appliquer un léger mouvement aux éléments
+        moveElements.forEach(element => {
+          // Obtenir un facteur aléatoire pour chaque élément
+          const factor = parseFloat(element.getAttribute('data-mouse-factor') || Math.random() * 15 + 5);
+          const invert = element.classList.contains('decorative-square') ? -1 : 1;
+          
+          // Calculer le décalage
+          const offsetX = moveX * factor * invert;
+          const offsetY = moveY * factor * invert;
+          
+          // Appliquer la transformation (uniquement si l'élément n'a pas de transformation parallaxe)
+          if (!element.classList.contains('parallax-element')) {
+            element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+          }
+        });
+      });
+    }
+  };
+};
+
+// Transition d'arrière-plan pour la section À propos
+window.backgroundTransition = function() {
+  return {
+    // ...conserver le code existant...
+  };
+};
+
+// Exporter les comportements Alpine.js
+export default function setupAlpineBehaviors() {
+  // Enregistrer les comportements
+  window.Alpine = Alpine;
+  
+  // Démarrer Alpine.js
+  Alpine.start();
+} 

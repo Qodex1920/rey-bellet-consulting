@@ -96,41 +96,93 @@ export function createHeroSection({
   };
 
   return `
-    <!-- Section Hero -->
-    <section class="pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+    <!-- Section Hero avec animations d'entrée avancées -->
+    <section 
+      class="pt-48 pb-20 md:pt-64 md:pb-28 lg:pt-72 xl:pt-80 relative overflow-hidden min-h-screen flex items-center" 
+      x-data="{ animationReady: false }"
+      x-init="setTimeout(() => { animationReady = true }, 300)"
+    >
+      <!-- Overlay animé avec effet de révélation -->
+      <div 
+        class="absolute inset-0 bg-black z-10 transform-gpu transition-transform duration-1000 ease-out origin-top-right"
+        :class="{ 'scale-y-0': animationReady }"
+      ></div>
+      
+      <!-- Fond avec animation de pulse -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-80"></div>
+        <!-- Cercle lumineux animé - opacité réduite de 30% à 10% -->
+        <div 
+          class="absolute top-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-500/5 blur-[100px] transition-all duration-2000"
+          :class="{ 'animate-pulse-slow': animationReady, 'opacity-0': !animationReady, 'opacity-10': animationReady }"
+        ></div>
+        <!-- Ligne diagonale avec animation - opacité réduite de 20% à 10% -->
+        <div 
+          class="absolute top-1/3 -left-20 right-0 h-[1px] w-[120%] bg-accent-500/20 origin-left transform -rotate-6 transition-all duration-1500 delay-500"
+          :class="{ 'translate-x-0 opacity-10': animationReady, 'translate-x-full opacity-0': !animationReady }"
+        ></div>
+      </div>
+      
       <!-- Particules dorées animées - densité augmentée pour impact visuel immédiat -->
       <div class="gold-particles-container">
         ${generateParticles(50)}
       </div>
       
-      <!-- Éléments de scintillement dorés spécifiques à la section - opacité augmentée -->
-      <div class="gold-decor-shimmer top-1/4 left-1/3 w-1/3 opacity-[0.06]"></div>
-      <div class="gold-decor-shimmer bottom-1/4 right-1/4 w-2/5 opacity-[0.05]"></div>
+      <!-- Éléments de scintillement dorés spécifiques à la section - opacité réduite -->
+      <div 
+        class="gold-decor-shimmer top-1/4 left-1/3 w-1/3 opacity-0 transition-opacity duration-2000 delay-1000"
+        :class="{ 'opacity-[0.03]': animationReady }"
+      ></div>
+      <div 
+        class="gold-decor-shimmer bottom-1/4 right-1/4 w-2/5 opacity-0 transition-opacity duration-2000 delay-1200"
+        :class="{ 'opacity-[0.03]': animationReady }"
+      ></div>
       
-      
-      
-      <!-- Éléments graphiques décoratifs - dégradés dorés avec opacité augmentée -->
-      <div class="absolute top-0 right-0 w-1/3 h-64 gold-decor-element opacity-10"></div>
-      <div class="absolute bottom-20 left-0 w-2/5 h-80 gold-decor-element opacity-8"></div>
+      <!-- Éléments graphiques décoratifs - dégradés dorés avec opacité réduite -->
+      <div 
+        class="absolute top-0 right-0 w-1/3 h-64 gold-decor-element opacity-0 transition-opacity duration-1000 delay-800"
+        :class="{ 'opacity-5': animationReady }"
+      ></div>
+      <div 
+        class="absolute bottom-20 left-0 w-2/5 h-80 gold-decor-element opacity-0 transition-opacity duration-1000 delay-1000"
+        :class="{ 'opacity-5': animationReady }"
+      ></div>
       
       <div class="container mx-auto px-4 relative z-10">
         <div class="flex flex-col md:flex-row gap-12 items-center">
           <!-- Texte à gauche (inverser l'ordre) -->
           <div class="md:w-7/12 order-2 md:order-1">
             <!-- Élément graphique doré avant le titre -->
-            <div class="w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 hidden md:block"></div>
+            <div 
+              class="w-0 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 hidden md:block transition-all duration-1000 ease-out-expo"
+              :class="{ 'w-16': animationReady }"
+            ></div>
             
-            <!-- Nom avec effet spécial sur le nom de famille - AGRANDI -->
-            <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
-              ${firstName} <span class="highlight-text-animated">${lastName}</span>
+            <!-- Nom avec effet spécial sur le nom de famille - Correction de l'animation du titre -->
+            <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 overflow-hidden">
+              <span 
+                class="inline-block opacity-0 transform translate-y-0 transition-all duration-1000 delay-300 ease-out-expo"
+                :class="{ 'translate-y-0 opacity-100': animationReady }"
+              >
+                ${firstName} 
+              </span>
+              <span 
+                class="highlight-text-animated inline-block opacity-0 transform translate-y-0 transition-all duration-1000 delay-500 ease-out-expo"
+                :class="{ 'translate-y-0 opacity-100': animationReady }"
+              >
+                ${lastName}
+              </span>
             </h1>
             
             <!-- Texte animé en dessous du nom - PLUS IMPACTANT -->
-            <div class="mb-8 text-2xl md:text-3xl lg:text-4xl font-bold">
+            <div 
+              class="mb-8 text-2xl md:text-3xl lg:text-4xl font-bold opacity-0 transform translate-y-6 transition-all duration-1000 delay-800 ease-out-expo"
+              :class="{ 'opacity-100 translate-y-0': animationReady }"
+            >
               <span class="text-white opacity-90">${prefix}</span> 
               <span 
                 x-data="typingAnimation"
-                x-init="init()"
+                x-init="animationReady && setTimeout(() => init(), 1200)"
                 data-texts="${typingTexts.join('|')}"
                 x-text="text"
                 class="text-gradient relative"
@@ -138,20 +190,35 @@ export function createHeroSection({
               >${typingTexts[0]}</span>
             </div>
             
-            <p class="text-xl text-white mb-8 max-w-xl font-medium">
+            <p 
+              class="text-xl text-white mb-8 max-w-xl font-medium opacity-0 transform translate-y-6 transition-all duration-1000 delay-1000 ease-out-expo"
+              :class="{ 'opacity-100 translate-y-0': animationReady }"
+            >
               ${description}
             </p>
             
             <!-- Éléments de confiance -->
-            <div class="flex items-center mb-8 space-x-4">
+            <div 
+              class="flex items-center mb-8 space-x-4 opacity-0 transform translate-y-6 transition-all duration-1000 delay-1200 ease-out-expo"
+              :class="{ 'opacity-100 translate-y-0': animationReady }"
+            >
               <div class="flex">
-                <div class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden">
+                <div 
+                  class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden transform scale-0 transition-transform duration-500 delay-1300 ease-out-back"
+                  :class="{ 'scale-100': animationReady }"
+                >
                   <span class="text-xs font-bold text-accent-500">15+</span>
                 </div>
-                <div class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden -ml-2">
+                <div 
+                  class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden -ml-2 transform scale-0 transition-transform duration-500 delay-1400 ease-out-back"
+                  :class="{ 'scale-100': animationReady }"
+                >
                   <span class="text-xs font-bold text-primary-600">🏆</span>
                 </div>
-                <div class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden -ml-2">
+                <div 
+                  class="w-8 h-8 rounded-full border-2 border-gray-800 bg-gray-900 shadow-sm flex items-center justify-center overflow-hidden -ml-2 transform scale-0 transition-transform duration-500 delay-1500 ease-out-back"
+                  :class="{ 'scale-100': animationReady }"
+                >
                   <span class="text-xs font-bold text-primary-600">🌟</span>
                 </div>
               </div>
@@ -159,11 +226,18 @@ export function createHeroSection({
             </div>
             
             <!-- Conteneur pour le bouton qui sera injecté dynamiquement -->
-            <div id="${ctaButton.containerId}"></div>
+            <div 
+              id="${ctaButton.containerId}" 
+              class="opacity-0 transform translate-y-6 transition-all duration-1000 delay-1400 ease-out-expo"
+              :class="{ 'opacity-100 translate-y-0': animationReady }"
+            ></div>
             
             <!-- Indication de scroll -->
             ${showScrollIndicator ? `
-            <div class="hidden md:flex items-center mt-8 text-gray-500 text-sm animate-pulse">
+            <div 
+              class="hidden md:flex items-center mt-12 text-gray-500 text-sm opacity-0 transition-opacity duration-1000 delay-2000"
+              :class="{ 'opacity-100 animate-pulse': animationReady }"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
@@ -172,9 +246,12 @@ export function createHeroSection({
             ` : ''}
           </div>
           
-          <!-- Logo à droite - TAILLE AUGMENTÉE -->
+          <!-- Logo à droite - Taille augmentée avec opacité du halo réduite -->
           <div class="md:w-5/12 order-1 md:order-2 flex justify-center items-center">
-            <div class="logo-container relative w-full">
+            <div 
+              class="logo-container relative w-full opacity-0 transform scale-95 rotate-3 transition-all duration-1200 delay-500 ease-out-expo"
+              :class="{ 'opacity-100 scale-100 rotate-0': animationReady }"
+            >
               <div class="flex justify-center items-center w-full">
                 <!-- Logo avec taille augmentée et adaptation responsive -->
                 <div class="w-[70%] sm:w-[50%] md:w-[80%] lg:w-[70%] xl:w-[60%] 2xl:w-[50%] relative">
@@ -185,19 +262,40 @@ export function createHeroSection({
                     loading="eager"
                   >
                   
-                  <!-- Halo lumineux augmenté autour du logo -->
-                  <div class="absolute -inset-[20%] bg-accent-500/5 blur-2xl rounded-full -z-10"></div>
+                  <!-- Halo lumineux réduit autour du logo -->
+                  <div 
+                    class="absolute -inset-[20%] bg-accent-500/0 blur-2xl rounded-full -z-10 transition-all duration-2000 delay-800"
+                    :class="{ 'bg-accent-500/3': animationReady }"
+                  ></div>
                 </div>
               </div>
               
-              <!-- Effet de particules dorées concentré autour du logo - opacité augmentée -->
-              <div class="absolute -inset-10 z-0 opacity-40">
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-accent-500/5 rounded-full blur-xl animate-pulse-slow"></div>
+              <!-- Effet de particules dorées concentré autour du logo - opacité réduite -->
+              <div 
+                class="absolute -inset-10 z-0 opacity-0 transition-opacity duration-2000 delay-1000"
+                :class="{ 'opacity-20': animationReady }"
+              >
+                <div 
+                  class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-accent-500/0 rounded-full blur-xl"
+                  :class="{ 'bg-accent-500/3 animate-pulse-slow': animationReady }"
+                ></div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Script d'animation custom pour le hero -->
+      <script>
+        // Ajoute une fonction d'easing pour des animations plus fluides
+        document.addEventListener('alpine:initializing', () => {
+          window.Alpine.magic('easeOutExpo', () => {
+            return (t) => {
+              return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+            };
+          });
+        });
+      </script>
     </section>
   `;
 }

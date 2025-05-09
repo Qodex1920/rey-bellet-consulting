@@ -1,6 +1,6 @@
 /**
  * Composant de transition de fond fluide entre sections
- * Transition de la section "Ma Vision" (fond sombre) vers "À propos" (fond clair)
+ * Transition de la section "Ma Vision" (fond sombre) vers "À propos" (fond bleu)
  */
 
 export function initBackgroundTransition() {
@@ -25,16 +25,25 @@ export function initBackgroundTransition() {
       return existingOverlay;
     }
 
+    // Création de l'overlay directement avec style en ligne pour maximiser la priorité
     const overlay = document.createElement("div");
     overlay.id = "site-background-transition";
-    overlay.className = "fixed inset-0 bg-white pointer-events-none z-0";
     
-    // Optimisations pour les animations
-    overlay.style.willChange = "opacity";
-    overlay.style.transform = "translateZ(0)"; // Force GPU acceleration
+    // Application des styles directement (priorité maximale)
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.right = "0";
+    overlay.style.bottom = "0";
+    overlay.style.backgroundColor = "rgb(24, 72, 160)"; // Couleur bleue explicite
+    overlay.style.pointerEvents = "none";
+    overlay.style.zIndex = "-1"; // Mettre un z-index négatif pour être sous le contenu
     overlay.style.opacity = "0";
+    overlay.style.willChange = "opacity";
+    overlay.style.transition = "opacity 0.3s ease-out";
+    overlay.style.transform = "translateZ(0)";
     
-    // Ajouter l'overlay comme premier enfant du body pour éviter les problèmes de superposition
+    // Ajouter l'overlay comme premier enfant du body
     document.body.insertBefore(overlay, document.body.firstChild);
     console.log("Overlay créé avec succès");
     return overlay;
@@ -53,14 +62,23 @@ export function initBackgroundTransition() {
   // Configuration du gestionnaire de défilement
   function setupScrollHandler() {
     const overlay = document.getElementById("site-background-transition") || createOverlay();
-    const maVisionSection = document.getElementById("ma-vision");
     const aproposSection = document.getElementById("a-propos");
-    const servicesSection = document.getElementById("services");
 
     if (!aproposSection) {
       console.error("Section À propos non trouvée pour la transition de fond");
       return;
     }
+    
+    // Assurer que la section a un z-index correct pour rester au-dessus de l'overlay
+    aproposSection.style.position = "relative";
+    aproposSection.style.zIndex = "2";
+    
+    // S'assurer que tous les éléments internes ont un z-index supérieur
+    const containers = aproposSection.querySelectorAll('.container');
+    containers.forEach(container => {
+      container.style.position = "relative";
+      container.style.zIndex = "3";
+    });
 
     // Variables pour le suivi de la progression
     let progress = 0;
@@ -68,25 +86,13 @@ export function initBackgroundTransition() {
     let isAnimating = false;
     let rafId = null;
     
-    // Optimisation : limiter la fréquence des updates
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-
     // Gestionnaire de défilement optimisé
     const handleScroll = () => {
-      lastScrollY = window.scrollY;
-      
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateTransition(lastScrollY);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      window.requestAnimationFrame(updateTransition);
     };
     
-    // Fonction de mise à jour de la transition, séparée pour optimisation
-    const updateTransition = (scrollY) => {
+    // Fonction de mise à jour de la transition
+    const updateTransition = () => {
       const aproposRect = aproposSection.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       
@@ -133,32 +139,36 @@ export function initBackgroundTransition() {
       overlay.style.opacity = progress.toString();
 
       // Mettre à jour la couleur du texte dans la section À propos
-      const textElements = aproposSection.querySelectorAll(
-        ".prose p, .prose-p\\:text-primary-600, h3"
-      );
+      // Approche simplifiée: modifier les styles de la section entière
+      // pour que tous les paragraphes et textes à l'intérieur changent
+      const allTextElements = aproposSection.querySelectorAll('.prose p, div.space-y-6 p, h3, .italic, .space-y-6 .font-semibold');
       
-      textElements.forEach((el) => {
-        // Transition du blanc (255,255,255) vers le bleu primary (24,72,160)
-        const r = Math.round(255 - (255 - 24) * progress);
-        const g = Math.round(255 - (255 - 72) * progress);
-        const b = Math.round(255 - (255 - 160) * progress);
-
+      allTextElements.forEach(el => {
+        // Transition du bleu primary (24,72,160) vers le blanc (255,255,255)
+        const r = Math.round(24 + (255 - 24) * progress);
+        const g = Math.round(72 + (255 - 72) * progress);
+        const b = Math.round(160 + (255 - 160) * progress);
         el.style.color = `rgb(${r}, ${g}, ${b})`;
+        el.style.transition = "color 0.3s ease-out";
+        
+        // S'assurer que le texte a un z-index suffisant
+        if (!el.style.position) {
+          el.style.position = "relative";
+        }
+        if (!el.style.zIndex) {
+          el.style.zIndex = "5";
+        }
       });
 
-      // Mettre à jour le titre principal de la section pour qu'il devienne noir
+      // Mettre à jour le titre principal
       const titleElement = aproposSection.querySelector(".section-title-heading");
       if (titleElement) {
-        // Transition du blanc (255,255,255) vers le noir (0,0,0)
-        const r = Math.round(255 - 255 * progress);
-        const g = Math.round(255 - 255 * progress);
-        const b = Math.round(255 - 255 * progress);
-        
-        titleElement.style.color = `rgb(${r}, ${g}, ${b})`;
+        titleElement.style.color = "white";
+        titleElement.style.position = "relative";
+        titleElement.style.zIndex = "5";
       }
 
-      // Gérer les éléments décoratifs pour qu'ils disparaissent progressivement
-      // lorsque le fond devient blanc
+      // Gérer les éléments décoratifs
       const decorElements = document.querySelectorAll(
         ".bg-premium-golden-square, .bg-premium-blue-line"
       );
@@ -171,20 +181,21 @@ export function initBackgroundTransition() {
       if (Math.abs(targetProgress - progress) > 0.001) {
         rafId = requestAnimationFrame(animate);
       } else {
-        // Finir exactement à la cible pour éviter les imprécisions
+        // Finir exactement à la cible
         progress = targetProgress;
         isAnimating = false;
       }
     };
 
-    // Ajouter le gestionnaire d'événement avec passive:true pour les performances
+    // Ajouter le gestionnaire d'événement
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
-    // Surveiller également le redimensionnement de la fenêtre
     window.addEventListener("resize", handleScroll, { passive: true });
 
-    // Déclencher immédiatement pour l'état initial
-    updateTransition(window.scrollY);
+    // Déclencher immédiatement
+    updateTransition();
+    
+    // Forcer une mise à jour après un délai pour s'assurer que tout est chargé
+    setTimeout(handleScroll, 500);
 
     console.log("Gestionnaire de transition de fond configuré");
   }

@@ -23,13 +23,23 @@ export const serviceIcons = {
     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
   </svg>`,
   custom: 'https://cdn.lordicon.com/lagziwcr.json',
-  // Ajout des icônes Lord-icon pour les variantes améliorées
+  // Icônes Lord-icon pour les variantes améliorées
   strategy: 'https://cdn.lordicon.com/jdgfsfzr.json',
   planning: 'https://cdn.lordicon.com/wsvtrygf.json',
   activate: 'https://cdn.lordicon.com/oiveszhb.json',
   development: 'https://cdn.lordicon.com/lagziwcr.json',
   potential: 'https://cdn.lordicon.com/yxpxfegf.json',
-  ambition: 'https://cdn.lordicon.com/yxpxfegf.json'
+  ambition: 'https://cdn.lordicon.com/yxpxfegf.json',
+  // Nouvelles icônes pour les services particuliers
+  formation: 'https://cdn.lordicon.com/kzwijmjl.json', // Formation personnalisée
+  website: 'https://cdn.lordicon.com/cmrctxhm.json',   // Création de site web  
+  digital: 'https://cdn.lordicon.com/drtetngs.json',   // Transformation digitale
+  personal: 'https://cdn.lordicon.com/kkyvrmsu.json',  // Coaching personnel
+  career: 'https://cdn.lordicon.com/tvwjlwkl.json',    // Développement de carrière
+  // Nouvelles icônes ajoutées
+  potentiel: 'https://cdn.lordicon.com/jdgfsfzr.json', // Révéler ton potentiel
+  ambitions: 'https://cdn.lordicon.com/raxyqlxo.json', // Donner vie à tes ambitions
+  surmesure: 'https://cdn.lordicon.com/wvjueuxa.json'  // Sur mesure
 };
 
 /**
@@ -64,9 +74,9 @@ export function createServiceCard(settings) {
     case 'personal':
       return createPersonalServiceCard(config);
     case 'enterprise-modern':
-      return createEnterpriseModernServiceCard(config);
+      return createModernServiceCard(config);
     case 'personal-modern':
-      return createPersonalModernServiceCard(config);
+      return createModernServiceCard(config);
     case 'simple':
     default:
       return createSimpleServiceCard(config);
@@ -173,23 +183,54 @@ function createSimpleServiceCard(config) {
 }
 
 /**
- * Crée une carte de service pour entreprises avec design moderne
+ * Crée une carte de service moderne unifiée pour entreprises et particuliers
  * @param {Object} config Configuration de la carte
- * @returns {string} HTML de la carte moderne pour entreprises
+ * @returns {string} HTML de la carte moderne
  */
-function createEnterpriseModernServiceCard(config) {
+function createModernServiceCard(config) {
+  // Attribution d'icônes par défaut en fonction du titre si aucune icône n'est spécifiée
+  let defaultIcon = '';
+  if (!config.icon) {
+    const title = config.title.toLowerCase();
+    if (title.includes('formation') || title.includes('cours')) {
+      defaultIcon = 'formation';
+    } else if (title.includes('site web') || title.includes('web')) {
+      defaultIcon = 'website';
+    } else if (title.includes('digital') || title.includes('numérique')) {
+      defaultIcon = 'digital';
+    } else if (title.includes('coaching') || title.includes('accompagnement')) {
+      defaultIcon = 'personal';
+    } else if (title.includes('carrière') || title.includes('professionnel')) {
+      defaultIcon = 'career';
+    } else if (title.includes('stratégie') || title.includes('stratégique')) {
+      defaultIcon = 'strategy';
+    } else if (title.includes('développement')) {
+      defaultIcon = 'development';
+    } else if (title.includes('potentiel')) {
+      defaultIcon = 'potentiel';
+    } else if (title.includes('ambition')) {
+      defaultIcon = 'ambitions';
+    } else if (title.includes('sur mesure') || title.includes('personnalisé')) {
+      defaultIcon = 'surmesure';
+    } else {
+      defaultIcon = 'ambition';
+    }
+  }
+
   // Vérifier si l'icône est une URL Lord-icon ou une icône SVG
   let iconHTML = '';
-  if (typeof config.icon === 'string' && serviceIcons[config.icon] && serviceIcons[config.icon].startsWith('http')) {
+  const iconKey = config.icon || defaultIcon;
+  
+  if (typeof iconKey === 'string' && serviceIcons[iconKey] && serviceIcons[iconKey].startsWith('http')) {
     // C'est une URL Lord-icon
     iconHTML = `
       <lord-icon
-        src="${serviceIcons[config.icon]}"
+        src="${serviceIcons[iconKey]}"
         trigger="in"
-        colors="primary:var(--color-primary-500),secondary:var(--color-accent-500)"
+        colors="primary:#FFFFFF,secondary:#FFD700"
         delay="300"
         state="in-reveal"
-        style="width:48px;height:48px">
+        style="width:52px;height:52px">
       </lord-icon>
     `;
   } else {
@@ -197,80 +238,11 @@ function createEnterpriseModernServiceCard(config) {
     iconHTML = config.icon || serviceIcons.consulting;
   }
 
-  // Génération des éléments de fonctionnalités
-  const featuresHTML = config.features.map(feature => `
-    <li class="service-card-feature">
-      <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-      <span class="text-gray-300 transition-colors duration-300">${feature}</span>
-    </li>
-  `).join('');
-
-  return `
-    <div class="service-card group">
-      <!-- Élément décoratif doré supérieur -->
-      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-accent-500/20 via-accent-500 to-accent-500/20"></div>
-      
-      <!-- Élément décoratif doré latéral, visible au survol -->
-      <div class="absolute top-0 right-0 w-1.5 h-0 bg-accent-500 transition-all duration-700 ease-out group-hover:h-full"></div>
-      
-      <!-- Effet rayonnant dans le coin -->
-      <div class="absolute -top-12 -left-12 w-24 h-24 bg-accent-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-      
-      <div class="flex items-start mb-5">
-        <div class="service-card-icon text-primary-500 mr-4 transform transition-all duration-500 ease-out group-hover:scale-110">
-          ${iconHTML}
-        </div>
-        <h3 class="service-card-title text-primary-500 transition-colors duration-300 group-hover:text-primary-400">${config.title}</h3>
-      </div>
-      
-      <p class="service-card-description">
-        ${config.description}
-      </p>
-      
-      ${config.features.length > 0 ? `
-        <ul class="service-card-features">
-          ${featuresHTML}
-        </ul>
-      ` : ''}
-      
-      <!-- Effet brillant subtil dans le coin -->
-      <div class="gold-decor-shimmer absolute -bottom-16 -right-16 opacity-0 group-hover:opacity-20 transform scale-0 group-hover:scale-100 transition-all duration-700 ease-out"></div>
-    </div>
-  `;
-}
-
-/**
- * Crée une carte de service pour particuliers avec design moderne
- * @param {Object} config Configuration de la carte
- * @returns {string} HTML de la carte moderne pour particuliers
- */
-function createPersonalModernServiceCard(config) {
-  // Vérifier si l'icône est une URL Lord-icon ou une icône SVG
-  let iconHTML = '';
-  if (typeof config.icon === 'string' && serviceIcons[config.icon] && serviceIcons[config.icon].startsWith('http')) {
-    // C'est une URL Lord-icon
-    iconHTML = `
-      <lord-icon
-        src="${serviceIcons[config.icon]}"
-        trigger="in"
-        colors="primary:var(--color-primary-500),secondary:var(--color-accent-500)"
-        delay="300"
-        state="in-reveal"
-        style="width:48px;height:48px">
-      </lord-icon>
-    `;
-  } else {
-    // C'est une icône SVG ou une icône par défaut
-    iconHTML = config.icon || serviceIcons.consulting;
-  }
-
-  // Génération des tags
+  // Génération des tags (uniquement pour les services particuliers)
   const tagsHtml = config.tags && config.tags.length > 0
-    ? `<div class="flex flex-wrap gap-2 mt-4">
+    ? `<div class="flex flex-wrap gap-2 mt-3">
         ${config.tags.map(tag => `
-          <span class="px-3 py-1 text-xs bg-primary-500/10 text-primary-500 rounded-full">${tag}</span>
+          <span class="px-3 py-1 text-xs bg-[#FFD700]/20 text-white font-medium rounded-full backdrop-blur-sm">${tag}</span>
         `).join('')}
       </div>`
     : '';
@@ -278,48 +250,67 @@ function createPersonalModernServiceCard(config) {
   // Génération des éléments de fonctionnalités
   const featuresHTML = config.features.map(feature => `
     <li class="service-card-feature">
-      <svg class="service-card-feature-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <svg class="service-card-feature-icon" fill="none" stroke="#FFD700" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
       </svg>
-      <span class="text-black">${feature}</span>
+      <span class="text-white text-base transition-colors duration-300">${feature}</span>
     </li>
   `).join('');
 
-  // Badge premium conditionnel
+  // Badge premium conditionnel (uniquement pour les services particuliers)
   const premiumBadge = config.isPremium
-    ? `<div class="absolute top-0 right-0 -mt-2 -mr-2">
-        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-accent-500 to-accent-300 text-xs font-bold text-black">PRO</span>
+    ? `<div class="absolute top-0 right-0 -mt-2 -mr-2 z-20">
+        <span class="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-[#FFD700] to-[#FFD700]/80 text-xs font-bold text-black">PRO</span>
       </div>`
     : '';
 
   return `
-    <div class="service-card card group relative">
+    <div class="service-card group backdrop-blur-md bg-white/10 border border-[#FFD700]/30 shadow-lg hover:shadow-xl rounded-lg p-6 relative overflow-hidden transition-all duration-300">
       ${premiumBadge}
       
+      <!-- Effet glassmorphism subtil -->
+      <div class="absolute inset-0 bg-gradient-to-br from-white/10 to-[#1848A0]/5 opacity-30 mix-blend-overlay"></div>
+      
+      <!-- Reflet supérieur renforcé pour effet verre et contraste du titre -->
+      <div class="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/30 to-transparent"></div>
+      
       <!-- Élément décoratif supérieur -->
-      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary-500/20 via-primary-500 to-primary-500/20"></div>
+      <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#FFD700]/20 via-[#FFD700] to-[#FFD700]/20"></div>
       
-      <div class="flex items-start mb-5">
-        <div class="service-card-icon text-primary-500 mr-4 transition-transform duration-500 ease-out group-hover:scale-110">
-          ${iconHTML}
+      <!-- Élément décoratif doré latéral, visible au survol -->
+      <div class="absolute top-0 right-0 w-1.5 h-0 bg-[#FFD700] transition-all duration-700 ease-out group-hover:h-full"></div>
+      
+      <!-- Effet rayonnant dans le coin -->
+      <div class="absolute -top-12 -left-12 w-24 h-24 bg-[#FFD700]/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+      
+      <!-- Conteneur du titre avec effet léger -->
+      <div class="relative z-10 mb-4">
+        <div class="flex items-start gap-4">
+          <div class="service-card-icon text-white transition-transform duration-500 ease-out group-hover:scale-110 relative">
+            ${iconHTML}
+          </div>
+          <div class="flex-1">
+            <h3 class="service-card-title text-white text-xl group-hover:text-white/90 font-bold tracking-wide filter drop-shadow-md">${config.title}</h3>
+            <!-- Ligne décorative sous le titre -->
+            <div class="h-0.5 w-1/4 bg-gradient-to-r from-[#FFD700] to-transparent mt-1 mb-3"></div>
+          </div>
         </div>
-        <h3 class="service-card-title text-primary-500 group-hover:text-primary-400">${config.title}</h3>
+        
+        <p class="service-card-description text-white relative z-10 text-base leading-relaxed">
+          ${config.description}
+        </p>
       </div>
-      
-      <p class="service-card-description">
-        ${config.description}
-      </p>
       
       ${tagsHtml}
       
       ${config.features.length > 0 ? `
-        <ul class="service-card-features mt-4">
+        <ul class="service-card-features mt-3 relative z-10 space-y-2">
           ${featuresHTML}
         </ul>
       ` : ''}
       
       <!-- Effet lumineux subtil dans le coin -->
-      <div class="gold-decor-shimmer absolute -bottom-12 -right-12 opacity-0 group-hover:opacity-20 transform scale-0 group-hover:scale-100 transition-all duration-700 ease-out"></div>
+      <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-gradient-to-tr from-[#FFD700]/20 to-transparent rounded-full blur-xl opacity-0 group-hover:opacity-40 transform scale-0 group-hover:scale-100 transition-all duration-700 ease-out"></div>
     </div>
   `;
 }

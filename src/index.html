@@ -55,6 +55,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/decorative-elements.css" />
 
     <!-- Lordicon pour les icônes animées -->
     <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
@@ -66,6 +67,8 @@
     <!-- Import des comportements Alpine.js après le chargement d'Alpine -->
     <script type="module" src="./utils/alpine-behaviors.js" defer></script>
     <script type="module" src="./utils/animations.js" defer></script>
+    <!-- Script pour les effets de parallaxe -->
+    <script type="module" src="./utils/parallax.js" defer></script>
   </head>
   <body class="antialiased text-gray-400 bg-gradient-premium">
     <!-- Éléments de background premium -->
@@ -79,6 +82,20 @@
     <div class="bg-premium-blue-line bg-premium-blue-line-1"></div>
     <div class="bg-premium-blue-line bg-premium-blue-line-2"></div>
     <div class="bg-premium-highlight"></div>
+
+    <!-- Conteneur des éléments décoratifs avec parallaxe -->
+    <div class="decorative-container" x-data="decorativeElements">
+      <!-- Carrés dorés avec effets de parallaxe -->
+      <div class="decorative-square square-medium decorative-square-1 opacity-30 parallax-element shine" data-parallax-speed="-0.03" data-parallax-direction="vertical" data-mouse-factor="10"></div>
+      <div class="decorative-square square-small decorative-square-2 opacity-20 parallax-element floating" data-parallax-speed="0.05" data-parallax-direction="vertical" data-mouse-factor="15"></div>
+      <div class="decorative-square square-large decorative-square-3 opacity-10 parallax-element" data-parallax-speed="0.02" data-parallax-direction="diagonal" data-mouse-factor="8"></div>
+      <div class="decorative-square square-medium decorative-square-4 opacity-20 parallax-element" data-parallax-speed="-0.04" data-parallax-direction="vertical" data-mouse-factor="12"></div>
+      
+      <!-- Traits bleus avec effets de parallaxe -->
+      <div class="decorative-line line-large decorative-line-1 opacity-20 parallax-element" data-parallax-speed="0.01" data-parallax-direction="horizontal" data-mouse-factor="20"></div>
+      <div class="decorative-line line-medium decorative-line-2 opacity-10 parallax-element" data-parallax-speed="-0.02" data-parallax-direction="horizontal" data-mouse-factor="18"></div>
+      <div class="decorative-line line-small decorative-line-3 opacity-30 parallax-element" data-parallax-speed="0.03" data-parallax-direction="rotation" data-base-offset="-8" data-mouse-factor="5"></div>
+    </div>
 
     <!-- L'overlay est maintenant créé et géré par le composant -->
 
@@ -95,11 +112,17 @@
       <!-- Section Ma Vision -->
       <section id="ma-vision" class="relative overflow-hidden">
         <div class="container mx-auto px-4 relative z-10">
+          <!-- Éléments décoratifs spécifiques à cette section -->
+          <div class="section-decorative-elements">
+            <div class="decorative-square square-medium opacity-20 parallax-element" style="top: 20%; right: 15%;" data-parallax-speed="0.06" data-parallax-direction="vertical"></div>
+            <div class="decorative-line line-medium opacity-20 parallax-element" style="bottom: 10%; left: -10%;" data-parallax-speed="-0.03" data-parallax-direction="horizontal"></div>
+          </div>
+          
           <div class="max-w-5xl mx-auto">
             <!-- Titre avec surlignement bleu animé -->
             <div class="section-title text-center mb-14" data-scroll-animation>
               <h2
-                class="section-title-heading highlight-text-animated text-4xl md:text-5xl"
+                class="section-title-heading highlight-text-animated text-5xl md:text-6xl"
               >
                 Ma Vision
               </h2>
@@ -109,7 +132,7 @@
               class="relative bg-white/5 border-l-4 border-blue-600 rounded-xl px-8 py-6 mb-12 shadow-lg animate-fade-in-up"
             >
               <span
-                class="block text-xl md:text-2xl font-poppins text-blue-400 font-semibold uppercase tracking-wide leading-tight"
+                class="block text-2xl md:text-3xl font-poppins text-blue-400 font-semibold uppercase tracking-wide leading-tight"
               >
                 « Si t'attends que ça bouge, c'est que t'es déjà en retard »
               </span>
@@ -117,11 +140,10 @@
                 class="absolute -bottom-3 right-8 w-16 h-1 bg-gradient-to-r from-blue-600 to-accent-500 rounded"
               ></span>
             </blockquote>
-            <!-- Texte narratif et mission -->
-            <div
-              class="vision-content text-gray-300 space-y-8 animate-fade-in-up delay-200"
-            >
-              <p>
+            
+            <!-- Texte narratif et mission avec image intégrée -->
+            <div class="vision-content text-gray-200 space-y-8 animate-fade-in-up delay-200">
+              <p class="text-lg md:text-xl leading-relaxed">
                 <span class="text-white font-semibold"
                   >Le changement n'est pas une option.</span
                 >
@@ -133,20 +155,62 @@
                 le changement – on le rend concret, stratégique et impossible à
                 ignorer.
               </p>
-              <p>
-                Je ne suis pas là pour rassurer. Je suis là pour
-                <span class="text-accent-500 font-bold">provoquer</span>,
-                structurer et faire émerger un changement assumé, percutant et
-                aligné avec vos ambitions profondes.
-              </p>
+              
+              <!-- Conteneur flex pour image + texte -->
+              <div class="flex flex-col md:flex-row items-center gap-8 my-10">
+                <!-- Image avec style élégant -->
+                <div class="md:w-1/3 flex-shrink-0 relative">
+                  <div class="relative transform transition-all duration-500 hover:scale-105">
+                    <!-- Cadre décoratif -->
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-accent-500 to-blue-600 opacity-20 blur-sm rounded-lg"></div>
+                    <div class="absolute -inset-1 bg-gradient-to-r from-accent-500 to-blue-600 opacity-10 rounded-lg"></div>
+                    
+                    <!-- Image avec cadre -->
+                    <div class="relative overflow-hidden rounded-xl shadow-2xl border border-accent-500/10">
+                      <img 
+                        src="assets/images/carnet-fusee.webp" 
+                        alt="Carnet avec dessin de fusée symbolisant l'évolution et le changement" 
+                        class="w-full h-auto object-cover"
+                        loading="lazy"
+                      />
+                      
+                      <!-- Overlay de couleur subtil pour harmoniser avec le thème -->
+                      <div class="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"></div>
+                      
+                      <!-- Élément décoratif doré dans le coin -->
+                      <div class="absolute top-2 right-2 w-5 h-5 opacity-70">
+                        <div class="w-full h-full bg-accent-500 rounded-tr-md"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Ligne décorative -->
+                  <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1/2 h-0.5 bg-gradient-to-r from-transparent via-accent-500 to-transparent opacity-40"></div>
+                </div>
+                
+                <!-- Texte à côté de l'image -->
+                <div class="md:w-2/3">
+                  <p class="text-lg md:text-xl leading-relaxed">
+                    Je ne suis pas là pour rassurer. Je suis là pour
+                    <span class="text-accent-500 font-bold">provoquer</span>,
+                    structurer et faire émerger un changement assumé, percutant et
+                    aligné avec vos ambitions profondes.
+                  </p>
+                  <p class="mt-4 text-lg md:text-xl leading-relaxed">
+                    Votre vision mérite d'être transformée en réalité. Mon rôle est de vous guider à travers ce processus avec clarté, détermination et efficacité. 
+                    <span class="italic text-blue-400">Comme une fusée bien conçue, votre projet doit décoller avec puissance et suivre une trajectoire précise.</span>
+                  </p>
+                </div>
+              </div>
+              
               <!-- Bloc mission -->
               <div
-                class="flex items-start gap-4 py-6 pl-0 md:pl-8 my-4 border-l-4 border-accent-500/70 relative bg-black/30 rounded-lg shadow-md"
+                class="flex items-start gap-4 py-8 pl-0 md:pl-8 my-6 border-l-4 border-accent-500/70 relative bg-black/30 rounded-lg shadow-md"
               >
                 <div class="flex-shrink-0 mt-1">
                   <!-- Icône de mission (flèche ascendante) -->
                   <svg
-                    class="w-8 h-8 text-accent-500"
+                    class="w-10 h-10 text-accent-500"
                     fill="none"
                     stroke="currentColor"
                     stroke-width="2"
@@ -161,15 +225,15 @@
                 </div>
                 <div>
                   <h3
-                    class="text-2xl md:text-3xl font-bold text-white mb-2 flex items-center gap-2"
+                    class="text-2xl md:text-4xl font-bold text-white mb-3 flex items-center gap-2"
                   >
                     <span>Ma mission&nbsp;?</span>
                     <span
-                      class="inline-block bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-semibold"
+                      class="inline-block bg-blue-600 text-white text-sm px-3 py-1 rounded-full font-semibold"
                       >Action</span
                     >
                   </h3>
-                  <p>
+                  <p class="text-lg md:text-xl leading-relaxed">
                     Faire du mouvement un choix puissant, non une contrainte.
                     Redéfinir chaque transition pour qu'elle devienne un
                     accélérateur de réussite. Transformer l'incertitude en
@@ -177,13 +241,13 @@
                   </p>
                 </div>
               </div>
-              <p>
+              <p class="text-lg md:text-xl leading-relaxed">
                 Parce qu'rester immobile, c'est renoncer à toute évolution.
                 Parce qu'évoluer avec clarté et courage, c'est bâtir un avenir
                 qui nous inspire.
               </p>
               <p
-                class="text-lg md:text-xl font-semibold text-white py-4 relative"
+                class="text-xl md:text-2xl font-semibold text-white py-4 relative leading-relaxed"
               >
                 <span class="relative inline-block">
                   Avec Rey-Bellet Consulting, on ne subit pas le changement – on
@@ -195,14 +259,14 @@
               </p>
             </div>
             <!-- Signature manuscrite et clin d'œil à Mia -->
-            <div class="flex items-center justify-end mt-10 gap-4">
+            <div class="flex items-center justify-end mt-12 gap-4">
               <img
                 src="assets/signature-laure.svg"
                 alt="Signature Laure Rey-Bellet"
-                class="h-10 opacity-80"
+                class="h-12 opacity-80"
               />
               <span
-                class="text-xs text-gray-500 italic flex items-center gap-1"
+                class="text-sm text-gray-500 italic flex items-center gap-1"
               >
                 <svg
                   class="w-5 h-5 text-accent-500"
@@ -226,9 +290,15 @@
       <!-- Section À Propos -->
       <section
         id="a-propos"
-        class="relative overflow-visible"
+        class="relative overflow-visible transition-background"
         x-data="backgroundTransition"
       >
+        <!-- Éléments décoratifs spécifiques à cette section -->
+        <div class="section-decorative-elements">
+          <div class="decorative-square square-small opacity-30 parallax-element" style="top: 15%; left: 10%;" data-parallax-speed="0.04" data-parallax-direction="vertical"></div>
+          <div class="decorative-line line-large opacity-15 parallax-element" style="top: 70%; right: -10%;" data-parallax-speed="-0.02" data-parallax-direction="rotation" data-base-offset="5"></div>
+        </div>
+        
         <div class="container mx-auto px-4 relative z-10">
           <div class="max-w-6xl mx-auto">
             <div
@@ -246,8 +316,114 @@
 
             <!-- Contenu principal -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-              <!-- Image avec éléments décoratifs -->
-              <div class="lg:col-span-5 relative" x-data="animateOnScroll">
+              <!-- Histoire personnelle - Maintenant en premier et plus large -->
+              <div class="lg:col-span-8 order-2 lg:order-1" x-data="animateOnScroll">
+                <div
+                  class="prose prose-lg max-w-none opacity-0 transform transition-all duration-700 delay-200"
+                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
+                >
+                  <!-- Titre accrocheur -->
+                  <h3
+                    class="text-2xl md:text-3xl font-bold mb-8 relative inline-block"
+                  >
+                    LE CHOIX DE NE PLUS SUBIR
+                    <span
+                      class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent-500/80 via-accent-500/50 to-transparent"
+                    ></span>
+                  </h3>
+
+                  <!-- Histoire avec mise en forme élégante -->
+                  <div class="space-y-6 text-primary-600">
+                    <p>
+                      J'ai longtemps cherché ma place. À endosser des rôles
+                      qu'on m'imposait, sans jamais me demander s'ils étaient
+                      faits pour moi. À rentrer dans des moules, jusqu'à en
+                      oublier qui j'étais vraiment.
+                    </p>
+
+                    <p>
+                      On m'a confié des postes à responsabilités jeunes, comme
+                      <span class="font-semibold"
+                        >Responsable RH</span
+                      >
+                      ou
+                      <span class="font-semibold"
+                        >Responsable Qualité</span
+                      >. Des missions où il fallait créer, structurer, s'adapter
+                      immédiatement. Alors j'ai appris vite. Absorbé, testé,
+                      ajusté, avancé.
+                    </p>
+
+                    <p>
+                      Mais à un moment, quelque chose s'est brisé. Un malaise
+                      que je n'arrivais pas à expliquer. Le genre qui te suit,
+                      même quand tout semble aller bien. Je donnais tout. Mais
+                      pour quoi ? Pour qui ?
+                    </p>
+
+                    <div class="pl-6 border-l-2 border-accent-500/40 my-8">
+                      <p class="italic">
+                        Et puis, après des nuits à ressasser, une évidence
+                        s'impose :
+                        <span class="font-semibold"
+                          >Je ne veux plus jouer un rôle. Je ne veux plus suivre
+                          un scénario écrit par quelqu'un d'autre. Je veux créer
+                          la vie que je mérite.</span
+                        >
+                      </p>
+                    </div>
+
+                    <p>
+                      Alors j'ai quitté ces postes par respect pour moi-même.
+                      Parce qu'accepter un chemin qui ne nous ressemble pas, ce
+                      n'est pas réussir. C'est juste s'éloigner de soi.
+                    </p>
+
+                    <p>
+                      Alors j'ai exploré. Testé. Cherché à comprendre. Appris.
+                      Pas juste les métiers. Les gens. Leur mentalité. Leur
+                      blocage. Leur évolution. Ce qui les pousse à avancer… ou à
+                      rester figés.
+                    </p>
+
+                    <p>
+                      Il y a eu des échecs, oui. Des ajustements. Des retours en
+                      arrière. Des leçons qui cognent fort. Mais grâce à ça,
+                      j'ai décodé ce qui fonctionne. Ce qui impacte. Ce qui
+                      transforme.
+                    </p>
+
+                    <div
+                      class="bg-gradient-to-r from-accent-500/10 to-accent-500/20 p-6 rounded-tr-2xl rounded-bl-2xl shadow-md my-8 relative"
+                    >
+                      <div
+                        class="absolute top-0 right-0 w-16 h-16 border-t border-r border-accent-500/40 rounded-tr-2xl"
+                      ></div>
+                      <p class="text-lg md:text-xl mb-0 text-white">
+                        Aujourd'hui, ma formule est solide. Elle propulse. Elle
+                        casse les limitations. J'accompagne ceux qui refusent de
+                        subir et veulent reprendre leur pouvoir sur leur vie.
+                      </p>
+                      <div
+                        class="absolute bottom-0 left-0 w-16 h-16 border-b border-l border-accent-500/40 rounded-bl-2xl"
+                      ></div>
+                    </div>
+
+                    <p class="italic">
+                      Ah oui, si jamais… Mia (sur la photo à droite), c'est mon
+                      associée. La meilleure négociatrice du game. Elle amadoue,
+                      elle convainc, elle charme mieux que moi. Moi ? Je fais le
+                      reste.
+                    </p>
+                  </div>
+
+                  <!-- Conteneur pour le bouton "Me contacter" -->
+                  <div id="about-contact-button" class="mt-8"></div>
+                </div>
+              </div>
+
+              <!-- Image avec éléments décoratifs - Maintenant à droite et plus étroite -->
+              <div class="lg:col-span-4 order-1 lg:order-2 relative" x-data="animateOnScroll">
                 <div
                   class="relative mb-12 lg:mb-0 opacity-0 transform transition-all duration-700 delay-100"
                   x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
@@ -256,6 +432,13 @@
                   <div
                     class="relative overflow-hidden rounded-tr-3xl rounded-bl-3xl aspect-[3/4] shadow-xl bg-gray-800"
                   >
+                    <!-- Ajout de l'image -->
+                    <img 
+                      src="assets/images/laure-rey-bellet.webp" 
+                      alt="Laure Rey-Bellet" 
+                      class="w-full h-full object-cover"
+                    />
+                    
                     <!-- Calque avec dégradé subtil -->
                     <div
                       class="absolute inset-0 bg-gradient-to-tr from-black/30 to-transparent pointer-events-none"
@@ -283,119 +466,19 @@
                   ></div>
                 </div>
               </div>
-
-              <!-- Histoire personnelle -->
-              <div class="lg:col-span-7" x-data="animateOnScroll">
-                <div
-                  class="prose prose-lg max-w-none opacity-0 transform transition-all duration-700 delay-200 prose-p:text-primary-600"
-                  x-bind:class="{ 'opacity-100 translate-y-0': visible, 'opacity-0 translate-y-6': !visible }"
-                >
-                  <!-- Titre accrocheur -->
-                  <h3
-                    class="text-2xl md:text-3xl font-bold text-primary-600 mb-8 relative inline-block"
-                  >
-                    LE CHOIX DE NE PLUS SUBIR
-                    <span
-                      class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-accent-500/80 via-accent-500/50 to-transparent"
-                    ></span>
-                  </h3>
-
-                  <!-- Histoire avec mise en forme élégante -->
-                  <div class="space-y-6 text-primary-600">
-                    <p class="!text-primary-600">
-                      J'ai longtemps cherché ma place. À endosser des rôles
-                      qu'on m'imposait, sans jamais me demander s'ils étaient
-                      faits pour moi. À rentrer dans des moules, jusqu'à en
-                      oublier qui j'étais vraiment.
-                    </p>
-
-                    <p class="!text-primary-600">
-                      On m'a confié des postes à responsabilités jeunes, comme
-                      <span class="text-primary-600 font-semibold"
-                        >Responsable RH</span
-                      >
-                      ou
-                      <span class="text-primary-600 font-semibold"
-                        >Responsable Qualité</span
-                      >. Des missions où il fallait créer, structurer, s'adapter
-                      immédiatement. Alors j'ai appris vite. Absorbé, testé,
-                      ajusté, avancé.
-                    </p>
-
-                    <p class="!text-primary-600">
-                      Mais à un moment, quelque chose s'est brisé. Un malaise
-                      que je n'arrivais pas à expliquer. Le genre qui te suit,
-                      même quand tout semble aller bien. Je donnais tout. Mais
-                      pour quoi ? Pour qui ?
-                    </p>
-
-                    <div class="pl-6 border-l-2 border-accent-500/40 my-8">
-                      <p class="italic !text-primary-600">
-                        Et puis, après des nuits à ressasser, une évidence
-                        s'impose :
-                        <span class="text-primary-600 font-semibold"
-                          >Je ne veux plus jouer un rôle. Je ne veux plus suivre
-                          un scénario écrit par quelqu'un d'autre. Je veux créer
-                          la vie que je mérite.</span
-                        >
-                      </p>
-                    </div>
-
-                    <p class="!text-primary-600">
-                      Alors j'ai quitté ces postes par respect pour moi-même.
-                      Parce qu'accepter un chemin qui ne nous ressemble pas, ce
-                      n'est pas réussir. C'est juste s'éloigner de soi.
-                    </p>
-
-                    <p class="!text-primary-600">
-                      Alors j'ai exploré. Testé. Cherché à comprendre. Appris.
-                      Pas juste les métiers. Les gens. Leur mentalité. Leur
-                      blocage. Leur évolution. Ce qui les pousse à avancer… ou à
-                      rester figés.
-                    </p>
-
-                    <p class="!text-primary-600">
-                      Il y a eu des échecs, oui. Des ajustements. Des retours en
-                      arrière. Des leçons qui cognent fort. Mais grâce à ça,
-                      j'ai décodé ce qui fonctionne. Ce qui impacte. Ce qui
-                      transforme.
-                    </p>
-
-                    <div
-                      class="bg-gray-900 p-6 rounded-tr-2xl rounded-bl-2xl shadow-md my-8 relative"
-                    >
-                      <div
-                        class="absolute top-0 right-0 w-16 h-16 border-t border-r border-accent-500/40 rounded-tr-2xl"
-                      ></div>
-                      <p class="text-lg md:text-xl mb-0 text-white">
-                        Aujourd'hui, ma formule est solide. Elle propulse. Elle
-                        casse les limitations. J'accompagne ceux qui refusent de
-                        subir et veulent reprendre leur pouvoir sur leur vie.
-                      </p>
-                      <div
-                        class="absolute bottom-0 left-0 w-16 h-16 border-b border-l border-accent-500/40 rounded-bl-2xl"
-                      ></div>
-                    </div>
-
-                    <p class="italic !text-primary-600">
-                      Ah oui, si jamais… Mia (sur la photo à gauche), c'est mon
-                      associée. La meilleure négociatrice du game. Elle amadoue,
-                      elle convainc, elle charme mieux que moi. Moi ? Je fais le
-                      reste.
-                    </p>
-                  </div>
-
-                  <!-- Conteneur pour le bouton "Me contacter" -->
-                  <div id="about-contact-button" class="mt-8"></div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       <!-- Conteneur pour l'injection du composant ServicesSection -->
-      <div id="services" class="section"></div>
+      <div id="services" class="section relative">
+        <!-- Éléments décoratifs spécifiques aux services -->
+        <div class="section-decorative-elements">
+          <div class="decorative-square square-large opacity-15 parallax-element" style="bottom: 10%; right: 5%;" data-parallax-speed="0.03" data-parallax-direction="diagonal"></div>
+          <div class="decorative-line line-medium opacity-25 parallax-element" style="top: 20%; left: 0%;" data-parallax-speed="0.04" data-parallax-direction="horizontal"></div>
+        </div>
+      </div>
 
       <!-- Modification de la section CTA pour s'assurer qu'elle s'affiche correctement -->
       <section
@@ -432,6 +515,12 @@
           <div
             class="absolute top-1/4 left-3/4 w-48 h-48 rounded-full bg-accent-500/3 blur-2xl"
           ></div>
+        </div>
+
+        <!-- Éléments décoratifs spécifiques à la section CTA -->
+        <div class="section-decorative-elements">
+          <div class="decorative-square square-medium opacity-40 parallax-element shine" style="top: 20%; right: 15%;" data-parallax-speed="-0.05" data-parallax-direction="vertical"></div>
+          <div class="decorative-line line-large opacity-30 parallax-element" style="bottom: 10%; left: 5%;" data-parallax-speed="0.02" data-parallax-direction="rotation" data-base-offset="-5"></div>
         </div>
 
         <div class="container mx-auto px-6 relative z-10">
@@ -476,6 +565,13 @@
         <div
           class="absolute bottom-0 left-0 w-64 h-64 bg-accent-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3"
         ></div>
+        
+        <!-- Éléments décoratifs spécifiques à la section Contact -->
+        <div class="section-decorative-elements">
+          <div class="decorative-square square-small opacity-25 parallax-element floating" style="top: 30%; right: 10%;" data-parallax-speed="0.03" data-parallax-direction="vertical"></div>
+          <div class="decorative-line line-medium opacity-20 parallax-element" style="bottom: 20%; left: 15%;" data-parallax-speed="-0.04" data-parallax-direction="horizontal"></div>
+        </div>
+        
         <div class="container mx-auto px-4 relative z-10">
           <div class="max-w-6xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
@@ -757,7 +853,8 @@
         // Bouton "Me contacter" dans la section À propos
         addButtonTo("#about-contact-button", {
           text: "Me contacter",
-          type: "outline",
+          type: "accent",
+          size: "large",
           url: "#contact",
           icon: buttonIcons.arrowRight,
         });

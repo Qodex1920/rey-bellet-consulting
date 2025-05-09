@@ -56,15 +56,14 @@ function setServicesTab(tabName) {
 export const templates = {
   // Header du site
   'header': `
-    <header class="bg-gray-900/90 backdrop-blur-sm shadow-lg shadow-black/30 border-b border-gray-800 py-4 relative" x-data="mobileMenu">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/90 backdrop-blur-sm shadow-lg shadow-black/30 border-b border-gray-800 transition-all duration-300" 
+      x-data="{ scrolled: false, toggle() { this.open = !this.open; }, close() { this.open = false; }, open: false }"
+      x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 20; })"
+      :class="{ 'py-6 md:py-5': !scrolled, 'py-3 md:py-3 shadow-md': scrolled, 'opacity-100': !scrolled || (document.documentElement.scrollTop < window.innerHeight), 'opacity-0 pointer-events-none': scrolled && document.documentElement.scrollTop >= window.innerHeight }">
       <div class="container mx-auto px-4 flex items-center justify-between">
         <!-- Logo -->
         <a href="/" class="flex items-center">
-          <span class="text-2xl font-bold uppercase text-white tracking-wider relative">
-            RB
-            <span class="absolute -top-2 -right-3 w-2 h-2 bg-accent-500"></span>
-          </span>
-          <span class="ml-2 text-lg font-special uppercase text-white tracking-wider">Consulting</span>
+          <img src="/assets/logos/logo-noir.svg" alt="Rey-Bellet Consulting" class="transition-all duration-300" :class="{ 'h-12 md:h-16': !scrolled, 'h-8 md:h-10': scrolled }">
         </a>
         
         <!-- Menu Navigation (Version Desktop) -->
@@ -138,11 +137,7 @@ export const templates = {
         <div class="container mx-auto px-4 py-5 h-full flex flex-col">
           <div class="flex justify-between items-center border-b border-gray-800 pb-4">
             <a href="/" class="flex items-center">
-              <span class="text-2xl font-bold uppercase text-white tracking-wider relative">
-                RB
-                <span class="absolute -top-2 -right-3 w-2 h-2 bg-accent-500"></span>
-              </span>
-              <span class="ml-2 text-lg font-special uppercase text-white tracking-wider">Consulting</span>
+              <img src="/assets/logos/logo-noir.svg" alt="Rey-Bellet Consulting" class="h-12">
             </a>
             <button @click="close" class="p-2 text-gray-300 hover:text-accent-500">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

@@ -172,7 +172,7 @@
 /* Styles de base pour le thème sombre */
 @layer base {
   html {
-    @apply font-sans text-gray-300 bg-black;
+    @apply font-sans text-white bg-black;
   }
 
   h1,
@@ -335,14 +335,14 @@
 
   /* Bouton outline simplifié */
   .btn-outline {
-    @apply bg-transparent text-accent-500 border border-accent-500 focus:ring-accent-400;
+    @apply bg-transparent text-accent-400 border border-accent-400 focus:ring-accent-500;
     position: relative;
     overflow: hidden;
     z-index: 1;
   }
 
   .btn-outline:hover {
-    @apply text-black border-accent-500 bg-accent-500;
+    @apply text-black border-accent-400 bg-accent-400;
   }
 
   .btn-outline:active {
@@ -365,7 +365,7 @@
 
   .section-title::after {
     content: "";
-    @apply absolute -bottom-4 left-0 right-0 mx-auto h-1 w-20 bg-accent-500 rounded opacity-70;
+    @apply absolute -bottom-4 left-0 right-0 mx-auto h-1 w-20 bg-accent-400 rounded opacity-70;
   }
 
   .section-title-heading {
@@ -373,7 +373,7 @@
   }
 
   .section-title-subtitle {
-    @apply text-xl text-gray-400 max-w-xl mx-auto;
+    @apply text-xl text-gray-700 max-w-xl mx-auto;
   }
 
   /* Lignes diagonales décoratives */
@@ -438,7 +438,7 @@
   }
 
   .service-card-title {
-    @apply text-2xl font-bold text-primary-500 mb-4;
+    @apply text-2xl font-bold text-white mb-4;
     transition: color 0.3s ease;
   }
 
@@ -456,11 +456,11 @@
   }
 
   .service-card-feature-icon {
-    @apply h-5 w-5 text-accent-500 mr-3;
+    @apply h-5 w-5 text-accent-400 mr-3;
   }
 
   .service-card-link {
-    @apply inline-flex items-center text-accent-500 font-medium;
+    @apply inline-flex items-center text-accent-400 font-medium;
     transition: color 0.3s ease;
   }
 
@@ -573,6 +573,94 @@
 
   .animate-subtle-glow {
     animation: subtle-glow 5s ease-in-out infinite alternate;
+  }
+
+  /* Styles améliorés pour les cartes de service avec effet glassmorphism */
+  .service-card {
+    position: relative;
+    isolation: isolate;
+    transition: all 0.3s ease-out;
+  }
+  
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  .service-card:hover::before {
+    opacity: 1;
+  }
+  
+  .service-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .service-card-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .service-card-features {
+    margin-top: 1rem;
+    list-style: none;
+  }
+  
+  .service-card-feature {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+  }
+  
+  .service-card-feature-icon {
+    width: 1rem;
+    height: 1rem;
+    stroke: var(--color-accent-500);
+    flex-shrink: 0;
+  }
+  
+  .service-card:hover .service-card-feature {
+    opacity: 1;
+  }
+  
+  /* Effet de brillance pour les cartes au survol */
+  .gold-decor-shimmer {
+    background: radial-gradient(
+      circle,
+      var(--color-accent-500) 0%, 
+      rgba(var(--color-accent-500-rgb), 0.2) 50%, 
+      transparent 70%
+    );
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    filter: blur(20px);
+    animation: shimmer 4s infinite linear;
+  }
+  
+  /* Amélioration des effets pour les cartes enterprise */
+  .service-card.backdrop-blur-sm {
+    backdrop-filter: blur(8px);
+  }
+  
+  /* Amélioration des effets pour les cartes personal */
+  .service-card.backdrop-blur-md {
+    backdrop-filter: blur(12px);
   }
 }
 
@@ -730,7 +818,7 @@
 @keyframes particleFloat {
   0% {
     transform: translate(0, 0) rotate(0deg);
-    opacity: 0;
+    opacity: 0.2;
   }
   20% {
     opacity: var(--particle-opacity, 0.6);
@@ -739,9 +827,9 @@
     opacity: var(--particle-opacity, 0.6);
   }
   100% {
-    transform: translate(var(--particle-x, 20px), var(--particle-y, -30px))
-      rotate(var(--particle-rotate, 10deg));
-    opacity: 0;
+    transform: translate(var(--particle-x-distance, 20px), var(--particle-y-distance, -30px))
+      rotate(var(--particle-rotation, 10deg));
+    opacity: 0.3;
   }
 }
 
@@ -764,21 +852,19 @@
   height: var(--particle-size, 8px);
   border-radius: 50%;
   background-color: var(--color-accent-500);
-  opacity: 0;
+  opacity: var(--particle-max-opacity, 0.7);
   filter: blur(var(--particle-blur, 1px));
-  animation: particleFloat var(--particle-duration, 6s) ease-out forwards;
+  animation: particleFloat var(--particle-duration, 15s) ease-in-out infinite alternate;
   animation-delay: var(--particle-delay, 0s);
   z-index: 2;
 }
 
 /* Variante apparaissant instantanément */
 .gold-particle-instant {
-  --particle-duration: 4s;
+  --particle-duration: 12s;
   --particle-opacity: 0.8;
   --particle-blur: 0.5px;
-  --particle-x: 10px;
-  --particle-y: -15px;
-  --particle-rotate: 5deg;
+  opacity: var(--particle-max-opacity, 0.7);
 }
 
 /* Variations de taille des particules */
@@ -974,12 +1060,28 @@ section {
 
 /* Styles optimisés pour la transition de fond */
 #site-background-transition {
-  @apply fixed inset-0 bg-white pointer-events-none z-0;
-  will-change: opacity;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  transition: opacity 80ms linear;
-  opacity: 0;
+  @apply fixed inset-0 bg-primary-600 pointer-events-none;
+  transition: opacity 0.3s ease-out;
+  z-index: -1 !important;
+}
+
+.transition-background {
+  @apply relative;
+  z-index: 2 !important;
+  isolation: isolate;
+}
+
+.transition-background .container {
+  position: relative;
+  z-index: 3 !important;
+}
+
+.transition-background .prose,
+.transition-background .space-y-6,
+.transition-background h3,
+.transition-background .section-title {
+  position: relative;
+  z-index: 4 !important;
 }
 
 /* Correction des éléments décoratifs pour éviter l'espace en haut */
@@ -1036,17 +1138,21 @@ section {
 
 /* S'assurer que les textes dans la section à propos changent de couleur */
 #a-propos .prose p,
-#a-propos .prose-p\:text-primary-600,
-#a-propos h3 {
+#a-propos .space-y-6 p,
+#a-propos h3,
+#a-propos .font-semibold {
   will-change: color;
   transform: translateZ(0);
   backface-visibility: hidden;
   transition: color 0.2s ease-out;
+  position: relative;
+  z-index: 5;
 }
 
 /* Ajouter des classes spécifiques pour les états de la transition */
 #a-propos.transition-active .prose p,
-#a-propos.transition-active .prose-p\:text-primary-600 {
+#a-propos.transition-active .space-y-6 p,
+#a-propos.transition-active h3 {
   color: rgb(24, 72, 160);
 }
 

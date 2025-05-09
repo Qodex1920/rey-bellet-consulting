@@ -14,7 +14,7 @@ const servicesOptions = {
   subtitle: 'Des solutions adaptées pour entreprises et particuliers, combinant consulting, coaching et formation selon vos besoins',
   enterpriseServices: [
     {
-      title: 'Comprendre',
+      title: 'Comprendre pour mieux agir',
       description: 'Diagnostic complet de votre organisation pour identifier les opportunités de transformation et les défis à relever.',
       features: ['Analyse de la culture d\'entreprise', 'Audit des processus et workflows', 'Évaluation des compétences'],
       icon: 'strategy',
@@ -22,7 +22,7 @@ const servicesOptions = {
       ctaUrl: '/contact.html?service=comprendre'
     },
     {
-      title: 'Planifier',
+      title: 'Planifier le succès',
       description: 'Élaboration d\'une stratégie de changement sur mesure avec un plan d\'action détaillé et des indicateurs de succès.',
       features: ['Définition des objectifs et KPIs', 'Feuille de route détaillée', 'Gestion des risques'],
       icon: 'planning',
@@ -30,7 +30,7 @@ const servicesOptions = {
       ctaUrl: '/contact.html?service=planifier'
     },
     {
-      title: 'Activer',
+      title: 'Activer la transformation',
       description: 'Implémentation du changement avec accompagnement des équipes et adaptation continue du plan d\'action.',
       features: ['Formation des équipes', 'Communication interne', 'Suivi et ajustement'],
       icon: 'activate',
@@ -41,7 +41,7 @@ const servicesOptions = {
       title: 'Sur mesure',
       description: 'Des services adaptés à vos besoins spécifiques, combinant consulting, coaching et formation selon vos priorités.',
       features: ['Coaching de dirigeants', 'Ateliers de team building', 'Accompagnement sur mesure'],
-      icon: 'custom',
+      icon: 'surmesure',
       ctaText: 'En savoir plus',
       ctaUrl: '/contact.html?service=sur-mesure'
     }
@@ -51,7 +51,7 @@ const servicesOptions = {
       title: 'Révéler ton potentiel',
       description: 'Un programme de coaching individuel pour découvrir et exploiter vos talents et forces naturelles.',
       features: ['Bilan de compétences', 'Découverte de vos talents', 'Plan de développement personnel'],
-      icon: 'potential',
+      icon: 'potentiel',
       ctaText: 'En savoir plus',
       ctaUrl: '/contact.html?service=reveler'
     },
@@ -59,7 +59,7 @@ const servicesOptions = {
       title: 'Donner vie à tes ambitions',
       description: 'Un accompagnement pour définir vos objectifs professionnels et élaborer un plan d\'action concret.',
       features: ['Définition d\'objectifs', 'Élimination des obstacles', 'Stratégies de réussite'],
-      icon: 'ambition',
+      icon: 'ambitions',
       ctaText: 'En savoir plus',
       ctaUrl: '/contact.html?service=ambitions'
     },
@@ -67,7 +67,7 @@ const servicesOptions = {
       title: 'Sur mesure',
       description: 'Un programme personnalisé selon vos besoins spécifiques et vos objectifs de développement personnel.',
       features: ['Coaching sur mesure', 'Formations personnalisées', 'Suivi adapté à vos besoins'],
-      icon: 'custom',
+      icon: 'surmesure',
       ctaText: 'En savoir plus',
       ctaUrl: '/contact.html?service=sur-mesure-perso'
     }

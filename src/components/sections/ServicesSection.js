@@ -154,8 +154,6 @@ export function createServicesSection(options = {}) {
                   <h3 class="text-xl md:text-2xl font-bold text-primary-500 m-0 whitespace-nowrap truncate">${enterpriseSectionTitle}</h3>
                 </div>
               </div>
-              <!-- Décoration graphique -->
-              <div class="absolute -bottom-3 -right-3 w-32 h-32 rounded-full border-4 border-accent-500/30 -z-10"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -184,8 +182,6 @@ export function createServicesSection(options = {}) {
                   <h3 class="text-xl md:text-2xl font-bold text-primary-500 m-0 whitespace-nowrap truncate">${personalSectionTitle}</h3>
                 </div>
               </div>
-              <!-- Décoration graphique -->
-              <div class="absolute -bottom-3 -left-3 w-32 h-32 rounded-full border-4 border-primary-500/30 -z-10"></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
