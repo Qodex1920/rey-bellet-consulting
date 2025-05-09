@@ -110,7 +110,7 @@ export function createHeroSection({
       
       <!-- Fond avec animation de pulse -->
       <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-80"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-primary-500 to-black opacity-50"></div>
         <!-- Cercle lumineux animé - opacité réduite de 30% à 10% -->
         <div 
           class="absolute top-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-500/5 blur-[100px] transition-all duration-2000"

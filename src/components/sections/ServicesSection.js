@@ -17,7 +17,7 @@ const defaultOptions = {
   title: 'Nos Services',
   subtitle: 'Des solutions adaptées pour entreprises et particuliers',
   images: {
-    enterprise: 'assets/images/reunion-2_1080.webp',
+    enterprise: 'assets/images/reunion_1080.webp',
     personal: 'assets/images/coaching-fauteuil_1080.webp'
   },
   enterpriseSectionTitle: 'Services pour entreprises',
