@@ -65,21 +65,29 @@
     <!-- <script src="https://unpkg.com/@alpinejs/intersect@3.13.0/dist/cdn.min.js" defer></script> -->
 
     <!-- Import des comportements Alpine.js après le chargement d'Alpine -->
-    <!-- <script type="module" src="./utils/alpine-behaviors.js" defer></script> -->
+    <script type="module" src="./utils/alpine-behaviors.js"></script>
     <script type="module" src="./utils/animations.js"></script>
     <script type="module" src="./utils/parallax.js"></script>
+    
+    <!-- Script d'initialisation pour garantir que les effets de parallaxe fonctionnent -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Attendre que tout soit chargé
+        setTimeout(function() {
+          console.log("Initialisation manuelle des effets après chargement complet");
+          // Réinitialiser parallaxe si la fonction existe
+          if (window.reinitParallax) {
+            window.reinitParallax();
+          }
+          
+          // Forcer un événement de scroll pour activer les effets
+          window.dispatchEvent(new Event('scroll'));
+        }, 1000);
+      });
+    </script>
   </head>
-  <body class="antialiased text-gray-400 bg-gradient-premium">
+  <body class="antialiased text-gray-400 bg-gradient-premium overflow-x-hidden min-h-screen">
     <!-- Éléments de background premium -->
-    <div
-      class="bg-premium-golden-square bg-premium-golden-square-1 golden-glow animate-subtle-glow"
-    ></div>
-    <div
-      class="bg-premium-golden-square bg-premium-golden-square-2 golden-glow animate-subtle-glow"
-    ></div>
-    <div class="bg-premium-golden-square bg-premium-golden-square-3"></div>
-    <div class="bg-premium-blue-line bg-premium-blue-line-1"></div>
-    <div class="bg-premium-blue-line bg-premium-blue-line-2"></div>
     <div class="bg-premium-highlight"></div>
 
     <!-- Conteneur des éléments décoratifs avec parallaxe -->

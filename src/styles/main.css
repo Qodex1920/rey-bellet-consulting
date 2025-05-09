@@ -171,8 +171,14 @@
 
 /* Styles de base pour le thème sombre */
 @layer base {
-  html {
+  html, body {
     @apply font-sans text-white bg-black;
+    overflow-x: hidden;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   h1,
@@ -517,18 +523,28 @@
   /* Éléments carrés dorés inspirés du logo */
   .bg-premium-golden-square {
     @apply fixed rounded-full bg-accent-500/10 backdrop-blur-3xl z-0;
+    pointer-events: none; /* S'assurer qu'ils n'interfèrent pas avec l'interaction utilisateur */
   }
 
   .bg-premium-golden-square-1 {
-    @apply w-96 h-96 -bottom-48 -left-48;
+    width: 96vw;
+    height: 96vw;
+    bottom: -48vw;
+    left: -48vw;
   }
 
   .bg-premium-golden-square-2 {
-    @apply w-80 h-80 -top-40 right-40;
+    width: 80vw;
+    height: 80vw;
+    top: 10vh;
+    right: -40vw;
   }
 
   .bg-premium-golden-square-3 {
-    @apply w-64 h-64 top-1/2 -right-32;
+    width: 64vw;
+    height: 64vw;
+    top: 50%;
+    right: -32vw;
   }
 
   /* Traits bleus diagonaux */
@@ -1071,14 +1087,6 @@ section {
     opacity: 0.25;
     transform: scale(1.02);
   }
-}
-
-/* S'assurer que le corps de page est bien positionné */
-body {
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
 }
 
 /* Animations au défilement */

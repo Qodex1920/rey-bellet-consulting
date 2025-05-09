@@ -29,7 +29,7 @@ function injectHero() {
     injectHeroSection('#hero-section', {
       name: 'Laure Rey-Bellet',
       prefix: 'Je suis',
-      typingTexts: ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'],
+      typingTexts: ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte du changement.'],
       description: "Le changement ? Tu le prends ou tu le subis. Pas juste du blabla, du vrai mouvement. On casse les vieux schémas, on construit du neuf, on avance !",
       // Les autres options utilisent les valeurs par défaut
     });
