@@ -22,7 +22,7 @@ export function createHeroSection({
   imageAlt = 'Logo Rey-Bellet Consulting',
   ctaButton = {
     containerId: 'hero-cta-button',
-    text: 'Découvrir mes services',
+    text: 'Explore tes options',
     url: '#services'
   },
   showScrollIndicator = true
@@ -98,7 +98,7 @@ export function createHeroSection({
   return `
     <!-- Section Hero avec animations d'entrée avancées -->
     <section 
-      class="pt-48 pb-20 md:pt-60 md:pb-28 lg:pt-64 xl:pt-72 relative overflow-hidden min-h-screen flex items-center" 
+      class="pt-48 pb-20 md:pt-60 md:pb-28 lg:pt-64 xl:pt-72 relative overflow-hidden min-h-screen flex items-center justify-center" 
       x-data="{ animationReady: false }"
       x-init="setTimeout(() => { animationReady = true }, 300)"
     >
@@ -148,11 +148,25 @@ export function createHeroSection({
         :class="{ 'opacity-5': animationReady }"
       ></div>
       
-      <div class="container mx-auto px-4 relative z-10">
-        <div class="flex flex-col md:flex-row gap-8 lg:gap-6 items-center">
-          <!-- Texte à gauche avec animation séquentielle -->
+      <div class="container mx-auto px-4 relative z-10 max-w-5xl">
+        <div class="flex flex-col items-center justify-center text-center">
+          <!-- Logo au-dessus -->
+          <div class="mb-12">
+            <div 
+              class="transform transition-all duration-1000 opacity-0 scale-95"
+              :class="{ 'opacity-100 scale-100': animationReady }"
+            >
+              <img 
+                src="${imageSrc}" 
+                alt="${imageAlt}" 
+                class="max-w-[250px] md:max-w-[350px] lg:max-w-md"
+              />
+            </div>
+          </div>
+          
+          <!-- Texte centré en dessous -->
           <div 
-            class="md:w-7/12 order-2 md:order-1" 
+            class="w-full" 
             x-data="animateSequence({ 
               initialDelay: 300, 
               delay: 200, 
@@ -163,7 +177,7 @@ export function createHeroSection({
             x-transition.opacity
           >
             <!-- Élément graphique doré avant le titre -->
-            <div class="w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 hidden md:block animate-item"></div>
+            <div class="w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 mx-auto animate-item"></div>
             
             <!-- Nom avec effet spécial sur le nom de famille -->
             <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
@@ -188,9 +202,16 @@ export function createHeroSection({
               >${typingTexts[0]}</span>
             </div>
             
-            <p class="text-xl text-white mb-8 max-w-xl font-medium animate-item">
-              ${description}
-            </p>
+            <div class="animate-item">
+              <p class="text-xl text-white mb-4 mx-auto max-w-2xl font-medium">
+                ${description}
+              </p>
+              
+              <p class="text-xl text-accent-400 font-semibold mx-auto max-w-2xl mb-8">
+                Tout commence par une décision. La tienne.<br>
+                Ose créer ce qui t'attend.
+              </p>
+            </div>
             
             <!-- Bouton CTA -->
             <div class="animate-item">
@@ -205,20 +226,6 @@ export function createHeroSection({
                   </svg>
                 </a>
               </div>
-            </div>
-          </div>
-          
-          <!-- Logo à droite -->
-          <div class="md:w-5/12 order-1 md:order-2 flex justify-center md:justify-end">
-            <div 
-              class="transform transition-all duration-1000 opacity-0 scale-95"
-              :class="{ 'opacity-100 scale-100': animationReady }"
-            >
-              <img 
-                src="${imageSrc}" 
-                alt="${imageAlt}" 
-                class="max-w-[200px] md:max-w-[280px] lg:max-w-sm xl:max-w-md 2xl:max-w-lg"
-              />
             </div>
           </div>
         </div>

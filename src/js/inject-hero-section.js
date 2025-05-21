@@ -31,6 +31,10 @@ function injectHero() {
       prefix: 'Je suis',
       typingTexts: ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte du changement.'],
       description: "Le changement ? Tu le prends ou tu le subis. Pas juste du blabla, du vrai mouvement. On casse les vieux schémas, on construit du neuf, on avance !",
+      ctaButton: {
+        text: 'Explore tes options',
+        url: '#services'
+      },
       // Les autres options utilisent les valeurs par défaut
     });
     
