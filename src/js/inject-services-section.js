@@ -12,7 +12,7 @@ import { initScrollAnimations } from '../utils/scroll-animations.js';
 const servicesOptions = {
   sectionId: 'services',
   title: 'Mes Services',
-  subtitle: 'Des solutions adaptées pour entreprises et particuliers, combinant consulting, coaching et formation selon vos besoins',
+  subtitle: 'Chaque évolution mérite un plan solide. Découvrez les offres qui vous aideront à structurer votre trajectoire et à avancer avec clarté.',
   enterpriseServices: [
     {
       title: 'Comprendre pour mieux agir',
@@ -106,6 +106,22 @@ function injectServicesSection() {
           // S'assurer que les animations sont initialisées après l'injection
           console.log('Réinitialisation des animations au défilement après injection');
           initScrollAnimations();
+          
+          // Définir l'onglet "Particuliers" comme actif par défaut
+          setTimeout(() => {
+            const servicesSection = document.querySelector('#services [x-data]');
+            if (servicesSection && typeof Alpine !== 'undefined') {
+              try {
+                const scope = Alpine.$data(servicesSection);
+                if (scope && scope.activeTab !== undefined) {
+                  scope.activeTab = 'personal';
+                  console.log('Onglet services défini sur "personal" via Alpine');
+                }
+              } catch (error) {
+                console.warn('Erreur lors de la manipulation Alpine:', error);
+              }
+            }
+          }, 100);
         });
       console.log('Composant ServicesSection injecté avec succès');
     } catch (error) {

@@ -107,27 +107,27 @@ export function createServicesSection(options = {}) {
 
   // Construire le HTML complet de la section avec onglets Alpine.js
   return `
-    <section id="${sectionId}" class="py-16 text-white reveal-anim reveal-fade" x-data="{ activeTab: 'enterprise' }">
+    <section id="${sectionId}" class="py-16 text-white reveal-anim reveal-fade" x-data="{ activeTab: 'personal' }">
       <div class="container mx-auto px-4">
         <div class="section-title text-center mb-12 reveal-anim reveal-fade">
           <h2 class="section-title-heading highlight-text-animated text-4xl md:text-5xl reveal-anim reveal-fade">${title}</h2>
           ${subtitle ? `<p class="section-title-subtitle reveal-anim reveal-fade delay-200">${subtitle}</p>` : ''}
         </div>
         
-        <div class="flex justify-center mb-8 border-b border-gray-700 reveal-anim reveal-scale delay-300">
-          <button 
-            @click="activeTab = 'enterprise'" 
-            :class="activeTab === 'enterprise' ? 'border-primary-500 text-primary-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'" 
-            class="py-4 px-6 font-medium text-lg border-b-2 transition-colors reveal-anim reveal-slide-up delay-300"
-          >
-            Entreprises
-          </button>
+        <div class="flex justify-center mb-12 border-b border-gray-700 reveal-anim reveal-scale delay-300">
           <button 
             @click="activeTab = 'personal'" 
-            :class="activeTab === 'personal' ? 'border-primary-500 text-primary-400' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'" 
-            class="py-4 px-6 font-medium text-lg border-b-2 transition-colors reveal-anim reveal-slide-up delay-400"
+            :class="activeTab === 'personal' ? 'border-accent-500 text-accent-400 bg-accent-500/10' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'" 
+            class="py-5 px-8 font-semibold text-xl border-b-4 transition-colors reveal-anim reveal-slide-up delay-300 rounded-t-lg"
           >
             Particuliers
+          </button>
+          <button 
+            @click="activeTab = 'enterprise'" 
+            :class="activeTab === 'enterprise' ? 'border-accent-500 text-accent-400 bg-accent-500/10' : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-500'" 
+            class="py-5 px-8 font-semibold text-xl border-b-4 transition-colors reveal-anim reveal-slide-up delay-400 rounded-t-lg"
+          >
+            Entreprises
           </button>
         </div>
         
