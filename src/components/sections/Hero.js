@@ -113,12 +113,12 @@ export function createHeroSection({
         <div class="absolute inset-0 bg-gradient-to-br from-black via-primary-500 to-black opacity-50"></div>
         <!-- Cercle lumineux animé - opacité réduite de 30% à 10% -->
         <div 
-          class="absolute top-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent-500/5 blur-[100px] transition-all duration-2000"
+          class="absolute top-1/4 right-1/4 w-[40vw] h-[40vw] rounded-full bg-accent/5 blur-[100px] transition-all duration-2000"
           :class="{ 'animate-pulse-slow': animationReady, 'opacity-0': !animationReady, 'opacity-10': animationReady }"
         ></div>
         <!-- Ligne diagonale avec animation - opacité réduite de 20% à 10% -->
         <div 
-          class="absolute top-1/3 -left-20 right-0 h-[1px] w-[120%] bg-accent-500/20 origin-left transform -rotate-6 transition-all duration-1500 delay-500"
+          class="absolute top-1/3 -left-20 right-0 h-[1px] w-[120%] bg-accent/20 origin-left transform -rotate-6 transition-all duration-1500 delay-500"
           :class="{ 'translate-x-0 opacity-10': animationReady, 'translate-x-full opacity-0': !animationReady }"
         ></div>
       </div>
@@ -177,7 +177,7 @@ export function createHeroSection({
             x-transition.opacity
           >
             <!-- Élément graphique doré avant le titre -->
-            <div class="w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 mb-6 mx-auto animate-item"></div>
+            <div class="w-16 h-1 bg-gradient-to-r from-accent to-accent/80 mb-6 mx-auto animate-item"></div>
             
             <!-- Nom avec effet spécial sur le nom de famille -->
             <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6">
@@ -207,7 +207,7 @@ export function createHeroSection({
                 ${description}
               </p>
               
-              <p class="text-xl text-accent-400 font-semibold mx-auto max-w-2xl mb-8">
+              <p class="text-xl text-accent font-semibold mx-auto max-w-2xl mb-8">
                 Tout commence par une décision. La tienne.<br>
                 Ose créer ce qui t'attend.
               </p>

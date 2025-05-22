@@ -19,7 +19,7 @@
   --color-gray-dark: #333333;
 
   /* Couleurs fonctionnelles ajustées pour le thème sombre */
-  --color-primary: var(--color-gold);
+  --color-primary: var(--color-blue);
   --color-accent: var(--color-gold);
 
   /* Variables RGB pour animations */
@@ -290,7 +290,7 @@
 
   /* Bouton secondaire simplifié */
   .btn-secondary {
-    @apply bg-gray-900 text-accent-500 border border-accent-500 focus:ring-accent-400;
+    @apply bg-gray-900 text-accent border border-accent focus:ring-accent/80;
     transition: all 0.3s ease;
   }
 
