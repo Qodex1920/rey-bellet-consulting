@@ -30,24 +30,24 @@ export default defineConfig({
         main: path.resolve(__dirname, 'src/main.js'),
       },
       output: {
-        entryFileNames: 'assets/[name].js',
-        chunkFileNames: 'assets/[name].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        chunkFileNames: 'assets/js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name.split('.');
           const ext = info.pop();
           
           if (ext === 'css') {
-            return `assets/css/main.css`;
+            return `assets/css/main-[hash].css`;
           }
           
           if (/\.(png|jpe?g|gif|svg|webp|ico)$/i.test(assetInfo.name)) {
             if (assetInfo.name.includes('/')) {
               return `assets/${assetInfo.name}`;
             }
-            return `assets/images/${assetInfo.name}`;
+            return `assets/images/[name]-[hash][extname]`;
           }
           
-          return `assets/[name][extname]`;
+          return `assets/[name]-[hash][extname]`;
         },
       }
     }

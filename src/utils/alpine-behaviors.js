@@ -128,10 +128,10 @@ function registerBehaviors() {
       textArray: [],
       currentIndex: 0,
       isDeleting: false,
-      // Paramètres simplifiés
-      typeSpeed: 80,        // Vitesse constante de frappe
-      deleteSpeed: 40,      // Vitesse constante d'effacement
-      pauseBeforeDelete: 2000, // Pause avant d'effacer
+      // Paramètres simplifiés - vitesses accélérées
+      typeSpeed: 60,        // Vitesse constante de frappe (réduite de 80 à 60)
+      deleteSpeed: 30,      // Vitesse constante d'effacement (réduite de 40 à 30)
+      pauseBeforeDelete: 1500, // Pause avant d'effacer
       pauseBeforeType: 500,  // Pause avant de taper
       animationTimeout: null, // Pour stocker la référence du timeout
       isComplete: false,    // Nouveau: indique si l'animation est terminée

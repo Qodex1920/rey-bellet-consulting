@@ -17,6 +17,9 @@ import Alpine from './main-alpine.js';
 import { initAlpineBehaviors } from './utils/alpine-behaviors.js';
 initAlpineBehaviors();
 
+// Importation du gestionnaire de cache
+import { initCacheManager } from './utils/cache-manager.js';
+
 // Importation des utilitaires et composants nécessaires
 import { getTemplate } from './utils/templates.js';
 import { initComponentSystem } from './utils/componentInjector.js';
@@ -27,6 +30,9 @@ import { injectServicesSectionTo } from './components/sections/ServicesSection.j
 // Attendre le chargement complet du DOM
 document.addEventListener('DOMContentLoaded', () => {
   console.log("Initialisation du site Rey-Bellet Consulting");
+  
+  // Initialiser le gestionnaire de cache en premier
+  initCacheManager();
   
   // Initialiser toutes les fonctionnalités du site
   initSite();

@@ -205,18 +205,13 @@ export function createHeroSection({
             </div>
             
             <div class="animate-item">
-              <p class="text-xl text-white mb-4 mx-auto max-w-2xl font-medium">
+              <p class="text-xl text-white mb-6 mx-auto max-w-2xl font-medium">
                 ${description}
-              </p>
-              
-              <p class="text-xl text-accent font-semibold mx-auto max-w-2xl mb-8">
-                Tout commence par une décision. La tienne.<br>
-                Ose créer ce qui t'attend.
               </p>
             </div>
             
-            <!-- Bouton CTA -->
-            <div class="animate-item">
+            <!-- Bouton CTA déplacé ici -->
+            <div class="animate-item mb-6">
               <div id="${ctaButton.containerId}" class="relative inline-flex">
                 <a 
                   href="${ctaButton.url}" 
@@ -228,6 +223,13 @@ export function createHeroSection({
                   </svg>
                 </a>
               </div>
+            </div>
+            
+            <div class="animate-item">
+              <p class="text-xl text-accent font-semibold mx-auto max-w-2xl">
+                Tout commence par une décision. La tienne.<br>
+                Ose créer ce qui t'attend.
+              </p>
             </div>
           </div>
         </div>

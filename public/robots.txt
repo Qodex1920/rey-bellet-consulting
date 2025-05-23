@@ -1,11 +1,27 @@
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://votresite.com/sitemap.xml
+# Optimisation pour les moteurs de recherche
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
 
-# Ne pas indexer ces dossiers
-Disallow: /admin/
-Disallow: /private/
-Disallow: /api/
-Disallow: /temp/ 
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Interdiction d'indexer les fichiers techniques
+Disallow: /src/
+Disallow: /scripts/
+Disallow: /.git/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Sitemap
+Sitemap: https://reybellet.com/sitemap.xml
+
+# Contact information pour les moteurs de recherche
+# Site officiel: https://reybellet.com
+# Contact: laure@reybellet.com 

@@ -5,45 +5,44 @@
                             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <!-- Page d'accueil -->
     <url>
-        <loc>https://votresite.com/</loc>
-        <lastmod>2024-03-31T12:00:00+00:00</lastmod>
+        <loc>https://reybellet.com/</loc>
+        <lastmod>2024-12-19</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
     
-    <!-- Pages principales -->
+    <!-- Section Ma Vision -->
     <url>
-        <loc>https://votresite.com/about</loc>
-        <lastmod>2024-03-31T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://votresite.com/services</loc>
-        <lastmod>2024-03-31T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://votresite.com/contact</loc>
-        <lastmod>2024-03-31T12:00:00+00:00</lastmod>
+        <loc>https://reybellet.com/#ma-vision</loc>
+        <lastmod>2024-12-19</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     
-    <!-- Exemple pour le blog ou articles -->
+    <!-- Section À propos -->
     <url>
-        <loc>https://votresite.com/blog</loc>
-        <lastmod>2024-03-31T12:00:00+00:00</lastmod>
-        <changefreq>weekly</changefreq>
+        <loc>https://reybellet.com/#a-propos</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- Section Services -->
+    <url>
+        <loc>https://reybellet.com/#services</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- Section Contact -->
+    <url>
+        <loc>https://reybellet.com/#contact</loc>
+        <lastmod>2024-12-19</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <url>
-        <loc>https://votresite.com/blog/article-1</loc>
-        <lastmod>2024-03-31T12:00:00+00:00</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
     
+   
     <!-- À compléter avec toutes vos pages -->
 </urlset> 

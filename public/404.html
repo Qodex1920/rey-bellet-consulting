@@ -3,64 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page introuvable (404) - Votre Site</title>
+  <meta name="robots" content="noindex">
+  <title>Page non trouvée - Rey-Bellet Consulting</title>
+  <meta name="description" content="Page non trouvée. Retournez vers l'accueil pour découvrir nos services d'accompagnement stratégique.">
+  <link rel="canonical" href="https://reybellet.com/404" />
   <link rel="stylesheet" href="/assets/css/main.css">
   <style>
-    .error-container {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+      color: #ffffff;
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 2rem;
+      padding: 20px;
     }
+    
+    .error-container {
+      max-width: 600px;
+      width: 100%;
+    }
+    
     .error-code {
-      font-size: 6rem;
+      font-size: 8rem;
       font-weight: bold;
-      color: #e5e7eb;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       margin-bottom: 1rem;
       line-height: 1;
     }
-    @media (max-width: 640px) {
+    
+    .error-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #1848A0;
+    }
+    
+    .error-message {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #cccccc;
+      line-height: 1.6;
+    }
+    
+    .cta-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #000000;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: #1848A0;
+      border: 2px solid #1848A0;
+    }
+    
+    .btn-secondary:hover {
+      background: #1848A0;
+      color: #ffffff;
+    }
+    
+    .links {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .links a {
+      color: #FFD700;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+    
+    .links a:hover {
+      color: #FFA500;
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
       .error-code {
-        font-size: 4rem;
+        font-size: 6rem;
+      }
+      
+      .error-title {
+        font-size: 2rem;
+      }
+      
+      .error-message {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
-<body class="bg-gray-50">
+<body>
   <div class="error-container">
     <div class="error-code">404</div>
-    <svg class="w-20 h-20 text-gray-400 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-    </svg>
-    <h1 class="text-3xl font-bold text-gray-900 mb-4">Page introuvable</h1>
-    <p class="text-gray-600 mb-8 max-w-md">La page que vous recherchez n'existe pas ou a été déplacée. Vérifiez l'URL ou revenez à la page d'accueil.</p>
-    <div class="flex flex-wrap gap-4 justify-center">
-      <button onclick="window.history.back()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded transition-colors">
-        Retour à la page précédente
-      </button>
-      <a href="/" class="bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded transition-colors inline-block">
+    <h1 class="error-title">Page introuvable</h1>
+    <p class="error-message">
+      Cette page n'existe pas ou a été déplacée.<br>
+      Mais ne vous arrêtez pas là ! Le changement, c'est aussi savoir rebondir.
+    </p>
+    
+    <div class="cta-container">
+      <a href="/" class="btn btn-primary" title="Retour à l'accueil Rey-Bellet Consulting">
         Retour à l'accueil
       </a>
+      <a href="/#contact" class="btn btn-secondary" title="Contactez Rey-Bellet Consulting">
+        Me contacter
+      </a>
+    </div>
+    
+    <div class="links">
+      <a href="/#ma-vision" title="Découvrir ma vision du changement">Ma Vision</a>
+      <a href="/#a-propos" title="En savoir plus sur Laure Rey-Bellet">À propos</a>
+      <a href="/#services" title="Découvrir mes services d'accompagnement">Services</a>
+      <a href="mailto:laure@reybellet.com" title="Contact direct par email">laure@reybellet.com</a>
     </div>
   </div>
-
+  
+  <!-- Script pour le tracking Google Analytics si configuré -->
   <script>
-    // Rapport d'erreur analytique simple (à personnaliser selon vos besoins)
-    document.addEventListener('DOMContentLoaded', function() {
-      // Récupérer l'URL qui a causé l'erreur 404
-      const requestedUrl = window.location.href;
-      
-      // Vous pouvez ajouter ici un code pour envoyer cette information à votre système d'analytique
-      console.log('Erreur 404 pour URL:', requestedUrl);
-      
-      // Si vous utilisez Google Analytics, vous pourriez faire quelque chose comme :
-      // if (typeof ga === 'function') {
-      //   ga('send', 'event', '404', 'page-not-found', requestedUrl);
-      // }
-    });
+    // Signaler l'erreur 404 au tracking
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'page_view', {
+        page_title: '404 - Page non trouvée',
+        page_location: window.location.href
+      });
+    }
   </script>
 </body>
 </html> 
