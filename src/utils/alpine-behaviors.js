@@ -134,6 +134,7 @@ function registerBehaviors() {
       pauseBeforeDelete: 2000, // Pause avant d'effacer
       pauseBeforeType: 500,  // Pause avant de taper
       animationTimeout: null, // Pour stocker la référence du timeout
+      isComplete: false,    // Nouveau: indique si l'animation est terminée
 
       init() {
         console.log('Init typingAnimation', this.$el.dataset);
@@ -161,6 +162,11 @@ function registerBehaviors() {
       },
 
       startTyping() {
+        // Si l'animation est terminée, ne pas continuer
+        if (this.isComplete) {
+          return;
+        }
+        
         // Nettoyer tout timeout existant avant de planifier le prochain
         if (this.animationTimeout) {
           clearTimeout(this.animationTimeout);
@@ -171,20 +177,36 @@ function registerBehaviors() {
         this.fullText = currentFullText;
         
         // Déterminer si nous avons terminé de taper ou d'effacer
-        const isComplete = this.text === currentFullText;
+        const isTextComplete = this.text === currentFullText;
         
         // Si on a fini d'effacer, passer au texte suivant
         if (this.isDeleting && this.text === '') {
           this.isDeleting = false;
-          this.currentIndex = (this.currentIndex + 1) % this.textArray.length;
+          this.currentIndex = this.currentIndex + 1;
+          
+          // Vérifier si on a atteint le dernier texte
+          if (this.currentIndex >= this.textArray.length) {
+            this.currentIndex = this.textArray.length - 1; // Rester sur le dernier texte
+            this.isComplete = true;
+            // Taper le dernier texte une dernière fois
+            this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeType);
+            return;
+          }
           
           // Planifier le début de la frappe du prochain mot
           this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeType);
           return;
         }
 
-        // Si on a fini de taper, commencer à effacer après une pause
-        if (!this.isDeleting && isComplete) {
+        // Si on a fini de taper le dernier texte, arrêter l'animation
+        if (!this.isDeleting && isTextComplete && this.currentIndex === this.textArray.length - 1) {
+          this.isComplete = true;
+          console.log('Animation typing terminée sur:', currentFullText);
+          return;
+        }
+
+        // Si on a fini de taper un texte (mais pas le dernier), commencer à effacer après une pause
+        if (!this.isDeleting && isTextComplete) {
           this.isDeleting = true;
           this.animationTimeout = setTimeout(() => this.startTyping(), this.pauseBeforeDelete);
           return;

@@ -69,6 +69,36 @@
     <script type="module" src="./utils/animations.js"></script>
     <script type="module" src="./utils/parallax.js"></script>
     
+    <!-- Styles personnalisés pour le formulaire -->
+    <style>
+      /* Styles uniformes pour les placeholders du formulaire de contact */
+      #contact-form input::placeholder,
+      #contact-form textarea::placeholder,
+      #contact-form select option[disabled] {
+        color: #6b7280 !important;
+        opacity: 1 !important;
+      }
+      
+      /* Firefox */
+      #contact-form input::-moz-placeholder,
+      #contact-form textarea::-moz-placeholder {
+        color: #6b7280 !important;
+        opacity: 1 !important;
+      }
+      
+      /* Edge/IE */
+      #contact-form input::-ms-input-placeholder,
+      #contact-form textarea::-ms-input-placeholder {
+        color: #6b7280 !important;
+      }
+      
+      /* WebKit browsers */
+      #contact-form input::-webkit-input-placeholder,
+      #contact-form textarea::-webkit-input-placeholder {
+        color: #6b7280 !important;
+      }
+    </style>
+    
     <!-- Script d'initialisation pour garantir que les effets de parallaxe fonctionnent -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -141,7 +171,8 @@
               <span
                 class="block text-2xl md:text-3xl font-poppins text-[#1848A0] font-semibold uppercase tracking-wide leading-tight"
               >
-                « Si t'attends que ça bouge, c'est que t'es déjà en retard »
+                « Si t'attends que ça bouge,<br>
+                C'est que t'es déjà en retard »
               </span>
             </blockquote>
             
@@ -421,24 +452,12 @@
             <h2
               class="section-title-heading text-4xl md:text-5xl"
             >
-              Prêt à transformer votre avenir professionnel ?
+              Let's GOOOO
             </h2>
           </div>
-          <div
-            class="flex flex-col lg:flex-row lg:items-center lg:justify-between"
-          >
+          <div class="text-center">
             <div
-              class="cta-content mb-8 lg:mb-0 lg:pr-8 transition-all duration-500 reveal-anim reveal-slide-left delay-200"
-            >
-              <p class="cta-description">
-                Découvrez comment mon accompagnement personnalisé peut vous
-                aider à atteindre vos objectifs et à réaliser votre plein
-                potentiel.
-              </p>
-            </div>
-
-            <div
-              class="cta-button-container transition-all duration-500 reveal-anim reveal-slide-right delay-300"
+              class="cta-button-container transition-all duration-500 reveal-anim reveal-slide-up delay-300"
             >
               <div id="cta-contact-button"></div>
             </div>
@@ -519,7 +538,7 @@
                       <h3 class="text-2xl font-bold text-accent mb-2">
                         T'es prêt(e) ?
                       </h3>
-                      <p class="text-gray-100">
+                      <p class="text-white">
                         Tous les champs marqués d'un * sont obligatoires
                       </p>
                     </div>
@@ -533,19 +552,25 @@
                           id="service"
                           name="service"
                           class="w-full rounded-md bg-gray-900 text-white border border-gray-600 shadow-sm focus:border-accent focus:ring-accent transition-all text-base"
+                          style="background-color: #111827 !important; color: white !important;"
                           required
                           placeholder="Type de service *"
                         >
-                          <option value="" selected disabled>
-                            Sélectionnez un type de service *
+                          <option value="" selected disabled style="color: #6b7280 !important; background-color: #111827 !important;">
+                            Qu'est-ce qui vous intéresse ?
                           </option>
-                          <option value="entreprise">
-                            Structure et propulse ton business
+                          <option value="trajectoire" class="text-black bg-white">
+                            Reprends les commandes de ta trajectoire
                           </option>
-                          <option value="particulier">
-                            Reprends le contrôle
+                          <option value="business-creation" class="text-black bg-white">
+                            Bâtis un business qui impacte vraiment
                           </option>
-                          <option value="autre">Autre demande</option>
+                          <option value="business-optimisation" class="text-black bg-white">
+                            Optimise et domine ton business
+                          </option>
+                          <option value="autre" class="text-black bg-white">
+                            Autre demande
+                          </option>
                         </select>
                       </div>
                       <!-- Nom -->
@@ -557,6 +582,7 @@
                           name="name"
                           placeholder="Nom complet *"
                           class="w-full rounded-md bg-gray-900 text-white border border-gray-600 shadow-sm focus:border-accent focus:ring-accent transition-all text-base font-medium"
+                          style="background-color: #111827 !important; color: white !important;"
                           required
                         />
                       </div>
@@ -569,6 +595,7 @@
                           name="email"
                           placeholder="Email *"
                           class="w-full rounded-md bg-gray-900 text-white border border-gray-600 shadow-sm focus:border-accent focus:ring-accent transition-all text-base font-medium"
+                          style="background-color: #111827 !important; color: white !important;"
                           required
                         />
                       </div>
@@ -581,6 +608,7 @@
                           name="phone"
                           placeholder="Téléphone"
                           class="w-full rounded-md bg-gray-900 text-white border border-gray-600 shadow-sm focus:border-accent focus:ring-accent transition-all text-base font-medium"
+                          style="background-color: #111827 !important; color: white !important;"
                         />
                       </div>
                       <!-- Message -->
@@ -592,6 +620,7 @@
                           rows="5"
                           placeholder="Votre message *"
                           class="w-full rounded-md bg-gray-900 text-white border border-gray-600 shadow-sm focus:border-accent focus:ring-accent transition-all text-base font-medium"
+                          style="background-color: #111827 !important; color: white !important;"
                           required
                         ></textarea>
                       </div>
