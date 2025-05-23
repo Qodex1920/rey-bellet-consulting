@@ -23,16 +23,26 @@ document.addEventListener('DOMContentLoaded', function() {
       // Calculer le décalage
       const offset = scrollPosition * speed;
       
-      // Appliquer l'effet selon la direction
+      // Stocker la transformation de parallaxe dans un attribut data pour pouvoir la combiner avec le mouvement souris
+      let parallaxTransform = '';
       if (direction === 'vertical') {
-        element.style.transform = `translateY(${baseOffset + offset}px)`;
+        parallaxTransform = `translateY(${baseOffset + offset}px)`;
       } else if (direction === 'horizontal') {
-        element.style.transform = `translateX(${baseOffset + offset}px)`;
+        parallaxTransform = `translateX(${baseOffset + offset}px)`;
       } else if (direction === 'diagonal') {
-        element.style.transform = `translate(${baseOffset + offset}px, ${baseOffset + offset}px)`;
+        parallaxTransform = `translate(${baseOffset + offset}px, ${baseOffset + offset}px)`;
       } else if (direction === 'rotation') {
-        element.style.transform = `rotate(${baseOffset + offset}deg)`;
+        parallaxTransform = `rotate(${baseOffset + offset}deg)`;
       }
+      
+      // Stocker la transformation de parallaxe pour que le mouvement souris puisse l'utiliser
+      element.setAttribute('data-parallax-transform', parallaxTransform);
+      
+      // Si l'élément n'a pas de mouvement souris, appliquer directement la transformation de parallaxe
+      if (!element.hasAttribute('data-mouse-factor')) {
+        element.style.transform = parallaxTransform;
+      }
+      // Sinon, laisser la fonction handleMouseMove combiner les transformations
     });
   }
   
@@ -129,20 +139,17 @@ document.addEventListener('DOMContentLoaded', function() {
       const offsetX = moveX * factor * invert;
       const offsetY = moveY * factor * invert;
       
-      // Si l'élément n'a pas déjà une transformation de parallaxe au scroll,
-      // appliquer directement le mouvement souris
-      if (!element.hasAttribute('data-parallax-speed')) {
-        element.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      } 
-      // Sinon, préserver sa transformation de base et y ajouter le mouvement souris
-      else {
-        // Récupérer la transformation existante ou initialiser à vide
-        const baseTransform = element.style.transform || '';
-        
-        // Ajouter le mouvement de souris si nécessaire
-        if (!baseTransform.includes('translate')) {
-          element.style.transform = `${baseTransform} translate(${offsetX}px, ${offsetY}px)`;
-        }
+      // Récupérer la transformation de parallaxe stockée (si elle existe)
+      const parallaxTransform = element.getAttribute('data-parallax-transform') || '';
+      
+      // Combiner les transformations
+      const mouseTransform = `translate(${offsetX}px, ${offsetY}px)`;
+      
+      // Appliquer la transformation combinée
+      if (parallaxTransform) {
+        element.style.transform = `${parallaxTransform} ${mouseTransform}`;
+      } else {
+        element.style.transform = mouseTransform;
       }
     });
   }

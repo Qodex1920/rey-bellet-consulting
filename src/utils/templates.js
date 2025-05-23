@@ -3,6 +3,8 @@
  * Avantage: aucun problème d'importation, fonctionne dans tous les environnements
  */
 
+import logoBlanc from '../assets/logos/logo-blanc.svg';
+
 /**
  * Script pour initialiser les onglets de services lors des clics sur les liens
  * Cette fonction vérifie si l'élément existe avant de tenter de modifier son état
@@ -65,7 +67,7 @@ export const templates = {
           <!-- Logo -->
           <div>
             <div class="flex items-center mb-6">
-              <img src="/assets/logos/logo-blanc.svg" alt="Rey-Bellet Consulting Logo" class="h-24">
+              <img src="${logoBlanc}" alt="Rey-Bellet Consulting Logo" class="h-24">
             </div>
             
             <!-- Réseaux sociaux avec effet doré au survol -->
@@ -210,7 +212,7 @@ export const footerTemplate = `
     
     <!-- Copyright -->
     <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
-      <p>&copy; ${new Date().getFullYear()} Rey-Bellet Consulting. Tous droits réservés.</p>
+      <p>&copy; ${new Date().getFullYear()} Rey-Bellet Consulting. Tous droits réservés. (Logo ici aussi si besoin: <img src="${logoBlanc}" alt="logo" style="height:20px; display:inline;" />)</p>
     </div>
   </div>
 </footer>

@@ -268,7 +268,9 @@ function createModernServiceCard(config) {
     
   // Affichage conditionnel des informations additionnelles
   const additionalInfoHTML = config.additionalInfo 
-    ? `<div class="mt-4 mb-2 text-white/90 text-sm font-medium border-t border-white/10 pt-3">${config.additionalInfo}</div>` 
+    ? `<div class="mt-4 mb-2 ${config.additionalInfo.includes('Accompagnement et devis personnalisé') 
+        ? 'text-accent text-lg font-bold text-center' 
+        : 'text-white/90 text-sm font-medium'} border-t border-white/10 pt-3">${config.additionalInfo}</div>` 
     : '';
     
   // Affichage conditionnel du prix
@@ -278,16 +280,17 @@ function createModernServiceCard(config) {
     
   // Affichage conditionnel du bouton CTA
   const ctaHTML = config.ctaText 
-    ? createButton({
+    ? `${config.ctaIntroText ? `<p class="text-white/90 text-center text-sm mb-3 font-medium">${config.ctaIntroText}</p>` : ''}
+       ${createButton({
         text: config.ctaText,
         type: 'accent',
         url: config.ctaUrl || '#contact',
         icon: buttonIcons.arrowRight,
         size: 'default',
         attributes: {
-          class: 'w-full mt-2'
+          class: 'w-full'
         }
-      })
+      })}`
     : '';
 
   return `
@@ -322,17 +325,29 @@ function createModernServiceCard(config) {
           </div>
         </div>
         
-        <p class="service-card-description text-white relative z-10 text-base md:text-lg leading-relaxed">
+        <p class="service-card-description text-white relative z-10 text-base md:text-lg leading-relaxed italic">
           ${config.description}
         </p>
+        
+        ${config.objective ? `
+          <div class="mt-3 mb-1">
+            <h4 class="text-accent font-semibold text-sm uppercase tracking-wider">Objectif :</h4>
+            <p class="text-white/90 text-sm mt-1">${config.objective}</p>
+          </div>
+        ` : ''}
       </div>
       
       ${tagsHtml}
       
       ${config.features.length > 0 ? `
-        <ul class="service-card-features mt-4 relative z-10 space-y-0 flex-grow">
-          ${featuresHTML}
-        </ul>
+        <div class="mt-2 relative z-10 flex-grow">
+          ${config.concernedText ? `
+            <p class="text-accent font-semibold text-sm uppercase tracking-wider mb-3">${config.concernedText}</p>
+          ` : ''}
+          <ul class="service-card-features space-y-0">
+            ${featuresHTML}
+          </ul>
+        </div>
       ` : ''}
       
       <div class="mt-auto">

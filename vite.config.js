@@ -41,7 +41,10 @@ export default defineConfig({
           }
           
           if (/\.(png|jpe?g|gif|svg|webp|ico)$/i.test(assetInfo.name)) {
-            return `assets/images/[name][extname]`;
+            if (assetInfo.name.includes('/')) {
+              return `assets/${assetInfo.name}`;
+            }
+            return `assets/images/${assetInfo.name}`;
           }
           
           return `assets/[name][extname]`;

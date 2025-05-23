@@ -1,3 +1,5 @@
+import defaultLogoBlanc from '../../assets/logos/logo-blanc.svg';
+
 /**
  * Composant de section Hero
  * 
@@ -18,7 +20,7 @@ export function createHeroSection({
   prefix = 'Je suis',
   typingTexts = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'],
   description = "Le changement ? Tu le prends ou tu le subis. Pas juste du blabla, du vrai mouvement. On casse les vieux schémas, on construit du neuf, on avance !",
-  imageSrc = 'assets/logos/logo-blanc.svg',
+  imageSrc = defaultLogoBlanc,
   imageAlt = 'Logo Rey-Bellet Consulting',
   ctaButton = {
     containerId: 'hero-cta-button',

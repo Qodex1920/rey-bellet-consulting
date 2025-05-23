@@ -39,6 +39,15 @@ function injectHero() {
     });
     
     console.log('Section Hero injectée avec succès');
+
+    // Réinitialiser les effets de parallaxe après l'injection du Hero
+    if (typeof window.reinitParallax === 'function') {
+      // léger délai pour s'assurer que le DOM est mis à jour par le navigateur
+      setTimeout(window.reinitParallax, 100);
+    } else {
+      console.warn('La fonction window.reinitParallax n\'est pas disponible.');
+    }
+
   } else {
     console.error('Élément main non trouvé ou vide pour injecter la section Hero');
   }
