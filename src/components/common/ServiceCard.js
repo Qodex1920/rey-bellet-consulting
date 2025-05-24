@@ -8,41 +8,7 @@
 
 import { createButton, buttonIcons } from './Button.js';
 
-/**
- * Icônes prédéfinies pour les cartes de service
- */
-export const serviceIcons = {
-  consulting: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-  </svg>`,
-  training: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5" />
-  </svg>`,
-  coaching: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-  </svg>`,
-  growth: `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941" />
-  </svg>`,
-  custom: 'https://cdn.lordicon.com/lagziwcr.json',
-  // Icônes Lord-icon pour les variantes améliorées
-  strategy: 'https://cdn.lordicon.com/jdgfsfzr.json',
-  planning: 'https://cdn.lordicon.com/wsvtrygf.json',
-  activate: 'https://cdn.lordicon.com/oiveszhb.json',
-  development: 'https://cdn.lordicon.com/lagziwcr.json',
-  potential: 'https://cdn.lordicon.com/yxpxfegf.json',
-  ambition: 'https://cdn.lordicon.com/yxpxfegf.json',
-  // Nouvelles icônes pour les services particuliers
-  formation: 'https://cdn.lordicon.com/kzwijmjl.json', // Formation personnalisée
-  website: 'https://cdn.lordicon.com/cmrctxhm.json',   // Création de site web  
-  digital: 'https://cdn.lordicon.com/drtetngs.json',   // Transformation digitale
-  personal: 'https://cdn.lordicon.com/kkyvrmsu.json',  // Coaching personnel
-  career: 'https://cdn.lordicon.com/bhfjfgqz.json',    // Développement de carrière (icône remplacée)
-  // Nouvelles icônes ajoutées
-  potentiel: 'https://cdn.lordicon.com/jdgfsfzr.json', // Révéler ton potentiel
-  ambitions: 'https://cdn.lordicon.com/raxyqlxo.json', // Donner vie à tes ambitions
-  surmesure: 'https://cdn.lordicon.com/wvjueuxa.json'  // Sur mesure
-};
+
 
 /**
  * Crée une carte de service
@@ -110,9 +76,6 @@ function createEnterpriseServiceCard(config) {
       <div class="absolute -inset-0.5 bg-gradient-to-r from-accent to-accent/80 rounded-lg blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
       <div class="relative bg-gray-900 rounded-lg p-6 h-full flex flex-col">
         <div class="flex items-center justify-between">
-          <div class="text-white mb-4">
-            ${config.icon || serviceIcons.consulting}
-          </div>
           <div class="h-px w-16 bg-gradient-to-r from-accent to-accent/80"></div>
         </div>
         
@@ -174,10 +137,6 @@ function createPersonalServiceCard(config) {
 function createSimpleServiceCard(config) {
   return `
     <div class="bg-white p-5 rounded-lg border border-gray-100 hover:border-gray-200 shadow-sm hover:shadow transition-all duration-200">
-      <div class="text-accent mb-3">
-        ${config.icon || serviceIcons.custom}
-      </div>
-      
       <h3 class="text-lg font-semibold text-primary-500 mb-2">${config.title}</h3>
       <p class="text-gray-600 text-sm mb-4">${config.description}</p>
     </div>
@@ -190,55 +149,6 @@ function createSimpleServiceCard(config) {
  * @returns {string} HTML de la carte moderne
  */
 function createModernServiceCard(config) {
-  // Attribution d'icônes par défaut en fonction du titre si aucune icône n'est spécifiée
-  let defaultIcon = '';
-  if (!config.icon) {
-    const title = config.title.toLowerCase();
-    if (title.includes('formation') || title.includes('cours')) {
-      defaultIcon = 'formation';
-    } else if (title.includes('site web') || title.includes('web')) {
-      defaultIcon = 'website';
-    } else if (title.includes('digital') || title.includes('numérique')) {
-      defaultIcon = 'digital';
-    } else if (title.includes('coaching') || title.includes('accompagnement')) {
-      defaultIcon = 'personal';
-    } else if (title.includes('carrière') || title.includes('professionnel')) {
-      defaultIcon = 'career';
-    } else if (title.includes('stratégie') || title.includes('stratégique')) {
-      defaultIcon = 'strategy';
-    } else if (title.includes('développement')) {
-      defaultIcon = 'development';
-    } else if (title.includes('potentiel')) {
-      defaultIcon = 'potentiel';
-    } else if (title.includes('ambition')) {
-      defaultIcon = 'ambitions';
-    } else if (title.includes('sur mesure') || title.includes('personnalisé')) {
-      defaultIcon = 'surmesure';
-    } else {
-      defaultIcon = 'ambition';
-    }
-  }
-
-  // Vérifier si l'icône est une URL Lord-icon ou une icône SVG
-  let iconHTML = '';
-  const iconKey = config.icon || defaultIcon;
-  
-  if (typeof iconKey === 'string' && serviceIcons[iconKey] && serviceIcons[iconKey].startsWith('http')) {
-    // C'est une URL Lord-icon
-    iconHTML = `
-      <lord-icon
-        src="${serviceIcons[iconKey]}"
-        trigger="in"
-        colors="primary:#FFFFFF,secondary:#FFD700"
-        delay="300"
-        state="in-reveal"
-        style="width:52px;height:52px">
-      </lord-icon>
-    `;
-  } else {
-    // C'est une icône SVG ou une icône par défaut
-    iconHTML = config.icon || serviceIcons.consulting;
-  }
 
   // Génération des tags (uniquement pour les services particuliers)
   const tagsHtml = config.tags && config.tags.length > 0
@@ -314,16 +224,9 @@ function createModernServiceCard(config) {
       
       <!-- Conteneur du titre avec effet léger -->
       <div class="relative z-10 mb-4">
-        <div class="flex items-start gap-4">
-          <div class="service-card-icon text-white transition-transform duration-500 ease-out group-hover:scale-110 relative">
-            ${iconHTML}
-          </div>
-          <div class="flex-1">
-            <h3 class="service-card-title text-white text-xl md:text-2xl group-hover:text-white/90 font-bold tracking-wide filter drop-shadow-md">${config.title}</h3>
-            <!-- Ligne décorative sous le titre -->
-            <div class="h-0.5 w-1/4 bg-gradient-to-r from-accent to-transparent mt-1 mb-3"></div>
-          </div>
-        </div>
+        <h3 class="service-card-title text-white text-xl md:text-2xl group-hover:text-white/90 font-bold tracking-wide filter drop-shadow-md">${config.title}</h3>
+        <!-- Ligne décorative sous le titre -->
+        <div class="h-0.5 w-1/4 bg-gradient-to-r from-accent to-transparent mt-1 mb-3"></div>
         
         <p class="service-card-description text-white relative z-10 text-base md:text-lg leading-relaxed italic">
           ${config.description}
@@ -386,6 +289,5 @@ export default {
   createServiceCard,
   createServiceCardEnterprise,
   createServiceCardPersonal,
-  addServiceCardTo,
-  serviceIcons
+  addServiceCardTo
 }; 

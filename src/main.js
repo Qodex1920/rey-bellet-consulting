@@ -108,8 +108,7 @@ async function initSite() {
     // Initialiser les éléments décoratifs parallaxe
     initDecorativeElements();
     
-    // Initialiser les icônes Lord Icon avec les bonnes couleurs
-    initLordIcons();
+
     
   } catch (error) {
     console.error("Erreur lors de l'initialisation du site:", error);
@@ -281,91 +280,4 @@ function injectServicesSection() {
       }
 }
 
-/**
- * Initialise les icônes Lord Icon avec les bonnes couleurs
- */
-function initLordIcons() {
-  // S'assurer que lordicon est chargé
-  if (typeof window.lordIconElement === 'undefined') {
-    
-    // Vérifier si le script de Lord Icon est présent
-    const lordIconScript = document.querySelector('script[src*="lordicon.js"]');
-    if (!lordIconScript) {
-      const script = document.createElement('script');
-      script.src = "https://cdn.lordicon.com/lordicon.js";
-      document.head.appendChild(script);
-    }
-    
-    // Attendre le chargement de Lord Icon puis initialiser
-    const checkLordIcon = setInterval(() => {
-      if (typeof window.lordIconElement !== 'undefined') {
-        clearInterval(checkLordIcon);
-        configureLordIcons();
-      }
-    }, 200);
-    
-    // Timeout de sécurité après 5 secondes
-    setTimeout(() => {
-      clearInterval(checkLordIcon);
-    }, 5000);
-  } else {
-    configureLordIcons();
-  }
-}
-
-/**
- * Configure les couleurs des icônes Lord Icon
- */
-function configureLordIcons() {
-  
-  // Fonction pour configurer les icônes
-  const configureIcons = () => {
-    // Trouver toutes les icônes lord-icon
-    const lordIcons = document.querySelectorAll('lord-icon');
-    
-    if (lordIcons.length === 0) {
-      setTimeout(configureIcons, 500);
-      return;
-    }
-    
-    lordIcons.forEach(icon => {
-      // Définir les couleurs directement
-      icon.setAttribute('colors', 'primary:#FFFFFF,secondary:#FFD700');
-      icon.setAttribute('trigger', 'in');
-      
-      // Forcer le rafraîchissement de l'icône
-      if (typeof icon.refresh === 'function') {
-        icon.refresh();
-      } else if (typeof icon.load === 'function') {
-        icon.load();
-      } else {
-        // Tenter de recharger l'icône en la remplaçant
-        const parent = icon.parentNode;
-        const src = icon.getAttribute('src');
-        if (parent && src) {
-          const newIcon = document.createElement('lord-icon');
-          newIcon.setAttribute('src', src);
-          newIcon.setAttribute('colors', 'primary:#FFFFFF,secondary:#FFD700');
-          newIcon.setAttribute('trigger', 'in');
-          newIcon.setAttribute('state', 'in-reveal');
-          newIcon.setAttribute('delay', '200');
-          newIcon.setAttribute('style', icon.getAttribute('style') || 'width:52px;height:52px');
-          parent.replaceChild(newIcon, icon);
-        }
-      }
-    });
-    
-    // Programmer une vérification finale après un délai
-    setTimeout(() => {
-      const unconfiguredIcons = document.querySelectorAll('lord-icon:not([colors="primary:#FFFFFF,secondary:#FFD700"])');
-      if (unconfiguredIcons.length > 0) {
-        unconfiguredIcons.forEach(icon => {
-          icon.setAttribute('colors', 'primary:#FFFFFF,secondary:#FFD700');
-        });
-      }
-    }, 1000);
-  };
-  
-  // Lancer la configuration initiale
-  configureIcons();
-} 
+ 

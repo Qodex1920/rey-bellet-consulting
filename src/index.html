@@ -128,9 +128,9 @@
     </script>
 
     <!-- Favicon -->
-    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/favicon/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/assets/favicon/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png" sizes="180x180" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#000000" />
     <meta name="msapplication-TileColor" content="#000000" />
@@ -146,18 +146,12 @@
     <!-- Préchargement des ressources critiques -->
     <link rel="preload" href="styles/main.css" as="style" />
     <link rel="preload" href="styles/decorative-elements.css" as="style" />
-    <link rel="preload" href="./main.js" as="script" />
+    <!-- Logo Hero intégré inline pour éliminer la requête réseau et améliorer le LCP -->
     <link rel="preload" href="assets/images/laure-rey-bellet.webp" as="image" type="image/webp" />
-
-    <!-- DNS prefetch pour les ressources externes -->
-    <link rel="dns-prefetch" href="//cdn.lordicon.com" />
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="styles/decorative-elements.css" />
-
-    <!-- Lordicon pour les icônes animées -->
-    <script src="https://cdn.lordicon.com/lordicon.js" defer></script>
 
     <!-- IMPORTANT: Ne pas inclure Alpine.js via CDN car il est déjà importé via ES Modules -->
     <!-- <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script> -->
@@ -203,7 +197,6 @@
       document.addEventListener('DOMContentLoaded', function() {
         // Attendre que tout soit chargé
         setTimeout(function() {
-          console.log("Initialisation manuelle des effets après chargement complet");
           // Réinitialiser parallaxe si la fonction existe
           if (window.reinitParallax) {
             window.reinitParallax();
@@ -839,13 +832,8 @@
       import { addButtonTo } from "./utils/initComponents.js";
 
       document.addEventListener("DOMContentLoaded", () => {
-        // Utiliser la fonction addButtonTo du système de composants unifié
-        addButtonTo("#hero-cta-button", {
-          text: "Découvrir mes services",
-          type: "accent",
-          url: "#services",
-          icon: buttonIcons.arrowRight,
-        });
+        // Le bouton Hero CTA est maintenant intégré directement dans Hero.js
+        // Pas besoin de l'ajouter ici
       });
     </script>
 
