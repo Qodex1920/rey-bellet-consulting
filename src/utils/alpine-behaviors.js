@@ -16,8 +16,6 @@ export function initAlpineBehaviors() {
     return;
   }
   
-  console.log("Initialisation des comportements Alpine.js...");
-  
   // Appeler directement registerBehaviors pour s'assurer que tous les comportements sont enregistrés
   // même si aucun élément x-data n'existe encore dans le DOM
   registerBehaviors();
@@ -25,7 +23,6 @@ export function initAlpineBehaviors() {
   // Écouter également l'événement alpine:init pour s'assurer que les comportements sont disponibles
   // lorsqu'Alpine démarre
   document.addEventListener('alpine:init', () => {
-    console.log("Événement alpine:init détecté, initialisation des comportements");
     registerBehaviors();
   });
 }
@@ -137,15 +134,12 @@ function registerBehaviors() {
       isComplete: false,    // Nouveau: indique si l'animation est terminée
 
       init() {
-        console.log('Init typingAnimation', this.$el.dataset);
         if (this.$el.dataset.texts) {
           this.textArray = this.$el.dataset.texts.split('|');
-          console.log('Textes pour animation:', this.textArray);
           if (this.textArray.length === 0) {
             this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
           }
         } else {
-          console.warn('Aucun attribut data-texts trouvé');
           this.textArray = ['Consultante.', 'Coach.', 'Formatrice.', 'Architecte de changement.'];
         }
         
@@ -201,7 +195,6 @@ function registerBehaviors() {
         // Si on a fini de taper le dernier texte, arrêter l'animation
         if (!this.isDeleting && isTextComplete && this.currentIndex === this.textArray.length - 1) {
           this.isComplete = true;
-          console.log('Animation typing terminée sur:', currentFullText);
           return;
         }
 
@@ -545,7 +538,6 @@ function registerBehaviors() {
     };
   });
 
-  console.log("Tous les comportements Alpine sont chargés et prêts à l'emploi");
 }
 
 // S'assurer que les comportements sont initialisés au chargement
@@ -558,7 +550,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // S'assurer que les comportements sont également disponibles pour les appels directs
 document.addEventListener('alpine:init', () => {
-  console.log("Événement alpine:init détecté, initialisation des comportements supplémentaire");
   initAlpineBehaviors();
 });
 

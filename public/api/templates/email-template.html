@@ -1,61 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333333;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
         }
-        .container {
+        .email-container {
             max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 20px auto;
             background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background-color: #f8f9fa;
-            padding: 20px;
+            background: linear-gradient(135deg, #000000 0%, #1848A0 100%);
+            color: #ffffff;
+            padding: 30px 20px;
             text-align: center;
-            border-radius: 5px 5px 0 0;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .brand {
+            font-size: 14px;
+            color: #FFD700;
+            margin-top: 8px;
+            letter-spacing: 1px;
         }
         .content {
-            padding: 20px;
+            padding: 30px;
             background-color: #ffffff;
-            border: 1px solid #dee2e6;
-            border-radius: 0 0 5px 5px;
+        }
+        .content h3 {
+            color: #1848A0;
+            margin-top: 0;
+            margin-bottom: 20px;
         }
         .message-box {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #FFD700;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .message-box h3 {
+            color: #1848A0;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .contact-info {
+            background-color: #fff;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
             padding: 15px;
             margin: 15px 0;
-            border-left: 4px solid #007bff;
-            border-radius: 3px;
+        }
+        .contact-info p {
+            margin: 8px 0;
+        }
+        .contact-info strong {
+            color: #1848A0;
         }
         .footer {
-            margin-top: 20px;
-            padding-top: 20px;
+            background-color: #f8f9fa;
             border-top: 1px solid #dee2e6;
+            padding: 20px;
             text-align: center;
-            font-size: 12px;
             color: #6c757d;
+            font-size: 13px;
+        }
+        .footer .company-name {
+            color: #1848A0;
+            font-weight: 600;
+        }
+        .accent-line {
+            height: 3px;
+            background: linear-gradient(90deg, #FFD700 0%, #1848A0 100%);
+            margin: 20px 0;
+        }
+        a {
+            color: #1848A0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive design */
+        @media only screen and (max-width: 600px) {
+            .email-container {
+                margin: 10px;
+                border-radius: 5px;
+            }
+            .header {
+                padding: 20px 15px;
+            }
+            .content {
+                padding: 20px 15px;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="email-container">
         <div class="header">
             <h1>{{title}}</h1>
+            <div class="brand">REY-BELLET CONSULTING</div>
         </div>
+        
+        <div class="accent-line"></div>
+        
         <div class="content">
             {{content}}
         </div>
+        
         <div class="footer">
-            {{footer}}
+            <div class="company-name">Rey-Bellet Consulting</div>
+            <p>{{footer}}</p>
+            <p>
+                <a href="https://reybellet.com">reybellet.com</a> | 
+                <a href="mailto:laure@reybellet.com">laure@reybellet.com</a>
+            </p>
         </div>
     </div>
 </body>

@@ -11,7 +11,6 @@ import { createHeroSection, injectHeroSection } from '../components/sections/Her
 function injectHero() {
   // Vérifier que la section Hero n'existe pas déjà
   if (document.getElementById('hero-section')) {
-    console.log('Section Hero déjà présente, injection ignorée');
     return;
   }
 
@@ -37,19 +36,13 @@ function injectHero() {
       },
       // Les autres options utilisent les valeurs par défaut
     });
-    
-    console.log('Section Hero injectée avec succès');
 
     // Réinitialiser les effets de parallaxe après l'injection du Hero
     if (typeof window.reinitParallax === 'function') {
       // léger délai pour s'assurer que le DOM est mis à jour par le navigateur
       setTimeout(window.reinitParallax, 100);
-    } else {
-      console.warn('La fonction window.reinitParallax n\'est pas disponible.');
     }
 
-  } else {
-    console.error('Élément main non trouvé ou vide pour injecter la section Hero');
   }
 }
 

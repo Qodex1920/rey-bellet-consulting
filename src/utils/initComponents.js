@@ -12,7 +12,6 @@ import { initCookieBanner } from '../components/notification/CookieBanner.js';
 import { createButton, buttonIcons } from '../components/common/Button.js';
 
 export default function initComponents() {
-  console.log('Initialisation des composants interactifs...');
   
   // Ajouter des boutons de contact où nécessaire
   addContactButtons();
@@ -20,7 +19,6 @@ export default function initComponents() {
   // Initialiser la bannière de cookies seulement si elle n'est pas déjà initialisée
   // La bannière s'auto-initialise maintenant si Alpine.js est disponible
   if (!document.getElementById('cookie-consent-banner')) {
-    console.log("Initialisation explicite de la bannière de cookies...");
     initCookieBanner({
       policyUrl: '/politique-de-confidentialite.html',
       cookieCategories: [
@@ -44,8 +42,6 @@ export default function initComponents() {
         }
       ]
     });
-  } else {
-    console.log("Bannière de cookies déjà initialisée, skip");
   }
 
   // Initialiser les autres composants qui ne dépendent pas d'Alpine

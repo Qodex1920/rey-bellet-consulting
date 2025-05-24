@@ -4,11 +4,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Initialisation des effets de parallaxe...');
-  
   // Sélectionner tous les éléments avec classe 'parallax-element'
   const parallaxElements = document.querySelectorAll('.parallax-element');
-  console.log(`${parallaxElements.length} éléments parallax trouvés`);
   
   // Fonction pour mettre à jour la position des éléments au scroll
   function updateParallaxPosition() {
@@ -68,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Ajout d'une fonction pour réinitialiser manuellement
   window.reinitParallax = function() {
-    console.log("Réinitialisation manuelle des effets de parallaxe");
     updateParallaxPosition();
   };
 });
@@ -76,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Effet d'opacité au scroll pour les éléments décoratifs
 document.addEventListener('DOMContentLoaded', function() {
   const fadeElements = document.querySelectorAll('.fade-on-scroll');
-  console.log(`${fadeElements.length} éléments fade-on-scroll trouvés`);
   
   function updateFadeEffects() {
     const scrollPosition = window.scrollY;
@@ -114,11 +109,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Ajouter un écouteur pour détection des mouvements de souris qui impactera les éléments décoratifs
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Initialisation des effets de mouvement souris...');
-  
   // Sélectionner les éléments qui réagiront à la souris
   const mouseElements = document.querySelectorAll('[data-mouse-factor]');
-  console.log(`${mouseElements.length} éléments réactifs à la souris trouvés`);
   
   // Fonction pour gérer le mouvement de la souris
   function handleMouseMove(e) {

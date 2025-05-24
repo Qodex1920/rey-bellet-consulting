@@ -17,6 +17,14 @@ export default defineConfig({
     port: 3000,
     open: true,
     cors: true,
+    proxy: {
+      // Redirection des requêtes API vers le serveur PHP
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        secure: false,
+      }
+    }
   },
   build: {
     outDir: '../dist',

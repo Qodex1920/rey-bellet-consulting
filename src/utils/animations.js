@@ -13,17 +13,12 @@
 
 // Initialisation
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("Initialisation du système d'animation");
-  
   // Initialiser les animations au scroll
   initScrollAnimations();
   
   // Détecter si les animations sont désactivées
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    console.log("prefers-reduced-motion est activé, animations simplifiées");
     document.documentElement.classList.add('reduce-motion');
-  } else {
-    console.log("prefers-reduced-motion est désactivé, animations normales");
   }
 });
 

@@ -29,8 +29,6 @@ import { injectServicesSectionTo } from './components/sections/ServicesSection.j
 
 // Attendre le chargement complet du DOM
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("Initialisation du site Rey-Bellet Consulting");
-  
   // Initialiser le gestionnaire de cache en premier
   initCacheManager();
   
@@ -49,8 +47,6 @@ function initScrollAnimations() {
   if (animatedElements.length === 0) {
     return;
   }
-  
-  console.log(`Initialisation des animations au défilement pour ${animatedElements.length} éléments`);
   
   // Vérifier si l'utilisateur préfère réduire les animations
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -115,7 +111,6 @@ async function initSite() {
     // Initialiser les icônes Lord Icon avec les bonnes couleurs
     initLordIcons();
     
-    console.log("Site initialisé avec succès");
   } catch (error) {
     console.error("Erreur lors de l'initialisation du site:", error);
   }
@@ -130,7 +125,6 @@ function injectTemplateComponents() {
   if (headerElement) {
     const headerTemplate = getTemplate("header");
     headerElement.replaceWith(headerTemplate);
-    console.log("Header injecté via template JS");
   }
 
   // Injecter le footer
@@ -138,7 +132,6 @@ function injectTemplateComponents() {
   if (footerElement) {
     const footerTemplate = getTemplate("footer");
     footerElement.replaceWith(footerTemplate);
-    console.log("Footer injecté via template JS");
   }
 
   // Initialiser les comportements Alpine après injection
@@ -219,7 +212,6 @@ function initDecorativeElements() {
   // Importer dynamiquement le script de parallaxe
   import('./utils/parallax.js')
     .then(() => {
-      console.log("Effets de parallaxe initialisés avec succès");
       
       // Ajout d'un effet supplémentaire au défilement pour certains éléments décoratifs
       const decorativeElements = document.querySelectorAll('.decorative-square, .decorative-line');
@@ -267,7 +259,6 @@ function injectServicesSection() {
       // Injecter le composant sans options supplémentaires (utilise les valeurs par défaut)
       injectServicesSectionTo('#services')
         .then(() => {
-          console.log('Section services injectée avec succès');
           
           // Définir l'onglet "Particuliers" comme actif par défaut
           setTimeout(() => {
@@ -277,7 +268,6 @@ function injectServicesSection() {
                 const scope = Alpine.$data(servicesSection);
                 if (scope && scope.activeTab !== undefined) {
                   scope.activeTab = 'personal';
-                  console.log('Onglet services défini sur "personal" via Alpine');
                 }
               } catch (error) {
                 console.warn('Erreur lors de la manipulation Alpine:', error);
@@ -288,9 +278,7 @@ function injectServicesSection() {
     } catch (error) {
       console.error('Erreur lors de l\'injection de la section services:', error);
     }
-  } else {
-    console.warn('Aucun conteneur #services trouvé dans la page');
-  }
+      }
 }
 
 /**
@@ -299,12 +287,10 @@ function injectServicesSection() {
 function initLordIcons() {
   // S'assurer que lordicon est chargé
   if (typeof window.lordIconElement === 'undefined') {
-    console.log("Attente du chargement de Lord Icon...");
     
     // Vérifier si le script de Lord Icon est présent
     const lordIconScript = document.querySelector('script[src*="lordicon.js"]');
     if (!lordIconScript) {
-      console.warn("Script Lord Icon non trouvé, ajout dynamique");
       const script = document.createElement('script');
       script.src = "https://cdn.lordicon.com/lordicon.js";
       document.head.appendChild(script);
@@ -321,7 +307,6 @@ function initLordIcons() {
     // Timeout de sécurité après 5 secondes
     setTimeout(() => {
       clearInterval(checkLordIcon);
-      console.warn("Timeout lors de l'attente de Lord Icon");
     }, 5000);
   } else {
     configureLordIcons();
@@ -332,7 +317,6 @@ function initLordIcons() {
  * Configure les couleurs des icônes Lord Icon
  */
 function configureLordIcons() {
-  console.log("Configuration des icônes Lord Icon");
   
   // Fonction pour configurer les icônes
   const configureIcons = () => {
@@ -340,12 +324,9 @@ function configureLordIcons() {
     const lordIcons = document.querySelectorAll('lord-icon');
     
     if (lordIcons.length === 0) {
-      console.log("Aucune icône Lord Icon trouvée dans le DOM, nouvel essai dans 500ms");
       setTimeout(configureIcons, 500);
       return;
     }
-    
-    console.log(`Configuration de ${lordIcons.length} icônes Lord Icon`);
     
     lordIcons.forEach(icon => {
       // Définir les couleurs directement
@@ -374,13 +355,10 @@ function configureLordIcons() {
       }
     });
     
-    console.log(`${lordIcons.length} icônes Lord Icon configurées`);
-    
     // Programmer une vérification finale après un délai
     setTimeout(() => {
       const unconfiguredIcons = document.querySelectorAll('lord-icon:not([colors="primary:#FFFFFF,secondary:#FFD700"])');
       if (unconfiguredIcons.length > 0) {
-        console.log(`${unconfiguredIcons.length} icônes Lord Icon encore non configurées, nouvelle tentative`);
         unconfiguredIcons.forEach(icon => {
           icon.setAttribute('colors', 'primary:#FFFFFF,secondary:#FFD700');
         });

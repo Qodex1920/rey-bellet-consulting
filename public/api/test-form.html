@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test API Formulaire - Rey-Bellet Consulting</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: #1848A0;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0f3278;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ffeaa7;
+        }
+        .required {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test du Formulaire de Contact</h1>
+        
+        <div class="warning">
+            <strong>⚠️ Page de test</strong><br>
+            Cette page sert uniquement à tester l'API du formulaire. 
+            Supprimez-la en production.
+        </div>
+
+        <form id="testForm" enctype="multipart/form-data">
+            <!-- Champ anti-spam (caché) -->
+            <input type="hidden" name="honeypot" value="">
+            
+            <div class="form-group">
+                <label for="service">Type de service <span class="required">*</span></label>
+                <select name="service" id="service" required>
+                    <option value="">Sélectionnez un service</option>
+                    <option value="trajectoire">Reprends les commandes de ta trajectoire</option>
+                    <option value="business-creation">Bâtis un business qui impacte vraiment</option>
+                    <option value="business-optimisation">Optimise et domine ton business</option>
+                    <option value="autre">Autre demande</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Nom complet <span class="required">*</span></label>
+                <input type="text" name="name" id="name" required 
+                       placeholder="Votre nom complet">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input type="email" name="email" id="email" required 
+                       placeholder="votre@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Téléphone</label>
+                <input type="tel" name="phone" id="phone" 
+                       placeholder="+33 6 12 34 56 78">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea name="message" id="message" rows="5" required 
+                          placeholder="Décrivez votre projet ou vos besoins..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="attachments">Pièces jointes (optionnel)</label>
+                <input type="file" name="attachments[]" id="attachments" multiple 
+                       accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif">
+                <small>Types autorisés : PDF, DOC, DOCX, JPG, PNG, GIF (max 5MB par fichier)</small>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="privacy" required>
+                    J'accepte la politique de confidentialité <span class="required">*</span>
+                </label>
+            </div>
+
+            <button type="submit" id="submitBtn">
+                🚀 Tester l'envoi
+            </button>
+        </form>
+
+        <div id="status" class="status"></div>
+
+        <hr style="margin: 30px 0;">
+        
+        <h3>📊 Informations de test</h3>
+        <ul>
+            <li><strong>URL de test :</strong> <code>/api/sendmail.php</code></li>
+            <li><strong>Méthode :</strong> POST avec FormData</li>
+            <li><strong>Anti-spam :</strong> Honeypot intégré</li>
+            <li><strong>Validation :</strong> Côté client + serveur</li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const submitBtn = document.getElementById('submitBtn');
+            const status = document.getElementById('status');
+            
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Envoi en cours...';
+            
+            // Hide previous status
+            status.style.display = 'none';
+            
+            try {
+                const response = await fetch('/api/sendmail.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const responseText = await response.text();
+                console.log('Réponse brute:', responseText);
+                
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseError) {
+                    throw new Error('Réponse non-JSON: ' + responseText.substring(0, 200));
+                }
+                
+                // Show result
+                status.style.display = 'block';
+                
+                if (result.success) {
+                    status.className = 'status success';
+                    status.innerHTML = `
+                        <strong>✅ Succès !</strong><br>
+                        ${result.message}
+                        ${result.debug ? '<br><br><strong>Debug:</strong> ' + result.debug : ''}
+                    `;
+                    form.reset();
+                } else {
+                    status.className = 'status error';
+                    status.innerHTML = `
+                        <strong>❌ Erreur</strong><br>
+                        ${result.message}
+                        ${result.debug ? '<br><br><strong>Debug:</strong> ' + result.debug : ''}
+                    `;
+                }
+                
+            } catch (error) {
+                status.style.display = 'block';
+                status.className = 'status error';
+                status.innerHTML = `
+                    <strong>❌ Erreur technique</strong><br>
+                    ${error.message}
+                `;
+                console.error('Erreur complète:', error);
+            } finally {
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = '🚀 Tester l\'envoi';
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -65,7 +65,7 @@ class ComposerStaticInit9c200094ede3ed9a5e9d007bd359da96
         ),
         'FormMailer\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src',
+            0 => __DIR__ . '/../..' . '/public/api/src',
         ),
         'Dotenv\\' => 
         array (

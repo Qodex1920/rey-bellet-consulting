@@ -13,20 +13,20 @@
   "categories": ["business", "productivity", "professional"],
   "icons": [
     {
-      "src": "/assets/favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "/assets/favicon/logo-blanc-64.png",
+      "sizes": "64x64",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/assets/favicon/android-chrome-512x512.png",
-      "sizes": "512x512",
+      "src": "/assets/favicon/logo-blanc-64.png",
+      "sizes": "64x64",
       "type": "image/png",
       "purpose": "maskable any"
     },
     {
-      "src": "/assets/favicon/apple-touch-icon.png",
-      "sizes": "180x180",
+      "src": "/assets/favicon/logo-blanc-64.png",
+      "sizes": "64x64",
       "type": "image/png"
     }
   ],

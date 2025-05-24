@@ -25,7 +25,6 @@ import { getTemplate } from './templates.js';
 export async function initAlpine() {
   // Vérifier si Alpine.js est déjà chargé ou en cours de chargement via CDN
   if (window.Alpine) {
-    console.log('Alpine.js est déjà chargé via CDN');
     return true;
   }
 
@@ -48,11 +47,8 @@ export async function injectComponents() {
       const headerTemplate = getTemplate('header');
       if (headerTemplate) {
         headerPlaceholder.appendChild(headerTemplate);
-        console.log('Header injecté avec succès par componentInjector');
         setupMobileMenu();
       }
-    } else {
-      console.log('Header déjà injecté, skip');
     }
   } else {
     console.warn('Aucun emplacement #app-header trouvé dans la page');
@@ -66,10 +62,7 @@ export async function injectComponents() {
       const footerTemplate = getTemplate('footer');
       if (footerTemplate) {
         footerPlaceholder.appendChild(footerTemplate);
-        console.log('Footer injecté avec succès par componentInjector');
       }
-    } else {
-      console.log('Footer déjà injecté, skip');
     }
   } else {
     console.warn('Aucun emplacement #app-footer trouvé dans la page');
@@ -117,7 +110,6 @@ async function detectOtherComponents() {
       const componentTemplate = getTemplate(componentName);
       if (componentTemplate) {
         placeholder.appendChild(componentTemplate);
-        console.log(`Composant ${componentName} injecté avec succès`);
       }
     }
   }
@@ -128,8 +120,6 @@ async function detectOtherComponents() {
  * @returns {Promise<void>}
  */
 export async function initComponentSystem() {
-  console.log('Initialisation du système de composants...');
-  
   // Vérifier Alpine.js
   await initAlpine();
   
@@ -138,6 +128,4 @@ export async function initComponentSystem() {
   
   // Détecter et charger d'autres composants
   await detectOtherComponents();
-  
-  console.log('Système de composants initialisé');
 } 

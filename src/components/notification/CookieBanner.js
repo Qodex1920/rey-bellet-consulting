@@ -76,11 +76,9 @@ export function openCookieSettings() {
 export function initCookieBanner(customConfig = {}) {
   // Éviter la double initialisation
   if (isBannerInitialized || document.getElementById('cookie-consent-banner')) {
-    console.log("Bannière de cookies déjà initialisée, initialisation ignorée");
     return;
   }
   
-  console.log("Initialisation de la bannière de cookies...");
   isBannerInitialized = true;
   
   // Fusionner la configuration personnalisée avec la configuration par défaut
@@ -104,7 +102,6 @@ export function initCookieBanner(customConfig = {}) {
     preferences: {},
     
     init() {
-      console.log("Initialisation du composant cookieConsent");
       // Réagir à l'événement pour ouvrir les paramètres
       window.addEventListener('open-cookie-settings', () => {
         this.reopenBanner();
@@ -183,16 +180,16 @@ export function initCookieBanner(customConfig = {}) {
     applyPreferences() {
       // Exemple : Google Analytics
       if (this.preferences.analytics) {
-        console.log('Analytics activé');
+        // Analytics activé
       } else {
-        console.log('Analytics désactivé');
+        // Analytics désactivé
       }
       
       // Exemple : cookies marketing
       if (this.preferences.marketing) {
-        console.log('Marketing activé');
+        // Marketing activé
       } else {
-        console.log('Marketing désactivé');
+        // Marketing désactivé
       }
     }
   }));
@@ -200,14 +197,12 @@ export function initCookieBanner(customConfig = {}) {
   // Fonction pour injecter le HTML dans le DOM
   const injectBanner = () => {
     if (document.getElementById('cookie-consent-banner')) {
-      console.log('Bannière de cookies déjà présente dans le DOM');
       return; // Déjà injecté
     }
     
     const bannerElement = document.createElement('div');
     bannerElement.innerHTML = getCookieBannerHTML();
     document.body.appendChild(bannerElement.firstElementChild);
-    console.log('Bannière de cookies injectée dans le DOM');
     
     // Initialiser les déclencheurs pour ouvrir la bannière
     setTimeout(() => {

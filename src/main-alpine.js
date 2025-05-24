@@ -10,8 +10,6 @@ import intersect from '@alpinejs/intersect';
 
 // Vérifier si Alpine n'est pas déjà initialisé
 if (!window.Alpine) {
-  console.log('Initialisation d\'Alpine.js depuis main-alpine.js');
-  
   // Rendre Alpine disponible globalement
   window.Alpine = Alpine;
   
@@ -22,13 +20,9 @@ if (!window.Alpine) {
   document.addEventListener('DOMContentLoaded', () => {
     // Permettre aux autres modules de s'initialiser avant de démarrer Alpine
     setTimeout(() => {
-      console.log('Démarrage d\'Alpine.js...');
       Alpine.start();
-      console.log('Alpine.js a démarré avec succès');
     }, 50);
   });
-} else {
-  console.warn('Alpine.js déjà initialisé - skip initialisation depuis main-alpine.js');
 }
 
 // Exporter Alpine pour que d'autres modules puissent l'utiliser
